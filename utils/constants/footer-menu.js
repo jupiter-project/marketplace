@@ -1,0 +1,19 @@
+
+import LINKS from 'utils/constants/links';
+
+const FOOTER_MENU = [
+  {
+    HREF: LINKS.HOME.HREF,
+    TITLE: LINKS.HOME.TITLE
+  },
+  {
+    HREF: LINKS.DASHBOARD.HREF,
+    TITLE: LINKS.DASHBOARD.TITLE
+  },
+  {
+    HREF: LINKS.CREATE_COLLECT.HREF,
+    TITLE: LINKS.CREATE_COLLECT.TITLE
+  }
+]
+
+export default FOOTER_MENU
