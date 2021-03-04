@@ -5,15 +5,12 @@ import { makeStyles } from '@material-ui/core/styles'
 import TopAppBar from './TopAppBar'
 import Footer from './Footer'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh',
     position: 'relative'
-  },
-  container: {
-    paddingTop: theme.spacing(4),
   }
 }));
 
@@ -25,7 +22,7 @@ const Layout = ({
   return (
     <main className={classes.root}>
       <TopAppBar />
-      <div className={classes.container}>
+      <div>
         {children}
       </div>
       <Footer />

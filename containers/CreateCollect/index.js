@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    paddingTop: theme.spacing(3),
+    paddingTop: theme.spacing(5),
     paddingBottom: theme.spacing(10),
     backgroundColor: theme.palette.background.default
   },

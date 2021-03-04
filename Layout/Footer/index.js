@@ -24,8 +24,8 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     color: theme.custom.palette.blue,
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(6),
+    paddingBottom: theme.spacing(6),
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
     }

@@ -25,7 +25,7 @@ const FooterMenu = () => {
   return (
     <div className={classes.root}>
       <Typography
-        variant='subtitle1'
+        variant='h5'
         color='primary'
         className={classes.title}
       >

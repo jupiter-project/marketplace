@@ -8,7 +8,8 @@ import NFTCard from './NFTCard';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    margin: theme.spacing(4, 0)
   },
   container: {
     width: '100%',

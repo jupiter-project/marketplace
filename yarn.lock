@@ -2467,6 +2467,13 @@ axios@^0.19.0:
   dependencies:
     follow-redirects "1.5.10"
 
+axios@^0.21.1:
+  version "0.21.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
+  integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
+  dependencies:
+    follow-redirects "^1.10.0"
+
 babel-eslint@^10.1.0:
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-10.1.0.tgz#6968e568a910b78fb3779cdd8b6ac2f479943232"
@@ -5206,6 +5213,11 @@ follow-redirects@1.5.10:
   integrity sha512-0V5l4Cizzvqt5D44aTXbFZz+FtyXV1vrDN6qrelxtfYQKW0KO0W2T/hkE8xvGa/540LkZlkaUjO4ailYTFtHVQ==
   dependencies:
     debug "=3.1.0"
+
+follow-redirects@^1.10.0:
+  version "1.13.3"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.3.tgz#e5598ad50174c1bc4e872301e82ac2cd97f90267"
+  integrity sha512-DUgl6+HDzB0iEptNQEXLx/KhTmDb8tZUHSeLqpnjpknR70H0nC2t9N73BK6fN4hOvJ84pKlIQVQ4k5FFlBedKA==
 
 for-in@^1.0.2:
   version "1.0.2"
@@ -8408,6 +8420,13 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-alice-carousel@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-alice-carousel/-/react-alice-carousel-2.4.0.tgz#57f68045996d139c7814452ff598ce8c05f22761"
+  integrity sha512-ea4q7hyvSJr1s97LYQ3gyK1i8KxOQ+IPdt1QYbVqFpm8ZzswDLf0f14Wrh3YQh6FJk4FBd8wPhGKlAG35gKltw==
+  dependencies:
+    vanilla-swipe "^2.2.0"
+
 react-dom@17.0.1:
   version "17.0.1"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.1.tgz#1de2560474ec9f0e334285662ede52dbc5426fc6"
@@ -10412,6 +10431,11 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
+
+vanilla-swipe@^2.2.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/vanilla-swipe/-/vanilla-swipe-2.3.0.tgz#a2cd466aabed00c1e8abd7b69a86940bf9319516"
+  integrity sha512-4m8vZ/kckRG7RQUYNg+0lGILMHT08KEgwePlRLzediDSu7aQFBLB0V2n36vUmYqq5CVWASOzZ8zpnQFZXIbHbA==
 
 varint@^5.0.0:
   version "5.0.2"

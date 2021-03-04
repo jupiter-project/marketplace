@@ -26,7 +26,7 @@ const FooterMenuItem = ({
 
   return (
     <Typography
-      variant='subtitle1'
+      variant='h6'
       color='primary'
       className={classes.item}
       onClick={onNavHandler}
