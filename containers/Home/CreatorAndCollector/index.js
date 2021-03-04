@@ -150,7 +150,7 @@ const CREATORS = [
     icon: ShowChartIcon
   },
   {
-    title: 'RARI',
+    title: 'Jupiter NFT',
     description: 'Rewards',
     color: '#0066ff',
     icon: HomeIcon

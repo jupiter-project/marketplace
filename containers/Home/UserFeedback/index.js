@@ -47,7 +47,7 @@ const UserFeedback = () => {
   return (
     <section className={classes.root}>
       <Typography variant='h1' className={classes.title}>
-        How users feel about Rarible
+        How users feel about Jupiter NFT
       </Typography>
       <AliceCarousel
         mouseDragEnabled
@@ -77,7 +77,7 @@ const USERS = [
   {
     name: 'Lux Expression®',
     subName: '@Lux',
-    description: 'A big shout-out to the @rariblecom team. Designing a platform like this is no easy task, but they have done an incredible job & continue to be the best in the NFT Space. 🏆',
+    description: 'A big shout-out to the @Jupiter team. Designing a platform like this is no easy task, but they have done an incredible job & continue to be the best in the NFT Space. 🏆',
     avatar: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc29ufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
   },
   {
@@ -89,7 +89,7 @@ const USERS = [
   {
     name: 'Lux Expression®',
     subName: '@Lux',
-    description: 'A big shout-out to the @rariblecom team. Designing a platform like this is no easy task, but they have done an incredible job & continue to be the best in the NFT Space. 🏆',
+    description: 'A big shout-out to the @Jupiter team. Designing a platform like this is no easy task, but they have done an incredible job & continue to be the best in the NFT Space. 🏆',
     avatar: 'https://images.unsplash.com/photo-1553845870-99f749f80e3c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTR8fHdvbWVucyUyMGRheXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
   },
   {
@@ -101,7 +101,7 @@ const USERS = [
   {
     name: 'Lux Expression®',
     subName: '@Lux',
-    description: 'Rarible is where it’s at',
+    description: 'Jupiter NFT is where it’s at',
     avatar: 'https://images.unsplash.com/photo-1551997476-7788a5dd3fca?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nzh8fHdvbWVucyUyMGRheXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
   },
   {
@@ -113,13 +113,13 @@ const USERS = [
   {
     name: 'Lux Expression®',
     subName: '@Lux',
-    description: 'I’m so interested in using your platform in 2020, I’m loving the UX and ease of use of Rarible, keep it up',
+    description: 'I’m so interested in using your platform in 2020, I’m loving the UX and ease of use of Jupiter NFT, keep it up',
     avatar: 'https://images.unsplash.com/photo-1606898089449-f811a830091f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTA2fHx3b21lbnMlMjBkYXl8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
   },
   {
     name: 'Lux Expression®',
     subName: '@Lux',
-    description: 'Yes, it is true that @rariblecom is innovating heavily in the space. Check them out!',
+    description: 'Yes, it is true that @Jupiter is innovating heavily in the space. Check them out!',
     avatar: 'https://images.unsplash.com/photo-1551551625-aa4a360c80d3?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTA5fHx3b21lbnMlMjBkYXl8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
   },
 ]

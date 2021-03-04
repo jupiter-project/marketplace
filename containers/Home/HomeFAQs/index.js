@@ -10,6 +10,8 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 
+import { PLACE_FILLER_URL } from 'utils/constants/common';
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -60,7 +62,10 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1, 0)
   },
   description: {
-    fontSize: 18
+    fontSize: 18,
+    '& a': {
+      color: theme.palette.primary.main
+    }
   }
 }));
 
@@ -116,11 +121,11 @@ export default memo(HomeFAQs);
 
 const FAQs = [
   {
-    title: 'NFT? ERC-721 tokens?',
-    description: `NFT stands for non-fungible tokens like ERC-721 (a smart contract standard) 
-    tokens which are hosted on Ethereum’s own blockchain. NFTs are unique digital items such 
-    as collectibles or artworks or game items. As an artist, by tokenizing your work you both 
-    ensure that it is unique and brand it as your work. The actual ownership is blockchain-managed.`,
+    title: 'NFT? Singleton Assets?',
+    description: `NFT stands for non-fungible tokens like Singleton Asset Tokens which are 
+    hosted on Jupiter's own blockchain. NFTs are unique digital items such as collectibles 
+    or artworks or game items. As an artist, by tokenizing your work you both ensure that 
+    it is unique and brand it as your work. The actual ownership is blockchain-managed.`,
   },
   {
     title: 'What does “minting” mean?',
@@ -134,21 +139,10 @@ const FAQs = [
     of minted and sold items.`,
   },
   {
-    title: 'What is $RARI, and why is it being distributed?',
-    description: `RARI is the native governance token of the NFT marketplace Rarible, designed 
-    to reward active platform users with a voice on the platform's future. As we are growing 
-    in numbers and expanding our presence on the market, we decided to take a shift towards a 
-    becoming a fully Decentralized Autonomous Organization. RARI has been created to give 
-    Rarible community the power to influence decisions and incentivize active participation.`,
-  },
-  {
-    title: 'How is $RARI distributed?',
-    description: `The majority (60%) of RARI's total supply is reserved for sellers and buyers 
-    on Rarible marketplace. 75,000 tokens are distributed every Monday by 12pm San Francisco time 
-    to creators and collectors who made a sale or a purchase on Rarible during the past week. 
-    Both buyers and sellers equally receive 50% of the weekly distributed amount.
-    To kick-start the token launch, we are also conducting a RARI airdrop to all NFT holders out 
-    there. 10% of the total RARI supply is distributed among everyone who has purchased NFTs, 
-    regardless of the platform they used.`,
+    title: 'What is $JUP and how is it distributed?',
+    description: <>Jupiter is the native token of the Jupiter blockchain. Jupiter is available
+    as a tokenized instance (an NFT, if you will) on Ethereum ($JUP) and Binance Smart Chain
+    ($bwJUP). You will need Jupiter tokens to create your NFT on our blockchain.
+    Please see <a href={PLACE_FILLER_URL} target='_blank' rel='noreferrer'>here</a> for more information.</>,
   },
 ]

@@ -46,7 +46,7 @@ const HomeJourney = () => {
     <section className={classes.root}>
       <div className={classes.container}>
         <Typography variant='h1' className={classes.title}>
-          Begin your NFT journey with Rarible
+          Begin your NFT journey with Jupiter NFT
         </Typography>
         <ContainedButton
           href={LINKS.CREATE_COLLECT.HREF}

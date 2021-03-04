@@ -111,7 +111,7 @@ const HomeHeader = () => {
       <Grid container className={classes.container}>
         <Grid item sm={12} md={6} className={classes.textContainer}>
           <Typography variant='h1' className={classes.title}>
-            Rarible is the first community-owned NFT marketplace
+            Jupiter NFT is the first community-owned NFT marketplace
           </Typography>
           <Typography variant='h5' color='textSecondary' className={classes.description}>
             Create, sell or collect digital items secured with blockchain
