@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 2
   },
   activeBottomLine: {
-    background: `linear-gradient(to right, ${theme.custom.palette.pink}, ${theme.custom.palette.yellow})`
+    background: `linear-gradient(to right, ${theme.palette.primary.main}, ${theme.custom.palette.yellow})`
   }
 }));
 

@@ -1,10 +1,9 @@
 
 import { memo, useCallback } from 'react'
-import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
 
 import AuthTab from './AuthTab'
-import LINKS from 'utils/constants/links'
+import LOGIN_METHODS from 'utils/constants/login-methods'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,27 +17,28 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const AuthTabs = () => {
+const AuthTabs = ({
+  method,
+  setMethod
+}) => {
   const classes = useStyles()
-  const router = useRouter();
-  const { pathname } = router;
 
-  const tabHandler = useCallback((href) => () => {
-    router.push(href)
-  }, [router])
+  const tabHandler = useCallback((value) => () => {
+    setMethod(value)
+  }, [setMethod])
 
   return (
     <div className={classes.root}>
       <AuthTab
-        label='Sign In'
-        isActive={pathname === LINKS.SIGN_IN.HREF}
-        onTab={tabHandler(LINKS.SIGN_IN.HREF)}
+        label={LOGIN_METHODS.ACCOUNT}
+        isActive={method === LOGIN_METHODS.ACCOUNT}
+        onTab={tabHandler(LOGIN_METHODS.ACCOUNT)}
       />
       <div className={classes.divider} />
       <AuthTab
-        label='Sign Up'
-        isActive={pathname === LINKS.SIGN_UP.HREF}
-        onTab={tabHandler(LINKS.SIGN_UP.HREF)}
+        label={LOGIN_METHODS.PASSPHRASE}
+        isActive={method === LOGIN_METHODS.PASSPHRASE}
+        onTab={tabHandler(LOGIN_METHODS.PASSPHRASE)}
       />
     </div>
   )

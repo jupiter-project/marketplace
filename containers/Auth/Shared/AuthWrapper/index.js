@@ -2,6 +2,7 @@
 import { memo } from 'react'
 import { useSelector } from 'react-redux'
 import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 
 import Logo from 'components/Logo'
@@ -34,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     marginBottom: theme.spacing(2)
+  },
+  welcome: {
+    fontWeight: 'bold',
+    marginBottom: theme.spacing(4)
   }
 }));
 
@@ -67,6 +72,14 @@ const AuthWrapper = ({
       }
       <Paper className={classes.container}>
         <Logo className={classes.logo} />
+        <Typography
+          align='center'
+          variant='h6'
+          color='primary'
+          className={classes.welcome}
+        >
+          Welcome to Jupiter NFT Market!
+        </Typography>
         {children}
       </Paper>
     </div>

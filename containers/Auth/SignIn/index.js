@@ -1,5 +1,5 @@
 
-import { memo } from 'react'
+import { memo, useState, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import Typography from '@material-ui/core/Typography'
@@ -14,26 +14,29 @@ import GradientButton from 'components/UI/Buttons/GradientButton'
 import LinkButton from 'components/UI/Buttons/LinkButton'
 import MagicTextField from 'components/UI/MagicTextField'
 import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper'
-import AuthTabs from '../Shared/AuthTabs'
+import AuthTabs from './AuthTabs'
 import useLoading from 'utils/hooks/useLoading'
 import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
 import LINKS from 'utils/constants/links'
 import {
-  EMAIL_VALID,
-  PASSWORD_VALID
+  STRING_VALID
 } from 'utils/constants/validations'
 import MESSAGES from 'utils/constants/messages'
+import LOGIN_METHODS from 'utils/constants/login-methods'
 
-const schema = yup.object().shape({
-  email: EMAIL_VALID,
-  password: PASSWORD_VALID
+const accountSchema = yup.object().shape({
+  account: STRING_VALID
+});
+
+const passphraseSchema = yup.object().shape({
+  passphrase: STRING_VALID
 });
 
 const useStyles = makeStyles((theme) => ({
   footer: {
     display: 'flex'
   },
-  recoverPassword: {
+  signup: {
     paddingLeft: theme.spacing(1)
   }
 }));
@@ -43,8 +46,20 @@ const SignIn = () => {
   const classes = useStyles();
   const authClasses = authPageStyles();
   const router = useRouter();
-
   const { changeLoadingStatus } = useLoading();
+
+  const [method, setMethod] = useState(LOGIN_METHODS.ACCOUNT);
+
+  const schema = useMemo(() =>{
+    switch (method) {
+      case LOGIN_METHODS.ACCOUNT:
+        return accountSchema;
+      case LOGIN_METHODS.PASSPHRASE:
+        return passphraseSchema;
+      default:
+        return accountSchema;
+    }
+  }, [method]);
 
   const { control, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema)
@@ -54,8 +69,7 @@ const SignIn = () => {
     changeLoadingStatus(true)
     try {
       const params = {
-        email: data.email,
-        password: data.password
+        account: data.account
       }
 
       const { user, token } = await authAPI.login(params);
@@ -76,38 +90,59 @@ const SignIn = () => {
 
   return (
     <AuthWrapper>
-      <AuthTabs />
+      <AuthTabs 
+        method={method}
+        setMethod={setMethod}
+      />
       <form
         noValidate
         className={authClasses.form}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Controller
-          as={<MagicTextField />}
-          name='email'
-          type='email'
-          label='E-mail'
-          error={errors.email?.message}
-          className={authClasses.input}
-          control={control}
-          defaultValue=''
-        />
-        <Controller
-          as={<MagicTextField />}
-          name='password'
-          type='password'
-          label='Password'
-          error={errors.password?.message}
-          className={authClasses.input}
-          control={control}
-          defaultValue=''
-        />
+        {
+          method === LOGIN_METHODS.ACCOUNT
+          ? (
+            <Controller
+              as={<MagicTextField />}
+              name='account'
+              label='Account'
+              error={errors.account?.message}
+              className={authClasses.input}
+              control={control}
+              defaultValue=''
+            />
+          ) : (
+            <Controller
+              as={<MagicTextField />}
+              multiline
+              name='passphrase'
+              label='Passphrase'
+              error={errors.passphrase?.message}
+              className={authClasses.input}
+              control={control}
+              defaultValue=''
+            />
+          )
+        }
         <GradientButton
           type='submit'
           className={authClasses.button}
         >
           Log In
         </GradientButton>
+        <Typography
+          variant='body2'
+          color='textSecondary'
+          className={classes.footer}
+        >
+          {"Don't have an Account?"}
+          <LinkButton
+            href={LINKS.SIGN_UP.HREF}
+            className={classes.signup}
+          >
+            Create New Account
+          </LinkButton>
+        </Typography>
       </form>
     </AuthWrapper>
   )

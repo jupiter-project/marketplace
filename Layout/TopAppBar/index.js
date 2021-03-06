@@ -4,7 +4,6 @@ import { AppBar, Toolbar } from "@material-ui/core";
 import clsx from "clsx";
 
 import Logo from "components/Logo";
-import OutlinedButton from "components/UI/Buttons/OutlinedButton";
 import NavBarMenu from "./NavBarMenu";
 import NavDropMenu from "./NavDropMenu";
 import { useCommonStyles } from "styles/use-styles";
@@ -38,9 +37,6 @@ const TopAppBar = () => {
         <Logo />
         <div className={classes.navContainer}>
           <NavBarMenu />
-          <OutlinedButton className={classes.button}>
-            Connect Wallet
-          </OutlinedButton>
           <NavDropMenu />
         </div>
       </Toolbar>
