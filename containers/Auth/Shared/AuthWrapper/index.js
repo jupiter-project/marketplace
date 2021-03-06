@@ -78,7 +78,7 @@ const AuthWrapper = ({
           color='primary'
           className={classes.welcome}
         >
-          Welcome to Jupiter NFT Market!
+          Welcome to Leda!
         </Typography>
         {children}
       </Paper>

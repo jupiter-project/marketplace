@@ -41,7 +41,7 @@ const NFT_TOKENS = [
   {
     collection: {
       avatar: 'https://images.unsplash.com/photo-1604893802731-d290d2e1afe1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzh8fGp1cGl0ZXJ8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-      name: 'Jupiter'
+      name: 'Leda'
     },
     owner: {
       avatar: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc29ufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
@@ -61,7 +61,7 @@ const NFT_TOKENS = [
   {
     collection: {
       avatar: 'https://images.unsplash.com/photo-1604893802731-d290d2e1afe1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzh8fGp1cGl0ZXJ8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-      name: 'Jupiter'
+      name: 'Leda'
     },
     owner: {
       avatar: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc29ufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
@@ -81,7 +81,7 @@ const NFT_TOKENS = [
   {
     collection: {
       avatar: 'https://images.unsplash.com/photo-1604893802731-d290d2e1afe1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzh8fGp1cGl0ZXJ8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-      name: 'Jupiter'
+      name: 'Leda'
     },
     owner: {
       avatar: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc29ufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
@@ -101,7 +101,7 @@ const NFT_TOKENS = [
   {
     collection: {
       avatar: 'https://images.unsplash.com/photo-1604893802731-d290d2e1afe1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzh8fGp1cGl0ZXJ8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-      name: 'Jupiter'
+      name: 'Leda'
     },
     owner: {
       avatar: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc29ufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
@@ -121,7 +121,7 @@ const NFT_TOKENS = [
   {
     collection: {
       avatar: 'https://images.unsplash.com/photo-1604893802731-d290d2e1afe1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzh8fGp1cGl0ZXJ8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-      name: 'Jupiter'
+      name: 'Leda'
     },
     owner: {
       avatar: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc29ufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
@@ -141,7 +141,7 @@ const NFT_TOKENS = [
   {
     collection: {
       avatar: 'https://images.unsplash.com/photo-1604893802731-d290d2e1afe1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzh8fGp1cGl0ZXJ8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-      name: 'Jupiter'
+      name: 'Leda'
     },
     owner: {
       avatar: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc29ufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
@@ -161,7 +161,7 @@ const NFT_TOKENS = [
   {
     collection: {
       avatar: 'https://images.unsplash.com/photo-1604893802731-d290d2e1afe1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzh8fGp1cGl0ZXJ8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-      name: 'Jupiter'
+      name: 'Leda'
     },
     owner: {
       avatar: 'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NHx8cGVyc29ufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',

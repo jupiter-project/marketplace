@@ -150,7 +150,7 @@ const CREATORS = [
     icon: ShowChartIcon
   },
   {
-    title: 'Jupiter NFT',
+    title: 'Leda',
     description: 'Rewards',
     color: '#0066ff',
     icon: HomeIcon

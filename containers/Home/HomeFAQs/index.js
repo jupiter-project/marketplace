@@ -123,7 +123,7 @@ const FAQs = [
   {
     title: 'NFT? Singleton Assets?',
     description: `NFT stands for non-fungible tokens like Singleton Asset Tokens which are 
-    hosted on Jupiter's own blockchain. NFTs are unique digital items such as collectibles 
+    hosted on Leda's own blockchain. NFTs are unique digital items such as collectibles 
     or artworks or game items. As an artist, by tokenizing your work you both ensure that 
     it is unique and brand it as your work. The actual ownership is blockchain-managed.`,
   },
@@ -140,9 +140,9 @@ const FAQs = [
   },
   {
     title: 'What is $JUP and how is it distributed?',
-    description: <>Jupiter is the native token of the Jupiter blockchain. Jupiter is available
+    description: <>Leda is the native token of the Leda blockchain. Leda is available
     as a tokenized instance (an NFT, if you will) on Ethereum ($JUP) and Binance Smart Chain
-    ($bwJUP). You will need Jupiter tokens to create your NFT on our blockchain.
+    ($bwJUP). You will need Leda tokens to create your NFT on our blockchain.
     Please see <a href={PLACE_FILLER_URL} target='_blank' rel='noreferrer'>here</a> for more information.</>,
   },
 ]
