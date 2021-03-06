@@ -139,10 +139,10 @@ const FAQs = [
     of minted and sold items.`,
   },
   {
-    title: 'What is $JUP and how is it distributed?',
-    description: <>Leda is the native token of the Leda blockchain. Leda is available
+    title: 'What is $JUP?',
+    description: <>Jupiter is the native token of the Jupiter blockchain. $JUP is available
     as a tokenized instance (an NFT, if you will) on Ethereum ($JUP) and Binance Smart Chain
-    ($bwJUP). You will need Leda tokens to create your NFT on our blockchain.
+    ($bwJUP). You will need Jupiter tokens to create your NFT on our blockchain.
     Please see <a href={PLACE_FILLER_URL} target='_blank' rel='noreferrer'>here</a> for more information.</>,
   },
 ]
