@@ -1,9 +1,11 @@
 
 import Head from 'next/head'
+import { Provider } from 'react-redux'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
 
 import theme from 'styles/theme'
+import store from 'store'
 import InitProvider from 'utils/hocs/InitProvider'
 import { AccountProvider } from 'context/AccountContext'
 import ToastProvider from 'utils/hocs/ToastProvider'
@@ -42,14 +44,16 @@ function MyApp({ Component, pageProps }) {
         <meta name='msapplication-TileColor' content={theme.custom.palette.orange} />
         <meta name='msapplication-TileImage' content='/mstile-144x144.png' />
       </Head>
-      <AccountProvider>
-        <InitProvider />
-        <ThemeProvider theme={theme}>
-          <ToastProvider />
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </AccountProvider>
+      <Provider store={store}>
+        <AccountProvider>
+          <InitProvider />
+          <ThemeProvider theme={theme}>
+            <ToastProvider />
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </AccountProvider>
+      </Provider>
     </>
   )
 }
