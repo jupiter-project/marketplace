@@ -1,33 +1,23 @@
+import { memo } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 
-import { memo } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import { Typography } from '@material-ui/core'
+import Logo from "components/Logo";
+import LinkButton from "components/UI/Buttons/LinkButton";
+import { SUPPORT_EMAIL } from "utils/constants/contact";
 
-import Logo from 'components/Logo'
-import LinkButton from 'components/UI/Buttons/LinkButton'
-import {
-  PHONE_NUMBER,
-  SUPPORT_EMAIL
-} from 'utils/constants/contact'
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: theme.spacing(2)
-  },
-  phone: {
-    fontSize: 18,
-    fontWeight: 600,
-    marginTop: theme.spacing(1.5)
+    display: "flex",
+    flexDirection: "column",
+    marginBottom: theme.spacing(2),
   },
   email: {
-    fontSize: 14,
+    fontSize: 18,
     fontWeight: 600,
     marginTop: theme.spacing(1.5),
     color: theme.palette.primary.main,
-    textDecoration: 'unset'
-  }
+    textDecoration: "unset",
+  },
 }));
 
 const FooterContact = () => {
@@ -37,19 +27,12 @@ const FooterContact = () => {
     <div className={classes.root}>
       <Logo />
       <LinkButton
-        color='primary'
+        color="primary"
         href={`mailto:${SUPPORT_EMAIL}`}
         className={classes.email}
       >
         {SUPPORT_EMAIL}
       </LinkButton>
-      <Typography
-        variant='caption'
-        color='primary'
-        className={classes.phone}
-      >
-        {PHONE_NUMBER}
-      </Typography>
     </div>
   );
 };

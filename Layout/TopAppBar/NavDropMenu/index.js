@@ -1,6 +1,5 @@
 
-import { memo, useCallback, useState, useContext } from 'react'
-import { useRouter } from 'next/router'
+import { memo, useCallback, useState } from 'react'
 import {
   Menu,
   MenuItem,
@@ -10,8 +9,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu';
 
-import { AccountContext } from 'context/AccountContext'
-import LINKS from 'utils/constants/links'
+import useMenu from 'utils/hooks/useMenu'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -26,24 +24,14 @@ const useStyles = makeStyles((theme) => ({
   },
   item: {
     borderRadius: 4,
-    color: theme.palette.text.primary,
-  },
-  account: {
-    display: 'none',
-    fontSize: 10,
-    borderRadius: 4,
     color: theme.palette.primary.main,
-    [theme.breakpoints.down('xs')]: {
-      display: 'flex'
-    }
   }
 }));
 
 const NavDropMenu = () => {
   const classes = useStyles();
-  const router = useRouter();
 
-  const { account } = useContext(AccountContext);
+  const { PROFILE_MENU_LINKS, onMenuHandler } = useMenu();
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = useCallback(event => {
@@ -54,8 +42,8 @@ const NavDropMenu = () => {
     setAnchorEl(null);
   }, [setAnchorEl]);
 
-  const itemHandler = (href) => () => {
-    router.push(href)
+  const itemHandler = (item) => () => {
+    onMenuHandler(item)
   }
 
   return (
@@ -86,23 +74,16 @@ const NavDropMenu = () => {
           }}
         >
           <div>
-            <MenuItem
-              className={classes.item}
-              onClick={itemHandler(LINKS.CREATE_COLLECT.HREF)}
-            >
-              Create
-            </MenuItem>
-            <MenuItem
-              className={classes.item}
-              onClick={itemHandler(LINKS.DASHBOARD.HREF)}
-            >
-              Dashboard
-            </MenuItem>
             {
-              !!account &&
-              <MenuItem className={classes.account}>
-                {account}
-              </MenuItem>
+              PROFILE_MENU_LINKS.map((item, index) => (
+                <MenuItem
+                  key={index}
+                  className={classes.item}
+                  onClick={itemHandler(item)}
+                >
+                  {item.TITLE}
+                </MenuItem>
+              ))
             }
           </div>
         </Menu>

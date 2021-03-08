@@ -1,44 +1,46 @@
 
-import { memo, useContext } from 'react'
-import { Hidden } from '@material-ui/core'
+import { memo } from 'react'
+import { 
+  Button,
+  Hidden 
+} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { AccountContext } from 'context/AccountContext'
-import GradientButton from 'components/UI/Buttons/GradientButton'
-import OutlinedButton from 'components/UI/Buttons/OutlinedButton'
-import LINKS from 'utils/constants/links'
+import useMenu from 'utils/hooks/useMenu'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center'
   },
-  button: {
-    margin: theme.spacing(0, 1)
+  item: {
+    fontSize: 16
   }
 }));
 
 const NavBarMenu = () => {
   const classes = useStyles();
-  const { account } = useContext(AccountContext);
+  const { PROFILE_MENU_LINKS, onMenuHandler } = useMenu();
+
+  const onNavHandler = (item) => () => {
+    onMenuHandler(item)
+  }
 
   return (
     <Hidden smDown>
       <div className={classes.root}>
-        <GradientButton
-          href={LINKS.CREATE_COLLECT.HREF}
-        >
-          Create
-        </GradientButton>
         {
-          !!account &&
-          <OutlinedButton
-            href={LINKS.DASHBOARD.HREF}
-            className={classes.button}
-          >
-            Dashboard
-          </OutlinedButton>
+          PROFILE_MENU_LINKS.map((item, index) => (
+            <Button
+              key={index}
+              color='primary'
+              onClick={onNavHandler(item)}
+              className={classes.item}
+            >
+              {item.TITLE}
+            </Button>
+          ))
         }
       </div>
     </Hidden>
