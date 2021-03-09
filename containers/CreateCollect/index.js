@@ -5,7 +5,6 @@ import {
   Grid,
   Typography
 } from '@material-ui/core'
-import clsx from 'clsx'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -18,7 +17,6 @@ import {
   STRING_VALID,
   NUMBER_VALID
 } from 'utils/constants/validations'
-import { useCommonStyles } from 'styles/use-styles'
 import { showErrorToast } from 'utils/helpers/toast'
 
 const schema = yup.object().shape({
@@ -32,15 +30,14 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    paddingTop: theme.spacing(5),
-    paddingBottom: theme.spacing(10),
+    padding: theme.spacing(5, 3, 10),
     backgroundColor: theme.palette.background.default
   },
   container: {
     display: 'flex',
     flexDirection: 'column',
-    maxWidth: 650,
     width: '100%',
+    maxWidth: 650,
   },
   header: {
     fontWeight: 'bold',
@@ -59,7 +56,6 @@ const useStyles = makeStyles((theme) => ({
 
 const CreateCollect = () => {
   const classes = useStyles();
-  const commonClasses = useCommonStyles();
 
   const [file, setFile] = useState(null);
   const [fileBuffer, setFileBuffer] = useState(null);
@@ -87,7 +83,7 @@ const CreateCollect = () => {
   };
 
   return (
-    <main className={clsx(classes.root, commonClasses.containerWidth)}>
+    <main className={classes.root}>
       <div className={classes.container}>
         <Typography
           variant='h3'
@@ -167,7 +163,7 @@ const CreateCollect = () => {
           </GradientButton>
         </form>
       </div>
-    </main>
+    </main >
   )
 }
 
