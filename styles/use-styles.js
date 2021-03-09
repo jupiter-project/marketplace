@@ -6,6 +6,7 @@ const useCommonStyles = makeStyles(theme => ({
     width: '100%',
     paddingLeft: theme.spacing(4),
     paddingRight: theme.spacing(4),
+    maxWidth: theme.custom.layout.maxDesktopWidth,
     [theme.breakpoints.down('sm')]: {
       maxWidth: '100%',
       paddingLeft: theme.spacing(3),

@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import * as authAPI from "services/api-auth";
+import MagicCheckbox from 'components/UI/MagicCheckbox'
 import GradientButton from "components/UI/Buttons/GradientButton";
 import LinkButton from "components/UI/Buttons/LinkButton";
 import MagicTextField from "components/UI/MagicTextField";
@@ -15,8 +16,22 @@ import useLoading from "utils/hooks/useLoading";
 import { showErrorToast, showSuccessToast } from "utils/helpers/toast";
 import generatePassphrase from "utils/helpers/generatePassphrase";
 import LINKS from "utils/constants/links";
+import MESSAGES from 'utils/constants/messages'
 
 const useStyles = makeStyles((theme) => ({
+  check: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    width: '100%',
+    marginBottom: theme.spacing(2.5)
+  },
+  checkText: {
+    lineHeight: 1.5
+  },
+  link: {
+    fontWeight: 'normal',
+    color: theme.palette.primary.main
+  },
   footer: {
     display: "flex",
   },
@@ -31,6 +46,7 @@ const SignUp = () => {
   const router = useRouter();
   const { changeLoadingStatus } = useLoading();
 
+  const [agree, setAgree] = useState(false);
   const [newPassphrase, setNewPassphrase] = useState("");
 
   useEffect(() => {
@@ -50,6 +66,11 @@ const SignUp = () => {
   });
 
   const onSubmit = async (data) => {
+    if (!agree) {
+      showErrorToast(MESSAGES.TERMS_PRIVACY_CHECK)
+      return;
+    }
+
     changeLoadingStatus(true);
     try {
       const params = {
@@ -94,6 +115,29 @@ const SignUp = () => {
           control={control}
           defaultValue=""
         />
+        <div className={classes.check}>
+          <MagicCheckbox
+            value={agree}
+            size='medium'
+            onChange={(event) => { setAgree(event.target.checked) }}
+          />
+          <Typography>
+            {'I agree to '}
+            <LinkButton
+              href={LINKS.TERMS_OF_SERVICE.HREF}
+              className={classes.link}
+            >
+              {LINKS.TERMS_OF_SERVICE.TITLE}
+            </LinkButton>
+            {', and '}
+            <LinkButton
+              href={LINKS.PRIVACY_POLICY.HREF}
+              className={classes.link}
+            >
+              {LINKS.PRIVACY_POLICY.TITLE}
+            </LinkButton>
+          </Typography>
+        </div>
         <GradientButton type="submit" className={authClasses.button}>
           Sign Up
         </GradientButton>

@@ -2,6 +2,9 @@ import { memo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Logo from "components/Logo";
+import FacebookIcon from 'components/Icons/FacebookIcon'
+import TwitterIcon from 'components/Icons/TwitterIcon'
+import InstagramIcon from 'components/Icons/InstagramIcon'
 import LinkButton from "components/UI/Buttons/LinkButton";
 import { SUPPORT_EMAIL } from "utils/constants/contact";
 
@@ -18,6 +21,12 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     textDecoration: "unset",
   },
+  socialContainer: {
+    margin: theme.spacing(2.5, 0)
+  },
+  socialIcon: {
+    marginRight: theme.spacing(1)
+  }
 }));
 
 const FooterContact = () => {
@@ -33,6 +42,11 @@ const FooterContact = () => {
       >
         {SUPPORT_EMAIL}
       </LinkButton>
+      <div className={classes.socialContainer}>
+        <FacebookIcon className={classes.socialIcon} />
+        <TwitterIcon className={classes.socialIcon} />
+        <InstagramIcon className={classes.socialIcon} />
+      </div>
     </div>
   );
 };

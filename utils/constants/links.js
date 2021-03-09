@@ -23,7 +23,19 @@ const LINKS = Object.freeze({
   CREATE_COLLECT: {
     TITLE: 'Create Collect',
     HREF: '/create-collect'
-  }
+  },
+  MY_ACCOUNT: {
+    TITLE: 'My Account',
+    HREF: '/my-account'
+  },
+  TERMS_OF_SERVICE: {
+    TITLE: 'Terms Of Service',
+    HREF: '/terms-of-service',
+  },
+  PRIVACY_POLICY: {
+    TITLE: 'Privacy Policy',
+    HREF: '/privacy-policy',
+  },
 });
 
 export default LINKS;
