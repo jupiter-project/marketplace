@@ -73,7 +73,7 @@ const NFTCard = ({
           {item.name}
         </Typography>
         <Typography variant='body1' color='textPrimary' className={classes.name}>
-          {item.price} ETH
+          {item.price} JUP
         </Typography>
 
         {
@@ -82,7 +82,7 @@ const NFTCard = ({
               <Typography variant='body2' color='textSecondary' className={classes.highestBid} component='div'>
                 highestBid
                 <LinkButton className={classes.highestButton}>
-                  {item.highestBid} WETH
+                  {item.highestBid} JUP
                 </LinkButton>
               </Typography>
             ) : (

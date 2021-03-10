@@ -147,7 +147,7 @@ const FAQs = [
     description: (
       <>
         Jupiter is the native token of the Jupiter blockchain. $JUP is available
-        as a tokenized instance (an NFT, if you will) on Ethereum ($JUP) and
+        as a tokenized instance (an NFT, if you will) on Jupiter ($JUP) and
         Binance Smart Chain ($bwJUP). You will need Jupiter tokens to create
         your NFT on our blockchain. Please see
         <a href={PLACE_FILLER_URL} target="_blank" rel="noreferrer">
