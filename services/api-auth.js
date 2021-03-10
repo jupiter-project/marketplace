@@ -1,15 +1,19 @@
-
 import axios from 'services/axios'
 
-const register = async params => {
-  return await axios.post('/api/register', params);
+const createPassphrase = async () => {
+  return await axios.get('/api/create/passphrase');
 };
 
-const login = async params => {
-  return await axios.post('/api/login', params);
+const createJupiterAccount = async (params) => {
+  return await axios.post('/api/create/jupiter-account', params);
+};
+
+const getJupiterAccount = async (params) => {
+  return await axios.post('/api/get/jupiter-account', params);
 };
 
 export {
-  login,
-  register
+  createPassphrase,
+  createJupiterAccount,
+  getJupiterAccount
 };

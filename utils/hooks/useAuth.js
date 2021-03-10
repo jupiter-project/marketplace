@@ -6,18 +6,18 @@ import { logoutUser, setUserToken } from 'actions/auth'
 
 const useAuth = () => {
   const dispatch = useDispatch();
-  const { accessToken = '' } = useSelector(state => state.auth);
+  const { accountRS = '' } = useSelector(state => state.auth);
 
   const logOutHandler = useCallback(() => {
     dispatch(logoutUser());
   }, [dispatch]);
 
-  const setLoginToken = useCallback(({ accessToken, user }) => {
-    dispatch(setUserToken({ accessToken, user }));
+  const setLoginToken = useCallback(({ accountRS, user }) => {
+    dispatch(setUserToken({ accountRS, user }));
   }, [dispatch]);
 
   return {
-    isLoggedIn: !!accessToken,
+    isLoggedIn: !!accountRS,
     logOutHandler,
     setLoginToken
   }

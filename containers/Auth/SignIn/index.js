@@ -8,7 +8,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
-import * as authAPI from 'services/api-auth'
+import * as jupiterAPI from "services/api-jupiter";
 import { setUserToken } from 'actions/auth'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import LinkButton from 'components/UI/Buttons/LinkButton'
@@ -50,7 +50,7 @@ const SignIn = () => {
 
   const [method, setMethod] = useState(LOGIN_METHODS.ACCOUNT);
 
-  const schema = useMemo(() =>{
+  const schema = useMemo(() => {
     switch (method) {
       case LOGIN_METHODS.ACCOUNT:
         return accountSchema;
@@ -68,14 +68,24 @@ const SignIn = () => {
   const onSubmit = async (data) => {
     changeLoadingStatus(true)
     try {
-      const params = {
-        account: data.account
+      let response;
+      if (method === LOGIN_METHODS.ACCOUNT) {
+        response = await jupiterAPI.getAccountByAccountID(data.account);
       }
 
-      const { user, token } = await authAPI.login(params);
+      if (method === LOGIN_METHODS.PASSPHRASE) {
+        response = await jupiterAPI.getAccountByPassphrase(data.passphrase);
+      }
+
+      if (!response?.accountRS) {
+        showErrorToast(MESSAGES.AUTH_ERROR)
+        changeLoadingStatus(false);
+        return;
+      }
+
       dispatch(setUserToken({
-        accessToken: token,
-        user
+        accountRS: response.accountRS,
+        user: response
       }));
       showSuccessToast(MESSAGES.SIGN_IN_SUCCESS)
       router.push(LINKS.DASHBOARD.HREF)
@@ -90,7 +100,7 @@ const SignIn = () => {
 
   return (
     <AuthWrapper>
-      <AuthTabs 
+      <AuthTabs
         method={method}
         setMethod={setMethod}
       />
@@ -101,28 +111,28 @@ const SignIn = () => {
       >
         {
           method === LOGIN_METHODS.ACCOUNT
-          ? (
-            <Controller
-              as={<MagicTextField />}
-              name='account'
-              label='Account'
-              error={errors.account?.message}
-              className={authClasses.input}
-              control={control}
-              defaultValue=''
-            />
-          ) : (
-            <Controller
-              as={<MagicTextField />}
-              multiline
-              name='passphrase'
-              label='Passphrase'
-              error={errors.passphrase?.message}
-              className={authClasses.input}
-              control={control}
-              defaultValue=''
-            />
-          )
+            ? (
+              <Controller
+                as={<MagicTextField />}
+                name='account'
+                label='Account'
+                error={errors.account?.message}
+                className={authClasses.input}
+                control={control}
+                defaultValue=''
+              />
+            ) : (
+              <Controller
+                as={<MagicTextField />}
+                multiline
+                name='passphrase'
+                label='Passphrase'
+                error={errors.passphrase?.message}
+                className={authClasses.input}
+                control={control}
+                defaultValue=''
+              />
+            )
         }
         <GradientButton
           type='submit'

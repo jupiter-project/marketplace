@@ -20,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1)
   },
   menu: {
-    color: theme.palette.primary.main
+    color: theme.palette.background.default,
   },
   item: {
     borderRadius: 4,
-    color: theme.palette.primary.main,
+    color: theme.palette.primary.main
   }
 }));
 

@@ -11,10 +11,10 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: theme.custom.palette.pink
     },
     '& .Toastify__toast--info': {
-      backgroundColor: theme.custom.palette.green
+      backgroundColor: theme.palette.primary.main
     },
     '& .Toastify__toast--success': {
-      backgroundColor: theme.custom.palette.yellow
+      backgroundColor: theme.palette.primary.main
     }
   },
   toast: {

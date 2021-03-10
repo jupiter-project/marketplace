@@ -16,26 +16,26 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     fontWeight: 'bold',
+    color: theme.palette.background.default,
     marginBottom: theme.spacing(1.5)
   }
 }));
 
 const FooterAccount = () => {
   const classes = useStyles();
-  const { accessToken = '' } = useSelector(state => state.auth);
+  const { accountRS = '' } = useSelector(state => state.auth);
 
   return (
     <div className={classes.root}>
       <Typography
-        variant='subtitle1'
-        color='primary'
+        variant='h5'
         className={classes.title}
       >
         Account
       </Typography>
       <Grid container>
         {
-          accessToken
+          accountRS
             ? (
               <>
                 <Grid item xs={6} sm={12}>
