@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     color: theme.palette.background.default,
     margin: theme.spacing(0.5),
-    padding: theme.spacing(0.5),
+    padding: theme.spacing(1),
     borderRadius: theme.spacing(0.5),
     border: `2px dotted ${theme.palette.background.default}`
   }
