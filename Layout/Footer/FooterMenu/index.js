@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     fontWeight: 'bold',
+    color: theme.palette.background.default,
     marginBottom: theme.spacing(1.5)
   }
 }));
@@ -26,7 +27,6 @@ const FooterMenu = () => {
     <div className={classes.root}>
       <Typography
         variant='h5'
-        color='primary'
         className={classes.title}
       >
         Menu

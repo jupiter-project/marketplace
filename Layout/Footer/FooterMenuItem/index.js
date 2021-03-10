@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography'
 const useStyles = makeStyles(theme => ({
   item: {
     cursor: 'pointer',
+    color: theme.palette.background.default,
     margin: theme.spacing(1, 0),
     '&:hover': {
       textDecoration: 'underline'
@@ -27,7 +28,6 @@ const FooterMenuItem = ({
   return (
     <Typography
       variant='h6'
-      color='primary'
       className={classes.item}
       onClick={onNavHandler}
     >

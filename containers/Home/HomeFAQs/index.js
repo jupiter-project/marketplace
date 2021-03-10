@@ -126,7 +126,7 @@ const FAQs = [
   {
     title: "NFT? Singleton Assets?",
     description: `NFT stands for non-fungible tokens like Singleton Asset Tokens which are 
-    hosted on Leda's own blockchain. NFTs are unique digital items such as collectibles 
+    hosted on Jupiter’s blockchain. NFTs are unique digital items such as collectibles 
     or artworks or game items. As an artist, by tokenizing your work you both ensure that 
     it is unique and brand it as your work. The actual ownership is blockchain-managed.`,
   },

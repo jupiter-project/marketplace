@@ -1,21 +1,22 @@
 
 import { memo } from 'react'
-import { 
+import {
   Button,
-  Hidden 
+  Hidden
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import useMenu from 'utils/hooks/useMenu'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center'
   },
   item: {
-    fontSize: 16
+    fontSize: 16,
+    color: theme.palette.background.default
   }
 }));
 
@@ -34,7 +35,6 @@ const NavBarMenu = () => {
           PROFILE_MENU_LINKS.map((item, index) => (
             <Button
               key={index}
-              color='primary'
               onClick={onNavHandler(item)}
               className={classes.item}
             >

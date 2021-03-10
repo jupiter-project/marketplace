@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     fontWeight: 'bold',
+    color: theme.palette.background.default,
     marginBottom: theme.spacing(1.5)
   }
 }));
@@ -27,8 +28,7 @@ const FooterAccount = () => {
   return (
     <div className={classes.root}>
       <Typography
-        variant='subtitle1'
-        color='primary'
+        variant='h5'
         className={classes.title}
       >
         Account

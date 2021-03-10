@@ -31,10 +31,11 @@ const useStyles = makeStyles((theme) => ({
   },
   account: {
     cursor: 'pointer',
+    color: theme.palette.background.default,
     margin: theme.spacing(0.5),
     padding: theme.spacing(0.5),
     borderRadius: theme.spacing(0.5),
-    border: `2px dotted ${theme.palette.primary.main}`
+    border: `2px dotted ${theme.palette.background.default}`
   }
 }));
 
@@ -58,7 +59,6 @@ const TopAppBar = () => {
             !!accountRS &&
             <Typography
               variant='body2'
-              color='primary'
               className={classes.account}
               onClick={onAccountHandler}
             >

@@ -1,16 +1,16 @@
 
 const SOCIALS = Object.freeze({
-  FACEBOOK: {
-    HREF: 'https://www.facebook.com/jupiterchain/',
-    LABEL: 'facebook link'
+  TELEGRAM: {
+    HREF: 'https://t.me/jupiterproject/',
+    LABEL: 'telegram link'
   },
   TWITTER: {
     HREF: 'https://twitter.com/jup_project/',
     LABEL: 'twitter link'
   },
-  INSTAGRAM: {
-    HREF: 'https://business.instagram.com/getting-started/',
-    LABEL: 'instagram link'
+  DISCORD: {
+    HREF: 'https://gojupiter.tech/discord',
+    LABEL: 'discord link'
   },
 })
 
