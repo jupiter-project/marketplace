@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
+    maxWidth: theme.custom.layout.maxDesktopWidth,
     margin: theme.spacing(3, 0)
   },
   title: {
