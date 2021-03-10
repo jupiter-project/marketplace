@@ -19,7 +19,8 @@ import useLoading from 'utils/hooks/useLoading'
 import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
 import LINKS from 'utils/constants/links'
 import {
-  STRING_VALID
+  STRING_VALID,
+  PASSPHRASE_VALID
 } from 'utils/constants/validations'
 import MESSAGES from 'utils/constants/messages'
 import LOGIN_METHODS from 'utils/constants/login-methods'
@@ -29,7 +30,7 @@ const accountSchema = yup.object().shape({
 });
 
 const passphraseSchema = yup.object().shape({
-  passphrase: STRING_VALID
+  passphrase: PASSPHRASE_VALID
 });
 
 const useStyles = makeStyles((theme) => ({
