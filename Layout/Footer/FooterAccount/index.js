@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 
 const FooterAccount = () => {
   const classes = useStyles();
-  const { accessToken = '' } = useSelector(state => state.auth);
+  const { accountRS = '' } = useSelector(state => state.auth);
 
   return (
     <div className={classes.root}>
@@ -35,7 +35,7 @@ const FooterAccount = () => {
       </Typography>
       <Grid container>
         {
-          accessToken
+          accountRS
             ? (
               <>
                 <Grid item xs={6} sm={12}>

@@ -1,24 +1,29 @@
-import { memo, useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { memo, useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux'
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
-import * as authAPI from "services/api-auth";
+import * as jupiterAPI from 'services/api-jupiter';
+import { setUserToken } from 'actions/auth'
 import MagicCheckbox from 'components/UI/MagicCheckbox'
-import GradientButton from "components/UI/Buttons/GradientButton";
-import LinkButton from "components/UI/Buttons/LinkButton";
-import MagicTextField from "components/UI/MagicTextField";
-import AuthWrapper, { authPageStyles } from "../Shared/AuthWrapper";
-import useLoading from "utils/hooks/useLoading";
-import { showErrorToast, showSuccessToast } from "utils/helpers/toast";
-import generatePassphrase from "utils/helpers/generatePassphrase";
-import LINKS from "utils/constants/links";
+import GradientButton from 'components/UI/Buttons/GradientButton';
+import LinkButton from 'components/UI/Buttons/LinkButton';
+import MagicTextField from 'components/UI/MagicTextField';
+import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper';
+import useLoading from 'utils/hooks/useLoading';
+import { showErrorToast, showSuccessToast } from 'utils/helpers/toast';
+import generatePassphrase from 'utils/helpers/generatePassphrase';
+import LINKS from 'utils/constants/links';
 import MESSAGES from 'utils/constants/messages'
 
 const useStyles = makeStyles((theme) => ({
+  alert: {
+    marginBottom: theme.spacing(1)
+  },
   check: {
     display: 'flex',
     alignItems: 'flex-start',
@@ -33,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main
   },
   footer: {
-    display: "flex",
+    display: 'flex',
   },
   signIn: {
     paddingLeft: theme.spacing(1),
@@ -42,12 +47,13 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUp = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const authClasses = authPageStyles();
   const router = useRouter();
   const { changeLoadingStatus } = useLoading();
 
   const [agree, setAgree] = useState(false);
-  const [newPassphrase, setNewPassphrase] = useState("");
+  const [newPassphrase, setNewPassphrase] = useState('');
 
   useEffect(() => {
     setNewPassphrase(generatePassphrase());
@@ -57,8 +63,8 @@ const SignUp = () => {
   const schema = yup.object().shape({
     passphrase: yup
       .string()
-      .required("Please input field.")
-      .oneOf([newPassphrase], "Passphrase is not match."),
+      .required('Please input field.')
+      .oneOf([newPassphrase], 'Passphrase is not match.'),
   });
 
   const { control, handleSubmit, errors } = useForm({
@@ -73,12 +79,18 @@ const SignUp = () => {
 
     changeLoadingStatus(true);
     try {
-      const params = {
-        passphrase: data.passphrase,
-      };
+      const response = await jupiterAPI.getAccountByPassphrase(data.passphrase);
+      if (!response?.accountRS) {
+        showErrorToast(MESSAGES.AUTH_ERROR)
+        changeLoadingStatus(false);
+        return;
+      }
 
-      const { message } = await authAPI.register(params);
-      showSuccessToast(message);
+      dispatch(setUserToken({
+        accountRS: response.accountRS,
+        user: response
+      }));
+      showSuccessToast(MESSAGES.SIGN_UP_SUCCESS);
       router.push(LINKS.HOME.HREF);
     } catch (error) {
       if (error.response) {
@@ -93,6 +105,13 @@ const SignUp = () => {
 
   return (
     <AuthWrapper>
+      <Typography
+        variant='body2'
+        color='primary'
+        className={classes.alert}
+      >
+        This Passphrase is very important. Please remember it.
+      </Typography>
       <form
         noValidate
         className={authClasses.form}
@@ -101,19 +120,19 @@ const SignUp = () => {
         <MagicTextField
           multiline
           disabled
-          label="Passphrase"
+          label='Passphrase'
           className={authClasses.input}
           value={newPassphrase}
         />
         <Controller
           as={<MagicTextField />}
           multiline
-          name="passphrase"
-          label="Confirm Passphrase"
+          name='passphrase'
+          label='Confirm Passphrase'
           error={errors.passphrase?.message}
           className={authClasses.input}
           control={control}
-          defaultValue=""
+          defaultValue=''
         />
         <div className={classes.check}>
           <MagicCheckbox
@@ -138,12 +157,12 @@ const SignUp = () => {
             </LinkButton>
           </Typography>
         </div>
-        <GradientButton type="submit" className={authClasses.button}>
+        <GradientButton type='submit' className={authClasses.button}>
           Sign Up
         </GradientButton>
         <Typography
-          variant="body2"
-          color="textSecondary"
+          variant='body2'
+          color='textSecondary'
           className={classes.footer}
         >
           Have an Account?

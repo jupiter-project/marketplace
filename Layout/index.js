@@ -11,7 +11,10 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     minHeight: '100vh',
     position: 'relative'
-  }
+  },
+  container: {
+    flex: '1 0 auto'
+  },
 }));
 
 const Layout = ({
@@ -22,7 +25,7 @@ const Layout = ({
   return (
     <main className={classes.root}>
       <TopAppBar />
-      <div>
+      <div className={classes.container}>
         {children}
       </div>
       <Footer />

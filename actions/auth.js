@@ -4,17 +4,17 @@ import Router from 'next/router'
 import LINKS from 'utils/constants/links'
 import * as TYPES from './types'
 
-const setUserToken = ({ accessToken, user }) => dispatch => {
-  dispatch(setAccessToken(accessToken));
+const setUserToken = ({ accountRS, user }) => dispatch => {
+  dispatch(setAccountRS(accountRS));
   dispatch(setCurrentUser(user));
   Router.push(LINKS.DASHBOARD.HREF);
 };
 
-const setAccessToken = accessToken => {
-  localStorage.setItem('accessToken', accessToken);
+const setAccountRS = accountRS => {
+  localStorage.setItem('accountRS', accountRS);
   return {
-    type: TYPES.SET_ACCESS_TOKEN,
-    payload: accessToken
+    type: TYPES.SET_ACCOUNT_RS,
+    payload: accountRS
   };
 };
 
@@ -28,14 +28,14 @@ const setCurrentUser = currentUser => {
 
 const logoutUser = () => dispatch => {
   localStorage.clear();
-  dispatch(setAccessToken(''));
+  dispatch(setAccountRS(''));
   dispatch(setCurrentUser({}));
   Router.push(LINKS.SIGN_IN.HREF);
 };
 
 export {
   setUserToken,
-  setAccessToken,
+  setAccountRS,
   setCurrentUser,
   logoutUser
 }
