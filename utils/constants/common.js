@@ -4,7 +4,7 @@ const SITE_URL = 'https://jupiter-frontend.vercel.app/';
 const DESCRIPTION = 'Join and Check New NFT of Leda';
 const PLACE_FILLER_URL = 'https://gojupiter.tech/placefiller';
 const NQT_WEIGHT = 100000000;
-const MAX_UPLOAD_SIZE = 1048576;
+const MAX_UPLOAD_SIZE = 52428800;
 
 export {
   TITLE,
