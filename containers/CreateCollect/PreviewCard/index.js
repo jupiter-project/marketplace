@@ -1,18 +1,17 @@
 import { memo } from 'react';
+import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
   CardHeader,
   CardMedia,
   CardContent,
-  Avatar,
   Typography,
-  Tooltip
 } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
-import AvatarGroup from '@material-ui/lab/AvatarGroup';
 
 import LinkButton from 'components/UI/Buttons/LinkButton';
+import MagicIdenticon from 'components/MagicIdenticon'
 import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,26 +35,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const collection = {
-  avatar: 'https://images.unsplash.com/photo-1604893802731-d290d2e1afe1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzh8fGp1cGl0ZXJ8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-  name: 'Leda'
-}
-
 const PreviewCard = ({
   item,
   image
 }) => {
   const classes = useStyles();
+  const { accountRS } = useSelector(state => state.auth);
 
   return (
     <Card>
       <CardHeader
         avatar={
-          <AvatarGroup>
-            <Tooltip title='Collection' aria-label='Collection'>
-              <Avatar alt={collection.name} src={collection.avatar} />
-            </Tooltip>
-          </AvatarGroup>
+          <MagicIdenticon value={accountRS || 'Not found'} />
         }
       />
 
