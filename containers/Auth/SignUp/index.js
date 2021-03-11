@@ -12,7 +12,7 @@ import { setUserToken } from 'actions/auth'
 import MagicCheckbox from 'components/UI/MagicCheckbox'
 import GradientButton from 'components/UI/Buttons/GradientButton';
 import LinkButton from 'components/UI/Buttons/LinkButton';
-import MagicTextField from 'components/UI/MagicTextField';
+import MagicTextField from 'components/UI/TextFields/MagicTextField';
 import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper';
 import useLoading from 'utils/hooks/useLoading';
 import { showErrorToast, showSuccessToast } from 'utils/helpers/toast';

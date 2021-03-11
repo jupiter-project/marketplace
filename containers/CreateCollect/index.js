@@ -10,7 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
 import GradientButton from 'components/UI/Buttons/GradientButton'
-import MagicTextField from 'components/UI/MagicTextField'
+import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import UploadMedia from './UploadMedia'
 import PreviewCard from './PreviewCard'
 import {
@@ -163,7 +163,7 @@ const CreateCollect = () => {
           </GradientButton>
         </form>
       </div>
-    </main >
+    </main>
   )
 }
 

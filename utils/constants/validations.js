@@ -23,6 +23,10 @@ const CONFIRM_PASSWORD_VALID = yup.string()
 const STRING_VALID = yup.string()
   .required('Please input field.');
 
+const ACCOUNT_VALID = yup.string()
+  .length(24, 'Account length should be 24.')
+  .required()
+
 const PASSPHRASE_VALID = yup.string()
   .required('Please input field.')
   .test('passphrase',
@@ -39,6 +43,7 @@ export {
   PASSWORD_VALID,
   CONFIRM_PASSWORD_VALID,
   PASSPHRASE_VALID,
+  ACCOUNT_VALID,
   STRING_VALID,
   NUMBER_VALID
 };

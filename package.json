@@ -24,6 +24,7 @@
     "react-hook-form": "^6.14.0",
     "react-lottie": "^1.2.3",
     "react-redux": "^7.2.2",
+    "react-text-mask": "^5.4.3",
     "react-toastify": "^6.2.0",
     "react-use": "^17.1.1",
     "redux": "^4.0.5",
