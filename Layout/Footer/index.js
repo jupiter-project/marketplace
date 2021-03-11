@@ -8,7 +8,6 @@ import FooterMenu from './FooterMenu'
 import FooterAccount from './FooterAccount'
 import FooterContact from './FooterContact'
 import { useCommonStyles } from 'styles/use-styles'
-import { FOOTER_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,10 +15,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row',
     justifyContent: 'center',
     width: '100%',
-    backgroundImage: `url(${FOOTER_BACKGROUND_IMAGE_PATH})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPositionY: 'bottom',
-    backgroundSize: 'cover'
+    background: `linear-gradient(to bottom right, ${theme.custom.palette.darkGreen}, ${theme.custom.palette.black})`
   },
   container: {
     display: 'flex',

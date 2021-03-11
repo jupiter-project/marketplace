@@ -62,8 +62,10 @@ const theme = responsiveFontSizes(createMuiTheme({
       red: '#f2556f',
       yellow: '#ffb418',
       green: '#41d98d',
+      darkGreen: '#073920',
       blue: '#4595e6',
       lightBlue: '#d9e8ff',
+      black: '#000000',
       border: '#f1f0f2'
     },
     layout: {
