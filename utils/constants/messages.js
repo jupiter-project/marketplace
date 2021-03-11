@@ -4,6 +4,7 @@ const MESSAGES = Object.freeze({
   SIGN_UP_SUCCESS: 'Welcome to Leda. You’ve successfully registered.',
   AUTH_ERROR: 'Please input correct Info. or Contact to Administrator.',
   TERMS_PRIVACY_CHECK: 'Please check Terms of Service and Privacy Policy',
+  MAX_UPLOAD_ERROR: 'Please select less than 1MB image.'
 });
 
 export default MESSAGES;
