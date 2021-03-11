@@ -8,8 +8,8 @@ import SOCIALS from 'utils/constants/social'
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: 32,
-    height: 32
+    width: 24,
+    height: 24
   }
 }));
 

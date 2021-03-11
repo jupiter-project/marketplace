@@ -8,7 +8,12 @@ const getAccountByAccountID = async (account) => {
   return await axios.get(`/nxt?requestType=getAccount&account=${account}`)
 }
 
+const setAccountInfo = async (params) => {
+  return await axios.post(`/nxt?requestType=setAccountInfo`, params)
+}
+
 export {
   getAccountByPassphrase,
-  getAccountByAccountID
+  getAccountByAccountID,
+  setAccountInfo
 };

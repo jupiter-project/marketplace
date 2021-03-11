@@ -6,7 +6,7 @@ import {
   MenuItem
 } from '@material-ui/core'
 
-import MagicTextField from 'components/UI/MagicTextField'
+import MagicTextField from 'components/UI/TextFields/MagicTextField'
 
 const useStyles = makeStyles(theme => ({
   menuPaper: {

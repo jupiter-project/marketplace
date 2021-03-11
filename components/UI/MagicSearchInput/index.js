@@ -3,7 +3,7 @@ import { memo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
 
-import MagicTextField from 'components/UI/MagicTextField'
+import MagicTextField from 'components/UI/TextFields/MagicTextField'
 
 const useStyles = makeStyles((theme) => ({
   searchIcon: {

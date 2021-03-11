@@ -12,24 +12,27 @@ import * as jupiterAPI from "services/api-jupiter";
 import { setUserToken } from 'actions/auth'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import LinkButton from 'components/UI/Buttons/LinkButton'
-import MagicTextField from 'components/UI/MagicTextField'
+import AccountTextField from 'components/UI/TextFields/AccountTextField'
+import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper'
 import AuthTabs from './AuthTabs'
 import useLoading from 'utils/hooks/useLoading'
 import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
 import LINKS from 'utils/constants/links'
 import {
-  STRING_VALID
+  ACCOUNT_VALID,
+  PASSPHRASE_VALID
 } from 'utils/constants/validations'
 import MESSAGES from 'utils/constants/messages'
 import LOGIN_METHODS from 'utils/constants/login-methods'
+import TEXT_MASKS from 'utils/constants/text-masks'
 
 const accountSchema = yup.object().shape({
-  account: STRING_VALID
+  account: ACCOUNT_VALID
 });
 
 const passphraseSchema = yup.object().shape({
-  passphrase: STRING_VALID
+  passphrase: PASSPHRASE_VALID
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -113,13 +116,14 @@ const SignIn = () => {
           method === LOGIN_METHODS.ACCOUNT
             ? (
               <Controller
-                as={<MagicTextField />}
+                as={<AccountTextField />}
                 name='account'
                 label='Account'
+                mask={TEXT_MASKS.ACCOUNT}
                 error={errors.account?.message}
                 className={authClasses.input}
                 control={control}
-                defaultValue=''
+                defaultValue='JUP-'
               />
             ) : (
               <Controller
