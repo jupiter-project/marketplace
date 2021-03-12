@@ -134,6 +134,7 @@ const CreateCollect = () => {
                 as={<MagicTextField />}
                 name='name'
                 label='Name'
+                placeholder='Name'
                 error={errors.name?.message}
                 control={control}
                 defaultValue=''
@@ -143,8 +144,11 @@ const CreateCollect = () => {
               <Controller
                 as={<MagicTextField />}
                 isOption
+                multiline
+                rows={4}
                 name='description'
                 label='Description'
+                placeholder='Description'
                 error={errors.description?.message}
                 control={control}
                 defaultValue=''
@@ -156,6 +160,7 @@ const CreateCollect = () => {
                 name='price'
                 label='Price'
                 type='number'
+                placeholder='Price'
                 inputProps={{ min: 0 }}
                 error={errors.price?.message}
                 className={classes.input}
@@ -167,6 +172,7 @@ const CreateCollect = () => {
                 name='quantity'
                 label='Quantity'
                 type='number'
+                placeholder='Quantity'
                 inputProps={{ min: 1 }}
                 error={errors.quantity?.message}
                 control={control}
