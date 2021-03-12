@@ -37,6 +37,11 @@ const NUMBER_VALID = yup.number()
   .typeError('Please enter valid number')
   .required('Please input field.');
 
+const INTEGER_VALID = yup.number()
+  .typeError('Please enter valid number')
+  .integer('This field should be integer')
+  .min(1, 'This field should be more than one');
+
 export {
   NAME_VALID,
   EMAIL_VALID,
@@ -45,5 +50,6 @@ export {
   PASSPHRASE_VALID,
   ACCOUNT_VALID,
   STRING_VALID,
-  NUMBER_VALID
+  NUMBER_VALID,
+  INTEGER_VALID
 };

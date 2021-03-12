@@ -54,7 +54,7 @@ const UploadArea = ({
     >
       <input {...getInputProps()} />
       <Typography variant='h6' color='textSecondary' align='center'>
-        PNG, GIF, WEBP. Max 1MB.
+        PNG, GIF, WEBP. Max 50MB.
       </Typography>
       <div className={classes.iconContainer}>
         <CloudUploadIcon className={clsx(classes.uploadIcon, { [classes.dragActiveIcon]: isDragActive })} />
