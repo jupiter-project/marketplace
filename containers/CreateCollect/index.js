@@ -15,13 +15,15 @@ import UploadMedia from './UploadMedia'
 import PreviewCard from './PreviewCard'
 import {
   STRING_VALID,
-  NUMBER_VALID
+  NUMBER_VALID,
+  INTEGER_VALID
 } from 'utils/constants/validations'
 import { showErrorToast } from 'utils/helpers/toast'
 
 const schema = yup.object().shape({
   name: STRING_VALID,
-  royalties: NUMBER_VALID
+  price: NUMBER_VALID,
+  quantity: INTEGER_VALID
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -59,6 +61,8 @@ const CreateCollect = () => {
 
   const [file, setFile] = useState(null);
   const [fileBuffer, setFileBuffer] = useState(null);
+  const [tag1, setTag1] = useState('');
+  const [tag2, setTag2] = useState('');
 
   const { control, handleSubmit, errors, watch } = useForm({
     resolver: yupResolver(schema)
@@ -68,9 +72,20 @@ const CreateCollect = () => {
 
   const onSubmit = async (data) => {
     try {
+      let tags = ['nft'];
+      if (tag1) {
+        tags = [...tags, tag1]
+      }
+      if (tag2) {
+        tags = [...tags, tag2]
+      }
+
       const params = {
-        email: data.email,
-        password: data.password
+        name: data.name,
+        description: data.description,
+        price: data.price,
+        quantity: data.quantity,
+        tags: tags.join(', ')
       }
 
       console.log(params)
@@ -113,54 +128,84 @@ const CreateCollect = () => {
           className={classes.form}
           onSubmit={handleSubmit(onSubmit)}
         >
-          <Controller
-            as={<MagicTextField />}
-            name='name'
-            label='Name'
-            error={errors.name?.message}
-            className={classes.input}
-            control={control}
-            defaultValue=''
-          />
-          <Controller
-            as={<MagicTextField />}
-            isOption
-            name='description'
-            label='Description'
-            error={errors.description?.message}
-            className={classes.input}
-            control={control}
-            defaultValue=''
-          />
-          <Controller
-            as={<MagicTextField />}
-            isOption
-            name='price'
-            label='Price'
-            type='number'
-            inputProps={{ min: 0 }}
-            error={errors.price?.message}
-            className={classes.input}
-            control={control}
-            defaultValue=''
-          />
-          <Controller
-            as={<MagicTextField />}
-            name='royalties'
-            label='Royalties'
-            type='number'
-            inputProps={{ min: 0, max: 100 }}
-            error={errors.royalties?.message}
-            className={classes.input}
-            control={control}
-            defaultValue=''
-          />
-          <GradientButton
-            type='submit'
-            className={classes.button}
-          >
-            Create collectible
-          </GradientButton>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Controller
+                as={<MagicTextField />}
+                name='name'
+                label='Name'
+                error={errors.name?.message}
+                control={control}
+                defaultValue=''
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
+                as={<MagicTextField />}
+                isOption
+                name='description'
+                label='Description'
+                error={errors.description?.message}
+                control={control}
+                defaultValue=''
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Controller
+                as={<MagicTextField />}
+                name='price'
+                label='Price'
+                type='number'
+                inputProps={{ min: 0 }}
+                error={errors.price?.message}
+                className={classes.input}
+                control={control}
+                defaultValue=''
+              />
+              <Controller
+                as={<MagicTextField />}
+                name='quantity'
+                label='Quantity'
+                type='number'
+                inputProps={{ min: 1 }}
+                error={errors.quantity?.message}
+                control={control}
+                defaultValue={1}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <MagicTextField
+                disabled
+                isOption
+                name='tag0'
+                label='Tags'
+                className={classes.input}
+                value='nft'
+              />
+              <MagicTextField
+                name='tag1'
+                className={classes.input}
+                placeholder='Second Tag'
+                value={tag1}
+                onChange={(e) => setTag1(e.target.value)}
+              />
+              <MagicTextField
+                name='tag2'
+                className={classes.input}
+                placeholder='Third Tag'
+                value={tag2}
+                onChange={(e) => setTag2(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <GradientButton
+                type='submit'
+                className={classes.button}
+              >
+                Create collectible
+              </GradientButton>
+            </Grid>
+          </Grid>
         </form>
       </div>
     </main>
