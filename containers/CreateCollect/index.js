@@ -96,6 +96,7 @@ const CreateCollect = () => {
       }
 
       const response = await nftAPI.createNFTtoken(params);
+      console.log(response)
       showSuccessToast(response.message)
       router.push(LINKS.DASHBOARD.HREF)
     } catch (error) {

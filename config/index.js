@@ -1,6 +1,6 @@
 
 const PROXY_URL = process.env.NODE_ENV === 'production'
-  ? 'https://alloys.ai'
+  ? ' http://142.93.233.81:8000/'
   : 'http://localhost:8000'
 
 const JUPITER_URL = 'https://jpr8.gojupiter.tech'
