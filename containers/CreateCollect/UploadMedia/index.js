@@ -10,24 +10,21 @@ import { showErrorToast } from 'utils/helpers/toast'
 import MESSAGES from 'utils/constants/messages'
 
 const UploadMedia = ({
-  file,
   fileBuffer,
-  setFile,
   setFileBuffer
 }) => {
 
   const deleteFileHandler = useCallback(() => {
-    setFile(null)
     setFileBuffer(null)
-  }, [setFile, setFileBuffer]);
+  }, [setFileBuffer]);
 
   const onDrop = async (acceptedFiles) => {
     if (!Array.isArray(acceptedFiles) || acceptedFiles.length <= 0) {
       showErrorToast(MESSAGES.MAX_UPLOAD_ERROR)
       return;
     }
+
     const file = acceptedFiles[0];
-    setFile(file)
     const reader = new FileReader();
     reader.addEventListener('load', () => {
       setFileBuffer(reader.result);
@@ -42,7 +39,7 @@ const UploadMedia = ({
   })
 
   return (
-    isEmpty(file)
+    isEmpty(fileBuffer)
       ? (
         <UploadArea
           isDragActive={isDragActive}

@@ -1,5 +1,6 @@
 
 import { memo, useState } from 'react'
+import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Grid,
@@ -9,6 +10,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
+import * as nftAPI from 'services/api-nft';
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import UploadMedia from './UploadMedia'
@@ -18,7 +20,9 @@ import {
   NUMBER_VALID,
   INTEGER_VALID
 } from 'utils/constants/validations'
-import { showErrorToast } from 'utils/helpers/toast'
+import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
+import useLoading from 'utils/hooks/useLoading'
+import LINKS from 'utils/constants/links'
 
 const schema = yup.object().shape({
   name: STRING_VALID,
@@ -58,8 +62,9 @@ const useStyles = makeStyles((theme) => ({
 
 const CreateCollect = () => {
   const classes = useStyles();
+  const router = useRouter();
+  const { changeLoadingStatus } = useLoading();
 
-  const [file, setFile] = useState(null);
   const [fileBuffer, setFileBuffer] = useState(null);
   const [tag1, setTag1] = useState('');
   const [tag2, setTag2] = useState('');
@@ -71,6 +76,7 @@ const CreateCollect = () => {
   const watchAllFields = watch();
 
   const onSubmit = async (data) => {
+    changeLoadingStatus(true)
     try {
       let tags = ['nft'];
       if (tag1) {
@@ -85,16 +91,20 @@ const CreateCollect = () => {
         description: data.description,
         price: data.price,
         quantity: data.quantity,
-        tags: tags.join(', ')
+        tags: tags.join(', '),
+        fileBuffer
       }
 
-      console.log(params)
+      const response = await nftAPI.createNFTtoken(params);
+      showSuccessToast(response.message)
+      router.push(LINKS.DASHBOARD.HREF)
     } catch (error) {
       if (error.response) {
         const { data: { message } } = error.response;
         showErrorToast(message)
       }
     }
+    changeLoadingStatus(false)
   };
 
   return (
@@ -110,9 +120,7 @@ const CreateCollect = () => {
         <Grid container spacing={3} className={classes.media}>
           <Grid item xs={12} sm={6} md={8}>
             <UploadMedia
-              file={file}
               fileBuffer={fileBuffer}
-              setFile={setFile}
               setFileBuffer={setFileBuffer}
             />
           </Grid>

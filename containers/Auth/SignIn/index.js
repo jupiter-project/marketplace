@@ -80,6 +80,7 @@ const SignIn = () => {
         response = await jupiterAPI.getAccountByPassphrase(data.passphrase);
       }
 
+      console.log(response)
       if (!response?.accountRS) {
         showErrorToast(MESSAGES.AUTH_ERROR)
         changeLoadingStatus(false);
