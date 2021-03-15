@@ -5,7 +5,7 @@ import ReactLottie from 'react-lottie'
 const defaultOptions = {
   loop: true,
   autoplay: true,
-  animationData: require('public/assets/lotties/red-spinner.json'),
+  animationData: require('public/assets/lotties/green-progress.json'),
   rendererSettings: {
     preserveAspectRatio: 'xMidYMid slice'
   },
