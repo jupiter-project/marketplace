@@ -1,6 +1,6 @@
 
 const PROXY_URL = process.env.NODE_ENV === 'production'
-  ? ' http://142.93.233.81:8000/'
+  ? 'https://leda.gojupiter.tech/'
   : 'http://localhost:8000'
 
 const JUPITER_URL = 'https://jpr8.gojupiter.tech'
