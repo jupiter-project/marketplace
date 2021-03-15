@@ -52,7 +52,7 @@ const NFT_TOKENS = [
       name: 'Steve Jin'
     },
     name: '🎵 🎬 Beautiful Souls',
-    product: 'https://media.giphy.com/media/l2JhL0Gpfbvs4Y07K/giphy.gif',
+    product: 'https://res.cloudinary.com/leda/image/upload/v1615822449/l1aqnas6az50aclrtgh6.gif',
     description: 'Beautiful Souls',
     price: 0.34,
     highestBid: 0.235,
@@ -72,7 +72,7 @@ const NFT_TOKENS = [
       name: 'Steve Jin'
     },
     name: '🎵 🎬 Beautiful Souls',
-    product: 'https://media.giphy.com/media/Ay2yAQgxhFD7a/giphy.gif',
+    product: 'http://res.cloudinary.com/leda/image/upload/v1615822539/khmujdjrlbzheooatbuc.gif',
     description: 'Beautiful Souls',
     price: 0.34,
     highestBid: 0,
@@ -92,7 +92,7 @@ const NFT_TOKENS = [
       name: 'Steve Jin'
     },
     name: '🎵 🎬 Beautiful Souls',
-    product: 'https://media.giphy.com/media/M8ygVZBe5wNZC/giphy.gif',
+    product: 'http://res.cloudinary.com/leda/image/upload/v1615822566/lqsnli2fngdq6zxzlwgx.gif',
     description: 'Beautiful Souls',
     price: 0.34,
     highestBid: 0.235,
@@ -112,7 +112,7 @@ const NFT_TOKENS = [
       name: 'Steve Jin'
     },
     name: '🎵 🎬 Beautiful Souls',
-    product: 'https://media.giphy.com/media/3ov9k4e03yTNRWTgYM/giphy.gif',
+    product: 'http://res.cloudinary.com/leda/image/upload/v1615822586/xnq75myjljmeillbmwni.gif',
     description: 'Beautiful Souls',
     price: 0.34,
     highestBid: 0,
@@ -132,7 +132,7 @@ const NFT_TOKENS = [
       name: 'Steve Jin'
     },
     name: '🎵 🎬 Beautiful Souls',
-    product: 'https://media.giphy.com/media/v0YiARQxj1yc8/giphy.gif',
+    product: 'http://res.cloudinary.com/leda/image/upload/v1615822618/gdacaffiuoh97d5l0xxm.gif',
     description: 'Beautiful Souls',
     price: 0.34,
     highestBid: 0.235,
@@ -152,7 +152,7 @@ const NFT_TOKENS = [
       name: 'Steve Jin'
     },
     name: '🎵 🎬 Beautiful Souls',
-    product: 'https://media.giphy.com/media/xUPGchzZ90zPLYwwTe/giphy.gif',
+    product: 'http://res.cloudinary.com/leda/image/upload/v1615822642/sjtwchysxq1kad9diya5.gif',
     description: 'Beautiful Souls',
     price: 0.34,
     highestBid: 0.235,
@@ -172,7 +172,7 @@ const NFT_TOKENS = [
       name: 'Steve Jin'
     },
     name: '🎵 🎬 Beautiful Souls',
-    product: 'https://media.giphy.com/media/l0O7NvDd6lifNaNuo/giphy.gif',
+    product: 'http://res.cloudinary.com/leda/image/upload/v1615822663/ysaooyajkwt3exdlwl9n.gif',
     description: 'Beautiful Souls',
     price: 0.34,
     highestBid: 0.235,
