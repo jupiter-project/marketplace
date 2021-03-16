@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { JUPITER_URL } from 'config'
+import { JUPITER_URL, JUPITER_FEE_CALCULATE_URL } from 'config'
 
 const apiAxios = axios.create({
   baseURL: JUPITER_URL,
@@ -22,7 +22,14 @@ const getAccountByAccountID = async (account) => {
 }
 
 const setAccountInfo = async (params) => {
-  return await apiAxios.post(`/nxt?requestType=setAccountInfo`, params)
+  const defaultURL = `/nxt?requestType=setAccountInfo&name=${params.name}&description=${params.description}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24`;
+
+  const feeNQTURL = `${defaultURL}${JUPITER_FEE_CALCULATE_URL}`;
+  const response = await apiAxios.post(feeNQTURL)
+
+  const { transactionJSON: { feeNQT = 0 } = {} } = response;
+  const url = `${defaultURL}&feeNQT=${feeNQT}`;
+  return await apiAxios.post(url)
 }
 
 export {

@@ -1,6 +1,6 @@
 
 import { memo } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 import { useForm, Controller } from 'react-hook-form'
@@ -8,13 +8,16 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
 import * as jupiterAPI from 'services/api-jupiter';
+import { setCurrentUser } from 'actions/auth'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import {
   STRING_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
-import { showErrorToast } from 'utils/helpers/toast'
+import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
+import MESSAGES from 'utils/constants/messages'
+import useLoading from 'utils/hooks/useLoading'
 
 const schema = yup.object().shape({
   name: STRING_VALID,
@@ -48,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
 
 const EditAccount = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { changeLoadingStatus } = useLoading();
+
   const { currentUser } = useSelector(state => state.auth);
 
   const { control, errors, formState, handleSubmit } = useForm({
@@ -57,22 +63,35 @@ const EditAccount = () => {
   const { isDirty } = formState;
 
   const onSubmit = async (data) => {
+    changeLoadingStatus(true)
     try {
-      const params = {
+      let params = {
         name: data.name,
         description: data.description,
         secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey
       }
 
-      const response = await jupiterAPI.setAccountInfo(params)
-      console.log(response)
-    } catch (error) {
-      if (error.response) {
-        const { data: { message } } = error.response;
-        showErrorToast(message)
+      let response = await jupiterAPI.setAccountInfo(params);
+      if (response?.errorCode) {
+        showErrorToast(MESSAGES.SET_ACCOUNT_ERROR)
+        changeLoadingStatus(false)
+        return;
       }
+
+      const { transactionJSON: { feeNQT = 0 } = {} } = response;
+      dispatch(setCurrentUser({
+        ...currentUser,
+        balanceNQT: parseInt(currentUser.balanceNQT) - feeNQT,
+        name: data.name,
+        description: data.description,
+      }))
+      showSuccessToast(MESSAGES.SET_ACCOUNT_SUCCESS)
+    } catch (error) {
+      console.log(error)
+      showErrorToast(MESSAGES.SET_ACCOUNT_ERROR)
     }
+    changeLoadingStatus(false)
   };
 
   return (
