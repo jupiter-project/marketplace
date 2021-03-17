@@ -1,19 +1,20 @@
-import { memo } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { memo } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 import {
   Card,
   CardHeader,
   CardMedia,
   CardContent,
-  Avatar,
   Typography,
-  Tooltip
-} from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
-import AvatarGroup from '@material-ui/lab/AvatarGroup';
+} from '@material-ui/core'
 
-import LinkButton from 'components/UI/Buttons/LinkButton';
-import CardDropMenu from './CardDropMenu';
+import MagicIdenticon from 'components/MagicIdenticon'
+import LinkButton from 'components/UI/Buttons/LinkButton'
+import CardDropMenu from './CardDropMenu'
+import {
+  NQT_WEIGHT,
+  DEFAULT_IMAGE
+} from 'utils/constants/common'
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -31,9 +32,15 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     marginBottom: theme.spacing(0.5)
   },
-  avatar: {
-    backgroundColor: red[500],
+  info: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: theme.spacing(0.5)
   },
+  price: {
+    marginRight: theme.spacing(1)
+  }
 }));
 
 const NFTCard = ({
@@ -45,26 +52,17 @@ const NFTCard = ({
     <Card>
       <CardHeader
         avatar={
-          <AvatarGroup>
-            <Tooltip title='Collection' aria-label='Collection'>
-              <Avatar alt={item.collection.name} src={item.collection.avatar} />
-            </Tooltip>
-
-            <Tooltip title='Owner' aria-label='Owner'>
-              <Avatar alt={item.owner.name} src={item.owner.avatar} />
-            </Tooltip>
-
-            <Tooltip title='Creator' aria-label='Creator'>
-              <Avatar alt={item.creator.name} src={item.creator.avatar} />
-            </Tooltip>
-          </AvatarGroup>
+          <MagicIdenticon
+            size={40}
+            value={item.sellerRS}
+          />
         }
         action={<CardDropMenu />}
       />
 
       <CardMedia
         className={classes.media}
-        image={item.product}
+        image={item.description || DEFAULT_IMAGE}
         title={item.name}
       />
 
@@ -72,25 +70,18 @@ const NFTCard = ({
         <Typography variant='body1' color='textPrimary' className={classes.name}>
           {item.name}
         </Typography>
-        <Typography variant='body1' color='textPrimary' className={classes.name}>
-          {item.price} JUP
-        </Typography>
+        <div className={classes.info}>
+          <Typography variant='body2' color='primary' className={classes.price}>
+            {item.priceNQT / NQT_WEIGHT} JUP
+          </Typography>
+          <Typography variant='body2' color='primary'>
+            {item.quantity}
+          </Typography>
+        </div>
 
-        {
-          !!item.highestBid
-            ? (
-              <Typography variant='body2' color='textSecondary' className={classes.highestBid} component='div'>
-                highestBid
-                <LinkButton className={classes.highestButton}>
-                  {item.highestBid} JUP
-                </LinkButton>
-              </Typography>
-            ) : (
-              <LinkButton>
-                Place a bid
-              </LinkButton>
-            )
-        }
+        <LinkButton>
+          Purchase Now
+        </LinkButton>
       </CardContent>
     </Card>
   );

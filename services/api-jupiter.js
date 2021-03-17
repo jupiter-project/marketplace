@@ -32,8 +32,25 @@ const setAccountInfo = async (params) => {
   return await apiAxios.post(url)
 }
 
+const getDGSGoods = async (params) => {
+  return await apiAxios.get(`/nxt?requestType=getDGSGoods&firstIndex=${params.first}&lastIndex=${params.last}`)
+}
+
+const createNFTToken = async (params) => {
+  const defaultURL = `/nxt?requestType=dgsListing&name=${params.name}&description=${params.description}&tags=${params.tags}&quantity=${params.quantity}&priceNQT=${params.price}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24`;
+
+  const feeNQTURL = `${defaultURL}${JUPITER_FEE_CALCULATE_URL}`;
+  const response = await apiAxios.post(feeNQTURL)
+
+  const { transactionJSON: { feeNQT = 0 } = {} } = response;
+  const url = `${defaultURL}&feeNQT=${feeNQT}`;
+  return await apiAxios.post(url)
+}
+
 export {
   getAccountByPassphrase,
   getAccountByAccountID,
-  setAccountInfo
+  setAccountInfo,
+  getDGSGoods,
+  createNFTToken
 };

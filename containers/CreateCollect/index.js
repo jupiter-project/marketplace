@@ -1,6 +1,7 @@
 
 import { memo, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Grid,
@@ -10,7 +11,8 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
-import * as nftAPI from 'services/api-nft';
+import * as cloudinaryAPI from 'services/api-cloudinary'
+import * as jupiterAPI from 'services/api-jupiter'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import UploadMedia from './UploadMedia'
@@ -18,16 +20,21 @@ import PreviewCard from './PreviewCard'
 import {
   STRING_VALID,
   NUMBER_VALID,
-  INTEGER_VALID
+  INTEGER_VALID,
+  PASSPHRASE_VALID
 } from 'utils/constants/validations'
 import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
 import useLoading from 'utils/hooks/useLoading'
+import { isEmpty } from 'utils/helpers/utility'
+import { NQT_WEIGHT } from 'utils/constants/common'
 import LINKS from 'utils/constants/links'
+import MESSAGES from 'utils/constants/messages'
 
 const schema = yup.object().shape({
   name: STRING_VALID,
   price: NUMBER_VALID,
-  quantity: INTEGER_VALID
+  quantity: INTEGER_VALID,
+  passphrase: PASSPHRASE_VALID
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -65,17 +72,29 @@ const CreateCollect = () => {
   const router = useRouter();
   const { changeLoadingStatus } = useLoading();
 
+  const { currentUser } = useSelector(state => state.auth);
   const [fileBuffer, setFileBuffer] = useState(null);
   const [tag1, setTag1] = useState('');
   const [tag2, setTag2] = useState('');
 
-  const { control, handleSubmit, errors, watch } = useForm({
+  const { control, handleSubmit, errors, watch, setValue } = useForm({
     resolver: yupResolver(schema)
   });
 
   const watchAllFields = watch();
 
   const onSubmit = async (data) => {
+    if (isEmpty(currentUser)) {
+      showErrorToast(MESSAGES.AUTH_REQUIRED)
+      router.push(LINKS.SIGN_IN.HREF)
+      return;
+    }
+
+    if (!fileBuffer) {
+      showErrorToast(MESSAGES.IMAGE_NOT_FOUND)
+      return;
+    }
+
     changeLoadingStatus(true)
     try {
       let tags = ['nft'];
@@ -86,24 +105,34 @@ const CreateCollect = () => {
         tags = [...tags, tag2]
       }
 
+      const { image = '' } = await cloudinaryAPI.uploadFileCloudinary({ fileBuffer });
       const params = {
         name: data.name,
-        description: data.description,
-        price: data.price,
+        price: data.price * NQT_WEIGHT,
         quantity: data.quantity,
         tags: tags.join(', '),
-        fileBuffer
+        secretPhrase: data.passphrase,
+        publicKey: currentUser.publicKey,
+        description: image,
       }
 
-      const response = await nftAPI.createNFTtoken(params);
-      console.log(response)
-      showSuccessToast(response.message)
-      router.push(LINKS.DASHBOARD.HREF)
-    } catch (error) {
-      if (error.response) {
-        const { data: { message } } = error.response;
-        showErrorToast(message)
+      const response = await jupiterAPI.createNFTToken(params)
+      if (response?.errorCode) {
+        showErrorToast(MESSAGES.CREATE_NFT_ERROR)
+        changeLoadingStatus(false)
+        return;
       }
+
+      showSuccessToast(MESSAGES.CREATE_NFT_SUCCESS)
+      setFileBuffer(null)
+      setTag1('')
+      setTag2('')
+      setValue('name', '')
+      setValue('price', '')
+      setValue('quantity', 1)
+    } catch (error) {
+      console.log(error)
+      showErrorToast(MESSAGES.CREATE_NFT_ERROR)
     }
     changeLoadingStatus(false)
   };
@@ -145,20 +174,6 @@ const CreateCollect = () => {
                 label='Name'
                 placeholder='Name'
                 error={errors.name?.message}
-                control={control}
-                defaultValue=''
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Controller
-                as={<MagicTextField />}
-                isOption
-                multiline
-                rows={4}
-                name='description'
-                label='Description'
-                placeholder='Description'
-                error={errors.description?.message}
                 control={control}
                 defaultValue=''
               />
@@ -210,6 +225,17 @@ const CreateCollect = () => {
                 placeholder='Third Tag'
                 value={tag2}
                 onChange={(e) => setTag2(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
+                as={<MagicTextField />}
+                name='passphrase'
+                label='Passphrase'
+                placeholder='Passphrase'
+                error={errors.passphrase?.message}
+                control={control}
+                defaultValue=''
               />
             </Grid>
             <Grid item xs={12}>
