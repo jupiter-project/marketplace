@@ -9,17 +9,13 @@ import * as jupiterAPI from 'services/api-jupiter';
 import NFTCard from './NFTCard';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    margin: theme.spacing(4, 0)
-  },
   container: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     overflow: 'hidden !important',
     overflowAnchor: 'none',
+    padding: theme.spacing(4, 0)
   },
   list: {
     width: '100%',
@@ -69,25 +65,23 @@ const Dashboard = () => {
   }, [goods])
 
   return (
-    <main className={classes.root}>
-      <InfiniteScroll
-        dataLength={goods.length}
-        hasMore={!isLast}
-        loader={<h4>loading more</h4>}
-        next={getDGSGoods}
-        className={classes.container}
-      >
-        <Grid container spacing={3} className={classes.list} ref={scrollRef}>
-          {
-            goods.map((item, index) => (
-              <Grid key={index} item xs={12} sm={4} md={3} lg={2}>
-                <NFTCard item={item} />
-              </Grid>
-            ))
-          }
-        </Grid>
-      </InfiniteScroll>
-    </main>
+    <InfiniteScroll
+      dataLength={goods.length}
+      hasMore={!isLast}
+      loader={<h4>loading more</h4>}
+      next={getDGSGoods}
+      className={classes.container}
+    >
+      <Grid container spacing={3} className={classes.list} ref={scrollRef}>
+        {
+          goods.map((item, index) => (
+            <Grid key={index} item xs={12} sm={4} md={3} lg={2}>
+              <NFTCard item={item} />
+            </Grid>
+          ))
+        }
+      </Grid>
+    </InfiniteScroll>
   )
 }
 
