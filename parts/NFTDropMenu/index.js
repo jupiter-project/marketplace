@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const CardDropMenu = () => {
+const NFTDropMenu = () => {
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -69,9 +69,6 @@ const CardDropMenu = () => {
             Place a bid
           </MenuItem>
           <MenuItem className={classes.item}>
-            View on OpenSea
-          </MenuItem>
-          <MenuItem className={classes.item}>
             Report
           </MenuItem>
         </div>
@@ -80,4 +77,4 @@ const CardDropMenu = () => {
   );
 };
 
-export default memo(CardDropMenu);
+export default memo(NFTDropMenu);

@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { useRouter } from 'next/router'
 import {
   Card,
   CardHeader,
@@ -7,19 +7,22 @@ import {
   CardContent,
   Typography,
 } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 
 import MagicIdenticon from 'components/MagicIdenticon'
 import LinkButton from 'components/UI/Buttons/LinkButton'
-import CardDropMenu from './CardDropMenu'
+import NFTDropMenu from 'parts/NFTDropMenu'
 import {
   NQT_WEIGHT,
   DEFAULT_IMAGE
 } from 'utils/constants/common'
+import LINKS from 'utils/constants/links'
 
 const useStyles = makeStyles((theme) => ({
   media: {
     height: 0,
-    paddingTop: '80%'
+    paddingTop: '80%',
+    cursor: 'pointer'
   },
   highestBid: {
     display: 'flex',
@@ -47,23 +50,27 @@ const NFTCard = ({
   item
 }) => {
   const classes = useStyles();
+  const router = useRouter();
+
+  const detailNFTHandler = () => {
+    // router.push(
+    //   LINKS.NFT_DETAIL.HREF,
+    //   LINKS.NFT_DETAIL.HREF.replace('[goods]', item.goods)
+    // )
+  }
 
   return (
     <Card>
       <CardHeader
-        avatar={
-          <MagicIdenticon
-            size={40}
-            value={item.sellerRS}
-          />
-        }
-        action={<CardDropMenu />}
+        avatar={<MagicIdenticon size={40} value={item.sellerRS} />}
+        action={<NFTDropMenu />}
       />
 
       <CardMedia
         className={classes.media}
         image={item.description || DEFAULT_IMAGE}
         title={item.name}
+        onClick={detailNFTHandler}
       />
 
       <CardContent>
@@ -75,7 +82,7 @@ const NFTCard = ({
             {item.priceNQT / NQT_WEIGHT} JUP
           </Typography>
           <Typography variant='body2' color='primary'>
-            {item.quantity}
+            {`${item.quantity} of ${item.quantity}`}
           </Typography>
         </div>
 

@@ -46,7 +46,7 @@ const PreviewCard = ({
     <Card>
       <CardHeader
         avatar={
-          <MagicIdenticon value={accountRS || 'Not found'} />
+          <MagicIdenticon value={accountRS} />
         }
       />
 

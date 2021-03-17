@@ -21,6 +21,14 @@ const getAccountByAccountID = async (account) => {
   return await apiAxios.get(`/nxt?requestType=getAccount&account=${account}`)
 }
 
+const getDGSGoods = async (params) => {
+  return await apiAxios.get(`/nxt?requestType=getDGSGoods&firstIndex=${params.first}&lastIndex=${params.last}`)
+}
+
+const getDGSGood = async (goods) => {
+  return await apiAxios.get(`/nxt?requestType=getDGSGood&goods=${goods}`)
+}
+
 const setAccountInfo = async (params) => {
   const defaultURL = `/nxt?requestType=setAccountInfo&name=${params.name}&description=${params.description}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24`;
 
@@ -30,10 +38,6 @@ const setAccountInfo = async (params) => {
   const { transactionJSON: { feeNQT = 0 } = {} } = response;
   const url = `${defaultURL}&feeNQT=${feeNQT}`;
   return await apiAxios.post(url)
-}
-
-const getDGSGoods = async (params) => {
-  return await apiAxios.get(`/nxt?requestType=getDGSGoods&firstIndex=${params.first}&lastIndex=${params.last}`)
 }
 
 const createNFTToken = async (params) => {
@@ -52,5 +56,6 @@ export {
   getAccountByAccountID,
   setAccountInfo,
   getDGSGoods,
+  getDGSGood,
   createNFTToken
 };

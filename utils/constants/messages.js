@@ -10,7 +10,8 @@ const MESSAGES = Object.freeze({
   SET_ACCOUNT_SUCCESS: 'Your account info updated.',
   IMAGE_NOT_FOUND: 'Please upload image first.',
   CREATE_NFT_SUCCESS: 'New NFT token Created.',
-  CREATE_NFT_ERROR: 'There is a problem in set your account. Please contact to support team.'
+  CREATE_NFT_ERROR: 'There is a problem in set your account. Please contact to support team.',
+  GET_NFT_ERROR: 'There is no this kind of Goods. Please check url.'
 });
 
 export default MESSAGES;

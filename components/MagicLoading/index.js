@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
 const MagicLoading = ({
   loading,
   height,
-  size
+  size = 100
 }) => {
   const classes = useStyles({ height });
 
