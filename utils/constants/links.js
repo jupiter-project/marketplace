@@ -20,6 +20,10 @@ const LINKS = Object.freeze({
     TITLE: 'Dashboard',
     HREF: '/dashboard'
   },
+  NFT_DETAIL: {
+    TITLE: 'NFT detail',
+    HREF: '/nft-detail/[goods]'
+  },
   CREATE_COLLECT: {
     TITLE: 'Create Collect',
     HREF: '/create-collect'
