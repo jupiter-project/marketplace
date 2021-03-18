@@ -1,5 +1,6 @@
 
 import { memo } from 'react'
+import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 
@@ -41,6 +42,7 @@ const useStyles = makeStyles(theme => ({
 
 const HomeJourney = () => {
   const classes = useStyles();
+  const { accountRS } = useSelector(state => state.auth);
 
   return (
     <section className={classes.root}>
@@ -48,12 +50,16 @@ const HomeJourney = () => {
         <Typography variant='h1' className={classes.title}>
           Begin your NFT journey with Leda
         </Typography>
-        <ContainedButton
-          href={LINKS.CREATE_COLLECT.HREF}
-          className={classes.create}
-        >
-          Create
-        </ContainedButton>
+        {
+          !accountRS &&
+          <ContainedButton
+            href={LINKS.SIGN_UP.HREF}
+            className={classes.create}
+          >
+            Register
+          </ContainedButton>
+        }
+
       </div>
     </section>
   );

@@ -16,17 +16,17 @@ const LINKS = Object.freeze({
     TITLE: 'Home',
     HREF: '/'
   },
-  DASHBOARD: {
-    TITLE: 'Dashboard',
-    HREF: '/dashboard'
+  MARKETPLACE: {
+    TITLE: 'Marketplace',
+    HREF: '/marketplace '
   },
   NFT_DETAIL: {
     TITLE: 'NFT detail',
     HREF: '/nft-detail/[goods]'
   },
-  CREATE_COLLECT: {
-    TITLE: 'Create Collect',
-    HREF: '/create-collect'
+  CREATE_NFT: {
+    TITLE: 'Create NFT',
+    HREF: '/create-nft'
   },
   MY_ACCOUNT: {
     TITLE: 'My Account',

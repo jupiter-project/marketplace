@@ -92,7 +92,7 @@ const SignIn = () => {
         user: response
       }));
       showSuccessToast(MESSAGES.SIGN_IN_SUCCESS)
-      router.push(LINKS.DASHBOARD.HREF)
+      router.push(LINKS.MARKETPLACE.HREF)
     } catch (error) {
       if (error.response) {
         const { data: { message } } = error.response;

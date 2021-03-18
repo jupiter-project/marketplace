@@ -42,6 +42,15 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'lighter',
     color: `${theme.palette.primary.main} !important`
   },
+  alphaList: {
+    fontSize: 18,
+    maxWidth: 650,
+    margin: theme.spacing(0.5, 0),
+    listStyleType: 'lower-alpha',
+    '& li': {
+      marginBottom: theme.spacing(0.5)
+    }
+  },
   list: {
     fontSize: 18,
     maxWidth: 650,
@@ -84,13 +93,13 @@ const PrivacyPolicy = () => {
           {', accessible from '}
           <LinkButton href={LINKS.HOME.HREF} className={classes.link}>
             {SITE_URL}
-          </LinkButton>
+          </LinkButton>.
         </Typography>
 
         <Typography className={classes.title}>
           Definitions
         </Typography>
-        <ul className={classes.list}>
+        <ul className={classes.alphaList}>
           <li>
             {'Service is the '}
             <LinkButton href={LINKS.HOME.HREF} className={classes.link}>
@@ -129,24 +138,6 @@ const PrivacyPolicy = () => {
         </Typography>
 
         <Typography className={classes.subtitle}>
-          Personal Data
-        </Typography>
-        <Typography className={classes.description}>
-          While using our Service, we may ask you to provide us with certain personally identifiable information that
-          can be used to contact or identify you (“<b>Personal Data</b>”). Personally identifiable information may include,
-          but is not limited to:
-        </Typography>
-        <ul className={classes.list}>
-          <li>Email address</li>
-          <li>Cookies and Usage Data</li>
-        </ul>
-        <Typography className={classes.description}>
-          We may use your Personal Data to contact you with newsletters, marketing or promotional materials and other
-          information that may be of interest to you. You may opt out of receiving any, or all, of these communications
-          from us by following the unsubscribe link or the instructions provided in any email we send.
-        </Typography>
-
-        <Typography className={classes.subtitle}>
           Usage Data
         </Typography>
         <Typography className={classes.description}>
@@ -155,31 +146,6 @@ const PrivacyPolicy = () => {
           browser type, browser version, the pages of our Service that you visit, the time and date of your visit,
           the time spent on those pages, unique device identifiers and other diagnostic data.
         </Typography>
-
-        <Typography className={classes.subtitle}>
-          Tracking & Cookies Data
-        </Typography>
-        <Typography className={classes.description}>
-          We use cookies and similar tracking technologies to track the activity on our Service and we hold
-          certain information.
-        </Typography>
-        <Typography className={classes.description}>
-          Cookies are files with a small amount of data which may include an anonymous unique identifier. Cookies
-          are sent to your browser from a website and stored on your device. Other tracking technologies are also
-          used such as beacons, tags and scripts to collect and track information and to improve and analyse our Service.
-        </Typography>
-        <Typography className={classes.description}>
-          You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However,
-          if you do not accept cookies, you may not be able to use some portions of our Service.
-        </Typography>
-        <Typography className={classes.description}>
-          Examples of Cookies we use:
-        </Typography>
-        <ul className={classes.list}>
-          <li>Session Cookies. We use Session Cookies to operate our Service.</li>
-          <li>Preference Cookies. We use Preference Cookies to remember your preferences and various settings.</li>
-          <li>Security Cookies. We use Security Cookies for security purposes.</li>
-        </ul>
 
         <Typography className={classes.title}>
           Use of Data
@@ -363,37 +329,12 @@ const PrivacyPolicy = () => {
         </Typography>
 
         <Typography className={classes.title}>
-          Analytics
-        </Typography>
-        <Typography className={classes.description}>
-          We may use third-party Service Providers to monitor and analyse the use of our Service.
-        </Typography>
-        <ul className={classes.list}>
-          <li>
-            Google Analytics is a web analytics service offered by Google that tracks and reports website traffic.
-            Google uses the data collected to track and monitor the use of our Service. This data is shared with
-            other Google services. Google may use the collected data to contextualise and personalise the ads of
-            its own advertising network. You can opt-out of having made your activity on the Service available
-            to Google Analytics by installing the Google Analytics opt-out browser add-on. The add-on prevents
-            the Google Analytics JavaScript (ga.js, analytics.js and dc.js) from sharing information with Google
-            Analytics about visits activity. For more information on the privacy practices of Google, please
-            visit the Google Privacy & Terms web page:{' '}
-            <LinkButton href={'https://policies.google.com/privacy?hl=en'} className={classes.link}>
-              https://policies.google.com/privacy?hl=en
-            </LinkButton>.
-          </li>
-        </ul>
-
-        <Typography className={classes.title}>
           Links to Other Sites
         </Typography>
         <Typography className={classes.description}>
           Our Service may contain links to other sites that are not operated by us. If you click a third party link,
-          you will be directed to that third party’s site. We strongly advise you to review the{' '}
-          <LinkButton href={LINKS.PRIVACY_POLICY.HREF} className={classes.link}>
-            Privacy policy
-          </LinkButton>
-          {' of every site you visit.'}
+          you will be directed to that third party’s site. We strongly advise you to review the Privacy Policy of
+          every site you visit.
         </Typography>
         <Typography className={classes.description}>
           We have no control over and assume no responsibility for the content, privacy policies or practices of

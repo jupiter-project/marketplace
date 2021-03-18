@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PAGE_COUNT = 8;
 
-const Dashboard = () => {
+const Marketplace = () => {
   const classes = useStyles();
   const scrollRef = useRef(null);
   const deviceHeight = use100vh();
@@ -97,4 +97,4 @@ const Dashboard = () => {
   )
 }
 
-export default memo(Dashboard);
+export default memo(Marketplace);

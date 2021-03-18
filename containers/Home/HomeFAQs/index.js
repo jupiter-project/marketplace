@@ -7,7 +7,10 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import clsx from "clsx";
 
-import { PLACE_FILLER_URL } from "utils/constants/common";
+import {
+  UNISWAP_URL,
+  PANCAKESWAP_URL,
+} from "utils/constants/common";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -125,10 +128,11 @@ export default memo(HomeFAQs);
 const FAQs = [
   {
     title: "NFT? Singleton Assets?",
-    description: `NFT stands for non-fungible tokens like Singleton Asset Tokens which are 
-    hosted on Jupiter’s blockchain. NFTs are unique digital items such as collectibles 
-    or artworks or game items. As an artist, by tokenizing your work you both ensure that 
-    it is unique and brand it as your work. The actual ownership is blockchain-managed.`,
+    description: `NFT stands for non-fungible tokens and are unique digital items such as 
+    NFTs or artworks or game (hmm should this be in-game?) items. As an artist, by 
+    tokenizing your work you both ensure that it is unique and brand it as your work. 
+    The actual ownership is blockchain-managed. Leda uses the Jupiter blockchain, where 
+    NFT’s are called Singleton Asset Tokens.`,
   },
   {
     title: "What does “minting” mean?",
@@ -143,17 +147,21 @@ const FAQs = [
     of minted and sold items.`,
   },
   {
-    title: "What is $JUP?",
+    title: "What is JUP?",
     description: (
       <>
-        Jupiter is the native token of the Jupiter blockchain. $JUP is available
-        as a tokenized instance (an NFT, if you will) on Jupiter ($JUP) and
-        Binance Smart Chain ($bwJUP). You will need Jupiter tokens to create
-        your NFT on our blockchain. Please see{" "}
-        <a href={PLACE_FILLER_URL} target="_blank" rel="noreferrer">
-          here
+        Jupiter (JUP) is the native coin of the Jupiter blockchain and you will
+        need Jupiter coins to create your NFT on our blockchain or to buy a NFT.
+        Wrapped JUP tokens are available as JUP on Ethereum{" "}
+        <a href={UNISWAP_URL} target="_blank" rel="noreferrer">
+          Uniswap
         </a>{" "}
-        for more information.
+        {" and bwJUP on Binance Smart Chain "}
+        <a href={PANCAKESWAP_URL} target="_blank" rel="noreferrer">
+          Pancakeswap
+        </a>{" "}
+        and can be send from these platforms to your Jupiter mainnet account via
+        a gateway. Please see here for more information.
       </>
     ),
   },

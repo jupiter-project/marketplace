@@ -110,7 +110,9 @@ const SignUp = () => {
         color='primary'
         className={classes.alert}
       >
-        This Passphrase is very important. Please remember it.
+        This passphrase is very important. If you lose it, you will permanently
+        lose access to your account, there is no way to recover it. Write it
+        down carefully and store it in a safe place.
       </Typography>
       <form
         noValidate
@@ -165,7 +167,7 @@ const SignUp = () => {
           color='textSecondary'
           className={classes.footer}
         >
-          Have an Account?
+          Already have an Account?
           <LinkButton href={LINKS.SIGN_IN.HREF} className={classes.signIn}>
             Log In
           </LinkButton>

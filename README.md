@@ -35,18 +35,13 @@ yarn deploy:vercel
 ### Home Page
 
 - /home
-### Dashboard Page
+### Marketplace Page
 
-- /dashboard
+- /marketplace
 
-### Create Collectible Page
-
-- /create-collect
-
-### Create Collectible Page
+### Create NFT Page
 
 - /create-collect
-
 ---
 ## Contributors ✨
 

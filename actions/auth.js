@@ -7,7 +7,7 @@ import * as TYPES from './types'
 const setUserToken = ({ accountRS, user }) => dispatch => {
   dispatch(setAccountRS(accountRS));
   dispatch(setCurrentUser(user));
-  Router.push(LINKS.DASHBOARD.HREF);
+  Router.push(LINKS.MARKETPLACE.HREF);
 };
 
 const setAccountRS = accountRS => {

@@ -92,15 +92,8 @@ const TermsOfService = () => {
           through any such web sites or services.
         </Typography>
         <Typography className={classes.description}>
-          {'We strongly advise you to read the '}
-          <LinkButton href={LINKS.TERMS_OF_SERVICE.HREF} className={classes.link}>
-            terms and conditions
-          </LinkButton>
-          {' and '}
-          <LinkButton href={LINKS.PRIVACY_POLICY.HREF} className={classes.link}>
-            privacy policies
-          </LinkButton>
-          {' of any third-party web sites or services that you visit.'}
+          We strongly advise you to read the terms and conditions and privacy policies of any third-party web sites
+          or services that you visit.
         </Typography>
 
         <Typography className={classes.title}>

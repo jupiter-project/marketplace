@@ -1,5 +1,6 @@
 
 import { memo } from 'react'
+import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Grid,
@@ -24,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   textContainer: {
-    padding: theme.spacing(12),
+    padding: theme.spacing(20),
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(3),
     },
@@ -87,51 +88,75 @@ const useStyles = makeStyles(theme => ({
     background: 'linear-gradient(rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 100%)',
     height: 160,
   },
-  opacityLeft: {
-    position: 'absolute',
-    left: 0,
-    width: 120,
-    height: '100%',
-    background: 'linear-gradient(to right, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%)',
-  },
-  opacityRight: {
-    position: 'absolute',
-    right: 0,
-    width: 120,
-    height: '100%',
-    background: 'linear-gradient(to left, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%)',
-  }
 }));
 
 const HomeHeader = () => {
   const classes = useStyles();
 
+  const { accountRS } = useSelector(state => state.auth);
+
   return (
     <section className={classes.root}>
-      <Grid container className={classes.container}>
-        <Grid item sm={12} md={6} className={classes.textContainer}>
-          <Typography variant='h1' className={classes.title}>
+      <Grid
+        container
+        className={classes.container}
+      >
+        <Grid
+          item
+          sm={12}
+          md={6}
+          className={classes.textContainer}
+        >
+          <Typography
+            variant='h1'
+            className={classes.title}
+          >
             Leda is the official marketplace for Jupiter NFTs
           </Typography>
-          <Typography variant='h5' color='textSecondary' className={classes.description}>
+          <Typography
+            variant='h5'
+            color='textSecondary'
+            className={classes.description}
+          >
             Create, sell or collect digital items secured with blockchain
           </Typography>
+
           <div className={classes.buttonContainer}>
-            <ContainedButton
-              href={LINKS.CREATE_COLLECT.HREF}
-              className={classes.create}
-            >
-              Create
-            </ContainedButton>
-            <OutlinedButton href={LINKS.DASHBOARD.HREF}>
-              Explore
-            </OutlinedButton>
+            {accountRS
+              ? (
+                <>
+                  <ContainedButton
+                    href={LINKS.CREATE_NFT.HREF}
+                    className={classes.create}
+                  >
+                    Create NFT
+                  </ContainedButton>
+                  <OutlinedButton href={LINKS.MARKETPLACE.HREF} >
+                    Marketplace
+                  </OutlinedButton>
+                </>
+              ) : (
+                <>
+                  <ContainedButton
+                    href={LINKS.SIGN_IN.HREF}
+                    className={classes.create}
+                  >
+                    Log In
+                  </ContainedButton>
+                  <OutlinedButton href={LINKS.SIGN_UP.HREF} >
+                    Register
+                  </OutlinedButton>
+                </>
+              )}
           </div>
         </Grid>
-        <Grid item sm={12} md={6} className={classes.imageContainer}>
+        <Grid
+          item
+          sm={12}
+          md={6}
+          className={classes.imageContainer}
+        >
           <div className={classes.opacityTop} />
-          {/* <div className={classes.opacityLeft} />
-          <div className={classes.opacityRight} /> */}
           <div className={classes.opacityBottom} />
         </Grid>
       </Grid>

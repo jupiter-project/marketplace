@@ -1,5 +1,6 @@
 
 import { memo } from 'react'
+import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import Divider from '@material-ui/core/Divider'
 import clsx from 'clsx'
@@ -37,11 +38,13 @@ const useStyles = makeStyles((theme) => ({
 const MyAccount = () => {
   const classes = useStyles();
   const commonClasses = useCommonStyles();
+  const { accountRS } = useSelector(state => state.auth);
 
   return (
     <main className={classes.root}>
       <ImageWall
         header='My Account'
+        description={accountRS}
       />
       <div className={clsx(commonClasses.containerWidth, classes.container)}>
         <MyBalance />

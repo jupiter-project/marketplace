@@ -1,8 +1,9 @@
 
 import { memo, useCallback } from 'react'
-import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
+
+import useMenu from 'utils/hooks/useMenu'
 
 const useStyles = makeStyles(theme => ({
   item: {
@@ -19,11 +20,11 @@ const FooterMenuItem = ({
   menu
 }) => {
   const classes = useStyles();
-  const router = useRouter();
+  const { onMenuHandler } = useMenu();
 
   const onNavHandler = useCallback(() => {
-    router.push(menu.HREF)
-  }, [menu, router]);
+    onMenuHandler(menu)
+  }, [menu, onMenuHandler]);
 
   return (
     <Typography

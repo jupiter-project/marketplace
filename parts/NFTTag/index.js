@@ -28,7 +28,7 @@ const NFTTag = ({
   const router = useRouter();
 
   const tagHandler = () => {
-    router.push(LINKS.DASHBOARD.HREF)
+    router.push(LINKS.MARKETPLACE.HREF)
   }
 
   return (
