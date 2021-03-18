@@ -53,10 +53,10 @@ const NFTCard = ({
   const router = useRouter();
 
   const detailNFTHandler = () => {
-    // router.push(
-    //   LINKS.NFT_DETAIL.HREF,
-    //   LINKS.NFT_DETAIL.HREF.replace('[goods]', item.goods)
-    // )
+    router.push(
+      LINKS.NFT_DETAIL.HREF,
+      LINKS.NFT_DETAIL.HREF.replace('[goods]', item.goods)
+    )
   }
 
   return (

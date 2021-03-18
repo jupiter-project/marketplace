@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
   item: {
     borderRadius: 4,
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.main,
   }
 }));
 
