@@ -7,6 +7,7 @@ import { use100vh } from 'react-div-100vh'
 
 import * as jupiterAPI from 'services/api-jupiter';
 import NFTCard from './NFTCard';
+import { Typography } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -20,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
   list: {
     width: '100%',
     padding: theme.spacing(2)
+  },
+  loading: {
+    fontWeight: 'bold'
   }
 }));
 
@@ -62,13 +66,21 @@ const Dashboard = () => {
       getDGSGoods()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [goods])
+  }, []);
 
   return (
     <InfiniteScroll
       dataLength={goods.length}
       hasMore={!isLast}
-      loader={<h4>loading more</h4>}
+      loader={
+        <Typography
+          variant='h6'
+          color='primary'
+          className={classes.loading}
+        >
+          Loading more
+        </Typography>
+      }
       next={getDGSGoods}
       className={classes.container}
     >
