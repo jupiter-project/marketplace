@@ -8,9 +8,7 @@ import {
   CardContent,
   Typography,
 } from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
 
-import LinkButton from 'components/UI/Buttons/LinkButton';
 import MagicIdenticon from 'components/MagicIdenticon'
 import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
 
@@ -19,19 +17,9 @@ const useStyles = makeStyles((theme) => ({
     height: 0,
     paddingTop: '80%'
   },
-  highestBid: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  highestButton: {
-    marginLeft: theme.spacing(1)
-  },
   name: {
     fontWeight: 'bold',
     marginBottom: theme.spacing(0.5)
-  },
-  avatar: {
-    backgroundColor: red[500],
   },
 }));
 
@@ -68,22 +56,6 @@ const PreviewCard = ({
           <Typography variant='body1' color='textPrimary' className={classes.name}>
             {item?.price} JUP
           </Typography>
-        }
-
-        {
-          !!item?.highestBid
-            ? (
-              <Typography variant='body2' color='textSecondary' className={classes.highestBid} component='div'>
-                highestBid
-                <LinkButton className={classes.highestButton}>
-                  {item?.highestBid} JUP
-                </LinkButton>
-              </Typography>
-            ) : (
-              <LinkButton>
-                Place a bid
-              </LinkButton>
-            )
         }
       </CardContent>
     </Card>

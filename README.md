@@ -35,9 +35,9 @@ yarn deploy:vercel
 ### Home Page
 
 - /home
-### Dashboard Page
+### Marketplace Page
 
-- /dashboard
+- /marketplace
 
 ### Create NFT Page
 

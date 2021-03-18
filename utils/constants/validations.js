@@ -37,6 +37,13 @@ const NUMBER_VALID = yup.number()
   .typeError('Please enter valid number')
   .required('Please input field.');
 
+const PRICE_VALID = yup.number()
+  .typeError('Please enter valid number')
+  .test('price',
+    'Price should be more than 0.',
+    value => value > 0)
+  .required('Please input field.');
+
 const INTEGER_VALID = yup.number()
   .typeError('Please enter valid number')
   .integer('This field should be integer')
@@ -51,5 +58,6 @@ export {
   ACCOUNT_VALID,
   STRING_VALID,
   NUMBER_VALID,
+  PRICE_VALID,
   INTEGER_VALID
 };

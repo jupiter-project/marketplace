@@ -19,7 +19,7 @@ import UploadMedia from './UploadMedia'
 import PreviewCard from './PreviewCard'
 import {
   STRING_VALID,
-  NUMBER_VALID,
+  PRICE_VALID,
   INTEGER_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
@@ -32,7 +32,7 @@ import MESSAGES from 'utils/constants/messages'
 
 const schema = yup.object().shape({
   name: STRING_VALID,
-  price: NUMBER_VALID,
+  price: PRICE_VALID,
   quantity: INTEGER_VALID,
   passphrase: PASSPHRASE_VALID
 });
@@ -49,8 +49,15 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
     width: '100%',
     maxWidth: 650,
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
   },
   header: {
     fontWeight: 'bold',
@@ -63,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2)
   },
   button: {
-    margin: theme.spacing(2, 0)
+    margin: theme.spacing(5, 0)
   }
 }));
 
@@ -182,7 +189,7 @@ const CreateNFT = () => {
               <Controller
                 as={<MagicTextField />}
                 name='price'
-                label='Price'
+                label='Price (JUP)'
                 type='number'
                 placeholder='Price'
                 inputProps={{ min: 0 }}
@@ -238,15 +245,13 @@ const CreateNFT = () => {
                 defaultValue=''
               />
             </Grid>
-            <Grid item xs={12}>
-              <GradientButton
-                type='submit'
-                className={classes.button}
-              >
-                Create NFT
-              </GradientButton>
-            </Grid>
           </Grid>
+          <GradientButton
+            type='submit'
+            className={classes.button}
+          >
+            Create NFT
+          </GradientButton>
         </form>
       </div>
     </main>

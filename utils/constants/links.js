@@ -16,9 +16,9 @@ const LINKS = Object.freeze({
     TITLE: 'Home',
     HREF: '/'
   },
-  DASHBOARD: {
-    TITLE: 'Dashboard',
-    HREF: '/dashboard'
+  MARKETPLACE: {
+    TITLE: 'Marketplace',
+    HREF: '/marketplace '
   },
   NFT_DETAIL: {
     TITLE: 'NFT detail',

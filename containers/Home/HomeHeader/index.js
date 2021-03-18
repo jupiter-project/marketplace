@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   textContainer: {
-    padding: theme.spacing(12),
+    padding: theme.spacing(20),
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(3),
     },
@@ -129,10 +129,10 @@ const HomeHeader = () => {
                     href={LINKS.CREATE_NFT.HREF}
                     className={classes.create}
                   >
-                    Create
+                    Create NFT
                   </ContainedButton>
-                  <OutlinedButton href={LINKS.DASHBOARD.HREF} >
-                    Explore
+                  <OutlinedButton href={LINKS.MARKETPLACE.HREF} >
+                    Marketplace
                   </OutlinedButton>
                 </>
               ) : (
