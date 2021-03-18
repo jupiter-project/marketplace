@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import HomeHeader from './HomeHeader'
 import CreatorAndCollector from './CreatorAndCollector'
-import UserFeedback from './UserFeedback'
+// import UserFeedback from './UserFeedback'
 import HomeFAQs from './HomeFAQs'
 import HomeJourney from './HomeJourney'
 
@@ -25,7 +25,7 @@ const Home = () => {
     <main className={classes.root}>
       <HomeHeader />
       <CreatorAndCollector />
-      <UserFeedback />
+      {/* <UserFeedback /> */}
       <HomeFAQs />
       <HomeJourney />
     </main>

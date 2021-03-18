@@ -1,5 +1,6 @@
 
 import { memo } from 'react'
+import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Grid,
@@ -8,6 +9,7 @@ import {
 
 import FooterMenuItem from '../FooterMenuItem'
 import FOOTER_MENU from 'utils/constants/footer-menu'
+import LINKS from 'utils/constants/links'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,6 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 const FooterMenu = () => {
   const classes = useStyles();
+  const { accountRS = '' } = useSelector(state => state.auth);
 
   return (
     <div className={classes.root}>
@@ -33,13 +36,14 @@ const FooterMenu = () => {
       </Typography>
       <Grid container>
         {
-          FOOTER_MENU.map((menuItem, index) => (
-            <Grid item key={index} xs={6} sm={12}>
-              <FooterMenuItem
-                menu={menuItem}
-              />
-            </Grid>
-          ))
+          FOOTER_MENU.filter((item) => !!accountRS || item.HREF !== LINKS.CREATE_NFT.HREF)
+            .map((menuItem, index) => (
+              <Grid item key={index} xs={6} sm={12}>
+                <FooterMenuItem
+                  menu={menuItem}
+                />
+              </Grid>
+            ))
         }
       </Grid>
     </div>

@@ -24,9 +24,9 @@ const LINKS = Object.freeze({
     TITLE: 'NFT detail',
     HREF: '/nft-detail/[goods]'
   },
-  CREATE_COLLECT: {
-    TITLE: 'Create Collect',
-    HREF: '/create-collect'
+  CREATE_NFT: {
+    TITLE: 'Create NFT',
+    HREF: '/create-nft'
   },
   MY_ACCOUNT: {
     TITLE: 'My Account',

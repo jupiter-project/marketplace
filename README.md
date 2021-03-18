@@ -39,14 +39,9 @@ yarn deploy:vercel
 
 - /dashboard
 
-### Create Collectible Page
+### Create NFT Page
 
 - /create-collect
-
-### Create Collectible Page
-
-- /create-collect
-
 ---
 ## Contributors ✨
 

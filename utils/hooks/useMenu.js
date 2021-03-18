@@ -20,6 +20,7 @@ const useMenu = () => {
     , [isLoggedIn]);
 
   const onMenuHandler = useCallback((item) => {
+    console.log('(item) =>', item)
     switch (item.TITLE) {
       case LINKS.SIGN_OUT.TITLE:
         logOutHandler();

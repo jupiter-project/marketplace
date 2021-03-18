@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const CreateCollect = () => {
+const CreateNFT = () => {
   const classes = useStyles();
   const router = useRouter();
   const { changeLoadingStatus } = useLoading();
@@ -145,7 +145,7 @@ const CreateCollect = () => {
           color='textPrimary'
           className={classes.header}
         >
-          Create collectible
+          Create NFT
         </Typography>
         <Grid container spacing={3} className={classes.media}>
           <Grid item xs={12} sm={6} md={8}>
@@ -243,7 +243,7 @@ const CreateCollect = () => {
                 type='submit'
                 className={classes.button}
               >
-                Create collectible
+                Create NFT
               </GradientButton>
             </Grid>
           </Grid>
@@ -253,4 +253,4 @@ const CreateCollect = () => {
   )
 }
 
-export default memo(CreateCollect)
+export default memo(CreateNFT)
