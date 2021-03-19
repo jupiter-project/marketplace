@@ -11,7 +11,11 @@ const MESSAGES = Object.freeze({
   IMAGE_NOT_FOUND: 'Please upload image first.',
   CREATE_NFT_SUCCESS: 'New NFT token Created.',
   CREATE_NFT_ERROR: 'There is a problem in set your account. Please contact to support team.',
-  GET_NFT_ERROR: 'There is no this kind of NFT token. Please check url.'
+  GET_NFT_ERROR: 'There is no this kind of NFT token. Please check url.',
+  PURCHASE_NFT_SUCCESS: 'Your purchase request was sent to Seller.',
+  PURCHASE_NFT_ERROR: 'There is a problem in set your purchase. Please contact to support team.',
+  DELETE_NFT_SUCCESS: 'This NFT token was deleted.',
+  DELETE_NFT_ERROR: 'There is a problem in delete. Please contact to support team.',
 });
 
 export default MESSAGES;

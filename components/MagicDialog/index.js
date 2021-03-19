@@ -12,7 +12,6 @@ import CloseIcon from '@material-ui/icons/Close'
 
 import OutlinedButton from 'components/UI/Buttons/OutlinedButton'
 import GradientButton from 'components/UI/Buttons/GradientButton'
-import { AUTH_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,10 +29,7 @@ const useStyles = makeStyles((theme) => ({
     height: 68,
     lineHeight: 'initial',
     padding: theme.spacing(0, 6),
-    backgroundImage: `url(${AUTH_BACKGROUND_IMAGE_PATH})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPositionY: 'bottom',
-    backgroundSize: 'cover'
+    background: `linear-gradient(90deg, ${theme.custom.palette.darkGreen}, ${theme.custom.palette.black})`
   },
   title: {
     fontWeight: 'bold',

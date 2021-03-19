@@ -1,11 +1,15 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 
 import MagicIdenticon from 'components/MagicIdenticon'
 import GradientButton from 'components/UI/Buttons/GradientButton'
+import OutlinedButton from 'components/UI/Buttons/OutlinedButton'
 import NFTTag from 'parts/NFTTag'
+import DeleteNFTDialog from 'parts/DeleteNFTDialog'
+import PurchaseNFTDialog from 'parts/PurchaseNFTDialog'
+import PriceNFTDialog from 'parts/PriceNFTDialog'
 import { NQT_WEIGHT } from 'utils/constants/common'
 
 const useStyles = makeStyles((theme) => ({
@@ -51,6 +55,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(0.5),
     border: `2px dotted ${theme.palette.primary.main}`,
     marginBottom: theme.spacing(3)
+  },
+  button: {
+    marginRight: theme.spacing(0.5),
+    minWidth: 'unset'
   }
 }));
 
@@ -59,6 +67,9 @@ const NFTInformation = ({
 }) => {
   const classes = useStyles();
   const { accountRS } = useSelector(state => state.auth);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [openPurchaseModal, setOpenPurchaseModal] = useState(false);
+  const [openPriceModal, setOpenPriceModal] = useState(false);
 
   return (
     <div>
@@ -107,17 +118,57 @@ const NFTInformation = ({
         color='primary'
         className={classes.sellerRS}
       >
-        {accountRS === good.sellerRS ? 'MINE' : good.sellerRS}
+        {accountRS === good.sellerRS ? 'ME' : good.sellerRS}
       </Typography>
 
-      {
-        accountRS !== good.sellerRS &&
-        <GradientButton
-          type='submit'
-          className={classes.button}
-        >
-          Purchase Now
-        </GradientButton>
+      {accountRS !== good.sellerRS
+        ? (
+          <GradientButton
+            className={classes.button}
+            onClick={() => setOpenPurchaseModal(true)}
+          >
+            Purchase Now
+          </GradientButton>
+        ) : (
+          <div className={classes.buttonContainer}>
+            <GradientButton
+              className={classes.button}
+              onClick={() => setOpenPriceModal(true)}
+            >
+              Change Price
+            </GradientButton>
+            <OutlinedButton
+              className={classes.button}
+              onClick={() => setOpenDeleteModal(true)}
+            >
+              Delete
+            </OutlinedButton>
+          </div>
+        )
+      }
+
+      {openPurchaseModal &&
+        <PurchaseNFTDialog
+          open={openPurchaseModal}
+          setOpen={setOpenPurchaseModal}
+          item={good}
+        />
+      }
+
+      {openPriceModal &&
+        <PriceNFTDialog
+          open={openPriceModal}
+          setOpen={setOpenPriceModal}
+          item={good}
+        />
+      }
+
+      {openDeleteModal &&
+        <DeleteNFTDialog
+          open={openDeleteModal}
+          setOpen={setOpenDeleteModal}
+          item={good}
+        />
       }
     </div>
   )

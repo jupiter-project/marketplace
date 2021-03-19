@@ -6,6 +6,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { use100vh } from 'react-div-100vh'
 
 import * as jupiterAPI from 'services/api-jupiter';
+import PurchaseNFTDialog from 'parts/PurchaseNFTDialog'
 import NFTCard from './NFTCard';
 import { Typography } from '@material-ui/core'
 
@@ -37,6 +38,8 @@ const Marketplace = () => {
   const [goods, setGoods] = useState([]);
   const [first, setFirst] = useState(0);
   const [isLast, setIsLast] = useState(false)
+  const [selectedGood, setSelectedGood] = useState({});
+  const [openPurchaseModal, setOpenPurchaseModal] = useState(false);
 
   useEffect(() => {
     getDGSGoods();
@@ -68,6 +71,11 @@ const Marketplace = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const purchaseHandler = (item) => {
+    setSelectedGood(item)
+    setOpenPurchaseModal(true)
+  }
+
   return (
     <InfiniteScroll
       dataLength={goods.length}
@@ -88,11 +96,22 @@ const Marketplace = () => {
         {
           goods.map((item, index) => (
             <Grid key={index} item xs={12} sm={4} md={3} lg={2}>
-              <NFTCard item={item} />
+              <NFTCard
+                item={item}
+                onPurchase={purchaseHandler}
+              />
             </Grid>
           ))
         }
       </Grid>
+
+      {openPurchaseModal &&
+        <PurchaseNFTDialog
+          open={openPurchaseModal}
+          setOpen={setOpenPurchaseModal}
+          item={selectedGood}
+        />
+      }
     </InfiniteScroll>
   )
 }

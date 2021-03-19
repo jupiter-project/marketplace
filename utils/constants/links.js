@@ -32,6 +32,10 @@ const LINKS = Object.freeze({
     TITLE: 'My Account',
     HREF: '/my-account'
   },
+  MY_NFTS: {
+    TITLE: 'My NFTs',
+    HREF: '/my-nfts'
+  },
   TERMS_OF_SERVICE: {
     TITLE: 'Terms Of Service',
     HREF: '/terms-of-service',

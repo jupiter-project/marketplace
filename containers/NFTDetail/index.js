@@ -59,7 +59,6 @@ const NFTDetail = () => {
     }
   }, [router.query])
 
-
   return (
     <main className={classes.root}>
       <ImageWall header='NFT Token Detail' />
