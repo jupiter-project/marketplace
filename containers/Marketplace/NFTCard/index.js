@@ -1,5 +1,6 @@
 import { memo } from 'react'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 import {
   Card,
   CardHeader,
@@ -17,8 +18,13 @@ import {
   DEFAULT_IMAGE
 } from 'utils/constants/common'
 import LINKS from 'utils/constants/links'
+import { showErrorToast } from 'utils/helpers/toast'
+import MESSAGES from 'utils/constants/messages'
 
 const useStyles = makeStyles((theme) => ({
+  card: {
+    height: '100%'
+  },
   media: {
     height: 0,
     paddingTop: '80%',
@@ -47,10 +53,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NFTCard = ({
-  item
+  item,
+  onPurchase
 }) => {
   const classes = useStyles();
   const router = useRouter();
+
+  const { accountRS } = useSelector(state => state.auth);
 
   const detailNFTHandler = () => {
     router.push(
@@ -59,8 +68,18 @@ const NFTCard = ({
     )
   }
 
+  const purchaseHandler = () => {
+    if (!accountRS) {
+      showErrorToast(MESSAGES.AUTH_REQUIRED);
+      router.push(LINKS.SIGN_IN.HREF)
+      return;
+    }
+
+    onPurchase(item)
+  }
+
   return (
-    <Card>
+    <Card className={classes.card}>
       <CardHeader
         avatar={<MagicIdenticon size={40} value={item.sellerRS} />}
         action={<NFTDropMenu />}
@@ -86,9 +105,17 @@ const NFTCard = ({
           </Typography>
         </div>
 
-        <LinkButton>
-          Purchase Now
-        </LinkButton>
+        {accountRS === item.sellerRS
+          ? (
+            <LinkButton onClick={detailNFTHandler}>
+              Edit Now
+            </LinkButton>
+          ) : (
+            <LinkButton onClick={purchaseHandler}>
+              Purchase Now
+            </LinkButton>
+          )
+        }
       </CardContent>
     </Card>
   );
