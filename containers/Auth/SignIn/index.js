@@ -1,5 +1,5 @@
 
-import { memo, useState, useMemo } from 'react'
+import { memo } from 'react'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import Typography from '@material-ui/core/Typography'
@@ -13,26 +13,16 @@ import { setUserToken } from 'actions/auth'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import LinkButton from 'components/UI/Buttons/LinkButton'
 import AccountTextField from 'components/UI/TextFields/AccountTextField'
-import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper'
-import AuthTabs from './AuthTabs'
 import useLoading from 'utils/hooks/useLoading'
 import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
 import LINKS from 'utils/constants/links'
-import {
-  ACCOUNT_VALID,
-  PASSPHRASE_VALID
-} from 'utils/constants/validations'
+import { ACCOUNT_VALID } from 'utils/constants/validations'
 import MESSAGES from 'utils/constants/messages'
-import LOGIN_METHODS from 'utils/constants/login-methods'
 import TEXT_MASKS from 'utils/constants/text-masks'
 
-const accountSchema = yup.object().shape({
+const schema = yup.object().shape({
   account: ACCOUNT_VALID
-});
-
-const passphraseSchema = yup.object().shape({
-  passphrase: PASSPHRASE_VALID
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -51,19 +41,6 @@ const SignIn = () => {
   const router = useRouter();
   const { changeLoadingStatus } = useLoading();
 
-  const [method, setMethod] = useState(LOGIN_METHODS.ACCOUNT);
-
-  const schema = useMemo(() => {
-    switch (method) {
-      case LOGIN_METHODS.ACCOUNT:
-        return accountSchema;
-      case LOGIN_METHODS.PASSPHRASE:
-        return passphraseSchema;
-      default:
-        return accountSchema;
-    }
-  }, [method]);
-
   const { control, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema)
   });
@@ -71,16 +48,7 @@ const SignIn = () => {
   const onSubmit = async (data) => {
     changeLoadingStatus(true)
     try {
-      let response;
-      if (method === LOGIN_METHODS.ACCOUNT) {
-        response = await jupiterAPI.getAccountByAccountID(data.account);
-      }
-
-      if (method === LOGIN_METHODS.PASSPHRASE) {
-        response = await jupiterAPI.getAccountByPassphrase(data.passphrase);
-      }
-
-      console.log(response)
+      const response = await jupiterAPI.getAccountByAccountID(data.account);
       if (!response?.accountRS) {
         showErrorToast(MESSAGES.AUTH_ERROR)
         changeLoadingStatus(false);
@@ -104,41 +72,21 @@ const SignIn = () => {
 
   return (
     <AuthWrapper>
-      <AuthTabs
-        method={method}
-        setMethod={setMethod}
-      />
       <form
         noValidate
         className={authClasses.form}
         onSubmit={handleSubmit(onSubmit)}
       >
-        {
-          method === LOGIN_METHODS.ACCOUNT
-            ? (
-              <Controller
-                as={<AccountTextField />}
-                name='account'
-                label='Account'
-                mask={TEXT_MASKS.ACCOUNT}
-                error={errors.account?.message}
-                className={authClasses.input}
-                control={control}
-                defaultValue='JUP-'
-              />
-            ) : (
-              <Controller
-                as={<MagicTextField />}
-                multiline
-                name='passphrase'
-                label='Passphrase'
-                error={errors.passphrase?.message}
-                className={authClasses.input}
-                control={control}
-                defaultValue=''
-              />
-            )
-        }
+        <Controller
+          as={<AccountTextField />}
+          name='account'
+          label='Account'
+          mask={TEXT_MASKS.ACCOUNT}
+          error={errors.account?.message}
+          className={authClasses.input}
+          control={control}
+          defaultValue='JUP-'
+        />
         <GradientButton
           type='submit'
           className={authClasses.button}
