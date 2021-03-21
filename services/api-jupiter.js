@@ -77,6 +77,17 @@ const changeDGSGoodPrice = async (params) => {
   return await apiAxios.post(url)
 }
 
+const changeDGSGoodQuantity = async (params) => {
+  const defaultURL = `/nxt?requestType=dgsQuantityChange&goods=${params.goods}&deltaQuantity=${params.quantity}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24`;
+
+  const feeNQTURL = `${defaultURL}${JUPITER_FEE_CALCULATE_URL}`;
+  const response = await apiAxios.post(feeNQTURL)
+
+  const { transactionJSON: { feeNQT = 0 } = {} } = response;
+  const url = `${defaultURL}&feeNQT=${feeNQT}`;
+  return await apiAxios.post(url)
+}
+
 const deleteNFTToken = async (params) => {
   const defaultURL = `/nxt?requestType=dgsDelisting&goods=${params.goods}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24`;
 
@@ -98,5 +109,6 @@ export {
   createNFTToken,
   purchaseDGSGood,
   changeDGSGoodPrice,
+  changeDGSGoodQuantity,
   deleteNFTToken
 };

@@ -8,7 +8,7 @@ import OutlinedButton from 'components/UI/Buttons/OutlinedButton'
 const useStyles = makeStyles(theme => ({
   root: {
     minWidth: 160,
-    border: 'unset',
+    borderColor: theme.custom.palette.lightBlue,
     backgroundColor: theme.custom.palette.lightBlue
   }
 }));
