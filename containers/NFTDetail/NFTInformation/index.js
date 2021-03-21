@@ -10,6 +10,7 @@ import NFTTag from 'parts/NFTTag'
 import DeleteNFTDialog from 'parts/DeleteNFTDialog'
 import PurchaseNFTDialog from 'parts/PurchaseNFTDialog'
 import PriceNFTDialog from 'parts/PriceNFTDialog'
+import QuantityNFTDialog from 'parts/QuantityNFTDialog'
 import { NQT_WEIGHT } from 'utils/constants/common'
 
 const useStyles = makeStyles((theme) => ({
@@ -58,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     marginRight: theme.spacing(0.5),
+    marginBottom: theme.spacing(0.5),
     minWidth: 'unset'
   }
 }));
@@ -70,6 +72,7 @@ const NFTInformation = ({
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openPurchaseModal, setOpenPurchaseModal] = useState(false);
   const [openPriceModal, setOpenPriceModal] = useState(false);
+  const [openQuantityModal, setOpenQuantityModal] = useState(false);
 
   return (
     <div>
@@ -137,6 +140,12 @@ const NFTInformation = ({
             >
               Change Price
             </GradientButton>
+            <GradientButton
+              className={classes.button}
+              onClick={() => setOpenQuantityModal(true)}
+            >
+              Change Quantity
+            </GradientButton>
             <OutlinedButton
               className={classes.button}
               onClick={() => setOpenDeleteModal(true)}
@@ -167,6 +176,14 @@ const NFTInformation = ({
         <DeleteNFTDialog
           open={openDeleteModal}
           setOpen={setOpenDeleteModal}
+          item={good}
+        />
+      }
+
+      {openQuantityModal &&
+        <QuantityNFTDialog
+          open={openQuantityModal}
+          setOpen={setOpenQuantityModal}
           item={good}
         />
       }

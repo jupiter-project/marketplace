@@ -16,6 +16,8 @@ const MESSAGES = Object.freeze({
   PURCHASE_NFT_ERROR: 'There is a problem in set your purchase. Please contact to support team.',
   DELETE_NFT_SUCCESS: 'This NFT token was deleted.',
   DELETE_NFT_ERROR: 'There is a problem in delete. Please contact to support team.',
+  CHANGE_QUANTITY_NFT_SUCCESS: 'Quantity was changed successfully. Please refresh page after a few mins.',
+  CHANGE_QUANTITY_NFT_ERROR: 'There is a problem in changing price. Please contact to support team.',
 });
 
 export default MESSAGES;
