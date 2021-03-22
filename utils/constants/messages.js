@@ -18,6 +18,10 @@ const MESSAGES = Object.freeze({
   DELETE_NFT_ERROR: 'There is a problem in delete. Please contact to support team.',
   CHANGE_QUANTITY_NFT_SUCCESS: 'Quantity was changed successfully. Please refresh page after a few mins.',
   CHANGE_QUANTITY_NFT_ERROR: 'There is a problem in changing price. Please contact to support team.',
+  DELIVERY_NFT_SUCCESS: 'Delivery NFT successfully.',
+  DELIVERY_NFT_ERROR: 'There is a problem in delivering. Please contact to support team.',
+  REFUND_NFT_SUCCESS: 'Refund successfully.',
+  REFUND_NFT_ERROR: 'There is a problem in refunding. Please contact to support team.',
 });
 
 export default MESSAGES;

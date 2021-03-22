@@ -21,8 +21,24 @@ const getAccountByAccountID = async (account) => {
   return await apiAxios.get(`/nxt?requestType=getAccount&account=${account}`)
 }
 
-const getDGSGoods = async (params) => {
-  return await apiAxios.get(`/nxt?requestType=getDGSGoods&firstIndex=${params.first}&lastIndex=${params.last}`)
+const getDGSGoods = async (params, seller = '') => {
+  let defaultURL = `/nxt?requestType=getDGSGoods&firstIndex=${params.first}&lastIndex=${params.last}`
+
+  if (!!seller) {
+    defaultURL += `&seller=${seller}`
+  }
+
+  return await apiAxios.get(defaultURL)
+}
+
+const getDGSPurchasesBySeller = async (params) => {
+  const defaultURL = `/nxt?requestType=getDGSPurchases&firstIndex=${params.first}&lastIndex=${params.last}&seller=${params.seller}&completed=true`
+  return await apiAxios.get(defaultURL)
+}
+
+const getDGSPurchasesByBuyer = async (params) => {
+  const defaultURL = `/nxt?requestType=getDGSPurchases&firstIndex=${params.first}&lastIndex=${params.last}&buyer=${params.buyer}&completed=true`
+  return await apiAxios.get(defaultURL)
 }
 
 const getDGSGood = async (goods) => {
@@ -99,6 +115,31 @@ const deleteNFTToken = async (params) => {
   return await apiAxios.post(url)
 }
 
+const deliveryDGSGood = async (params, discountNQT) => {
+  let defaultURL = `/nxt?requestType=dgsDelivery&purchase=${params.purchase}&goodsToEncrypt=${params.goodsToEncrypt}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24`;
+  if (!!discountNQT) {
+    defaultURL += `&discountNQT=${discountNQT}`
+  }
+
+  const feeNQTURL = `${defaultURL}${JUPITER_FEE_CALCULATE_URL}`;
+  const response = await apiAxios.post(feeNQTURL)
+
+  const { transactionJSON: { feeNQT = 0 } = {} } = response;
+  const url = `${defaultURL}&feeNQT=${feeNQT}`;
+  return await apiAxios.post(url)
+}
+
+const refundDGSGood = async (params) => {
+  const defaultURL = `/nxt?requestType=dgsRefund&purchase=${params.purchase}&refundNQT=${params.refundNQT}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24`;
+
+  const feeNQTURL = `${defaultURL}${JUPITER_FEE_CALCULATE_URL}`;
+  const response = await apiAxios.post(feeNQTURL)
+
+  const { transactionJSON: { feeNQT = 0 } = {} } = response;
+  const url = `${defaultURL}&feeNQT=${feeNQT}`;
+  return await apiAxios.post(url)
+}
+
 export {
   getAccountByPassphrase,
   getAccountByAccountID,
@@ -106,9 +147,13 @@ export {
   getDGSGoods,
   getDGSGood,
   getDGSPendingPurchases,
+  getDGSPurchasesBySeller,
+  getDGSPurchasesByBuyer,
   createNFTToken,
   purchaseDGSGood,
   changeDGSGoodPrice,
   changeDGSGoodQuantity,
-  deleteNFTToken
+  deleteNFTToken,
+  deliveryDGSGood,
+  refundDGSGood
 };

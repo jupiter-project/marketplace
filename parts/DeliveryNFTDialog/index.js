@@ -14,18 +14,13 @@ import * as jupiterAPI from 'services/api-jupiter'
 import MagicDialog from 'components/MagicDialog'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
-import getTimestamp from 'utils/helpers/getTimestamp'
 import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
 import useLoading from 'utils/hooks/useLoading'
-import {
-  INTEGER_VALID,
-  PASSPHRASE_VALID
-} from 'utils/constants/validations'
+import { PASSPHRASE_VALID } from 'utils/constants/validations'
 import { NQT_WEIGHT } from 'utils/constants/common'
 import MESSAGES from 'utils/constants/messages'
 
 const schema = yup.object().shape({
-  quantity: INTEGER_VALID,
   passphrase: PASSPHRASE_VALID
 });
 
@@ -34,13 +29,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
-  },
-  image: {
-    height: 150,
-    maxWidth: '100%',
-    objectFit: 'contain',
-    borderRadius: 16,
-    border: `2px solid ${theme.palette.primary.main}`,
   },
   title: {
     fontSize: 20,
@@ -52,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const PurchaseNFTDialog = ({
+const DeliveryNFTDialog = ({
   open,
   setOpen,
   item,
@@ -68,30 +56,26 @@ const PurchaseNFTDialog = ({
   const onSubmit = async (data) => {
     changeLoadingStatus(true)
     try {
-      let deliveryDate = new Date();
-      deliveryDate.setDate(deliveryDate.getDate() + 7)
-
-      const params = {
-        goods: item.goods,
-        priceNQT: item.priceNQT,
-        quantity: data.quantity,
+      let params = {
+        purchase: item.purchase,
+        goodsToEncrypt: item.name,
         secretPhrase: data.passphrase,
-        deliveryDeadlineTimestamp: getTimestamp(deliveryDate),
         publicKey: currentUser.publicKey,
       }
+      const discountNQT = data.discount * NQT_WEIGHT;
 
-      const response = await jupiterAPI.purchaseDGSGood(params)
+      const response = await jupiterAPI.deliveryDGSGood(params, discountNQT)
       if (response?.errorCode) {
-        showErrorToast(response?.errorDescription || MESSAGES.PURCHASE_NFT_ERROR)
+        showErrorToast(response?.errorDescription || MESSAGES.DELIVERY_NFT_ERROR)
         changeLoadingStatus(false)
         return;
       }
 
-      showSuccessToast(MESSAGES.PURCHASE_NFT_SUCCESS)
+      showSuccessToast(MESSAGES.DELIVERY_NFT_SUCCESS)
       setOpen(false);
     } catch (error) {
       console.log(error)
-      showErrorToast(MESSAGES.PURCHASE_NFT_ERROR)
+      showErrorToast(MESSAGES.DELIVERY_NFT_ERROR)
     }
     changeLoadingStatus(false)
   };
@@ -103,7 +87,7 @@ const PurchaseNFTDialog = ({
   return (
     <MagicDialog
       open={open}
-      title='Purchase NFT'
+      title='Delivery NFT Token'
       onClose={handleClose}
     >
       <form
@@ -111,11 +95,6 @@ const PurchaseNFTDialog = ({
         className={classes.form}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <img
-          alt='nft image'
-          src={item.description}
-          className={classes.image}
-        />
         <Typography color='primary' className={classes.title}>
           {item.name}
         </Typography>
@@ -126,14 +105,14 @@ const PurchaseNFTDialog = ({
           <Grid item xs={12}>
             <Controller
               as={<MagicTextField />}
-              name='quantity'
-              label='Quantity'
+              name='discount'
+              label='Discount (JUP)'
               type='number'
-              placeholder='Quantity'
-              inputProps={{ min: 1 }}
-              error={errors.quantity?.message}
+              placeholder='Discount'
+              inputProps={{ min: 0 }}
+              error={errors.discount?.message}
               control={control}
-              defaultValue={1}
+              defaultValue={0}
             />
           </Grid>
           <Grid item xs={12}>
@@ -152,11 +131,11 @@ const PurchaseNFTDialog = ({
           type='submit'
           className={classes.button}
         >
-          Purchase Now
+          Delivery
         </GradientButton>
       </form>
     </MagicDialog>
   );
 }
 
-export default memo(PurchaseNFTDialog)
+export default memo(DeliveryNFTDialog)
