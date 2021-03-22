@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 'bold',
     padding: theme.spacing(1, 2, 0.5, 2),
     boxShadow: 'none',
-    borderRadius: 35,
+    borderRadius: 8,
     '&:hover': {
       color: theme.palette.primary.main
     }
