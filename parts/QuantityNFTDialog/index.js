@@ -21,6 +21,7 @@ import {
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
 import MESSAGES from 'utils/constants/messages'
+import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
 
 const schema = yup.object().shape({
   quantity: INTEGER_VALID,
@@ -107,7 +108,7 @@ const QuantityNFTDialog = ({
       >
         <img
           alt='nft image'
-          src={item.description}
+          src={item.description || IMAGE_PLACEHOLDER_IMAGE_PATH}
           className={classes.image}
         />
         <Typography color='primary' className={classes.title}>

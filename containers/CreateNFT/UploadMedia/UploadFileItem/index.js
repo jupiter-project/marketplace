@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import { IconButton } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close';
 
+import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
+
 const useStyles = makeStyles((theme) => ({
   fileContainer: {
     display: 'flex',
@@ -39,7 +41,7 @@ const UploadFileItem = ({
   return (
     <div className={classes.fileContainer}>
       <img
-        src={fileBuffer}
+        src={fileBuffer || IMAGE_PLACEHOLDER_IMAGE_PATH}
         className={classes.image}
       />
       <IconButton

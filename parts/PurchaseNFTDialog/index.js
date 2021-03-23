@@ -23,6 +23,7 @@ import {
 } from 'utils/constants/validations'
 import { NQT_WEIGHT } from 'utils/constants/common'
 import MESSAGES from 'utils/constants/messages'
+import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
 
 const schema = yup.object().shape({
   quantity: INTEGER_VALID,
@@ -114,7 +115,7 @@ const PurchaseNFTDialog = ({
       >
         <img
           alt='nft image'
-          src={item.description}
+          src={item.description || IMAGE_PLACEHOLDER_IMAGE_PATH}
           className={classes.image}
         />
         <Typography color='primary' className={classes.title}>

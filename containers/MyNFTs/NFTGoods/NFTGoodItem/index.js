@@ -6,6 +6,7 @@ import clsx from 'clsx'
 
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import { NQT_WEIGHT } from 'utils/constants/common'
+import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
 
 const useStyles = makeStyles((theme) => ({
   itemContainer: {
@@ -72,7 +73,7 @@ const NFTGoodItem = ({
         <div>
           <img
             alt='good-nft'
-            src={item.description}
+            src={item.description || IMAGE_PLACEHOLDER_IMAGE_PATH}
             className={classes.image}
           />
         </div>
