@@ -84,7 +84,7 @@ const CreatorAndCollector = () => {
         <Grid container spacing={8} className={classes.list}>
           {
             CREATORS.map((item, index) => (
-              <Grid key={index} item xs={12} sm={6} md={3} className={classes.item}>
+              <Grid key={index} item xs={6} md={3} className={classes.item}>
                 <div className={classes.iconContainer}>
                   <div className={classes.square} style={{ backgroundColor: item.color }} />
                   <item.icon style={{ color: item.color, width: 30, height: 30 }} />
