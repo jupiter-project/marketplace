@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     width: '100%',
+    maxWidth: theme.custom.layout.maxMarketPlaceWidth,
     padding: theme.spacing(2)
   },
   loading: {

@@ -21,7 +21,13 @@ const theme = responsiveFontSizes(createMuiTheme({
             url('/assets/fonts/Shentox.ttf') format('truetype')`
         }]
       }
-    }
+    },
+    MuiCard: {
+      root: {
+        borderRadius: 20,
+        boxShadow: '0 2px 12px 0 #bdbdbd',
+      }
+    },
   },
   palette: {
     primary: {
@@ -70,7 +76,8 @@ const theme = responsiveFontSizes(createMuiTheme({
     },
     layout: {
       topAppBarHeight: 80,
-      maxDesktopWidth: 1110
+      maxDesktopWidth: 1110,
+      maxMarketPlaceWidth: 1640
     },
   }
 }));

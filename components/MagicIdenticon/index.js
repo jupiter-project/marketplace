@@ -1,8 +1,8 @@
 
 import React, { memo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Identicon from 'react-identicons';
-import clsx from 'clsx';
+import Identicon from 'react-identicons'
+import clsx from 'clsx'
 
 const useStyles = makeStyles((theme) => ({
   root: {

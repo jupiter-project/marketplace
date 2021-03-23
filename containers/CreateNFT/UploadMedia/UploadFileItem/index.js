@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     position: 'relative',
     padding: theme.spacing(4),
-    borderRadius: 16,
+    borderRadius: 20,
     height: '100%',
     border: `2px dotted ${theme.palette.primary.main}`,
   },

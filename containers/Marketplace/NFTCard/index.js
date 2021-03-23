@@ -23,19 +23,12 @@ import MESSAGES from 'utils/constants/messages'
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    height: '100%'
+    height: '100%',
   },
   media: {
     height: 0,
     paddingTop: '80%',
-    cursor: 'pointer'
-  },
-  highestBid: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  highestButton: {
-    marginLeft: theme.spacing(1)
+    cursor: 'pointer',
   },
   name: {
     fontWeight: 'bold',
@@ -49,6 +42,11 @@ const useStyles = makeStyles((theme) => ({
   },
   price: {
     marginRight: theme.spacing(1)
+  },
+  button: {
+    fontSize: 16,
+    textAlign: 'right',
+    paddingTop: theme.spacing(1),
   }
 }));
 
@@ -108,11 +106,17 @@ const NFTCard = ({
 
         {accountRS === item.sellerRS
           ? (
-            <LinkButton onClick={detailNFTHandler}>
+            <LinkButton
+              className={classes.button}
+              onClick={detailNFTHandler}
+            >
               Edit Now
             </LinkButton>
           ) : (
-            <LinkButton onClick={purchaseHandler}>
+            <LinkButton
+              className={classes.button}
+              onClick={purchaseHandler}
+            >
               Purchase Now
             </LinkButton>
           )

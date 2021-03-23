@@ -13,7 +13,7 @@ import * as yup from 'yup'
 
 import * as cloudinaryAPI from 'services/api-cloudinary'
 import * as jupiterAPI from 'services/api-jupiter'
-import GradientButton from 'components/UI/Buttons/GradientButton'
+import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import UploadMedia from './UploadMedia'
 import PreviewCard from './PreviewCard'
@@ -29,6 +29,7 @@ import { isEmpty } from 'utils/helpers/utility'
 import { NQT_WEIGHT } from 'utils/constants/common'
 import LINKS from 'utils/constants/links'
 import MESSAGES from 'utils/constants/messages'
+import clsx from 'clsx'
 
 const schema = yup.object().shape({
   name: STRING_VALID,
@@ -70,7 +71,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2)
   },
   button: {
-    margin: theme.spacing(5, 0)
+    margin: theme.spacing(5, 1)
+  },
+  resetButton: {
+    backgroundColor: theme.custom.palette.red
   }
 }));
 
@@ -85,7 +89,7 @@ const CreateNFT = () => {
   const [tag1, setTag1] = useState('');
   const [tag2, setTag2] = useState('');
 
-  const { control, handleSubmit, errors, watch, setValue } = useForm({
+  const { control, handleSubmit, errors, watch, reset } = useForm({
     resolver: yupResolver(schema)
   });
 
@@ -106,12 +110,8 @@ const CreateNFT = () => {
     changeLoadingStatus(true)
     try {
       let tags = ['nft'];
-      if (tag1) {
-        tags = [...tags, tag1]
-      }
-      if (tag2) {
-        tags = [...tags, tag2]
-      }
+      if (tag1) tags = [...tags, tag1]
+      if (tag2) tags = [...tags, tag2]
 
       const { image = '' } = await cloudinaryAPI.uploadFileCloudinary({ fileBuffer });
       const params = {
@@ -132,18 +132,24 @@ const CreateNFT = () => {
       }
 
       setPopUp({ text: MESSAGES.CREATE_NFT_SUCCESS })
-      setFileBuffer(null)
-      setTag1('')
-      setTag2('')
-      setValue('name', '')
-      setValue('price', '')
-      setValue('quantity', 1)
+      resetHandler();
     } catch (error) {
       console.log(error)
       setPopUp({ text: MESSAGES.CREATE_NFT_ERROR })
     }
     changeLoadingStatus(false)
   };
+
+  const resetHandler = () => {
+    setFileBuffer(null)
+    setTag1('')
+    setTag2('')
+    reset({
+      name: '',
+      price: '',
+      quantity: 1
+    })
+  }
 
   return (
     <main className={classes.root}>
@@ -247,12 +253,20 @@ const CreateNFT = () => {
               />
             </Grid>
           </Grid>
-          <GradientButton
-            type='submit'
-            className={classes.button}
-          >
-            Create NFT
-          </GradientButton>
+          <div>
+            <ContainedButton
+              type='submit'
+              className={classes.button}
+            >
+              Create NFT
+            </ContainedButton>
+            <ContainedButton
+              onClick={resetHandler}
+              className={clsx(classes.button, classes.resetButton)}
+            >
+              Reset
+            </ContainedButton>
+          </div>
         </form>
       </div>
     </main>

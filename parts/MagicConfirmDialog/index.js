@@ -10,7 +10,7 @@ const MagicConfirmDialog = ({
 }) => {
   return (
     <MagicDialog {...rest}>
-      <Typography color='primary' variant='h6' align='center'>
+      <Typography color='primary' variant='h5' align='center'>
         {text}
       </Typography>
     </MagicDialog>

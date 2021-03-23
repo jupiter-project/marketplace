@@ -9,7 +9,7 @@ import * as yup from 'yup'
 
 import * as jupiterAPI from 'services/api-jupiter';
 import { setCurrentUser } from 'actions/auth'
-import GradientButton from 'components/UI/Buttons/GradientButton'
+import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import {
   STRING_VALID,
@@ -150,13 +150,13 @@ const EditAccount = () => {
         control={control}
         defaultValue=''
       />
-      <GradientButton
+      <ContainedButton
         type='submit'
         disabled={!currentUser?.balanceNQT || !isDirty}
         className={classes.button}
       >
-        Submit
-      </GradientButton>
+        Update Account
+      </ContainedButton>
     </form>
   )
 }
