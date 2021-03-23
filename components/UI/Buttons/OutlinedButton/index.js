@@ -11,7 +11,6 @@ const useStyles = makeStyles(theme => ({
     fontSize: 18,
     fontWeight: 'bold',
     padding: theme.spacing(1, 2, 0.5, 2),
-    boxShadow: 'none',
     borderRadius: 8,
     border: `1px solid ${theme.palette.primary.main}`
   },

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(3),
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column'
     }
@@ -44,7 +44,10 @@ const NFTSaleItem = ({
   return (
     <div className={classes.itemContainer}>
       <div className={classes.content}>
-        <MagicIdenticon value={item.buyerRS} />
+        <MagicIdenticon
+          size={65}
+          value={item.buyerRS}
+        />
         <div className={classes.info}>
           <Typography
             variant='h5'

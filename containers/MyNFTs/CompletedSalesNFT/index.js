@@ -1,5 +1,5 @@
 
-import { memo, useState, useEffect } from 'react'
+import { memo, useState, useEffect, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -10,7 +10,7 @@ import TabPanel from '../Shared/TabPanel'
 import NoNFT from '../Shared/NoNFT'
 import NFTSaleItem from './NFTSaleItem'
 import { isEmpty } from 'utils/helpers/utility'
-import { showErrorToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 
 const useStyles = makeStyles(() => ({
@@ -28,6 +28,7 @@ const CompletedSalesNFT = ({
   value
 }) => {
   const classes = useStyles();
+  const { setPopUp } = usePopUp();
 
   const { currentUser } = useSelector(state => state.auth);
   const [purchases, setPurchases] = useState([])
@@ -43,7 +44,7 @@ const CompletedSalesNFT = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser])
 
-  const getDGSPurchasesBySeller = async () => {
+  const getDGSPurchasesBySeller = useCallback(async () => {
     if (!isLast) {
       const params = {
         first,
@@ -53,7 +54,7 @@ const CompletedSalesNFT = ({
 
       const response = await jupiterAPI.getDGSPurchasesBySeller(params);
       if (response?.errorCode) {
-        showErrorToast(MESSAGES.GET_NFT_ERROR)
+        setPopUp({ text: MESSAGES.GET_NFT_ERROR })
         return;
       }
 
@@ -62,12 +63,12 @@ const CompletedSalesNFT = ({
       setFirst((prev) => prev + purchases.length);
       setIsLast(purchases.length < PAGE_COUNT);
     }
-  }
+  }, [isLast, first, currentUser, setPurchases, setFirst, setIsLast, setPopUp])
 
-  const refundHandler = (item) => {
+  const refundHandler = useCallback((item) => {
     setSelectedItem(item)
     setOpenModal(true)
-  }
+  }, [setOpenModal, setSelectedItem])
 
   return (
     <TabPanel value={value} index={index}>

@@ -1,4 +1,5 @@
 
+import { memo } from 'react'
 import MaskedInput from 'react-text-mask'
 
 const TextMaskCustom = ({
@@ -18,4 +19,4 @@ const TextMaskCustom = ({
   )
 };
 
-export default TextMaskCustom;
+export default memo(TextMaskCustom);

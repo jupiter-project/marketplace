@@ -1,4 +1,5 @@
 
+import { memo } from 'react'
 import Link from 'next/link'
 import SvgIcon from '@material-ui/core/SvgIcon'
 import { makeStyles } from '@material-ui/core/styles'
@@ -31,4 +32,4 @@ const DiscordIcon = ({
   )
 }
 
-export default DiscordIcon;
+export default memo(DiscordIcon);

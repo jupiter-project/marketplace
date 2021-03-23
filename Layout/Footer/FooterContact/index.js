@@ -1,17 +1,17 @@
-import { memo } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { memo } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 
-import Logo from "components/Logo";
+import Logo from 'components/Logo'
 import TelegramIcon from 'components/Icons/TelegramIcon'
 import TwitterIcon from 'components/Icons/TwitterIcon'
 import DiscordIcon from 'components/Icons/DiscordIcon'
-import LinkButton from "components/UI/Buttons/LinkButton";
-import { SUPPORT_EMAIL } from "utils/constants/contact";
+import LinkButton from 'components/UI/Buttons/LinkButton'
+import { SUPPORT_EMAIL } from 'utils/constants/contact'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     marginBottom: theme.spacing(2),
   },
   email: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
     marginTop: theme.spacing(1.5),
     color: theme.palette.background.default,
-    textDecoration: "unset",
+    textDecoration: 'unset',
   },
   socialContainer: {
     margin: theme.spacing(2.5, 0)
@@ -36,7 +36,7 @@ const FooterContact = () => {
     <div className={classes.root}>
       <Logo />
       <LinkButton
-        color="primary"
+        color='primary'
         href={`mailto:${SUPPORT_EMAIL}`}
         className={classes.email}
       >

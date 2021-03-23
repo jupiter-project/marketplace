@@ -1,36 +1,17 @@
 
-import { memo, useCallback } from 'react'
+import { memo } from 'react'
 import { Typography } from '@material-ui/core'
 
 import MagicDialog from 'components/MagicDialog'
 
 const MagicConfirmDialog = ({
-  open,
-  setOpen,
-  description = 'Are you sure to proceed this operation?',
-  onConfirm
+  text = 'Are you sure to proceed this operation?',
+  ...rest
 }) => {
-  const handleClose = useCallback(() => {
-    setOpen(false);
-  }, [setOpen]);
-
-  const confirmHandler = useCallback(() => {
-    setOpen(false);
-    onConfirm();
-  }, [setOpen, onConfirm]);
-
   return (
-    <MagicDialog
-      open={open}
-      title='Confirm'
-      cancelLabel='Cancel'
-      confirmLabel='Confirm'
-      onCancel={handleClose}
-      onClose={handleClose}
-      onConfirm={confirmHandler}
-    >
-      <Typography align='center'>
-        {description}
+    <MagicDialog {...rest}>
+      <Typography color='primary' variant='h5' align='center'>
+        {text}
       </Typography>
     </MagicDialog>
   );

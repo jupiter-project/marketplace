@@ -1,5 +1,5 @@
 
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import Typography from '@material-ui/core/Typography'
@@ -8,14 +8,14 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
-import * as jupiterAPI from "services/api-jupiter";
+import * as jupiterAPI from 'services/api-jupiter'
 import { setUserToken } from 'actions/auth'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import LinkButton from 'components/UI/Buttons/LinkButton'
 import AccountTextField from 'components/UI/TextFields/AccountTextField'
 import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper'
 import useLoading from 'utils/hooks/useLoading'
-import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import LINKS from 'utils/constants/links'
 import { ACCOUNT_VALID } from 'utils/constants/validations'
 import MESSAGES from 'utils/constants/messages'
@@ -39,18 +39,19 @@ const SignIn = () => {
   const classes = useStyles();
   const authClasses = authPageStyles();
   const router = useRouter();
+  const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
 
   const { control, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema)
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     changeLoadingStatus(true)
     try {
       const response = await jupiterAPI.getAccountByAccountID(data.account);
       if (!response?.accountRS) {
-        showErrorToast(MESSAGES.AUTH_ERROR)
+        setPopUp({ text: MESSAGES.AUTH_ERROR })
         changeLoadingStatus(false);
         return;
       }
@@ -59,16 +60,13 @@ const SignIn = () => {
         accountRS: response.accountRS,
         user: response
       }));
-      showSuccessToast(MESSAGES.SIGN_IN_SUCCESS)
+      setPopUp({ text: MESSAGES.SIGN_IN_SUCCESS })
       router.push(LINKS.MARKETPLACE.HREF)
     } catch (error) {
-      if (error.response) {
-        const { data: { message } } = error.response;
-        showErrorToast(message)
-      }
+      console.log(error)
     }
     changeLoadingStatus(false)
-  };
+  }, [router, dispatch, setPopUp, changeLoadingStatus]);
 
   return (
     <AuthWrapper>
@@ -98,7 +96,7 @@ const SignIn = () => {
           color='textSecondary'
           className={classes.footer}
         >
-          {"Don't have an Account?"}
+          {'Don\'t have an Account?'}
           <LinkButton
             href={LINKS.SIGN_UP.HREF}
             className={classes.signup}

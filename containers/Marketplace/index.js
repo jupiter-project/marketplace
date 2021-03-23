@@ -1,14 +1,13 @@
 
-import { memo, useState, useEffect, useRef } from 'react'
-import Grid from '@material-ui/core/Grid'
+import { memo, useState, useEffect, useRef, useCallback } from 'react'
+import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { use100vh } from 'react-div-100vh'
 
-import * as jupiterAPI from 'services/api-jupiter';
+import * as jupiterAPI from 'services/api-jupiter'
 import PurchaseNFTDialog from 'parts/PurchaseNFTDialog'
-import NFTCard from './NFTCard';
-import { Typography } from '@material-ui/core'
+import NFTCard from './NFTCard'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -21,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     width: '100%',
+    maxWidth: theme.custom.layout.maxMarketPlaceWidth,
     padding: theme.spacing(2)
   },
   loading: {
@@ -46,7 +46,14 @@ const Marketplace = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getDGSGoods = async () => {
+  useEffect(() => {
+    if (!isLast && scrollRef?.current?.scrollHeight < deviceHeight) {
+      getDGSGoods()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const getDGSGoods = useCallback(async () => {
     try {
       if (!isLast) {
         const params = {
@@ -62,19 +69,12 @@ const Marketplace = () => {
     } catch (error) {
       console.log(error)
     }
-  }
+  }, [isLast, first, setGoods, setFirst, setIsLast])
 
-  useEffect(() => {
-    if (!isLast && scrollRef?.current?.scrollHeight < deviceHeight) {
-      getDGSGoods()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const purchaseHandler = (item) => {
+  const purchaseHandler = useCallback((item) => {
     setSelectedGood(item)
     setOpenPurchaseModal(true)
-  }
+  }, [setSelectedGood, setOpenPurchaseModal])
 
   return (
     <InfiniteScroll

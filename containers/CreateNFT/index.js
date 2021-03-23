@@ -1,5 +1,5 @@
 
-import { memo, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
@@ -13,7 +13,7 @@ import * as yup from 'yup'
 
 import * as cloudinaryAPI from 'services/api-cloudinary'
 import * as jupiterAPI from 'services/api-jupiter'
-import GradientButton from 'components/UI/Buttons/GradientButton'
+import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import UploadMedia from './UploadMedia'
 import PreviewCard from './PreviewCard'
@@ -23,12 +23,13 @@ import {
   INTEGER_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
-import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import { isEmpty } from 'utils/helpers/utility'
 import { NQT_WEIGHT } from 'utils/constants/common'
 import LINKS from 'utils/constants/links'
 import MESSAGES from 'utils/constants/messages'
+import clsx from 'clsx'
 
 const schema = yup.object().shape({
   name: STRING_VALID,
@@ -70,13 +71,17 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2)
   },
   button: {
-    margin: theme.spacing(5, 0)
+    margin: theme.spacing(5, 1)
+  },
+  resetButton: {
+    backgroundColor: theme.custom.palette.red
   }
 }));
 
 const CreateNFT = () => {
   const classes = useStyles();
   const router = useRouter();
+  const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
 
   const { currentUser } = useSelector(state => state.auth);
@@ -84,33 +89,29 @@ const CreateNFT = () => {
   const [tag1, setTag1] = useState('');
   const [tag2, setTag2] = useState('');
 
-  const { control, handleSubmit, errors, watch, setValue } = useForm({
+  const { control, handleSubmit, errors, watch, reset } = useForm({
     resolver: yupResolver(schema)
   });
 
   const watchAllFields = watch();
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     if (isEmpty(currentUser)) {
-      showErrorToast(MESSAGES.AUTH_REQUIRED)
+      setPopUp({ text: MESSAGES.AUTH_REQUIRED })
       router.push(LINKS.SIGN_IN.HREF)
       return;
     }
 
     if (!fileBuffer) {
-      showErrorToast(MESSAGES.IMAGE_NOT_FOUND)
+      setPopUp({ text: MESSAGES.IMAGE_NOT_FOUND })
       return;
     }
 
     changeLoadingStatus(true)
     try {
       let tags = ['nft'];
-      if (tag1) {
-        tags = [...tags, tag1]
-      }
-      if (tag2) {
-        tags = [...tags, tag2]
-      }
+      if (tag1) tags = [...tags, tag1]
+      if (tag2) tags = [...tags, tag2]
 
       const { image = '' } = await cloudinaryAPI.uploadFileCloudinary({ fileBuffer });
       const params = {
@@ -125,24 +126,30 @@ const CreateNFT = () => {
 
       const response = await jupiterAPI.createNFTToken(params)
       if (response?.errorCode) {
-        showErrorToast(MESSAGES.CREATE_NFT_ERROR)
+        setPopUp({ text: MESSAGES.CREATE_NFT_ERROR })
         changeLoadingStatus(false)
         return;
       }
 
-      showSuccessToast(MESSAGES.CREATE_NFT_SUCCESS)
-      setFileBuffer(null)
-      setTag1('')
-      setTag2('')
-      setValue('name', '')
-      setValue('price', '')
-      setValue('quantity', 1)
+      setPopUp({ text: MESSAGES.CREATE_NFT_SUCCESS })
+      resetHandler();
     } catch (error) {
       console.log(error)
-      showErrorToast(MESSAGES.CREATE_NFT_ERROR)
+      setPopUp({ text: MESSAGES.CREATE_NFT_ERROR })
     }
     changeLoadingStatus(false)
-  };
+  }, [tag1, tag2, router, fileBuffer, currentUser, resetHandler, setPopUp, changeLoadingStatus]);
+
+  const resetHandler = useCallback(() => {
+    setFileBuffer(null)
+    setTag1('')
+    setTag2('')
+    reset({
+      name: '',
+      price: '',
+      quantity: 1
+    })
+  }, [reset, setFileBuffer, setTag1, setTag2])
 
   return (
     <main className={classes.root}>
@@ -246,12 +253,20 @@ const CreateNFT = () => {
               />
             </Grid>
           </Grid>
-          <GradientButton
-            type='submit'
-            className={classes.button}
-          >
-            Create NFT
-          </GradientButton>
+          <div>
+            <ContainedButton
+              type='submit'
+              className={classes.button}
+            >
+              Create NFT
+            </ContainedButton>
+            <ContainedButton
+              onClick={resetHandler}
+              className={clsx(classes.button, classes.resetButton)}
+            >
+              Reset
+            </ContainedButton>
+          </div>
         </form>
       </div>
     </main>

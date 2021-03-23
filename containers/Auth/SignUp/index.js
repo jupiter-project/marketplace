@@ -1,23 +1,23 @@
-import { memo, useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { memo, useState, useEffect, useCallback } from 'react'
+import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
-import * as jupiterAPI from 'services/api-jupiter';
+import * as jupiterAPI from 'services/api-jupiter'
 import { setUserToken } from 'actions/auth'
 import MagicCheckbox from 'components/UI/MagicCheckbox'
-import GradientButton from 'components/UI/Buttons/GradientButton';
-import LinkButton from 'components/UI/Buttons/LinkButton';
-import MagicTextField from 'components/UI/TextFields/MagicTextField';
-import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper';
-import useLoading from 'utils/hooks/useLoading';
-import { showErrorToast, showSuccessToast } from 'utils/helpers/toast';
-import generatePassphrase from 'utils/helpers/generatePassphrase';
-import LINKS from 'utils/constants/links';
+import GradientButton from 'components/UI/Buttons/GradientButton'
+import LinkButton from 'components/UI/Buttons/LinkButton'
+import MagicTextField from 'components/UI/TextFields/MagicTextField'
+import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper'
+import useLoading from 'utils/hooks/useLoading'
+import usePopUp from 'utils/hooks/usePopUp'
+import generatePassphrase from 'utils/helpers/generatePassphrase'
+import LINKS from 'utils/constants/links'
 import MESSAGES from 'utils/constants/messages'
 
 const useStyles = makeStyles((theme) => ({
@@ -50,6 +50,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const authClasses = authPageStyles();
   const router = useRouter();
+  const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
 
   const [agree, setAgree] = useState(false);
@@ -71,9 +72,9 @@ const SignUp = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     if (!agree) {
-      showErrorToast(MESSAGES.TERMS_PRIVACY_CHECK)
+      setPopUp({ text: MESSAGES.TERMS_PRIVACY_CHECK })
       return;
     }
 
@@ -81,7 +82,7 @@ const SignUp = () => {
     try {
       const response = await jupiterAPI.getAccountByPassphrase(data.passphrase);
       if (!response?.accountRS) {
-        showErrorToast(MESSAGES.AUTH_ERROR)
+        setPopUp({ text: MESSAGES.AUTH_ERROR })
         changeLoadingStatus(false);
         return;
       }
@@ -90,18 +91,13 @@ const SignUp = () => {
         accountRS: response.accountRS,
         user: response
       }));
-      showSuccessToast(MESSAGES.SIGN_UP_SUCCESS);
+      setPopUp({ text: MESSAGES.SIGN_UP_SUCCESS })
       router.push(LINKS.HOME.HREF);
     } catch (error) {
-      if (error.response) {
-        const {
-          data: { message },
-        } = error.response;
-        showErrorToast(message);
-      }
+      console.log(error)
     }
     changeLoadingStatus(false);
-  };
+  }, [agree, router, dispatch, setPopUp, changeLoadingStatus]);
 
   return (
     <AuthWrapper>

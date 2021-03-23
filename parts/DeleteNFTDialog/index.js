@@ -11,10 +11,11 @@ import * as jupiterAPI from 'services/api-jupiter'
 import MagicDialog from 'components/MagicDialog'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
-import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import { PASSPHRASE_VALID } from 'utils/constants/validations'
 import MESSAGES from 'utils/constants/messages'
+import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths'
 
 const schema = yup.object().shape({
   passphrase: PASSPHRASE_VALID
@@ -49,6 +50,7 @@ const DeleteNFTDialog = ({
   item,
 }) => {
   const classes = useStyles();
+  const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
   const { currentUser } = useSelector(state => state.auth);
 
@@ -56,7 +58,7 @@ const DeleteNFTDialog = ({
     resolver: yupResolver(schema)
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     changeLoadingStatus(true)
     try {
       const params = {
@@ -67,19 +69,19 @@ const DeleteNFTDialog = ({
 
       const response = await jupiterAPI.deleteNFTToken(params)
       if (response?.errorCode) {
-        showErrorToast(response?.errorDescription || MESSAGES.PURCHASE_NFT_ERROR)
+        setPopUp({ text: response?.errorDescription || MESSAGES.PURCHASE_NFT_ERROR })
         changeLoadingStatus(false)
         return;
       }
 
-      showSuccessToast(MESSAGES.DELETE_NFT_SUCCESS)
+      setPopUp({ text: MESSAGES.DELETE_NFT_SUCCESS })
       setOpen(false);
     } catch (error) {
       console.log(error)
-      showErrorToast(MESSAGES.DELETE_NFT_ERROR)
+      setPopUp({ text: MESSAGES.DELETE_NFT_ERROR })
     }
     changeLoadingStatus(false)
-  };
+  }, [item, currentUser, setOpen, setPopUp, changeLoadingStatus]);
 
   const handleClose = useCallback(() => {
     setOpen(false);
@@ -98,7 +100,7 @@ const DeleteNFTDialog = ({
       >
         <img
           alt='nft image'
-          src={item.description}
+          src={item.description || IMAGE_PLACEHOLDER_IMAGE_PATH}
           className={classes.image}
         />
         <Typography color='primary' className={classes.title}>

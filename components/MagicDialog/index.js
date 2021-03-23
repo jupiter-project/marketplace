@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 
-import OutlinedButton from 'components/UI/Buttons/OutlinedButton'
+import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 
 const useStyles = makeStyles((theme) => ({
@@ -128,13 +128,13 @@ const MagicDialog = ({
         >
           {
             !!cancelLabel &&
-            <OutlinedButton
+            <ContainedButton
               autoFocus
               onClick={onCancel}
               className={classes.button}
             >
               {cancelLabel}
-            </OutlinedButton>
+            </ContainedButton>
           }
           {
             !!confirmLabel &&

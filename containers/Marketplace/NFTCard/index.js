@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import {
@@ -18,24 +18,17 @@ import {
   DEFAULT_IMAGE
 } from 'utils/constants/common'
 import LINKS from 'utils/constants/links'
-import { showErrorToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    height: '100%'
+    height: '100%',
   },
   media: {
     height: 0,
     paddingTop: '80%',
-    cursor: 'pointer'
-  },
-  highestBid: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  highestButton: {
-    marginLeft: theme.spacing(1)
+    cursor: 'pointer',
   },
   name: {
     fontWeight: 'bold',
@@ -49,6 +42,11 @@ const useStyles = makeStyles((theme) => ({
   },
   price: {
     marginRight: theme.spacing(1)
+  },
+  button: {
+    fontSize: 16,
+    textAlign: 'right',
+    paddingTop: theme.spacing(1),
   }
 }));
 
@@ -58,25 +56,24 @@ const NFTCard = ({
 }) => {
   const classes = useStyles();
   const router = useRouter();
-
+  const { setPopUp } = usePopUp();
   const { accountRS } = useSelector(state => state.auth);
 
-  const detailNFTHandler = () => {
+  const detailNFTHandler = useCallback(() => {
     router.push(
       LINKS.NFT_DETAIL.HREF,
       LINKS.NFT_DETAIL.HREF.replace('[goods]', item.goods)
     )
-  }
+  }, [item, router])
 
-  const purchaseHandler = () => {
+  const purchaseHandler = useCallback(() => {
     if (!accountRS) {
-      showErrorToast(MESSAGES.AUTH_REQUIRED);
+      setPopUp({ text: MESSAGES.AUTH_REQUIRED })
       router.push(LINKS.SIGN_IN.HREF)
       return;
     }
-
     onPurchase(item)
-  }
+  }, [item, accountRS, router, setPopUp, onPurchase])
 
   return (
     <Card className={classes.card}>
@@ -84,34 +81,49 @@ const NFTCard = ({
         avatar={<MagicIdenticon size={40} value={item.sellerRS} />}
         action={<NFTDropMenu />}
       />
-
       <CardMedia
         className={classes.media}
         image={item.description || DEFAULT_IMAGE}
         title={item.name}
         onClick={detailNFTHandler}
       />
-
       <CardContent>
-        <Typography variant='body1' color='textPrimary' className={classes.name}>
+        <Typography
+          variant='body1'
+          color='textPrimary'
+          className={classes.name}
+        >
           {item.name}
         </Typography>
         <div className={classes.info}>
-          <Typography variant='body2' color='primary' className={classes.price}>
+          <Typography
+            variant='body2'
+            color='primary'
+            className={classes.price}
+          >
             {item.priceNQT / NQT_WEIGHT} JUP
           </Typography>
-          <Typography variant='body2' color='primary'>
+          <Typography
+            variant='body2'
+            color='textSecondary'
+          >
             {`${item.quantity} of ${item.quantity}`}
           </Typography>
         </div>
 
         {accountRS === item.sellerRS
           ? (
-            <LinkButton onClick={detailNFTHandler}>
+            <LinkButton
+              className={classes.button}
+              onClick={detailNFTHandler}
+            >
               Edit Now
             </LinkButton>
           ) : (
-            <LinkButton onClick={purchaseHandler}>
+            <LinkButton
+              className={classes.button}
+              onClick={purchaseHandler}
+            >
               Purchase Now
             </LinkButton>
           )

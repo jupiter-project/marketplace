@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     padding: theme.spacing(4),
     height: '100%',
-    borderRadius: 16,
+    borderRadius: 20,
     border: `2px dotted ${theme.palette.primary.main}`,
     '&:focus': {
       outline: '0 !important'

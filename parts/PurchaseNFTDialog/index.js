@@ -15,7 +15,7 @@ import MagicDialog from 'components/MagicDialog'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import getTimestamp from 'utils/helpers/getTimestamp'
-import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import {
   INTEGER_VALID,
@@ -23,6 +23,7 @@ import {
 } from 'utils/constants/validations'
 import { NQT_WEIGHT } from 'utils/constants/common'
 import MESSAGES from 'utils/constants/messages'
+import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
 
 const schema = yup.object().shape({
   quantity: INTEGER_VALID,
@@ -58,6 +59,7 @@ const PurchaseNFTDialog = ({
   item,
 }) => {
   const classes = useStyles();
+  const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
   const { currentUser } = useSelector(state => state.auth);
 
@@ -65,7 +67,7 @@ const PurchaseNFTDialog = ({
     resolver: yupResolver(schema)
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     changeLoadingStatus(true)
     try {
       let deliveryDate = new Date();
@@ -82,19 +84,19 @@ const PurchaseNFTDialog = ({
 
       const response = await jupiterAPI.purchaseDGSGood(params)
       if (response?.errorCode) {
-        showErrorToast(response?.errorDescription || MESSAGES.PURCHASE_NFT_ERROR)
+        setPopUp({ text: response?.errorDescription || MESSAGES.PURCHASE_NFT_ERROR })
         changeLoadingStatus(false)
         return;
       }
 
-      showSuccessToast(MESSAGES.PURCHASE_NFT_SUCCESS)
+      setPopUp({ text: MESSAGES.PURCHASE_NFT_SUCCESS })
       setOpen(false);
     } catch (error) {
       console.log(error)
-      showErrorToast(MESSAGES.PURCHASE_NFT_ERROR)
+      setPopUp({ text: MESSAGES.PURCHASE_NFT_ERROR })
     }
     changeLoadingStatus(false)
-  };
+  }, [item, currentUser, setOpen, setPopUp, changeLoadingStatus]);
 
   const handleClose = useCallback(() => {
     setOpen(false);
@@ -113,7 +115,7 @@ const PurchaseNFTDialog = ({
       >
         <img
           alt='nft image'
-          src={item.description}
+          src={item.description || IMAGE_PLACEHOLDER_IMAGE_PATH}
           className={classes.image}
         />
         <Typography color='primary' className={classes.title}>

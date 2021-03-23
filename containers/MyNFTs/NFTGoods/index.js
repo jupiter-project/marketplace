@@ -1,5 +1,5 @@
 
-import { memo, useState, useEffect } from 'react'
+import { memo, useState, useEffect, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
@@ -13,7 +13,7 @@ import TabPanel from '../Shared/TabPanel'
 import NoNFT from '../Shared/NoNFT'
 import NFTGoodItem from './NFTGoodItem'
 import { isEmpty } from 'utils/helpers/utility'
-import { showErrorToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 import LINKS from 'utils/constants/links'
 
@@ -33,6 +33,7 @@ const NFTGoods = ({
 }) => {
   const classes = useStyles();
   const router = useRouter();
+  const { setPopUp } = usePopUp();
 
   const { currentUser } = useSelector(state => state.auth);
   const [goods, setGoods] = useState([])
@@ -50,7 +51,7 @@ const NFTGoods = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser])
 
-  const getDGSGoodsBySeller = async () => {
+  const getDGSGoodsBySeller = useCallback(async () => {
     if (!isLast) {
       const params = {
         first,
@@ -59,7 +60,7 @@ const NFTGoods = ({
 
       const response = await jupiterAPI.getDGSGoods(params, currentUser.account);
       if (response?.errorCode) {
-        showErrorToast(MESSAGES.GET_NFT_ERROR)
+        setPopUp({ text: MESSAGES.GET_NFT_ERROR })
         return;
       }
       const { goods = [] } = response;
@@ -67,29 +68,29 @@ const NFTGoods = ({
       setFirst((prev) => prev + goods.length);
       setIsLast(goods.length < PAGE_COUNT);
     }
-  }
+  }, [isLast, first, currentUser, setGoods, setFirst, setIsLast, setPopUp]);
 
-  const detailNFTHandler = (item) => {
+  const detailNFTHandler = useCallback((item) => {
     router.push(
       LINKS.NFT_DETAIL.HREF,
       LINKS.NFT_DETAIL.HREF.replace('[goods]', item.goods)
     )
-  }
+  }, [router]);
 
-  const priceHandler = (item) => {
+  const priceHandler = useCallback((item) => {
     setSelectedItem(item)
     setOpenPriceModal(true)
-  }
+  }, [setSelectedItem, setOpenPriceModal]);
 
-  const quantityHandler = (item) => {
-    setOpenQuantityModal(item)
-    setOpenDeleteModal(true)
-  }
+  const quantityHandler = useCallback((item) => {
+    setSelectedItem(item)
+    setOpenQuantityModal(true)
+  }, [setSelectedItem, setOpenQuantityModal]);
 
-  const deleteHandler = (item) => {
+  const deleteHandler = useCallback((item) => {
     setSelectedItem(item)
     setOpenDeleteModal(true)
-  }
+  }, [setSelectedItem, setOpenDeleteModal]);
 
   return (
     <TabPanel value={value} index={index}>

@@ -47,7 +47,10 @@ const HomeJourney = () => {
   return (
     <section className={classes.root}>
       <div className={classes.container}>
-        <Typography variant='h1' className={classes.title}>
+        <Typography
+          variant='h1'
+          className={classes.title}
+        >
           Begin your NFT journey with Leda
         </Typography>
         {

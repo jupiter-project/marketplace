@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Tab,
@@ -46,9 +46,10 @@ const VerticalTabs = ({
   setValue
 }) => {
   const classes = useStyles();
-  const handleChange = (event, newValue) => {
+
+  const handleChange = useCallback((event, newValue) => {
     setValue(newValue);
-  };
+  }, [setValue]);
 
   return (
     <Tabs
@@ -66,11 +67,7 @@ const VerticalTabs = ({
         tabs.map((item, index) => (
           <Tab
             key={index}
-            label={
-              <Hidden smDown>
-                {item.label}
-              </Hidden>
-            }
+            label={<Hidden smDown> {item.label} </Hidden>}
             icon={<item.icon />}
             className={classes.tab}
             classes={{

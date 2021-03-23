@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import Accordion from "@material-ui/core/Accordion";
@@ -74,9 +74,9 @@ const HomeFAQs = () => {
 
   const [expanded, setExpanded] = useState(false);
 
-  const handleChange = (panel) => (event, isExpanded) => {
+  const handleChange = useCallback((panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
-  };
+  }, [setExpanded]);
 
   return (
     <section className={classes.root}>

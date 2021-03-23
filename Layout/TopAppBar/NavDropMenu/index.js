@@ -7,7 +7,7 @@ import {
   IconButton
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import MenuIcon from '@material-ui/icons/Menu';
+import MenuIcon from '@material-ui/icons/Menu'
 
 import useMenu from 'utils/hooks/useMenu'
 
@@ -42,14 +42,17 @@ const NavDropMenu = () => {
     setAnchorEl(null);
   }, [setAnchorEl]);
 
-  const itemHandler = (item) => () => {
+  const itemHandler = useCallback((item) => () => {
     onMenuHandler(item)
-  }
+  }, [onMenuHandler]);
 
   return (
     <>
       <Hidden mdUp>
-        <IconButton aria-label='settings' onClick={handleClick}>
+        <IconButton
+          aria-label='settings'
+          onClick={handleClick}
+        >
           <MenuIcon className={classes.menu} />
         </IconButton>
         <Menu

@@ -8,6 +8,8 @@ import {
 } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 
+import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths'
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -55,7 +57,7 @@ const FullImage = ({
           <CloseIcon />
         </IconButton>
         <img
-          src={good.description}
+          src={good.description || IMAGE_PLACEHOLDER_IMAGE_PATH}
           alt='good production'
           className={classes.image}
         />

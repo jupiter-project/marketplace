@@ -1,5 +1,5 @@
 
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
@@ -9,13 +9,13 @@ import * as yup from 'yup'
 
 import * as jupiterAPI from 'services/api-jupiter';
 import { setCurrentUser } from 'actions/auth'
-import GradientButton from 'components/UI/Buttons/GradientButton'
+import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import {
   STRING_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
-import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 import useLoading from 'utils/hooks/useLoading'
 
@@ -52,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 const EditAccount = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
 
   const { currentUser } = useSelector(state => state.auth);
@@ -62,7 +63,7 @@ const EditAccount = () => {
 
   const { isDirty } = formState;
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     changeLoadingStatus(true)
     try {
       let params = {
@@ -74,7 +75,7 @@ const EditAccount = () => {
 
       let response = await jupiterAPI.setAccountInfo(params);
       if (response?.errorCode) {
-        showErrorToast(MESSAGES.SET_ACCOUNT_ERROR)
+        setPopUp({ text: MESSAGES.SET_ACCOUNT_ERROR })
         changeLoadingStatus(false)
         return;
       }
@@ -86,13 +87,13 @@ const EditAccount = () => {
         name: data.name,
         description: data.description,
       }))
-      showSuccessToast(MESSAGES.SET_ACCOUNT_SUCCESS)
+      setPopUp({ text: MESSAGES.SET_ACCOUNT_SUCCESS })
     } catch (error) {
       console.log(error)
-      showErrorToast(MESSAGES.SET_ACCOUNT_ERROR)
+      setPopUp({ text: MESSAGES.SET_ACCOUNT_ERROR })
     }
     changeLoadingStatus(false)
-  };
+  }, [currentUser, dispatch, setPopUp, changeLoadingStatus]);
 
   return (
     <form
@@ -149,13 +150,13 @@ const EditAccount = () => {
         control={control}
         defaultValue=''
       />
-      <GradientButton
+      <ContainedButton
         type='submit'
         disabled={!currentUser?.balanceNQT || !isDirty}
         className={classes.button}
       >
-        Submit
-      </GradientButton>
+        Update Account
+      </ContainedButton>
     </form>
   )
 }

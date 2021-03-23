@@ -14,13 +14,14 @@ import * as jupiterAPI from 'services/api-jupiter'
 import MagicDialog from 'components/MagicDialog'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
-import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import {
   INTEGER_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
 import MESSAGES from 'utils/constants/messages'
+import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
 
 const schema = yup.object().shape({
   quantity: INTEGER_VALID,
@@ -56,6 +57,7 @@ const QuantityNFTDialog = ({
   item,
 }) => {
   const classes = useStyles();
+  const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
   const { currentUser } = useSelector(state => state.auth);
 
@@ -63,7 +65,7 @@ const QuantityNFTDialog = ({
     resolver: yupResolver(schema)
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     changeLoadingStatus(true)
     try {
       const params = {
@@ -75,19 +77,19 @@ const QuantityNFTDialog = ({
 
       const response = await jupiterAPI.changeDGSGoodQuantity(params)
       if (response?.errorCode) {
-        showErrorToast(response?.errorDescription || MESSAGES.CHANGE_QUANTITY_NFT_ERROR)
+        setPopUp({ text: response?.errorDescription || MESSAGES.CHANGE_QUANTITY_NFT_ERROR })
         changeLoadingStatus(false)
         return;
       }
 
-      showSuccessToast(MESSAGES.CHANGE_QUANTITY_NFT_SUCCESS)
+      setPopUp({ text: MESSAGES.CHANGE_QUANTITY_NFT_SUCCESS })
       setOpen(false);
     } catch (error) {
       console.log(error)
-      showErrorToast(MESSAGES.CHANGE_QUANTITY_NFT_ERROR)
+      setPopUp({ text: MESSAGES.CHANGE_QUANTITY_NFT_ERROR })
     }
     changeLoadingStatus(false)
-  };
+  }, [item, currentUser, setOpen, setPopUp, changeLoadingStatus]);
 
   const handleClose = useCallback(() => {
     setOpen(false);
@@ -106,7 +108,7 @@ const QuantityNFTDialog = ({
       >
         <img
           alt='nft image'
-          src={item.description}
+          src={item.description || IMAGE_PLACEHOLDER_IMAGE_PATH}
           className={classes.image}
         />
         <Typography color='primary' className={classes.title}>
