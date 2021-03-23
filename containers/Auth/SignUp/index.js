@@ -15,7 +15,7 @@ import LinkButton from 'components/UI/Buttons/LinkButton';
 import MagicTextField from 'components/UI/TextFields/MagicTextField';
 import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper';
 import useLoading from 'utils/hooks/useLoading';
-import { showErrorToast, showSuccessToast } from 'utils/helpers/toast';
+import usePopUp from 'utils/hooks/usePopUp'
 import generatePassphrase from 'utils/helpers/generatePassphrase';
 import LINKS from 'utils/constants/links';
 import MESSAGES from 'utils/constants/messages'
@@ -50,6 +50,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const authClasses = authPageStyles();
   const router = useRouter();
+  const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
 
   const [agree, setAgree] = useState(false);
@@ -73,7 +74,7 @@ const SignUp = () => {
 
   const onSubmit = async (data) => {
     if (!agree) {
-      showErrorToast(MESSAGES.TERMS_PRIVACY_CHECK)
+      setPopUp({ text: MESSAGES.TERMS_PRIVACY_CHECK })
       return;
     }
 
@@ -81,7 +82,7 @@ const SignUp = () => {
     try {
       const response = await jupiterAPI.getAccountByPassphrase(data.passphrase);
       if (!response?.accountRS) {
-        showErrorToast(MESSAGES.AUTH_ERROR)
+        setPopUp({ text: MESSAGES.AUTH_ERROR })
         changeLoadingStatus(false);
         return;
       }
@@ -90,15 +91,10 @@ const SignUp = () => {
         accountRS: response.accountRS,
         user: response
       }));
-      showSuccessToast(MESSAGES.SIGN_UP_SUCCESS);
+      setPopUp({ text: MESSAGES.SIGN_UP_SUCCESS })
       router.push(LINKS.HOME.HREF);
     } catch (error) {
-      if (error.response) {
-        const {
-          data: { message },
-        } = error.response;
-        showErrorToast(message);
-      }
+      console.log(error)
     }
     changeLoadingStatus(false);
   };

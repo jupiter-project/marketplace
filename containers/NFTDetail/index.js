@@ -8,7 +8,7 @@ import ImageWall from 'parts/ImageWall'
 import NFTInformation from './NFTInformation'
 import NoNFT from './NoNFT'
 import NFTImage from './NFTImage'
-import { showErrorToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 import { isEmpty } from 'utils/helpers/utility'
 
@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 const NFTDetail = () => {
   const classes = useStyles();
   const router = useRouter();
+  const { setPopUp } = usePopUp();
 
   const [good, setGood] = useState({})
 
@@ -47,7 +48,7 @@ const NFTDetail = () => {
     const getDGSGood = async () => {
       const response = await jupiterAPI.getDGSGood(router.query.goods);
       if (response?.errorCode) {
-        showErrorToast(MESSAGES.GET_NFT_ERROR)
+        setPopUp({ text: MESSAGES.GET_NFT_ERROR })
         return;
       }
 
@@ -57,6 +58,7 @@ const NFTDetail = () => {
     if (router.query.goods) {
       getDGSGood();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query])
 
   return (

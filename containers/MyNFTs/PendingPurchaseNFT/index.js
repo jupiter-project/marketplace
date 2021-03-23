@@ -8,13 +8,15 @@ import TabPanel from '../Shared/TabPanel'
 import NoNFT from '../Shared/NoNFT'
 import NFTPurchaseItem from './NFTPurchaseItem'
 import { isEmpty } from 'utils/helpers/utility'
-import { showErrorToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 
 const PendingPurchaseNFT = ({
   index,
   value
 }) => {
+  const { setPopUp } = usePopUp();
+
   const { currentUser } = useSelector(state => state.auth);
   const [pendingPurchases, setPendingPurchases] = useState([])
   const [openModal, setOpenModal] = useState(false);
@@ -24,7 +26,7 @@ const PendingPurchaseNFT = ({
     const getDGSPendingPurchases = async () => {
       const response = await jupiterAPI.getDGSPendingPurchases(currentUser.account);
       if (response?.errorCode) {
-        showErrorToast(MESSAGES.GET_NFT_ERROR)
+        setPopUp({ text: MESSAGES.GET_NFT_ERROR })
         return;
       }
 
@@ -34,6 +36,7 @@ const PendingPurchaseNFT = ({
     if (!isEmpty(currentUser)) {
       getDGSPendingPurchases();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser])
 
   const approveDeliverHandler = (item) => {

@@ -6,13 +6,14 @@ import UploadArea from './UploadArea'
 import UploadFileItem from './UploadFileItem'
 import { isEmpty } from 'utils/helpers/utility'
 import { MAX_UPLOAD_SIZE } from 'utils/constants/common'
-import { showErrorToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 
 const UploadMedia = ({
   fileBuffer,
   setFileBuffer
 }) => {
+  const { setPopUp } = usePopUp();
 
   const deleteFileHandler = useCallback(() => {
     setFileBuffer(null)
@@ -20,7 +21,7 @@ const UploadMedia = ({
 
   const onDrop = async (acceptedFiles) => {
     if (!Array.isArray(acceptedFiles) || acceptedFiles.length <= 0) {
-      showErrorToast(MESSAGES.MAX_UPLOAD_ERROR)
+      setPopUp({ text: MESSAGES.MAX_UPLOAD_ERROR })
       return;
     }
 

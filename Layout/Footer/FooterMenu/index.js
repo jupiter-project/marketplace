@@ -39,20 +39,16 @@ const FooterMenu = () => {
       <Grid container>
         {
           DEFAULT_FOOTER_MENU.map((menuItem) => (
-            <Grid item key={menuItem.title} xs={6} sm={12}>
-              <FooterMenuItem
-                menu={menuItem}
-              />
+            <Grid item key={menuItem.TITLE} xs={6} sm={12}>
+              <FooterMenuItem menu={menuItem} />
             </Grid>
           ))
         }
         {
           !!accountRS &&
           SIGN_IN_FOOTER_MENU.map((menuItem) => (
-            <Grid item key={menuItem.title} xs={6} sm={12}>
-              <FooterMenuItem
-                menu={menuItem}
-              />
+            <Grid item key={menuItem.TITLE} xs={6} sm={12}>
+              <FooterMenuItem menu={menuItem} />
             </Grid>
           ))
         }

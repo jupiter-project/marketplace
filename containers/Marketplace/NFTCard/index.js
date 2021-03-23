@@ -18,7 +18,7 @@ import {
   DEFAULT_IMAGE
 } from 'utils/constants/common'
 import LINKS from 'utils/constants/links'
-import { showErrorToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 
 const useStyles = makeStyles((theme) => ({
@@ -58,6 +58,7 @@ const NFTCard = ({
 }) => {
   const classes = useStyles();
   const router = useRouter();
+  const { setPopUp } = usePopUp();
 
   const { accountRS } = useSelector(state => state.auth);
 
@@ -70,7 +71,7 @@ const NFTCard = ({
 
   const purchaseHandler = () => {
     if (!accountRS) {
-      showErrorToast(MESSAGES.AUTH_REQUIRED);
+      setPopUp({ text: MESSAGES.AUTH_REQUIRED })
       router.push(LINKS.SIGN_IN.HREF)
       return;
     }

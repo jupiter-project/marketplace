@@ -15,7 +15,7 @@ import MagicDialog from 'components/MagicDialog'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import getTimestamp from 'utils/helpers/getTimestamp'
-import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import {
   INTEGER_VALID,
@@ -58,6 +58,7 @@ const PurchaseNFTDialog = ({
   item,
 }) => {
   const classes = useStyles();
+  const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
   const { currentUser } = useSelector(state => state.auth);
 
@@ -82,16 +83,16 @@ const PurchaseNFTDialog = ({
 
       const response = await jupiterAPI.purchaseDGSGood(params)
       if (response?.errorCode) {
-        showErrorToast(response?.errorDescription || MESSAGES.PURCHASE_NFT_ERROR)
+        setPopUp({ text: response?.errorDescription || MESSAGES.PURCHASE_NFT_ERROR })
         changeLoadingStatus(false)
         return;
       }
 
-      showSuccessToast(MESSAGES.PURCHASE_NFT_SUCCESS)
+      setPopUp({ text: MESSAGES.PURCHASE_NFT_SUCCESS })
       setOpen(false);
     } catch (error) {
       console.log(error)
-      showErrorToast(MESSAGES.PURCHASE_NFT_ERROR)
+      setPopUp({ text: MESSAGES.PURCHASE_NFT_ERROR })
     }
     changeLoadingStatus(false)
   };

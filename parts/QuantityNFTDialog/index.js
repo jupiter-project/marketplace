@@ -14,7 +14,7 @@ import * as jupiterAPI from 'services/api-jupiter'
 import MagicDialog from 'components/MagicDialog'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
-import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import {
   INTEGER_VALID,
@@ -56,6 +56,7 @@ const QuantityNFTDialog = ({
   item,
 }) => {
   const classes = useStyles();
+  const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
   const { currentUser } = useSelector(state => state.auth);
 
@@ -75,16 +76,16 @@ const QuantityNFTDialog = ({
 
       const response = await jupiterAPI.changeDGSGoodQuantity(params)
       if (response?.errorCode) {
-        showErrorToast(response?.errorDescription || MESSAGES.CHANGE_QUANTITY_NFT_ERROR)
+        setPopUp({ text: response?.errorDescription || MESSAGES.CHANGE_QUANTITY_NFT_ERROR })
         changeLoadingStatus(false)
         return;
       }
 
-      showSuccessToast(MESSAGES.CHANGE_QUANTITY_NFT_SUCCESS)
+      setPopUp({ text: MESSAGES.CHANGE_QUANTITY_NFT_SUCCESS })
       setOpen(false);
     } catch (error) {
       console.log(error)
-      showErrorToast(MESSAGES.CHANGE_QUANTITY_NFT_ERROR)
+      setPopUp({ text: MESSAGES.CHANGE_QUANTITY_NFT_ERROR })
     }
     changeLoadingStatus(false)
   };

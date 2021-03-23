@@ -13,7 +13,7 @@ import TabPanel from '../Shared/TabPanel'
 import NoNFT from '../Shared/NoNFT'
 import NFTGoodItem from './NFTGoodItem'
 import { isEmpty } from 'utils/helpers/utility'
-import { showErrorToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 import LINKS from 'utils/constants/links'
 
@@ -33,6 +33,7 @@ const NFTGoods = ({
 }) => {
   const classes = useStyles();
   const router = useRouter();
+  const { setPopUp } = usePopUp();
 
   const { currentUser } = useSelector(state => state.auth);
   const [goods, setGoods] = useState([])
@@ -59,7 +60,7 @@ const NFTGoods = ({
 
       const response = await jupiterAPI.getDGSGoods(params, currentUser.account);
       if (response?.errorCode) {
-        showErrorToast(MESSAGES.GET_NFT_ERROR)
+        setPopUp({ text: MESSAGES.GET_NFT_ERROR })
         return;
       }
       const { goods = [] } = response;

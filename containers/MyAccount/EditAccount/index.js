@@ -15,7 +15,7 @@ import {
   STRING_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
-import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 import useLoading from 'utils/hooks/useLoading'
 
@@ -52,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 const EditAccount = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
 
   const { currentUser } = useSelector(state => state.auth);
@@ -74,7 +75,7 @@ const EditAccount = () => {
 
       let response = await jupiterAPI.setAccountInfo(params);
       if (response?.errorCode) {
-        showErrorToast(MESSAGES.SET_ACCOUNT_ERROR)
+        setPopUp({ text: MESSAGES.SET_ACCOUNT_ERROR })
         changeLoadingStatus(false)
         return;
       }
@@ -86,10 +87,10 @@ const EditAccount = () => {
         name: data.name,
         description: data.description,
       }))
-      showSuccessToast(MESSAGES.SET_ACCOUNT_SUCCESS)
+      setPopUp({ text: MESSAGES.SET_ACCOUNT_SUCCESS })
     } catch (error) {
       console.log(error)
-      showErrorToast(MESSAGES.SET_ACCOUNT_ERROR)
+      setPopUp({ text: MESSAGES.SET_ACCOUNT_ERROR })
     }
     changeLoadingStatus(false)
   };

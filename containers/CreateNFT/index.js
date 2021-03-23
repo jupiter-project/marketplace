@@ -23,7 +23,7 @@ import {
   INTEGER_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
-import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import { isEmpty } from 'utils/helpers/utility'
 import { NQT_WEIGHT } from 'utils/constants/common'
@@ -77,6 +77,7 @@ const useStyles = makeStyles((theme) => ({
 const CreateNFT = () => {
   const classes = useStyles();
   const router = useRouter();
+  const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
 
   const { currentUser } = useSelector(state => state.auth);
@@ -92,13 +93,13 @@ const CreateNFT = () => {
 
   const onSubmit = async (data) => {
     if (isEmpty(currentUser)) {
-      showErrorToast(MESSAGES.AUTH_REQUIRED)
+      setPopUp({ text: MESSAGES.AUTH_REQUIRED })
       router.push(LINKS.SIGN_IN.HREF)
       return;
     }
 
     if (!fileBuffer) {
-      showErrorToast(MESSAGES.IMAGE_NOT_FOUND)
+      setPopUp({ text: MESSAGES.IMAGE_NOT_FOUND })
       return;
     }
 
@@ -125,12 +126,12 @@ const CreateNFT = () => {
 
       const response = await jupiterAPI.createNFTToken(params)
       if (response?.errorCode) {
-        showErrorToast(MESSAGES.CREATE_NFT_ERROR)
+        setPopUp({ text: MESSAGES.CREATE_NFT_ERROR })
         changeLoadingStatus(false)
         return;
       }
 
-      showSuccessToast(MESSAGES.CREATE_NFT_SUCCESS)
+      setPopUp({ text: MESSAGES.CREATE_NFT_SUCCESS })
       setFileBuffer(null)
       setTag1('')
       setTag2('')
@@ -139,7 +140,7 @@ const CreateNFT = () => {
       setValue('quantity', 1)
     } catch (error) {
       console.log(error)
-      showErrorToast(MESSAGES.CREATE_NFT_ERROR)
+      setPopUp({ text: MESSAGES.CREATE_NFT_ERROR })
     }
     changeLoadingStatus(false)
   };

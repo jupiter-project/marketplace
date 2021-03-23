@@ -15,7 +15,7 @@ import LinkButton from 'components/UI/Buttons/LinkButton'
 import AccountTextField from 'components/UI/TextFields/AccountTextField'
 import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper'
 import useLoading from 'utils/hooks/useLoading'
-import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import LINKS from 'utils/constants/links'
 import { ACCOUNT_VALID } from 'utils/constants/validations'
 import MESSAGES from 'utils/constants/messages'
@@ -39,6 +39,7 @@ const SignIn = () => {
   const classes = useStyles();
   const authClasses = authPageStyles();
   const router = useRouter();
+  const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
 
   const { control, handleSubmit, errors } = useForm({
@@ -50,7 +51,7 @@ const SignIn = () => {
     try {
       const response = await jupiterAPI.getAccountByAccountID(data.account);
       if (!response?.accountRS) {
-        showErrorToast(MESSAGES.AUTH_ERROR)
+        setPopUp({ text: MESSAGES.AUTH_ERROR })
         changeLoadingStatus(false);
         return;
       }
@@ -59,13 +60,10 @@ const SignIn = () => {
         accountRS: response.accountRS,
         user: response
       }));
-      showSuccessToast(MESSAGES.SIGN_IN_SUCCESS)
+      setPopUp({ text: MESSAGES.SIGN_IN_SUCCESS })
       router.push(LINKS.MARKETPLACE.HREF)
     } catch (error) {
-      if (error.response) {
-        const { data: { message } } = error.response;
-        showErrorToast(message)
-      }
+      console.log(error)
     }
     changeLoadingStatus(false)
   };

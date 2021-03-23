@@ -14,7 +14,7 @@ import * as jupiterAPI from 'services/api-jupiter'
 import MagicDialog from 'components/MagicDialog'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
-import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import {
   PRICE_VALID,
@@ -50,6 +50,7 @@ const RefundNFTDialog = ({
   item,
 }) => {
   const classes = useStyles();
+  const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
   const { currentUser } = useSelector(state => state.auth);
 
@@ -69,16 +70,16 @@ const RefundNFTDialog = ({
 
       const response = await jupiterAPI.refundDGSGood(params)
       if (response?.errorCode) {
-        showErrorToast(response?.errorDescription || MESSAGES.DELIVERY_NFT_ERROR)
+        setPopUp({ text: response?.errorDescription || MESSAGES.REFUND_NFT_SUCCESS })
         changeLoadingStatus(false)
         return;
       }
 
-      showSuccessToast(MESSAGES.REFUND_NFT_SUCCESS)
+      setPopUp({ text: MESSAGES.REFUND_NFT_SUCCESS })
       setOpen(false);
     } catch (error) {
       console.log(error)
-      showErrorToast(MESSAGES.REFUND_NFT_ERROR)
+      setPopUp({ text: MESSAGES.REFUND_NFT_ERROR })
     }
     changeLoadingStatus(false)
   };

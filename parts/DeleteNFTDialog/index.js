@@ -11,7 +11,7 @@ import * as jupiterAPI from 'services/api-jupiter'
 import MagicDialog from 'components/MagicDialog'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
-import { showErrorToast, showSuccessToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import { PASSPHRASE_VALID } from 'utils/constants/validations'
 import MESSAGES from 'utils/constants/messages'
@@ -49,6 +49,7 @@ const DeleteNFTDialog = ({
   item,
 }) => {
   const classes = useStyles();
+  const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
   const { currentUser } = useSelector(state => state.auth);
 
@@ -67,16 +68,16 @@ const DeleteNFTDialog = ({
 
       const response = await jupiterAPI.deleteNFTToken(params)
       if (response?.errorCode) {
-        showErrorToast(response?.errorDescription || MESSAGES.PURCHASE_NFT_ERROR)
+        setPopUp({ text: response?.errorDescription || MESSAGES.PURCHASE_NFT_ERROR })
         changeLoadingStatus(false)
         return;
       }
 
-      showSuccessToast(MESSAGES.DELETE_NFT_SUCCESS)
+      setPopUp({ text: MESSAGES.DELETE_NFT_SUCCESS })
       setOpen(false);
     } catch (error) {
       console.log(error)
-      showErrorToast(MESSAGES.DELETE_NFT_ERROR)
+      setPopUp({ text: MESSAGES.DELETE_NFT_ERROR })
     }
     changeLoadingStatus(false)
   };

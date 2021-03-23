@@ -10,7 +10,7 @@ import TabPanel from '../Shared/TabPanel'
 import NoNFT from '../Shared/NoNFT'
 import NFTSaleItem from './NFTSaleItem'
 import { isEmpty } from 'utils/helpers/utility'
-import { showErrorToast } from 'utils/helpers/toast'
+import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 
 const useStyles = makeStyles(() => ({
@@ -28,6 +28,7 @@ const CompletedSalesNFT = ({
   value
 }) => {
   const classes = useStyles();
+  const { setPopUp } = usePopUp();
 
   const { currentUser } = useSelector(state => state.auth);
   const [purchases, setPurchases] = useState([])
@@ -53,7 +54,7 @@ const CompletedSalesNFT = ({
 
       const response = await jupiterAPI.getDGSPurchasesBySeller(params);
       if (response?.errorCode) {
-        showErrorToast(MESSAGES.GET_NFT_ERROR)
+        setPopUp({ text: MESSAGES.GET_NFT_ERROR })
         return;
       }
 
