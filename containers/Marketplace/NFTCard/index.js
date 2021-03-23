@@ -57,7 +57,6 @@ const NFTCard = ({
   const classes = useStyles();
   const router = useRouter();
   const { setPopUp } = usePopUp();
-
   const { accountRS } = useSelector(state => state.auth);
 
   const detailNFTHandler = () => {
@@ -73,7 +72,6 @@ const NFTCard = ({
       router.push(LINKS.SIGN_IN.HREF)
       return;
     }
-
     onPurchase(item)
   }
 
@@ -83,23 +81,32 @@ const NFTCard = ({
         avatar={<MagicIdenticon size={40} value={item.sellerRS} />}
         action={<NFTDropMenu />}
       />
-
       <CardMedia
         className={classes.media}
         image={item.description || DEFAULT_IMAGE}
         title={item.name}
         onClick={detailNFTHandler}
       />
-
       <CardContent>
-        <Typography variant='body1' color='textPrimary' className={classes.name}>
+        <Typography
+          variant='body1'
+          color='textPrimary'
+          className={classes.name}
+        >
           {item.name}
         </Typography>
         <div className={classes.info}>
-          <Typography variant='body2' color='primary' className={classes.price}>
+          <Typography
+            variant='body2'
+            color='primary'
+            className={classes.price}
+          >
             {item.priceNQT / NQT_WEIGHT} JUP
           </Typography>
-          <Typography variant='body2' color='primary'>
+          <Typography
+            variant='body2'
+            color='textSecondary'
+          >
             {`${item.quantity} of ${item.quantity}`}
           </Typography>
         </div>

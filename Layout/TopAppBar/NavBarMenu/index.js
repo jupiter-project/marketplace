@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
   item: {
     fontSize: 16,
+    textTransform: 'unset',
     color: theme.palette.background.default
   }
 }));

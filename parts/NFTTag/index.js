@@ -13,11 +13,11 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     color: theme.custom.palette.white,
     background: `linear-gradient(to right, ${theme.palette.primary.main}, ${theme.custom.palette.black})`,
-    padding: theme.spacing(0.5, 2.5),
+    padding: theme.spacing(1, 2.5, 0.5),
     marginRight: theme.spacing(1),
     marginBottom: theme.spacing(1),
     borderRadius: 30,
-    border: `2px solid ${theme.palette.primary.main}`,
+    boxShadow: '0 2px 12px 0 #bdbdbd',
   },
 }));
 
