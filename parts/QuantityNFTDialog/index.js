@@ -65,7 +65,7 @@ const QuantityNFTDialog = ({
     resolver: yupResolver(schema)
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     changeLoadingStatus(true)
     try {
       const params = {
@@ -89,7 +89,7 @@ const QuantityNFTDialog = ({
       setPopUp({ text: MESSAGES.CHANGE_QUANTITY_NFT_ERROR })
     }
     changeLoadingStatus(false)
-  };
+  }, [item, currentUser, setOpen, setPopUp, changeLoadingStatus]);
 
   const handleClose = useCallback(() => {
     setOpen(false);

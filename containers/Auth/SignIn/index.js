@@ -1,5 +1,5 @@
 
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import Typography from '@material-ui/core/Typography'
@@ -46,7 +46,7 @@ const SignIn = () => {
     resolver: yupResolver(schema)
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     changeLoadingStatus(true)
     try {
       const response = await jupiterAPI.getAccountByAccountID(data.account);
@@ -66,7 +66,7 @@ const SignIn = () => {
       console.log(error)
     }
     changeLoadingStatus(false)
-  };
+  }, [router, dispatch, setPopUp, changeLoadingStatus]);
 
   return (
     <AuthWrapper>

@@ -1,5 +1,5 @@
 
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 import {
   Button,
   Hidden
@@ -25,9 +25,9 @@ const NavBarMenu = () => {
   const classes = useStyles();
   const { PROFILE_MENU_LINKS, onMenuHandler } = useMenu();
 
-  const onNavHandler = (item) => () => {
+  const onNavHandler = useCallback((item) => () => {
     onMenuHandler(item)
-  }
+  }, [onMenuHandler])
 
   return (
     <Hidden smDown>

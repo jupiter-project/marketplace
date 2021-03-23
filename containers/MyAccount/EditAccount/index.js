@@ -1,5 +1,5 @@
 
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
@@ -63,7 +63,7 @@ const EditAccount = () => {
 
   const { isDirty } = formState;
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     changeLoadingStatus(true)
     try {
       let params = {
@@ -93,7 +93,7 @@ const EditAccount = () => {
       setPopUp({ text: MESSAGES.SET_ACCOUNT_ERROR })
     }
     changeLoadingStatus(false)
-  };
+  }, [currentUser, dispatch, setPopUp, changeLoadingStatus]);
 
   return (
     <form

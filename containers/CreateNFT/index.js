@@ -1,5 +1,5 @@
 
-import { memo, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
@@ -95,7 +95,7 @@ const CreateNFT = () => {
 
   const watchAllFields = watch();
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     if (isEmpty(currentUser)) {
       setPopUp({ text: MESSAGES.AUTH_REQUIRED })
       router.push(LINKS.SIGN_IN.HREF)
@@ -138,9 +138,9 @@ const CreateNFT = () => {
       setPopUp({ text: MESSAGES.CREATE_NFT_ERROR })
     }
     changeLoadingStatus(false)
-  };
+  }, [tag1, tag2, router, fileBuffer, currentUser, resetHandler, setPopUp, changeLoadingStatus]);
 
-  const resetHandler = () => {
+  const resetHandler = useCallback(() => {
     setFileBuffer(null)
     setTag1('')
     setTag2('')
@@ -149,7 +149,7 @@ const CreateNFT = () => {
       price: '',
       quantity: 1
     })
-  }
+  }, [reset, setFileBuffer, setTag1, setTag2])
 
   return (
     <main className={classes.root}>

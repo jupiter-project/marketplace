@@ -55,7 +55,7 @@ const RefundNFTDialog = ({
     resolver: yupResolver(schema)
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     changeLoadingStatus(true)
     try {
       let params = {
@@ -79,7 +79,7 @@ const RefundNFTDialog = ({
       setPopUp({ text: MESSAGES.REFUND_NFT_ERROR })
     }
     changeLoadingStatus(false)
-  };
+  }, [item, currentUser, setOpen, setPopUp, changeLoadingStatus]);
 
   const handleClose = useCallback(() => {
     setOpen(false);

@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import {
@@ -59,21 +59,21 @@ const NFTCard = ({
   const { setPopUp } = usePopUp();
   const { accountRS } = useSelector(state => state.auth);
 
-  const detailNFTHandler = () => {
+  const detailNFTHandler = useCallback(() => {
     router.push(
       LINKS.NFT_DETAIL.HREF,
       LINKS.NFT_DETAIL.HREF.replace('[goods]', item.goods)
     )
-  }
+  }, [item, router])
 
-  const purchaseHandler = () => {
+  const purchaseHandler = useCallback(() => {
     if (!accountRS) {
       setPopUp({ text: MESSAGES.AUTH_REQUIRED })
       router.push(LINKS.SIGN_IN.HREF)
       return;
     }
     onPurchase(item)
-  }
+  }, [item, accountRS, router, setPopUp, onPurchase])
 
   return (
     <Card className={classes.card}>

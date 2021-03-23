@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from 'react'
+import { memo, useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import Typography from '@material-ui/core/Typography'
@@ -72,7 +72,7 @@ const SignUp = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     if (!agree) {
       setPopUp({ text: MESSAGES.TERMS_PRIVACY_CHECK })
       return;
@@ -97,7 +97,7 @@ const SignUp = () => {
       console.log(error)
     }
     changeLoadingStatus(false);
-  };
+  }, [agree, router, dispatch, setPopUp, changeLoadingStatus]);
 
   return (
     <AuthWrapper>

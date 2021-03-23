@@ -67,7 +67,7 @@ const PurchaseNFTDialog = ({
     resolver: yupResolver(schema)
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     changeLoadingStatus(true)
     try {
       let deliveryDate = new Date();
@@ -96,7 +96,7 @@ const PurchaseNFTDialog = ({
       setPopUp({ text: MESSAGES.PURCHASE_NFT_ERROR })
     }
     changeLoadingStatus(false)
-  };
+  }, [item, currentUser, setOpen, setPopUp, changeLoadingStatus]);
 
   const handleClose = useCallback(() => {
     setOpen(false);

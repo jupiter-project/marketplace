@@ -58,7 +58,7 @@ const DeleteNFTDialog = ({
     resolver: yupResolver(schema)
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = useCallback(async (data) => {
     changeLoadingStatus(true)
     try {
       const params = {
@@ -81,7 +81,7 @@ const DeleteNFTDialog = ({
       setPopUp({ text: MESSAGES.DELETE_NFT_ERROR })
     }
     changeLoadingStatus(false)
-  };
+  }, [item, currentUser, setOpen, setPopUp, changeLoadingStatus]);
 
   const handleClose = useCallback(() => {
     setOpen(false);

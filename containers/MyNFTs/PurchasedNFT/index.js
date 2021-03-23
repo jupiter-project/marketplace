@@ -1,5 +1,5 @@
 
-import { memo, useState, useEffect } from 'react'
+import { memo, useState, useEffect, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -41,7 +41,7 @@ const PurchasedNFT = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser])
 
-  const getDGSPurchasesByBuyer = async () => {
+  const getDGSPurchasesByBuyer = useCallback(async () => {
     if (!isLast) {
       const params = {
         first,
@@ -60,7 +60,7 @@ const PurchasedNFT = ({
       setFirst((prev) => prev + purchases.length);
       setIsLast(purchases.length < PAGE_COUNT);
     }
-  }
+  }, [isLast, first, currentUser, setPurchases, setFirst, setIsLast, setPopUp])
 
   return (
     <TabPanel value={value} index={index}>

@@ -2,10 +2,10 @@
 import { memo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
-import AliceCarousel from 'react-alice-carousel';
-import 'react-alice-carousel/lib/alice-carousel.css';
+import AliceCarousel from 'react-alice-carousel'
+import 'react-alice-carousel/lib/alice-carousel.css'
 
-import FeedbackCard from './FeedbackCard';
+import FeedbackCard from './FeedbackCard'
 
 const useStyles = makeStyles(theme => ({
   root: {

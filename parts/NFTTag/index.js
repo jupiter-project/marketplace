@@ -1,4 +1,4 @@
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
@@ -27,9 +27,9 @@ const NFTTag = ({
   const classes = useStyles();
   const router = useRouter();
 
-  const tagHandler = () => {
+  const tagHandler = useCallback(() => {
     router.push(LINKS.MARKETPLACE.HREF)
-  }
+  }, [router])
 
   return (
     <Typography

@@ -1,5 +1,5 @@
 
-import { memo, useState, useEffect } from 'react'
+import { memo, useState, useEffect, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 
 import * as jupiterAPI from 'services/api-jupiter'
@@ -39,10 +39,10 @@ const PendingPurchaseNFT = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser])
 
-  const approveDeliverHandler = (item) => {
+  const approveDeliverHandler = useCallback((item) => {
     setSelectedItem(item)
     setOpenModal(true)
-  }
+  }, [setSelectedItem, setOpenModal]);
 
   return (
     <TabPanel value={value} index={index}>

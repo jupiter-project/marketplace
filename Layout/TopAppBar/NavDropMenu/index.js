@@ -42,9 +42,9 @@ const NavDropMenu = () => {
     setAnchorEl(null);
   }, [setAnchorEl]);
 
-  const itemHandler = (item) => () => {
+  const itemHandler = useCallback((item) => () => {
     onMenuHandler(item)
-  }
+  }, [onMenuHandler]);
 
   return (
     <>
