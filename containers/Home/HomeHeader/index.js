@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
   },
   textContainer: {
     padding: theme.spacing(20),
+    [theme.breakpoints.down('md')]: {
+      padding: theme.spacing(8),
+    },
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(3),
     },
@@ -92,21 +95,12 @@ const useStyles = makeStyles(theme => ({
 
 const HomeHeader = () => {
   const classes = useStyles();
-
   const { accountRS } = useSelector(state => state.auth);
 
   return (
     <section className={classes.root}>
-      <Grid
-        container
-        className={classes.container}
-      >
-        <Grid
-          item
-          sm={12}
-          md={6}
-          className={classes.textContainer}
-        >
+      <Grid container className={classes.container} >
+        <Grid item sm={12} md={6} className={classes.textContainer} >
           <Typography
             variant='h1'
             className={classes.title}
@@ -150,12 +144,7 @@ const HomeHeader = () => {
               )}
           </div>
         </Grid>
-        <Grid
-          item
-          sm={12}
-          md={6}
-          className={classes.imageContainer}
-        >
+        <Grid item sm={12} md={6} className={classes.imageContainer} >
           <div className={classes.opacityTop} />
           <div className={classes.opacityBottom} />
         </Grid>
