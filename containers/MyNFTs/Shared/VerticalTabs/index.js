@@ -66,11 +66,7 @@ const VerticalTabs = ({
         tabs.map((item, index) => (
           <Tab
             key={index}
-            label={
-              <Hidden smDown>
-                {item.label}
-              </Hidden>
-            }
+            label={<Hidden smDown> {item.label} </Hidden>}
             icon={<item.icon />}
             className={classes.tab}
             classes={{

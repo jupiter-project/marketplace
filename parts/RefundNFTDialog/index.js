@@ -16,12 +16,9 @@ import GradientButton from 'components/UI/Buttons/GradientButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
-import {
-  PRICE_VALID,
-  PASSPHRASE_VALID
-} from 'utils/constants/validations'
-import { NQT_WEIGHT } from 'utils/constants/common'
 import MESSAGES from 'utils/constants/messages'
+import { NQT_WEIGHT } from 'utils/constants/common'
+import { PRICE_VALID, PASSPHRASE_VALID } from 'utils/constants/validations'
 
 const schema = yup.object().shape({
   refund: PRICE_VALID,

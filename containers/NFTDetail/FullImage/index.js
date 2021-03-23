@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 
-import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
+import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths'
 
 const useStyles = makeStyles((theme) => ({
   root: {

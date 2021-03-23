@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import MaximizeIcon from 'components/Icons/MaximizeIcon'
 import FullImage from '../FullImage'
-import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
+import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths'
 
 const useStyles = makeStyles((theme) => ({
   image: {

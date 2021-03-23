@@ -8,7 +8,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
-import * as jupiterAPI from "services/api-jupiter";
+import * as jupiterAPI from 'services/api-jupiter'
 import { setUserToken } from 'actions/auth'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import LinkButton from 'components/UI/Buttons/LinkButton'
@@ -96,7 +96,7 @@ const SignIn = () => {
           color='textSecondary'
           className={classes.footer}
         >
-          {"Don't have an Account?"}
+          {'Don\'t have an Account?'}
           <LinkButton
             href={LINKS.SIGN_UP.HREF}
             className={classes.signup}

@@ -1,14 +1,14 @@
 
 import { memo, useState, useEffect, useRef } from 'react'
 import Grid from '@material-ui/core/Grid'
+import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { use100vh } from 'react-div-100vh'
 
-import * as jupiterAPI from 'services/api-jupiter';
+import * as jupiterAPI from 'services/api-jupiter'
 import PurchaseNFTDialog from 'parts/PurchaseNFTDialog'
-import NFTCard from './NFTCard';
-import { Typography } from '@material-ui/core'
+import NFTCard from './NFTCard'
 
 const useStyles = makeStyles((theme) => ({
   container: {

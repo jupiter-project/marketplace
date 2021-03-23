@@ -8,9 +8,9 @@ import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import TabPanel from '../Shared/TabPanel'
 import NoNFT from '../Shared/NoNFT'
 import NFTSaleItem from './NFTSaleItem'
-import { isEmpty } from 'utils/helpers/utility'
 import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
+import { isEmpty } from 'utils/helpers/utility'
 
 const useStyles = makeStyles(() => ({
   container: {

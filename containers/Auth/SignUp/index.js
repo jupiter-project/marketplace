@@ -1,23 +1,23 @@
-import { memo, useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { memo, useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import Typography from '@material-ui/core/Typography'
+import { makeStyles } from '@material-ui/core/styles'
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
-import * as jupiterAPI from 'services/api-jupiter';
+import * as jupiterAPI from 'services/api-jupiter'
 import { setUserToken } from 'actions/auth'
 import MagicCheckbox from 'components/UI/MagicCheckbox'
-import GradientButton from 'components/UI/Buttons/GradientButton';
-import LinkButton from 'components/UI/Buttons/LinkButton';
-import MagicTextField from 'components/UI/TextFields/MagicTextField';
-import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper';
-import useLoading from 'utils/hooks/useLoading';
+import GradientButton from 'components/UI/Buttons/GradientButton'
+import LinkButton from 'components/UI/Buttons/LinkButton'
+import MagicTextField from 'components/UI/TextFields/MagicTextField'
+import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper'
+import useLoading from 'utils/hooks/useLoading'
 import usePopUp from 'utils/hooks/usePopUp'
-import generatePassphrase from 'utils/helpers/generatePassphrase';
-import LINKS from 'utils/constants/links';
+import generatePassphrase from 'utils/helpers/generatePassphrase'
+import LINKS from 'utils/constants/links'
 import MESSAGES from 'utils/constants/messages'
 
 const useStyles = makeStyles((theme) => ({

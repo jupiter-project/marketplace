@@ -15,7 +15,7 @@ import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import { PASSPHRASE_VALID } from 'utils/constants/validations'
 import MESSAGES from 'utils/constants/messages'
-import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
+import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths'
 
 const schema = yup.object().shape({
   passphrase: PASSPHRASE_VALID
