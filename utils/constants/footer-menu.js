@@ -1,7 +1,7 @@
 
 import LINKS from 'utils/constants/links';
 
-const FOOTER_MENU = [
+const DEFAULT_FOOTER_MENU = [
   {
     HREF: LINKS.HOME.HREF,
     TITLE: LINKS.HOME.TITLE
@@ -10,10 +10,20 @@ const FOOTER_MENU = [
     HREF: LINKS.MARKETPLACE.HREF,
     TITLE: LINKS.MARKETPLACE.TITLE
   },
+]
+
+const SIGN_IN_FOOTER_MENU = [
   {
     HREF: LINKS.CREATE_NFT.HREF,
     TITLE: LINKS.CREATE_NFT.TITLE
+  },
+  {
+    HREF: LINKS.MY_NFTS.HREF,
+    TITLE: LINKS.MY_NFTS.TITLE
   }
 ]
 
-export default FOOTER_MENU
+export {
+  DEFAULT_FOOTER_MENU,
+  SIGN_IN_FOOTER_MENU
+}
