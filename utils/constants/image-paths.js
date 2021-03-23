@@ -4,7 +4,7 @@ const BANNER_IMAGE_PATH = '/assets/images/banner.jpg';
 const AUTH_BACKGROUND_IMAGE_PATH = '/assets/images/background/auth.jpg';
 const HOME_JOURNEY_BACKGROUND_IMAGE_PATH = '/assets/images/background/home-journey.jpg';
 const HOME_HEADER_BACKGROUND_IMAGE_PATH = '/assets/images/background/home-header.jpg';
-const IMAGE_PLACEHOLDER_IMAGE_PATH = '/assets/images/icon/image-placeholder.png';
+const IMAGE_PLACEHOLDER_IMAGE_PATH = '/assets/images/icon/image-placeholder.jpg';
 
 export {
   LOGO_IMAGE_PATH,
