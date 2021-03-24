@@ -11,7 +11,6 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 
 import MagicIdenticon from 'components/MagicIdenticon'
-import LinkButton from 'components/UI/Buttons/LinkButton'
 import NFTDropMenu from 'parts/NFTDropMenu'
 import {
   NQT_WEIGHT,
@@ -20,33 +19,61 @@ import {
 import LINKS from 'utils/constants/links'
 import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
+import ContainedButton from 'components/UI/Buttons/ContainedButton'
 
 const useStyles = makeStyles((theme) => ({
   card: {
     height: '100%',
+    '&:hover': {
+      transform: 'translateY(-5px)',
+      transition: `ease-out 0.4s `,
+      backgroundColor: theme.custom.palette.green,
+      opacity: '100%'
+    },
   },
   media: {
     height: 0,
     paddingTop: '80%',
     cursor: 'pointer',
+    position: 'relative'
+  },
+  quantityContainer: {
+    position: 'absolute',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: theme.spacing(1),
+    right: theme.spacing(1),
+    width: 30,
+    height: 30,
+    borderRadius: 8,
+    backgroundColor: theme.palette.primary.main,
+    boxShadow: `0 2px 12px 0 ${theme.palette.primary.main}`,
+  },
+  quantity: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    color: theme.custom.palette.white,
   },
   name: {
+    fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: theme.spacing(0.5)
-  },
-  info: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    textTransform: 'capitalize',
     marginBottom: theme.spacing(0.5)
   },
   price: {
-    marginRight: theme.spacing(1)
+    fontWeight: 'bold',
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   button: {
-    fontSize: 16,
-    textAlign: 'right',
-    paddingTop: theme.spacing(1),
+    fontSize: 15,
+    padding: theme.spacing(1, 1, 0.5),
+    marginTop: theme.spacing(1)
   }
 }));
 
@@ -86,7 +113,16 @@ const NFTCard = ({
         image={item.description || DEFAULT_IMAGE}
         title={item.name}
         onClick={detailNFTHandler}
-      />
+      >
+        <div className={classes.quantityContainer}>
+          <Typography
+            variant='body2'
+            className={classes.quantity}
+          >
+            {item.quantity}
+          </Typography>
+        </div>
+      </CardMedia>
       <CardContent>
         <Typography
           variant='body1'
@@ -95,7 +131,8 @@ const NFTCard = ({
         >
           {item.name}
         </Typography>
-        <div className={classes.info}>
+
+        <div className={classes.buttonContainer}>
           <Typography
             variant='body2'
             color='primary'
@@ -103,31 +140,24 @@ const NFTCard = ({
           >
             {item.priceNQT / NQT_WEIGHT} JUP
           </Typography>
-          <Typography
-            variant='body2'
-            color='textSecondary'
-          >
-            {`${item.quantity} of ${item.quantity}`}
-          </Typography>
+          {accountRS === item.sellerRS
+            ? (
+              <ContainedButton
+                className={classes.button}
+                onClick={detailNFTHandler}
+              >
+                Edit
+              </ContainedButton>
+            ) : (
+              <ContainedButton
+                className={classes.button}
+                onClick={purchaseHandler}
+              >
+                Purchase
+              </ContainedButton>
+            )
+          }
         </div>
-
-        {accountRS === item.sellerRS
-          ? (
-            <LinkButton
-              className={classes.button}
-              onClick={detailNFTHandler}
-            >
-              Edit Now
-            </LinkButton>
-          ) : (
-            <LinkButton
-              className={classes.button}
-              onClick={purchaseHandler}
-            >
-              Purchase Now
-            </LinkButton>
-          )
-        }
       </CardContent>
     </Card>
   );
