@@ -21,24 +21,33 @@ const getAccountByAccountID = async (account) => {
   return await apiAxios.get(`/nxt?requestType=getAccount&account=${account}`)
 }
 
+const getTags = async () => {
+  return await apiAxios.get(`/nxt?requestType=getDGSTags`)
+}
+
 const getDGSGoods = async (params, seller = '') => {
-  let defaultURL = `/nxt?requestType=getDGSGoods&firstIndex=${params.first}&lastIndex=${params.last}`
+  let url = `/nxt?requestType=getDGSGoods&firstIndex=${params.first}&lastIndex=${params.last}`
 
   if (!!seller) {
-    defaultURL += `&seller=${seller}`
+    url += `&seller=${seller}`
   }
 
-  return await apiAxios.get(defaultURL)
+  return await apiAxios.get(url)
+}
+
+const searchDGSGoods = async (params) => {
+  const url = `/nxt?requestType=searchDGSGoods&query=${params?.query || ''}&tag=${params?.tag || 'nft'}&inStockOnly=${params?.inStockOnly || true}&firstIndex=${params.first}&lastIndex=${params.last}`
+  return await apiAxios.get(url)
 }
 
 const getDGSPurchasesBySeller = async (params) => {
-  const defaultURL = `/nxt?requestType=getDGSPurchases&firstIndex=${params.first}&lastIndex=${params.last}&seller=${params.seller}&completed=true`
-  return await apiAxios.get(defaultURL)
+  const url = `/nxt?requestType=getDGSPurchases&firstIndex=${params.first}&lastIndex=${params.last}&seller=${params.seller}&completed=true`
+  return await apiAxios.get(url)
 }
 
 const getDGSPurchasesByBuyer = async (params) => {
-  const defaultURL = `/nxt?requestType=getDGSPurchases&firstIndex=${params.first}&lastIndex=${params.last}&buyer=${params.buyer}&completed=true`
-  return await apiAxios.get(defaultURL)
+  const url = `/nxt?requestType=getDGSPurchases&firstIndex=${params.first}&lastIndex=${params.last}&buyer=${params.buyer}&completed=true`
+  return await apiAxios.get(url)
 }
 
 const getDGSGood = async (goods) => {
@@ -97,6 +106,8 @@ export {
   getAccountByPassphrase,
   getAccountByAccountID,
   setAccountInfo,
+  getTags,
+  searchDGSGoods,
   getDGSGoods,
   getDGSGood,
   getDGSPendingPurchases,

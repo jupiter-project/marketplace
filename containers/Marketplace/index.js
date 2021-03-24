@@ -1,118 +1,105 @@
 
-import { memo, useState, useEffect, useRef, useCallback } from 'react'
-import { Grid, Typography } from '@material-ui/core'
+import { memo, useState, useEffect, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import InfiniteScroll from 'react-infinite-scroll-component'
-import { use100vh } from 'react-div-100vh'
 
 import * as jupiterAPI from 'services/api-jupiter'
-import PurchaseNFTDialog from 'parts/PurchaseNFTDialog'
-import NFTCard from './NFTCard'
+import NFTList from './NFTList'
+import SearchInput from './SearchInput'
+import TagsFilter from './TagsFilter'
 
 const useStyles = makeStyles((theme) => ({
-  container: {
+  root: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    overflow: 'hidden !important',
-    overflowAnchor: 'none',
-    padding: theme.spacing(4, 0)
+    padding: theme.spacing(5, 0)
   },
-  list: {
+  container: {
     width: '100%',
     maxWidth: theme.custom.layout.maxMarketPlaceWidth,
-    padding: theme.spacing(2)
   },
-  loading: {
-    fontWeight: 'bold'
-  }
+  filterContainer: {
+    padding: theme.spacing(2, 3.5)
+  },
 }));
 
 const PAGE_COUNT = 8;
 
 const Marketplace = () => {
   const classes = useStyles();
-  const scrollRef = useRef(null);
-  const deviceHeight = use100vh();
 
   const [goods, setGoods] = useState([]);
   const [first, setFirst] = useState(0);
   const [isLast, setIsLast] = useState(false)
-  const [selectedGood, setSelectedGood] = useState({});
-  const [openPurchaseModal, setOpenPurchaseModal] = useState(false);
+  const [query, setQuery] = useState('')
+  const [selectedTags, setSelectedTags] = useState('');
 
   useEffect(() => {
     getDGSGoods();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (!isLast && scrollRef?.current?.scrollHeight < deviceHeight) {
-      getDGSGoods()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [query, selectedTags]);
 
   const getDGSGoods = useCallback(async () => {
     try {
       if (!isLast) {
         const params = {
           first,
-          last: first + PAGE_COUNT - 1
+          last: first + PAGE_COUNT - 1,
+          query,
+          tag: selectedTags
         }
 
-        const { goods = [] } = await jupiterAPI.getDGSGoods(params);
-        setGoods((prev) => [...prev, ...goods]);
+        const { goods = [] } = await jupiterAPI.searchDGSGoods(params);
+        if (first === 0) {
+          setGoods(goods);
+        } else {
+          setGoods((prev) => [...prev, ...goods]);
+        }
+
         setFirst((prev) => prev + goods.length);
         setIsLast(goods.length < PAGE_COUNT);
       }
     } catch (error) {
       console.log(error)
     }
-  }, [isLast, first, setGoods, setFirst, setIsLast])
+  }, [isLast, first, query, selectedTags, setGoods, setFirst, setIsLast])
 
-  const purchaseHandler = useCallback((item) => {
-    setSelectedGood(item)
-    setOpenPurchaseModal(true)
-  }, [setSelectedGood, setOpenPurchaseModal])
+  const searchHandler = useCallback(async (value) => {
+    if (query !== value) {
+      setGoods([]);
+      setFirst(0)
+      setIsLast(false)
+      setQuery(value);
+    }
+  }, [query, setQuery, setGoods, setFirst, setIsLast])
+
+  const tagsHandler = useCallback(async (tags) => {
+    setGoods([]);
+    setFirst(0)
+    setIsLast(false)
+
+    let selectedTags = ''
+    for (const item of tags) {
+      selectedTags += `${item.tag} `
+    }
+
+    setSelectedTags(selectedTags);
+  }, [setSelectedTags, setGoods, setFirst, setIsLast])
 
   return (
-    <InfiniteScroll
-      dataLength={goods.length}
-      hasMore={!isLast}
-      loader={
-        <Typography
-          variant='h6'
-          color='primary'
-          className={classes.loading}
-        >
-          Loading more
-        </Typography>
-      }
-      next={getDGSGoods}
-      className={classes.container}
-    >
-      <Grid container spacing={3} className={classes.list} ref={scrollRef}>
-        {
-          goods.map((item, index) => (
-            <Grid key={index} item xs={12} sm={4} md={3} lg={2}>
-              <NFTCard
-                item={item}
-                onPurchase={purchaseHandler}
-              />
-            </Grid>
-          ))
-        }
-      </Grid>
-
-      {openPurchaseModal &&
-        <PurchaseNFTDialog
-          open={openPurchaseModal}
-          setOpen={setOpenPurchaseModal}
-          item={selectedGood}
+    <div className={classes.root}>
+      <div className={classes.container}>
+        <div className={classes.filterContainer}>
+          <SearchInput onSearch={searchHandler} />
+          <TagsFilter onTags={tagsHandler} />
+        </div>
+        <NFTList
+          goods={goods}
+          isLast={isLast}
+          loadMore={getDGSGoods}
         />
-      }
-    </InfiniteScroll>
+      </div>
+    </div>
   )
 }
 

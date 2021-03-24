@@ -28,8 +28,11 @@ const NFTTag = ({
   const router = useRouter();
 
   const tagHandler = useCallback(() => {
-    router.push(LINKS.MARKETPLACE.HREF)
-  }, [router])
+    router.push({
+      pathname: LINKS.MARKETPLACE.HREF,
+      query: { tag }
+    });
+  }, [tag, router])
 
   return (
     <Typography
