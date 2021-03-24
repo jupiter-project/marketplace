@@ -6,8 +6,11 @@ import SearchIcon from '@material-ui/icons/Search'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 320
+  },
   searchIcon: {
-    color: theme.custom.palette.red
+    color: theme.palette.primary.main
   }
 }));
 
@@ -18,7 +21,10 @@ const MagicSearchInput = ({
 
   return (
     <MagicTextField
-      startAdornment={<SearchIcon className={classes.searchIcon} />}
+      className={classes.root}
+      startAdornment={
+        <SearchIcon className={classes.searchIcon} />
+      }
       {...rest}
     />
   )
