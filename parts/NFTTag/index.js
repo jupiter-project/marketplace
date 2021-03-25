@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1, 2.5, 0.5),
     marginRight: theme.spacing(1),
     marginBottom: theme.spacing(1),
-    borderRadius: 30,
+    borderRadius: 20,
     boxShadow: '0 2px 12px 0 #bdbdbd',
   },
 }));

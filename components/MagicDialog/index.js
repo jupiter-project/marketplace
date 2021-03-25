@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   IconButton,
@@ -10,6 +11,7 @@ import {
 } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 
+import MagicLoading from 'components/MagicLoading'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 
@@ -86,6 +88,7 @@ const MagicDialog = ({
   children
 }) => {
   const classes = useStyles();
+  const { loadingStatus } = useSelector(state => state.loading);
 
   return (
     <Dialog
@@ -96,6 +99,10 @@ const MagicDialog = ({
       }}
       aria-labelledby='customized-dialog-title'
     >
+      {
+        loadingStatus &&
+        <MagicLoading loading={loadingStatus} />
+      }
       <DialogTitle
         id='customized-dialog-title'
         disableTypography
