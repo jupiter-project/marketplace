@@ -74,17 +74,18 @@ const Marketplace = () => {
   }, [query, setQuery, setGoods, setFirst, setIsLast])
 
   const tagsHandler = useCallback(async (tags) => {
-    setGoods([]);
-    setFirst(0)
-    setIsLast(false)
-
-    let selectedTags = ''
+    let newSelectedTags = ''
     for (const item of tags) {
-      selectedTags += `${item.tag} `
+      newSelectedTags += `${item.tag} `
     }
 
-    setSelectedTags(selectedTags);
-  }, [setSelectedTags, setGoods, setFirst, setIsLast])
+    if (newSelectedTags !== selectedTags) {
+      setGoods([]);
+      setFirst(0)
+      setIsLast(false)
+      setSelectedTags(newSelectedTags);
+    }
+  }, [selectedTags, setSelectedTags, setGoods, setFirst, setIsLast])
 
   return (
     <div className={classes.root}>

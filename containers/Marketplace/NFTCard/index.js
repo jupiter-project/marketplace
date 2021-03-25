@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       transform: 'translateY(-5px)',
       transition: `ease-out 0.4s `,
-      backgroundColor: theme.custom.palette.green,
       opacity: '100%'
     },
   },
@@ -101,6 +100,10 @@ const NFTCard = ({
     }
     onPurchase(item)
   }, [item, accountRS, router, setPopUp, onPurchase])
+
+  // new Date((Math.floor(Date.now() / 1000) - GENESIS_TIMESTAMP) * 1000)
+  console.log(Math.round(new Date('2017-10-21 23:19:28') / 1000))
+  console.log(new Date(item.timestamp * 1000 + Math.round(new Date('2017-10-21 23:19:28'))))
 
   return (
     <Card className={classes.card}>
