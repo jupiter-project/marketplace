@@ -26,7 +26,7 @@ const getTags = async () => {
 }
 
 const getDGSGoods = async (params, seller = '') => {
-  let url = `/nxt?requestType=getDGSGoods&firstIndex=${params.first}&lastIndex=${params.last}`
+  let url = `/nxt?requestType=getDGSGoods&firstIndex=${params.first}&lastIndex=${params.last}&inStockOnly=false`
 
   if (!!seller) {
     url += `&seller=${seller}`
