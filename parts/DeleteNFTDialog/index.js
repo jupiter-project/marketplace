@@ -108,6 +108,7 @@ const DeleteNFTDialog = ({
         </Typography>
         <Controller
           as={<MagicTextField />}
+          type='password'
           name='passphrase'
           label='Passphrase'
           placeholder='Passphrase'

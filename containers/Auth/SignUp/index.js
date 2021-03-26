@@ -125,6 +125,7 @@ const SignUp = () => {
         <Controller
           as={<MagicTextField />}
           multiline
+          type='password'
           name='passphrase'
           label='Confirm Passphrase'
           error={errors.passphrase?.message}

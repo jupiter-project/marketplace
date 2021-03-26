@@ -135,6 +135,7 @@ const PriceNFTDialog = ({
           <Grid item xs={12}>
             <Controller
               as={<MagicTextField />}
+              type='password'
               name='passphrase'
               label='Passphrase'
               placeholder='Passphrase'
