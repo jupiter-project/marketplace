@@ -14,7 +14,7 @@ import * as jupiterAPI from 'services/api-jupiter'
 import MagicDialog from 'components/MagicDialog'
 import GradientButton from 'components/UI/Buttons/GradientButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
-import getTimestamp from 'utils/helpers/getTimestamp'
+import { getTimestamp } from 'utils/helpers/getTimestamp'
 import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import {
@@ -27,6 +27,7 @@ import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
 
 const schema = yup.object().shape({
   quantity: INTEGER_VALID,
+  deliveryDays: INTEGER_VALID,
   passphrase: PASSPHRASE_VALID
 });
 
@@ -71,7 +72,7 @@ const PurchaseNFTDialog = ({
     changeLoadingStatus(true)
     try {
       let deliveryDate = new Date();
-      deliveryDate.setDate(deliveryDate.getDate() + 7)
+      deliveryDate.setDate(deliveryDate.getDate() + data.deliveryDays)
 
       const params = {
         goods: item.goods,
@@ -134,6 +135,19 @@ const PurchaseNFTDialog = ({
               placeholder='Quantity'
               inputProps={{ min: 1 }}
               error={errors.quantity?.message}
+              control={control}
+              defaultValue={1}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              as={<MagicTextField />}
+              name='deliveryDays'
+              label='Delivery Days'
+              type='number'
+              placeholder='Delivery Days'
+              inputProps={{ min: 1 }}
+              error={errors.deliveryDays?.message}
               control={control}
               defaultValue={1}
             />

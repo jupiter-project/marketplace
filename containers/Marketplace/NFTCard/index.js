@@ -101,10 +101,6 @@ const NFTCard = ({
     onPurchase(item)
   }, [item, accountRS, router, setPopUp, onPurchase])
 
-  // new Date((Math.floor(Date.now() / 1000) - GENESIS_TIMESTAMP) * 1000)
-  console.log(Math.round(new Date('2017-10-21 23:19:28') / 1000))
-  console.log(new Date(item.timestamp * 1000 + Math.round(new Date('2017-10-21 23:19:28'))))
-
   return (
     <Card className={classes.card}>
       <CardHeader

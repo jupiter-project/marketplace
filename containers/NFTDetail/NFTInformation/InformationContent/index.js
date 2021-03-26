@@ -2,9 +2,11 @@ import { memo } from 'react'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
+import AccessTimeIcon from '@material-ui/icons/AccessTime'
 
 import MagicIdenticon from 'components/MagicIdenticon'
 import NFTTag from 'parts/NFTTag'
+import { getDateFromTimestamp } from 'utils/helpers/getTimestamp'
 import { NQT_WEIGHT } from 'utils/constants/common'
 
 const useStyles = makeStyles((theme) => ({
@@ -14,13 +16,14 @@ const useStyles = makeStyles((theme) => ({
   },
   infoContainer: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing(2)
   },
   price: {
     fontSize: 20,
     fontWeight: 'bold',
     marginRight: theme.spacing(1),
-    marginBottom: theme.spacing(2)
   },
   quantity: {
     fontSize: 20,
@@ -69,6 +72,12 @@ const InformationContent = ({
         {good.name}
       </Typography>
 
+      <div className={classes.infoContainer}>
+        <AccessTimeIcon />
+        <Typography color='textPrimary' className={classes.date}>
+          {`Listed on ${getDateFromTimestamp(good.timestamp)}`}
+        </Typography>
+      </div>
       <div className={classes.infoContainer}>
         <Typography
           color='primary'
