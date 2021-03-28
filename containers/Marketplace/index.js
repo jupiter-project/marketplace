@@ -6,6 +6,7 @@ import * as jupiterAPI from 'services/api-jupiter'
 import NFTList from './NFTList'
 import SearchInput from './SearchInput'
 import TagsFilter from './TagsFilter'
+import NFTCarousel from './NFTCarousel'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -91,6 +92,7 @@ const Marketplace = () => {
     <div className={classes.root}>
       <div className={classes.container}>
         <div className={classes.filterContainer}>
+          <NFTCarousel />
           <SearchInput onSearch={searchHandler} />
           <TagsFilter onTags={tagsHandler} />
         </div>

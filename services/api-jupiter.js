@@ -50,6 +50,11 @@ const getDGSPurchasesByBuyer = async (params) => {
   return await apiAxios.get(url)
 }
 
+const getAllDGSPurchases = async (params) => {
+  const url = `/nxt?requestType=getDGSPurchases&firstIndex=${params.first}&lastIndex=${params.last}&completed=true`
+  return await apiAxios.get(url)
+}
+
 const getDGSGood = async (goods) => {
   return await apiAxios.get(`/nxt?requestType=getDGSGood&goods=${goods}`)
 }
@@ -113,6 +118,7 @@ export {
   getDGSPendingPurchases,
   getDGSPurchasesBySeller,
   getDGSPurchasesByBuyer,
+  getAllDGSPurchases,
   createNFTToken,
   purchaseDGSGood,
   changeDGSGoodPrice,
