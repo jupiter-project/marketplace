@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { AppBar, Toolbar } from '@material-ui/core'
+import { AppBar, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 
@@ -21,10 +21,16 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  navContainer: {
+  container: {
     display: 'flex',
     alignItems: 'center',
   },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: theme.custom.palette.white,
+    margin: theme.spacing(1)
+  }
 }));
 
 const TopAppBar = () => {
@@ -37,8 +43,16 @@ const TopAppBar = () => {
       className={classes.appBar}
     >
       <Toolbar className={clsx(classes.toolBar, commonClasses.containerWidth)}>
-        <Logo />
-        <div className={classes.navContainer}>
+        <div className={classes.container}>
+          <Logo />
+          <Typography
+            variant='h1'
+            className={classes.title}
+          >
+            Leda
+          </Typography>
+        </div>
+        <div className={classes.container}>
           <NavBarMenu />
           <NavDropMenu />
         </div>

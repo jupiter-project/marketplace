@@ -28,6 +28,10 @@ const LINKS = Object.freeze({
     TITLE: 'Create NFT',
     HREF: '/create-nft'
   },
+  TRANSACTION_HISTORY: {
+    TITLE: 'Transactions',
+    HREF: '/transaction-history'
+  },
   MY_ACCOUNT: {
     TITLE: 'My Account',
     HREF: '/my-account'
