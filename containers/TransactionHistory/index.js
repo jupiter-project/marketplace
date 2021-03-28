@@ -7,6 +7,7 @@ import * as jupiterAPI from 'services/api-jupiter'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import ImageWall from 'parts/ImageWall'
 import TransactionItem from './TransactionItem'
+import NFTCarousel from './NFTCarousel'
 import { useCommonStyles } from 'styles/use-styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -66,6 +67,7 @@ const TransactionHistory = () => {
     <main className={classes.root}>
       <ImageWall header='Transactions' />
       <div className={clsx(commonClasses.containerWidth, classes.container)}>
+        <NFTCarousel />
         {
           purchases.map((item, index) => (
             <TransactionItem

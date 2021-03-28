@@ -39,6 +39,7 @@ const Marketplace = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, selectedTags]);
 
+  console.log(goods)
   const getDGSGoods = useCallback(async () => {
     try {
       if (!isLast) {
