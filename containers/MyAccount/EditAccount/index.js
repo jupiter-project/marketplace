@@ -105,7 +105,7 @@ const EditAccount = () => {
         color='textPrimary'
         className={classes.title}
       >
-        SET ACCOUNT INFO
+        ACCOUNT INFO
       </Typography>
       {
         !currentUser?.balanceNQT &&

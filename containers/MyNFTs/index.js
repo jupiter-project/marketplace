@@ -39,19 +39,19 @@ const useStyles = makeStyles((theme) => ({
 const TABS = [
   {
     icon: CollectionsIcon,
-    label: 'NFT Tokens',
+    label: 'My created NFTs',
   },
   {
     icon: StyleIcon,
-    label: 'Sales Tokens',
+    label: 'Sold NFTs',
   },
   {
     icon: BusinessCenterIcon,
-    label: 'Purchased Tokens',
+    label: 'Purchased NFTs',
   },
   {
     icon: ShoppingCartIcon,
-    label: 'Pending Purchase Tokens',
+    label: 'Pending purchases',
   }
 ]
 
