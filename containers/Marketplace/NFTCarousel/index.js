@@ -6,18 +6,24 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 import * as jupiterAPI from 'services/api-jupiter'
 import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths'
+import { isEmpty } from 'utils/helpers/utility'
 
 const useStyles = makeStyles((theme) => ({
   carousel: {
     position: 'relative',
     width: '100%',
-    marginBottom: theme.spacing(5)
+    marginBottom: theme.spacing(5),
+    borderRadius: 4
+  },
+  container: {
+    boxShadow: '0 2px 12px 0 #bdbdbd',
+    borderRadius: 4
   },
   image: {
     width: '100%',
     height: 420,
     objectFit: 'cover',
-    borderRadius: theme.spacing(1)
+    borderRadius: 4
   },
   content: {
     position: 'absolute',
@@ -64,6 +70,7 @@ const NFTCarousel = () => {
   }
 
   return (
+    !isEmpty(goods) &&
     <Carousel
       infiniteLoop
       autoPlay={true}
@@ -76,7 +83,7 @@ const NFTCarousel = () => {
     >
       {
         goods.map((item, index) =>
-          <div key={index}>
+          <div key={index} className={classes.container}>
             <img
               alt='carousel'
               src={item.description || IMAGE_PLACEHOLDER_IMAGE_PATH}
