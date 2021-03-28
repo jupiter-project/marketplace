@@ -21,8 +21,12 @@ const getAccountByAccountID = async (account) => {
   return await apiAxios.get(`/nxt?requestType=getAccount&account=${account}`)
 }
 
-const getTags = async () => {
+const getAllTags = async () => {
   return await apiAxios.get(`/nxt?requestType=getDGSTags`)
+}
+
+const getTags = async (params) => {
+  return await apiAxios.get(`/nxt?requestType=getDGSTags&firstIndex=${params.first}&lastIndex=${params.last}`)
 }
 
 const getDGSGoodsCount = async () => {
@@ -123,6 +127,7 @@ export {
   getAccountByPassphrase,
   getAccountByAccountID,
   setAccountInfo,
+  getAllTags,
   getTags,
   getDGSGoodsCount,
   getDGSTagCount,

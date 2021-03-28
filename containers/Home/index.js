@@ -4,9 +4,11 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import HomeHeader from './HomeHeader'
 import CreatorAndCollector from './CreatorAndCollector'
-// import UserFeedback from './UserFeedback'
+import UserFeedback from './UserFeedback'
+import NFTCarousel from 'parts/NFTCarousel'
 import HomeFAQs from './HomeFAQs'
 import HomeJourney from './HomeJourney'
+import { Typography } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,6 +17,16 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: '100%',
     backgroundColor: theme.palette.background.default
+  },
+  title: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    margin: theme.spacing(8, 0),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 36,
+      margin: theme.spacing(5, 0),
+    },
   }
 }));
 
@@ -24,8 +36,12 @@ const Home = () => {
   return (
     <main className={classes.root}>
       <HomeHeader />
+      <Typography variant='h1' className={classes.title}>
+        New NFT Tokens
+      </Typography>
+      <NFTCarousel />
       <CreatorAndCollector />
-      {/* <UserFeedback /> */}
+      <UserFeedback />
       <HomeFAQs />
       <HomeJourney />
     </main>

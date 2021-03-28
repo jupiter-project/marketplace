@@ -78,9 +78,9 @@ const CreatorAndCollector = () => {
   return (
     <section className={classes.root}>
       <div className={classes.container}>
-        {/* <Typography variant='h1' className={classes.title}>
-          Join 20,000+ creators and collectors
-        </Typography> */}
+        <Typography variant='h1' className={classes.title}>
+          Categories and Tags
+        </Typography>
         <Grid container spacing={8} className={classes.list}>
           {
             CREATORS.map((item, index) => (
