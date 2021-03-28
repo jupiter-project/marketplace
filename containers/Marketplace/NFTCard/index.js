@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     bottom: theme.spacing(1),
     right: theme.spacing(1),
-    width: 30,
+    minWidth: 30,
     height: 30,
     borderRadius: 8,
     backgroundColor: theme.palette.primary.main,

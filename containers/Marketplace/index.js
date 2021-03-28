@@ -3,10 +3,10 @@ import { memo, useState, useEffect, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import * as jupiterAPI from 'services/api-jupiter'
+import NFTCarousel from 'parts/NFTCarousel'
 import NFTList from './NFTList'
 import SearchInput from './SearchInput'
 import TagsFilter from './TagsFilter'
-import NFTCarousel from './NFTCarousel'
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   searchContainer: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: theme.spacing(2)
+    margin: theme.spacing(2, 0)
   },
   button: {
     marginLeft: theme.spacing(1)

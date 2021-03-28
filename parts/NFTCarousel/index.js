@@ -1,8 +1,8 @@
 import { memo, useEffect, useState } from 'react'
-import { Typography } from '@material-ui/core'
+import { Card, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { Carousel } from 'react-responsive-carousel'
-import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import AliceCarousel from 'react-alice-carousel'
+import 'react-alice-carousel/lib/alice-carousel.css'
 
 import * as jupiterAPI from 'services/api-jupiter'
 import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths'
@@ -10,43 +10,45 @@ import { isEmpty } from 'utils/helpers/utility'
 
 const useStyles = makeStyles((theme) => ({
   carousel: {
-    position: 'relative',
     width: '100%',
-    marginBottom: theme.spacing(5),
-    borderRadius: 4
   },
   container: {
-    boxShadow: '0 2px 12px 0 #bdbdbd',
-    borderRadius: 4
+    height: 320,
+    position: 'relative',
+    margin: theme.spacing(2),
   },
   image: {
     width: '100%',
-    height: 420,
+    height: '100%',
     objectFit: 'cover',
-    borderRadius: 4
+    borderRadius: 4,
   },
   content: {
     position: 'absolute',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'flex-end',
     alignItems: 'center',
     width: '100%',
-    padding: theme.spacing(2),
-    bottom: theme.spacing(3)
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.15)',
+    bottom: 0
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     lineHeight: 1,
-    color: theme.custom.palette.white,
-    marginBottom: theme.spacing(1)
-  },
-  text: {
-    fontSize: 14,
-    lineHeight: 1,
-    color: theme.custom.palette.white,
+    marginBottom: theme.spacing(1),
+    color: theme.custom.palette.white
   },
 }));
+
+const responsive = {
+  480: { items: 1 },
+  680: { items: 2 },
+  960: { items: 3 },
+  1280: { items: 4 }
+}
 
 const NFTCarousel = () => {
   const classes = useStyles();
@@ -71,19 +73,19 @@ const NFTCarousel = () => {
 
   return (
     !isEmpty(goods) &&
-    <Carousel
-      infiniteLoop
-      autoPlay={true}
-      interval={1500}
-      showStatus={false}
-      showThumbs={false}
-      showArrows={false}
-      showIndicators={true}
+    <AliceCarousel
+      mouseDragEnabled
+      autoPlay
+      infinite
+      animationDuration={5000}
+      responsive={responsive}
+      disableButtonsControls
+      disableDotsControls
       className={classes.carousel}
     >
       {
         goods.map((item, index) =>
-          <div key={index} className={classes.container}>
+          <Card key={index} className={classes.container}>
             <img
               alt='carousel'
               src={item.description || IMAGE_PLACEHOLDER_IMAGE_PATH}
@@ -94,10 +96,10 @@ const NFTCarousel = () => {
                 {item.name}
               </Typography>
             </div>
-          </div>
+          </Card>
         )
       }
-    </Carousel>
+    </AliceCarousel>
   );
 };
 

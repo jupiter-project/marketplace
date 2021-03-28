@@ -68,7 +68,7 @@ const TagsFilter = ({
   const [selectedTags, setSelectedTags] = useState([]);
 
   useEffect(() => {
-    getTags();
+    getAllTags();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -85,8 +85,8 @@ const TagsFilter = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTags])
 
-  const getTags = useCallback(async () => {
-    const { tags } = await jupiterAPI.getTags();
+  const getAllTags = useCallback(async () => {
+    const { tags } = await jupiterAPI.getAllTags();
     setAllTags(tags)
   }, [setAllTags])
 
