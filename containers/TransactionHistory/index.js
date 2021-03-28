@@ -6,6 +6,7 @@ import clsx from 'clsx'
 import * as jupiterAPI from 'services/api-jupiter'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import ImageWall from 'parts/ImageWall'
+import TrendingCard from 'parts/TrendingCard'
 import TransactionItem from './TransactionItem'
 import { useCommonStyles } from 'styles/use-styles'
 
@@ -66,6 +67,7 @@ const TransactionHistory = () => {
     <main className={classes.root}>
       <ImageWall header='Transactions' />
       <div className={clsx(commonClasses.containerWidth, classes.container)}>
+        <TrendingCard />
         {
           purchases.map((item, index) => (
             <TransactionItem

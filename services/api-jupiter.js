@@ -25,6 +25,18 @@ const getTags = async () => {
   return await apiAxios.get(`/nxt?requestType=getDGSTags`)
 }
 
+const getDGSGoodsCount = async () => {
+  return await apiAxios.get(`/nxt?requestType=getDGSGoodsCount`)
+}
+
+const getDGSTagCount = async () => {
+  return await apiAxios.get(`/nxt?requestType=getDGSTagCount`)
+}
+
+const getDGSPurchaseCount = async () => {
+  return await apiAxios.get(`/nxt?requestType=getDGSPurchaseCount`)
+}
+
 const getDGSGoods = async (params, seller = '') => {
   let url = `/nxt?requestType=getDGSGoods&firstIndex=${params.first}&lastIndex=${params.last}&inStockOnly=false`
 
@@ -112,6 +124,9 @@ export {
   getAccountByAccountID,
   setAccountInfo,
   getTags,
+  getDGSGoodsCount,
+  getDGSTagCount,
+  getDGSPurchaseCount,
   searchDGSGoods,
   getDGSGoods,
   getDGSGood,
