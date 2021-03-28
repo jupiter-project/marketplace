@@ -35,7 +35,7 @@ const MyBalance = () => {
         color='textPrimary'
         className={classes.title}
       >
-        YOUR CURRENT BALANCE
+        BALANCE
       </Typography>
       <Typography
         color='primary'
