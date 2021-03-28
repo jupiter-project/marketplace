@@ -28,11 +28,11 @@ const TrendingChart = () => {
       let chartData = [];
       for (const item of purchases) {
         chartData = [
-          ...chartData,
           {
             name: item.name,
             price: item.priceNQT / NQT_WEIGHT
-          }
+          },
+          ...chartData,
         ]
       }
       setPurchases(chartData);
