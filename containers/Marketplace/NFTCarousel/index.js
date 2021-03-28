@@ -1,9 +1,10 @@
-import { memo } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
+import * as jupiterAPI from 'services/api-jupiter'
 import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths'
 
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +44,24 @@ const useStyles = makeStyles((theme) => ({
 
 const NFTCarousel = () => {
   const classes = useStyles();
+  const [goods, setGoods] = useState([]);
+
+  useEffect(() => {
+    getLatestGoods()
+  }, [])
+
+  const getLatestGoods = async () => {
+    try {
+      const params = {
+        first: 0,
+        last: 7
+      }
+      const { goods = [] } = await jupiterAPI.getDGSGoods(params);
+      setGoods(goods)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <Carousel
@@ -51,16 +70,16 @@ const NFTCarousel = () => {
       interval={1500}
       showStatus={false}
       showThumbs={false}
-      showArrows={true}
+      showArrows={false}
       showIndicators={true}
       className={classes.carousel}
     >
       {
-        results.map((item, index) =>
+        goods.map((item, index) =>
           <div key={index}>
             <img
               alt='carousel'
-              src={item.image || IMAGE_PLACEHOLDER_IMAGE_PATH}
+              src={item.description || IMAGE_PLACEHOLDER_IMAGE_PATH}
               className={classes.image}
             />
             <div className={classes.content}>
@@ -76,22 +95,3 @@ const NFTCarousel = () => {
 };
 
 export default memo(NFTCarousel);
-
-const results = [
-  {
-    name: 'Figgis Monster',
-    image: 'https://res.cloudinary.com/leda/image/upload/v1616865221/qq9jfrorpaaksco9kalo.jpg',
-  },
-  {
-    name: 'Person and blue person',
-    image: 'https://res.cloudinary.com/leda/image/upload/v1616050295/snbuvxdjtkw1wtskwtkx.webp',
-  },
-  {
-    name: 'Circle Paper',
-    image: 'https://res.cloudinary.com/leda/image/upload/v1616005042/swukxphauafllyfonpol.gif',
-  },
-  {
-    name: 'Sky net on jupiter',
-    image: 'https://res.cloudinary.com/leda/image/upload/v1616050409/vsyvk4amjjwqpfdp5r6w.gif',
-  }
-]
