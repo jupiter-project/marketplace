@@ -1,5 +1,6 @@
 
 import { memo, useCallback } from 'react'
+import { useRouter } from 'next/router'
 import {
   Button,
   Hidden
@@ -7,6 +8,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 
 import useMenu from 'utils/hooks/useMenu'
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,11 +20,15 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 18,
     textTransform: 'unset',
     color: theme.palette.background.default
+  },
+  selected: {
+    color: theme.palette.primary.main
   }
 }));
 
 const NavBarMenu = () => {
   const classes = useStyles();
+  const router = useRouter()
   const { PROFILE_MENU_LINKS, onMenuHandler } = useMenu();
 
   const onNavHandler = useCallback((item) => () => {
@@ -37,7 +43,7 @@ const NavBarMenu = () => {
             <Button
               key={index}
               onClick={onNavHandler(item)}
-              className={classes.item}
+              className={clsx(classes.item, { [classes.selected]: item.HREF === router.pathname })}
             >
               {item.TITLE}
             </Button>

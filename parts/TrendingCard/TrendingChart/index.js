@@ -1,8 +1,9 @@
 
 import { memo, useEffect, useState } from 'react'
 import {
-  AreaChart,
-  Area,
+  ComposedChart,
+  Bar,
+  Line,
   Label,
   XAxis,
   YAxis,
@@ -30,7 +31,8 @@ const TrendingChart = () => {
         chartData = [
           {
             name: item.name,
-            price: item.priceNQT / NQT_WEIGHT
+            price: item.priceNQT / NQT_WEIGHT,
+            total: item.priceNQT * item.quantity / NQT_WEIGHT,
           },
           ...chartData,
         ]
@@ -43,7 +45,7 @@ const TrendingChart = () => {
 
   return (
     <ResponsiveContainer width='100%' height='100%'>
-      <AreaChart
+      <ComposedChart
         width={500}
         height={300}
         data={purchases}
@@ -54,17 +56,18 @@ const TrendingChart = () => {
       >
         <CartesianGrid strokeDasharray='3 3' />
         <XAxis dataKey='name'>
-          <Label value='Latest Transactions' offset={0} position='bottom' style={{ fontSize: 20, fontWeight: 'bold' }} />
+          <Label
+            value='Latest Transactions'
+            offset={0}
+            position='bottom'
+            style={{ fontSize: 20, fontWeight: 'bold' }}
+          />
         </XAxis>
         <YAxis />
         <Tooltip />
-        <Area
-          type='monotone'
-          dataKey='price'
-          stroke={theme.palette.primary.main}
-          fill={theme.palette.primary.main}
-        />
-      </AreaChart>
+        <Bar dataKey='price' barSize={20} fill={theme.palette.primary.main} />
+        <Line type='monotone' dataKey='total' strokeWidth={3} stroke={theme.custom.palette.orange} />
+      </ComposedChart>
     </ResponsiveContainer>
   )
 }

@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   title: {
-    fontSize: 42,
+    fontSize: 36,
     fontWeight: 'bold',
     color: theme.custom.palette.white,
     margin: theme.spacing(1)
