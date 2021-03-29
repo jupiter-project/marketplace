@@ -83,7 +83,7 @@ const SignIn = () => {
           error={errors.account?.message}
           className={authClasses.input}
           control={control}
-          defaultValue='JUP-'
+          defaultValue=''
         />
         <GradientButton
           type='submit'
