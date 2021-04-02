@@ -1,6 +1,6 @@
 
 import { memo, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 
 import {
@@ -15,7 +15,6 @@ import { isServer } from 'utils/helpers/utility'
 const InitProvider = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { accountRS = '' } = useSelector(state => state.auth);
 
   useEffect(() => {
     const accountRS = isServer() ? '' : localStorage.accountRS;
@@ -31,6 +30,8 @@ const InitProvider = () => {
   }, [dispatch])
 
   useEffect(() => {
+    const accountRS = isServer() ? '' : localStorage.accountRS;
+
     if (!accountRS) {
       if (PAGE_ROUTES.includes(router.pathname)) {
         router.push(LINKS.HOME.HREF)
