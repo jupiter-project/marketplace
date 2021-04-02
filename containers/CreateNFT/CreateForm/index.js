@@ -110,6 +110,7 @@ const CreateForm = () => {
         account: currentUser.account,
         accountRS: currentUser.accountRS,
         tags,
+        type: data.type,
         fileBuffer
       }
       const { data: { _id, image = '' } } = await nftAPI.addNFT(params);

@@ -129,6 +129,21 @@ const issueAsset = async (params) => {
   return await apiAxios.post(url)
 }
 
+const searchAssets = async (params) => {
+  const url = `/nxt?requestType=searchAssets&query=${'nftleda ' + params?.query || ''}&firstIndex=${params.first}&lastIndex=${params.last}`
+  return await apiAxios.get(url)
+}
+
+const getAssetsBySeller = async (params) => {
+  const url = `/nxt?requestType=getAssetsByIssuer&firstIndex=${params.first}&lastIndex=${params.last}&account=${params.account}`
+  return await apiAxios.get(url)
+}
+
+const getTransaction = async (transaction) => {
+  const url = `/nxt?requestType=getTransaction&transaction=${transaction}`
+  return await apiAxios.get(url)
+}
+
 export {
   getAccountByPassphrase,
   getAccountByAccountID,
@@ -152,5 +167,8 @@ export {
   deleteNFTToken,
   deliveryDGSGood,
   refundDGSGood,
-  issueAsset
+  issueAsset,
+  searchAssets,
+  getAssetsBySeller,
+  getTransaction
 };

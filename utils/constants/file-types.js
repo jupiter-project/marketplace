@@ -12,18 +12,11 @@ const FILE_TYPES = Object.freeze({
     ACCEPT: 'video/*',
     PLACEHOLDER: 'MP4, AVI. Max 50MB.'
   },
-  // AUDIO: {
-  //   LABEL: 'Audio',
-  //   VALUE: 'AUDIO',
-  //   ACCEPT: 'audio/*',
-  //   PLACEHOLDER: 'MP3. Max 50MB.'
-  // },
 })
 
 const FILE_TYPES_ARRAY = [
   FILE_TYPES.IMAGE,
   FILE_TYPES.VIDEO,
-  // FILE_TYPES.AUDIO,
 ]
 
 export {
