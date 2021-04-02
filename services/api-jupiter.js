@@ -123,6 +123,12 @@ const refundDGSGood = async (params) => {
   return await apiAxios.post(url)
 }
 
+// Assets API
+const issueAsset = async (params) => {
+  const url = `/nxt?requestType=issueAsset&name=${params.name}&description=${params.description}&quantityQNT=${params.quantity}&message=${params.message}&decimals=0&priceNQT=${params.price}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
+  return await apiAxios.post(url)
+}
+
 export {
   getAccountByPassphrase,
   getAccountByAccountID,
@@ -145,5 +151,6 @@ export {
   changeDGSGoodQuantity,
   deleteNFTToken,
   deliveryDGSGood,
-  refundDGSGood
+  refundDGSGood,
+  issueAsset
 };
