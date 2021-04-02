@@ -1,12 +1,9 @@
 
 import { memo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import {
-  Grid,
-  Typography
-} from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 
-import TopTags from 'parts/TopTags'
+// import TopTags from 'parts/TopTags'
 import CreateForm from './CreateForm'
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    maxWidth: theme.custom.layout.maxDesktopWidth,
+    maxWidth: 650 // theme.custom.layout.maxDesktopWidth,
   },
   header: {
     fontWeight: 'bold',
@@ -45,14 +42,15 @@ const CreateNFT = () => {
           Create NFT
         </Typography>
 
-        <Grid container spacing={3}>
+        <CreateForm />
+        {/* <Grid container spacing={3}>
           <Grid item xs={12} sm={4}>
             <TopTags />
           </Grid>
           <Grid item xs={12} sm={8}>
             <CreateForm />
           </Grid>
-        </Grid>
+        </Grid> */}
       </div>
     </main>
   )

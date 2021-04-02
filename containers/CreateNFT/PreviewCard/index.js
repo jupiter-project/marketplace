@@ -4,20 +4,25 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   Card,
   CardHeader,
-  CardMedia,
   CardContent,
   Typography,
 } from '@material-ui/core';
 
 import MagicIdenticon from 'components/MagicIdenticon'
+import { FILE_TYPES } from 'utils/constants/file-types';
 import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
 
 const useStyles = makeStyles((theme) => ({
-  media: {
-    height: 0,
-    paddingTop: '80%',
-    cursor: 'pointer',
-    position: 'relative'
+  imageContainer: {
+    position: 'relative',
+    margin: -theme.spacing(2),
+    marginBottom: 0,
+    height: 180,
+  },
+  image: {
+    height: 180,
+    width: '100%',
+    objectFit: 'cover'
   },
   quantityContainer: {
     position: 'absolute',
@@ -43,14 +48,12 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'capitalize',
     marginBottom: theme.spacing(0.5)
   },
-  price: {
-    fontWeight: 'bold',
-  },
 }));
 
 const PreviewCard = ({
+  type,
   item,
-  image
+  fileBuffer
 }) => {
   const classes = useStyles();
   const { accountRS } = useSelector(state => state.auth);
@@ -62,23 +65,32 @@ const PreviewCard = ({
           <MagicIdenticon value={accountRS} />
         }
       />
-      <CardMedia
-        className={classes.media}
-        image={image || IMAGE_PLACEHOLDER_IMAGE_PATH}
-      >
-        {item.quantity &&
-          <div className={classes.quantityContainer}>
-            <Typography
-              variant='body2'
-              className={classes.quantity}
-            >
-              {item.quantity}
-            </Typography>
-          </div>
-        }
-      </CardMedia>
-
       <CardContent>
+        <div className={classes.imageContainer}>
+          {type === FILE_TYPES.IMAGE.VALUE
+            ? (
+              <img
+                alt='image'
+                src={fileBuffer || IMAGE_PLACEHOLDER_IMAGE_PATH}
+                className={classes.image}
+              />
+            ) : fileBuffer && (
+              <video autoPlay loop controls className={classes.image}>
+                <source src={fileBuffer} />
+              </video>
+            )
+          }
+          {item.quantity &&
+            <div className={classes.quantityContainer}>
+              <Typography
+                variant='body2'
+                className={classes.quantity}
+              >
+                {item.quantity}
+              </Typography>
+            </div>
+          }
+        </div>
         {!!item?.name &&
           <Typography
             variant='body1'
@@ -86,15 +98,6 @@ const PreviewCard = ({
             className={classes.name}
           >
             {item?.name}
-          </Typography>
-        }
-        {!!item?.price &&
-          <Typography
-            variant='body2'
-            color='primary'
-            className={classes.price}
-          >
-            {item?.price} JUP
           </Typography>
         }
       </CardContent>

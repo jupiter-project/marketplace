@@ -123,6 +123,27 @@ const refundDGSGood = async (params) => {
   return await apiAxios.post(url)
 }
 
+// Assets API
+const issueAsset = async (params) => {
+  const url = `/nxt?requestType=issueAsset&name=${params.name}&description=${params.description}&quantityQNT=${params.quantity}&message=${params.message}&decimals=0&priceNQT=${params.price}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
+  return await apiAxios.post(url)
+}
+
+const searchAssets = async (params) => {
+  const url = `/nxt?requestType=searchAssets&query=${'nftleda ' + params?.query || ''}&firstIndex=${params.first}&lastIndex=${params.last}`
+  return await apiAxios.get(url)
+}
+
+const getAssetsBySeller = async (params) => {
+  const url = `/nxt?requestType=getAssetsByIssuer&firstIndex=${params.first}&lastIndex=${params.last}&account=${params.account}`
+  return await apiAxios.get(url)
+}
+
+const getTransaction = async (transaction) => {
+  const url = `/nxt?requestType=getTransaction&transaction=${transaction}`
+  return await apiAxios.get(url)
+}
+
 export {
   getAccountByPassphrase,
   getAccountByAccountID,
@@ -145,5 +166,9 @@ export {
   changeDGSGoodQuantity,
   deleteNFTToken,
   deliveryDGSGood,
-  refundDGSGood
+  refundDGSGood,
+  issueAsset,
+  searchAssets,
+  getAssetsBySeller,
+  getTransaction
 };

@@ -5,6 +5,7 @@ import { IconButton } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close';
 
 import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
+import { FILE_TYPES } from 'utils/constants/file-types';
 
 const useStyles = makeStyles((theme) => ({
   fileContainer: {
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UploadFileItem = ({
+  type,
   fileBuffer,
   onDelete
 }) => {
@@ -40,10 +42,19 @@ const UploadFileItem = ({
 
   return (
     <div className={classes.fileContainer}>
-      <img
-        src={fileBuffer || IMAGE_PLACEHOLDER_IMAGE_PATH}
-        className={classes.image}
-      />
+      {type === FILE_TYPES.IMAGE.VALUE
+        ? (
+          <img
+            src={fileBuffer || IMAGE_PLACEHOLDER_IMAGE_PATH}
+            className={classes.image}
+          />
+        ) : (
+          <video autoPlay loop controls className={classes.image}>
+            <source src={fileBuffer} />
+          </video>
+        )
+      }
+
       <IconButton
         className={classes.deleteIcon}
         onClick={onDelete}

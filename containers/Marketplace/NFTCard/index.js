@@ -12,10 +12,8 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import MagicIdenticon from 'components/MagicIdenticon'
 import NFTDropMenu from 'parts/NFTDropMenu'
-import {
-  NQT_WEIGHT,
-  DEFAULT_IMAGE
-} from 'utils/constants/common'
+import { NQT_WEIGHT } from 'utils/constants/common'
+import { DEFAULT_IMAGE } from 'utils/constants/image-paths'
 import LINKS from 'utils/constants/links'
 import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'

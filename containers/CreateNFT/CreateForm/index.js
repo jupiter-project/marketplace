@@ -1,37 +1,35 @@
 
-import { memo, useCallback, useState } from 'react'
-import { useRouter } from 'next/router'
+import { memo, useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import clsx from 'clsx'
 
-import * as cloudinaryAPI from 'services/api-cloudinary'
+import * as nftAPI from 'services/api-nft'
 import * as jupiterAPI from 'services/api-jupiter'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
+import MagicSelect from 'components/UI/MagicSelect'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import UploadMedia from '../UploadMedia'
 import PreviewCard from '../PreviewCard'
 import {
   STRING_VALID,
-  PRICE_VALID,
   INTEGER_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
 import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
-import { isEmpty } from 'utils/helpers/utility'
-import { NQT_WEIGHT } from 'utils/constants/common'
-import LINKS from 'utils/constants/links'
 import MESSAGES from 'utils/constants/messages'
-import clsx from 'clsx'
+import { FILE_TYPES, FILE_TYPES_ARRAY } from 'utils/constants/file-types'
 
 const schema = yup.object().shape({
   name: STRING_VALID,
-  price: PRICE_VALID,
+  description: STRING_VALID,
   quantity: INTEGER_VALID,
+  type: STRING_VALID,
   passphrase: PASSPHRASE_VALID
 });
 
@@ -66,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
 
 const CreateForm = () => {
   const classes = useStyles();
-  const router = useRouter();
   const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
 
@@ -81,24 +78,23 @@ const CreateForm = () => {
 
   const watchAllFields = watch();
 
+  useEffect(() => {
+    setFileBuffer(null)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watchAllFields.type]);
+
   const resetHandler = useCallback(() => {
     setFileBuffer(null)
     setTag1('')
     setTag2('')
     reset({
       name: '',
-      price: '',
-      quantity: 1
+      description: '',
+      quantity: 1,
     })
   }, [reset, setFileBuffer, setTag1, setTag2])
 
   const onSubmit = useCallback(async (data) => {
-    if (isEmpty(currentUser)) {
-      setPopUp({ text: MESSAGES.AUTH_REQUIRED })
-      router.push(LINKS.SIGN_IN.HREF)
-      return;
-    }
-
     if (!fileBuffer) {
       setPopUp({ text: MESSAGES.IMAGE_NOT_FOUND })
       return;
@@ -110,18 +106,30 @@ const CreateForm = () => {
       if (tag1) tags = [...tags, tag1]
       if (tag2) tags = [...tags, tag2]
 
-      const { image = '' } = await cloudinaryAPI.uploadFileCloudinary({ fileBuffer });
-      const params = {
-        name: data.name,
-        price: data.price * NQT_WEIGHT,
+      let params = {
+        account: currentUser.account,
+        accountRS: currentUser.accountRS,
+        tags,
+        type: data.type,
+        fileBuffer
+      }
+      const { data: { _id, image = '' } } = await nftAPI.addNFT(params);
+
+      params = {
+        name: 'nftleda',
+        description: data.name,
         quantity: data.quantity,
-        tags: tags.join(', '),
+        message: JSON.stringify({
+          _id,
+          image,
+          type: data.type,
+          description: data.description
+        }),
         secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey,
-        description: image,
       }
 
-      const response = await jupiterAPI.createNFTToken(params)
+      const response = await jupiterAPI.issueAsset(params)
       if (response?.errorCode) {
         setPopUp({ text: MESSAGES.CREATE_NFT_ERROR })
         changeLoadingStatus(false)
@@ -135,21 +143,23 @@ const CreateForm = () => {
       setPopUp({ text: MESSAGES.CREATE_NFT_ERROR })
     }
     changeLoadingStatus(false)
-  }, [tag1, tag2, router, fileBuffer, currentUser, resetHandler, setPopUp, changeLoadingStatus]);
+  }, [tag1, tag2, fileBuffer, currentUser, resetHandler, setPopUp, changeLoadingStatus]);
 
   return (
     <>
       <Grid container spacing={3} className={classes.media}>
         <Grid item xs={12} sm={6} md={8}>
           <UploadMedia
+            type={FILE_TYPES[watchAllFields?.type || FILE_TYPES.IMAGE.VALUE]}
             fileBuffer={fileBuffer}
             setFileBuffer={setFileBuffer}
           />
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <PreviewCard
+            type={watchAllFields?.type || FILE_TYPES.IMAGE.VALUE}
             item={watchAllFields}
-            image={fileBuffer}
+            fileBuffer={fileBuffer}
           />
         </Grid>
       </Grid>
@@ -170,19 +180,20 @@ const CreateForm = () => {
               defaultValue=''
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
             <Controller
               as={<MagicTextField />}
-              name='price'
-              label='Price (JUP)'
-              type='number'
-              placeholder='Price'
-              inputProps={{ min: 0 }}
-              error={errors.price?.message}
-              className={classes.input}
+              multiline
+              rows={3}
+              name='description'
+              label='Description'
+              placeholder='Description'
+              error={errors.description?.message}
               control={control}
               defaultValue=''
             />
+          </Grid>
+          <Grid item xs={12} sm={6}>
             <Controller
               as={<MagicTextField />}
               name='quantity'
@@ -190,9 +201,20 @@ const CreateForm = () => {
               type='number'
               placeholder='Quantity'
               inputProps={{ min: 1 }}
+              className={classes.input}
               error={errors.quantity?.message}
               control={control}
               defaultValue={1}
+            />
+            <Controller
+              as={<MagicSelect />}
+              name='type'
+              label='Type'
+              placeholder='Select Type'
+              items={FILE_TYPES_ARRAY}
+              error={errors.type?.message}
+              control={control}
+              defaultValue={FILE_TYPES.IMAGE.VALUE}
             />
           </Grid>
           <Grid item xs={12} sm={6}>

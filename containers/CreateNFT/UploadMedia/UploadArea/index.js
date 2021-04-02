@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UploadArea = ({
+  placeholder,
   isDragActive,
   getRootProps,
   getInputProps
@@ -53,8 +54,12 @@ const UploadArea = ({
       className={classes.upload}
     >
       <input {...getInputProps()} />
-      <Typography variant='h6' color='textSecondary' align='center'>
-        PNG, GIF, WEBP. Max 50MB.
+      <Typography
+        variant='h6'
+        color='textSecondary'
+        align='center'
+      >
+        {placeholder}
       </Typography>
       <div className={classes.iconContainer}>
         <CloudUploadIcon className={clsx(classes.uploadIcon, { [classes.dragActiveIcon]: isDragActive })} />

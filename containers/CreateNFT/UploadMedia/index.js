@@ -10,6 +10,7 @@ import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 
 const UploadMedia = ({
+  type,
   fileBuffer,
   setFileBuffer
 }) => {
@@ -35,7 +36,7 @@ const UploadMedia = ({
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: 'image/*',
+    accept: type.ACCEPT,
     maxSize: MAX_UPLOAD_SIZE
   })
 
@@ -43,12 +44,14 @@ const UploadMedia = ({
     isEmpty(fileBuffer)
       ? (
         <UploadArea
+          placeholder={type.PLACEHOLDER}
           isDragActive={isDragActive}
           getRootProps={getRootProps}
           getInputProps={getInputProps}
         />
       ) : (
         <UploadFileItem
+          type={type.VALUE}
           fileBuffer={fileBuffer}
           onDelete={deleteFileHandler}
         />
