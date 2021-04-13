@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const PAGE_COUNT = 8;
+const PAGE_COUNT = 5;
 const MyAllAssets = ({
   index,
   value

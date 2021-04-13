@@ -1,10 +1,9 @@
-import { memo, useCallback } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import {
   Card,
   CardHeader,
-  CardMedia,
   CardContent,
   Typography,
 } from '@material-ui/core'
@@ -18,6 +17,7 @@ import LINKS from 'utils/constants/links'
 import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
+import { FILE_TYPES } from 'utils/constants/file-types';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -28,11 +28,16 @@ const useStyles = makeStyles((theme) => ({
       opacity: '100%'
     },
   },
-  media: {
-    height: 0,
-    paddingTop: '80%',
-    cursor: 'pointer',
-    position: 'relative'
+  imageContainer: {
+    position: 'relative',
+    margin: -theme.spacing(2),
+    marginBottom: 0,
+    height: 180,
+  },
+  image: {
+    height: 180,
+    width: '100%',
+    objectFit: 'cover'
   },
   quantityContainer: {
     position: 'absolute',
@@ -83,6 +88,16 @@ const NFTCard = ({
   const { setPopUp } = usePopUp();
   const { accountRS } = useSelector(state => state.auth);
 
+  const assetInfo = useMemo(() => {
+    let info = {}
+    try {
+      info = JSON.parse(item.message)
+    } catch {
+      info = {}
+    }
+    return info
+  }, [item]);
+
   const detailNFTHandler = useCallback(() => {
     router.push(
       LINKS.NFT_DETAIL.HREF,
@@ -105,28 +120,38 @@ const NFTCard = ({
         avatar={<MagicIdenticon size={40} value={item.sellerRS} />}
         action={<NFTDropMenu />}
       />
-      <CardMedia
-        className={classes.media}
-        image={item.description || DEFAULT_IMAGE}
-        title={item.name}
-        onClick={detailNFTHandler}
-      >
-        <div className={classes.quantityContainer}>
-          <Typography
-            variant='body2'
-            className={classes.quantity}
-          >
-            {item.quantity}
-          </Typography>
-        </div>
-      </CardMedia>
       <CardContent>
+        <div className={classes.imageContainer}>
+          {assetInfo.type === FILE_TYPES.IMAGE.VALUE
+            ? (
+              <img
+                alt='image'
+                src={assetInfo.image || DEFAULT_IMAGE}
+                className={classes.image}
+              />
+            ) : (
+              <video autoPlay loop controls className={classes.image}>
+                <source src={assetInfo.image} />
+              </video>
+            )
+          }
+          {item.quantityQNT &&
+            <div className={classes.quantityContainer}>
+              <Typography
+                variant='body2'
+                className={classes.quantity}
+              >
+                {item.quantityQNT}
+              </Typography>
+            </div>
+          }
+        </div>
         <Typography
           variant='body1'
           color='textPrimary'
           className={classes.name}
         >
-          {item.name}
+          {item.description}
         </Typography>
 
         <div className={classes.buttonContainer}>
