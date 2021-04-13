@@ -144,6 +144,11 @@ const getTransaction = async (transaction) => {
   return await apiAxios.get(url)
 }
 
+const getAllOpenAskOrders = async (params) => {
+  const url = `/nxt?requestType=getAllOpenAskOrders&firstIndex=${params.first}&lastIndex=${params.last}&query=nftleda`
+  return await apiAxios.get(url)
+}
+
 export {
   getAccountByPassphrase,
   getAccountByAccountID,
@@ -170,5 +175,6 @@ export {
   issueAsset,
   searchAssets,
   getAssetsBySeller,
-  getTransaction
+  getTransaction,
+  getAllOpenAskOrders
 };

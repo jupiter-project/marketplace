@@ -3,10 +3,7 @@ import { memo, useState, useEffect, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import * as jupiterAPI from 'services/api-jupiter'
-import NFTCarousel from 'parts/NFTCarousel'
 import NFTList from './NFTList'
-import SearchInput from './SearchInput'
-import TagsFilter from './TagsFilter'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,74 +29,42 @@ const Marketplace = () => {
   const [goods, setGoods] = useState([]);
   const [first, setFirst] = useState(0);
   const [isLast, setIsLast] = useState(false)
-  const [query, setQuery] = useState('')
-  const [selectedTags, setSelectedTags] = useState('');
 
   useEffect(() => {
-    getDGSGoods();
+    getAllOpenAskOrders();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query, selectedTags]);
+  }, []);
 
-  const getDGSGoods = useCallback(async () => {
+  const getAllOpenAskOrders = useCallback(async () => {
     try {
       if (!isLast) {
         const params = {
           first,
           last: first + PAGE_COUNT - 1,
-          query,
-          tag: selectedTags
         }
 
-        const { goods = [] } = await jupiterAPI.searchDGSGoods(params);
+        const { openOrders = [] } = await jupiterAPI.getAllOpenAskOrders(params);
         if (first === 0) {
-          setGoods(goods);
+          setGoods(openOrders);
         } else {
-          setGoods((prev) => [...prev, ...goods]);
+          setGoods((prev) => [...prev, ...openOrders]);
         }
 
-        setFirst((prev) => prev + goods.length);
-        setIsLast(goods.length < PAGE_COUNT);
+        setFirst((prev) => prev + openOrders.length);
+        setIsLast(openOrders.length < PAGE_COUNT);
       }
     } catch (error) {
       console.log(error)
     }
-  }, [isLast, first, query, selectedTags, setGoods, setFirst, setIsLast])
-
-  const searchHandler = useCallback(async (value) => {
-    if (query !== value) {
-      setGoods([]);
-      setFirst(0)
-      setIsLast(false)
-      setQuery(value);
-    }
-  }, [query, setQuery, setGoods, setFirst, setIsLast])
-
-  const tagsHandler = useCallback(async (tags) => {
-    let newSelectedTags = ''
-    for (const item of tags) {
-      newSelectedTags += `${item.tag} `
-    }
-
-    if (newSelectedTags !== selectedTags) {
-      setGoods([]);
-      setFirst(0)
-      setIsLast(false)
-      setSelectedTags(newSelectedTags);
-    }
-  }, [selectedTags, setSelectedTags, setGoods, setFirst, setIsLast])
+  }, [isLast, first, setGoods, setFirst, setIsLast])
 
   return (
     <div className={classes.root}>
       <div className={classes.container}>
-        <div className={classes.filterContainer}>
-          <NFTCarousel />
-          <SearchInput onSearch={searchHandler} />
-          <TagsFilter onTags={tagsHandler} />
-        </div>
         <NFTList
           goods={goods}
           isLast={isLast}
-          loadMore={getDGSGoods}
+          loadMore={getAllOpenAskOrders}
         />
       </div>
     </div>
