@@ -12,7 +12,7 @@ const MESSAGES = Object.freeze({
   CREATE_NFT_SUCCESS: 'New NFT token has been created.',
   CREATE_NFT_ERROR: 'There is a problem creating your NFT. Please contact support.',
   GET_NFT_ERROR: 'This NFT does not exist, please check your url.',
-  PURCHASE_NFT_SUCCESS: 'Your purchase request has been sent to the seller.',
+  PURCHASE_NFT_SUCCESS: 'Your purchased NFT successfully.',
   PURCHASE_NFT_ERROR: 'You don\'t have enough JUP to buy this NFT, please fund your account.',
   DELETE_NFT_SUCCESS: 'This NFT token has been deleted.',
   DELETE_NFT_ERROR: 'There was a problem deleting your NFT. Please fund your account and try again.',
@@ -22,6 +22,8 @@ const MESSAGES = Object.freeze({
   DELIVERY_NFT_ERROR: 'There was a problem delivering your NFT. Please fund your account and try again.',
   REFUND_NFT_SUCCESS: 'Your refund has been submitted successfully.',
   REFUND_NFT_ERROR: 'There was a problem submitting your refund as your account balance is not sufficient. Please fund your account and try again.',
+  PLACE_ASK_ORDER_SUCCESS: 'Your asset can be sold from now.',
+  PLACE_ASK_ORDER_ERROR: 'There is a problem selling your NFT. Please contact support.',
 });
 
 export default MESSAGES;

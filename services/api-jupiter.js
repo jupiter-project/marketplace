@@ -135,7 +135,8 @@ const searchAssets = async (params) => {
 }
 
 const getAssetsBySeller = async (params) => {
-  const url = `/nxt?requestType=getAssetsByIssuer&firstIndex=${params.first}&lastIndex=${params.last}&account=${params.account}`
+  // const url = `/nxt?requestType=getAssetsByIssuer&query=nftleda&account=${params.account}`
+  const url = `/nxt?requestType=getAssetsByIssuer&query=nftleda&firstIndex=${params.first}&lastIndex=${params.last}&account=${params.account}`
   return await apiAxios.get(url)
 }
 
@@ -145,8 +146,18 @@ const getTransaction = async (transaction) => {
 }
 
 const getAllOpenAskOrders = async (params) => {
-  const url = `/nxt?requestType=getAllOpenAskOrders&firstIndex=${params.first}&lastIndex=${params.last}&query=nftleda`
+  const url = `/nxt?requestType=getAllOpenAskOrders&query=nftleda&firstIndex=${params.first}&lastIndex=${params.last}`
   return await apiAxios.get(url)
+}
+
+const placeAskOrder = async (params) => {
+  const url = `/nxt?requestType=placeAskOrder&asset=${params.asset}&quantityQNT=${params.quantity}&priceNQT=${params.price}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
+  return await apiAxios.post(url)
+}
+
+const placeBidOrder = async (params) => {
+  const url = `/nxt?requestType=placeBidOrder&asset=${params.asset}&quantityQNT=${params.quantity}&priceNQT=${params.price}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
+  return await apiAxios.post(url)
 }
 
 export {
@@ -172,9 +183,12 @@ export {
   deleteNFTToken,
   deliveryDGSGood,
   refundDGSGood,
+
   issueAsset,
   searchAssets,
   getAssetsBySeller,
   getTransaction,
-  getAllOpenAskOrders
+  getAllOpenAskOrders,
+  placeAskOrder,
+  placeBidOrder
 };

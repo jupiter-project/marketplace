@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import * as jupiterAPI from 'services/api-jupiter'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import NoNFT from 'parts/NoNFT'
-import RefundNFTDialog from 'parts/RefundNFTDialog'
+import SellAssetDialog from 'parts/SellAssetDialog'
 import TabPanel from '../Shared/TabPanel'
 import AssetItem from './AssetItem'
 import { isEmpty } from 'utils/helpers/utility'
@@ -76,11 +76,11 @@ const MyAllAssets = ({
           <NoNFT />
         ) : (
           <div className={classes.container}>
-            {assets.map((item) => (
+            {assets.map((item, index) => (
               <AssetItem
-                key={item.asset}
+                key={index}
                 item={item}
-                onRefund={refundHandler}
+                onSell={refundHandler}
               />
             ))}
             {
@@ -97,7 +97,7 @@ const MyAllAssets = ({
       }
       {
         openModal &&
-        <RefundNFTDialog
+        <SellAssetDialog
           item={selectedItem}
           open={openModal}
           setOpen={setOpenModal}
