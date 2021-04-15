@@ -8,16 +8,19 @@ import {
   Typography,
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import clsx from 'clsx'
 
 import MagicIdenticon from 'components/MagicIdenticon'
 import NFTDropMenu from 'parts/NFTDropMenu'
+import usePopUp from 'utils/hooks/usePopUp'
+import LINKS from 'utils/constants/links'
 import { NQT_WEIGHT } from 'utils/constants/common'
 import { DEFAULT_IMAGE } from 'utils/constants/image-paths'
-import LINKS from 'utils/constants/links'
-import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
-import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import { FILE_TYPES } from 'utils/constants/file-types';
+import ContainedButton from 'components/UI/Buttons/ContainedButton'
+import getJSONParse from 'utils/helpers/getJSONParse'
+import { useCommonStyles } from 'styles/use-styles'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -63,6 +66,9 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'capitalize',
     marginBottom: theme.spacing(0.5)
   },
+  description: {
+    WebkitLineClamp: 1
+  },
   price: {
     fontWeight: 'bold',
   },
@@ -84,19 +90,12 @@ const NFTCard = ({
   onPurchase
 }) => {
   const classes = useStyles();
+  const commonClasses = useCommonStyles();
   const router = useRouter();
   const { setPopUp } = usePopUp();
   const { accountRS } = useSelector(state => state.auth);
 
-  const assetInfo = useMemo(() => {
-    let info = {}
-    try {
-      info = JSON.parse(item.message)
-    } catch {
-      info = {}
-    }
-    return info
-  }, [item]);
+  const assetInfo = useMemo(() => getJSONParse(item.message), [item]);
 
   const detailNFTHandler = useCallback(() => {
     router.push(
@@ -117,11 +116,11 @@ const NFTCard = ({
   return (
     <Card className={classes.card}>
       <CardHeader
-        avatar={<MagicIdenticon size={40} value={item.sellerRS} />}
+        avatar={<MagicIdenticon size={40} value={item.accountRS} />}
         action={<NFTDropMenu />}
       />
       <CardContent>
-        <div className={classes.imageContainer}>
+        <div className={classes.imageContainer} onClick={detailNFTHandler}>
           {assetInfo.type === FILE_TYPES.IMAGE.VALUE
             ? (
               <img
@@ -153,7 +152,13 @@ const NFTCard = ({
         >
           {item.description}
         </Typography>
-
+        <Typography
+          variant='body2'
+          color='textSecondary'
+          className={clsx(classes.description, commonClasses.breakWords)}
+        >
+          {assetInfo.description}
+        </Typography>
         <div className={classes.buttonContainer}>
           <Typography
             variant='body2'
@@ -162,6 +167,7 @@ const NFTCard = ({
           >
             {item.priceNQT / NQT_WEIGHT} JUP
           </Typography>
+
           {accountRS === item.sellerRS
             ? (
               <ContainedButton

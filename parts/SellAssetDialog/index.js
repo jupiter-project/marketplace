@@ -16,17 +16,17 @@ import GradientButton from 'components/UI/Buttons/GradientButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
+import MESSAGES from 'utils/constants/messages'
+import { NQT_WEIGHT } from 'utils/constants/common'
 import {
   PRICE_VALID,
   INTEGER_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
-import { NQT_WEIGHT } from 'utils/constants/common'
-import MESSAGES from 'utils/constants/messages'
 
 const schema = yup.object().shape({
-  quantity: INTEGER_VALID,
   price: PRICE_VALID,
+  quantity: INTEGER_VALID,
   passphrase: PASSPHRASE_VALID
 });
 
@@ -35,13 +35,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
-  },
-  image: {
-    height: 150,
-    maxWidth: '100%',
-    objectFit: 'contain',
-    borderRadius: 16,
-    border: `2px solid ${theme.palette.primary.main}`,
   },
   title: {
     fontSize: 20,
@@ -53,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const PurchaseNFTDialog = ({
+const SellAssetDialog = ({
   open,
   setOpen,
   item,
@@ -70,26 +63,26 @@ const PurchaseNFTDialog = ({
   const onSubmit = useCallback(async (data) => {
     changeLoadingStatus(true)
     try {
-      const params = {
+      let params = {
         asset: item.asset,
-        price: data.price * NQT_WEIGHT,
         quantity: data.quantity,
+        price: data.price * NQT_WEIGHT,
         secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey,
       }
 
-      const response = await jupiterAPI.placeBidOrder(params)
+      const response = await jupiterAPI.placeAskOrder(params)
       if (response?.errorCode) {
-        setPopUp({ text: response?.errorDescription || MESSAGES.PURCHASE_NFT_ERROR })
+        setPopUp({ text: response?.errorDescription || MESSAGES.PLACE_ASK_ORDER_ERROR })
         changeLoadingStatus(false)
         return;
       }
 
-      setPopUp({ text: MESSAGES.PURCHASE_NFT_SUCCESS })
+      setPopUp({ text: MESSAGES.PLACE_ASK_ORDER_SUCCESS })
       setOpen(false);
     } catch (error) {
       console.log(error)
-      setPopUp({ text: MESSAGES.PURCHASE_NFT_ERROR })
+      setPopUp({ text: MESSAGES.PLACE_ASK_ORDER_ERROR })
     }
     changeLoadingStatus(false)
   }, [item, currentUser, setOpen, setPopUp, changeLoadingStatus]);
@@ -101,7 +94,7 @@ const PurchaseNFTDialog = ({
   return (
     <MagicDialog
       open={open}
-      title='Purchase NFT'
+      title='Place Ask Order'
       onClose={handleClose}
     >
       <form
@@ -113,7 +106,7 @@ const PurchaseNFTDialog = ({
           {item.description}
         </Typography>
         <Typography variant='h6' color='textPrimary'>
-          {`Price: ${item.priceNQT / NQT_WEIGHT} JUP`}
+          {`Total Quantity: ${item.quantityQNT || 0}`}
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12}>
@@ -139,7 +132,7 @@ const PurchaseNFTDialog = ({
               inputProps={{ min: 0 }}
               error={errors.price?.message}
               control={control}
-              defaultValue={item.priceNQT / NQT_WEIGHT || 0}
+              defaultValue={0}
             />
           </Grid>
           <Grid item xs={12}>
@@ -159,11 +152,11 @@ const PurchaseNFTDialog = ({
           type='submit'
           className={classes.button}
         >
-          Purchase Now
+          Sell
         </GradientButton>
       </form>
     </MagicDialog>
   );
 }
 
-export default memo(PurchaseNFTDialog)
+export default memo(SellAssetDialog)
