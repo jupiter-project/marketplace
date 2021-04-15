@@ -64,7 +64,7 @@ const MyAllAssets = ({
     }
   }, [isLast, first, currentUser, setAssets, setFirst, setIsLast, setPopUp])
 
-  const refundHandler = useCallback((item) => {
+  const sellHandler = useCallback((item) => {
     setSelectedItem(item)
     setOpenModal(true)
   }, [setOpenModal, setSelectedItem])
@@ -80,7 +80,7 @@ const MyAllAssets = ({
               <AssetItem
                 key={index}
                 item={item}
-                onSell={refundHandler}
+                onSell={sellHandler}
               />
             ))}
             {
