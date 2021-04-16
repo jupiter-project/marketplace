@@ -174,6 +174,26 @@ const getAccountCurrentAskOrders = async (params) => {
   return await apiAxios.get(url)
 }
 
+const cancelAskOrder = async (params) => {
+  const url = `/nxt?requestType=cancelAskOrder&order=${params.order}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
+  return await apiAxios.post(url)
+}
+
+const cancelBidOrder = async (params) => {
+  const url = `/nxt?requestType=cancelBidOrder&order=${params.order}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
+  return await apiAxios.post(url)
+}
+
+const getAskOrders = async (asset) => {
+  const url = `/nxt?requestType=getAskOrders&asset=${asset}`
+  return await apiAxios.get(url)
+}
+
+const getBidOrders = async (asset) => {
+  const url = `/nxt?requestType=getBidOrders&asset=${asset}`
+  return await apiAxios.get(url)
+}
+
 export {
   getAccountByPassphrase,
   getAccountByAccountID,
@@ -207,5 +227,9 @@ export {
   placeBidOrder,
   getAsset,
   getAskOrder,
-  getAccountCurrentAskOrders
+  getAccountCurrentAskOrders,
+  cancelAskOrder,
+  cancelBidOrder,
+  getAskOrders,
+  getBidOrders
 };
