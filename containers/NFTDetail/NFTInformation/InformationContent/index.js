@@ -5,11 +5,23 @@ import { Typography } from '@material-ui/core'
 
 import MagicIdenticon from 'components/MagicIdenticon'
 // import NFTTag from 'parts/NFTTag'
+import { NQT_WEIGHT } from 'utils/constants/common'
 
 const useStyles = makeStyles((theme) => ({
   name: {
     fontWeight: 'bold',
     marginBottom: theme.spacing(2)
+  },
+  infoContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing(2)
+  },
+  price: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginRight: theme.spacing(1),
   },
   quantity: {
     fontSize: 20,
@@ -65,12 +77,21 @@ const InformationContent = ({
       >
         {assetInfo.description}
       </Typography>
-      <Typography
-        color='primary'
-        className={classes.quantity}
-      >
-        {good.quantityQNT}
-      </Typography>
+
+      <div className={classes.infoContainer}>
+        <Typography
+          color='primary'
+          className={classes.price}
+        >
+          {good.priceNQT / NQT_WEIGHT} JUP
+        </Typography>
+        <Typography
+          color='textSecondary'
+          className={classes.quantity}
+        >
+          {`x ${good.quantityQNT}`}
+        </Typography>
+      </div>
 
       {/* <div className={classes.tagContainer}>
         {good?.parsedTags?.map((tag, index) => (

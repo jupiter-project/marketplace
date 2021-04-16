@@ -47,8 +47,8 @@ const NFTDetail = () => {
   const assetInfo = useMemo(() => getJSONParse(good.message), [good]);
 
   useEffect(() => {
-    const getAsset = async () => {
-      const response = await jupiterAPI.getAsset(router.query.goods);
+    const getAskOrder = async () => {
+      const response = await jupiterAPI.getAskOrder(router.query.goods);
       if (response?.errorCode) {
         setPopUp({ text: MESSAGES.GET_NFT_ERROR })
         return;
@@ -58,11 +58,12 @@ const NFTDetail = () => {
     }
 
     if (router.query.goods) {
-      getAsset();
+      getAskOrder();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query])
 
+  console.log(good)
   return (
     <main className={classes.root}>
       <ImageWall header='NFT Token Detail' />

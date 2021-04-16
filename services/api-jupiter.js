@@ -164,6 +164,16 @@ const getAsset = async (asset) => {
   return await apiAxios.get(url)
 }
 
+const getAskOrder = async (order) => {
+  const url = `/nxt?requestType=getAskOrder&order=${order}`
+  return await apiAxios.get(url)
+}
+
+const getAccountCurrentAskOrders = async (params) => {
+  const url = `/nxt?requestType=getAccountCurrentAskOrders&account=${params.account}&firstIndex=${params.first}&lastIndex=${params.last}`
+  return await apiAxios.get(url)
+}
+
 export {
   getAccountByPassphrase,
   getAccountByAccountID,
@@ -195,5 +205,7 @@ export {
   searchAllOpenAskOrders,
   placeAskOrder,
   placeBidOrder,
-  getAsset
+  getAsset,
+  getAskOrder,
+  getAccountCurrentAskOrders
 };
