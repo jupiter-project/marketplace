@@ -3,7 +3,7 @@ import { memo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import CollectionsIcon from '@material-ui/icons/Collections'
-// import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 // import StyleIcon from '@material-ui/icons/Style'
 // import BusinessCenterIcon from '@material-ui/icons/BusinessCenter'
 import clsx from 'clsx'
@@ -16,6 +16,7 @@ import CompletedSalesNFT from './CompletedSalesNFT'
 import PurchasedNFT from './PurchasedNFT'
 import NFTGoods from './NFTGoods'
 import MyAllAssets from './MyAllAssets'
+import MyAskOrders from './MyAskOrders'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,10 +43,10 @@ const TABS = [
     icon: CollectionsIcon,
     label: 'My All Assets',
   },
-  // {
-  //   icon: CollectionsIcon,
-  //   label: 'My created NFTs',
-  // },
+  {
+    icon: ShoppingCartIcon,
+    label: 'My Ask Orders',
+  },
   // {
   //   icon: StyleIcon,
   //   label: 'Sold NFTs',
@@ -82,6 +83,10 @@ const MyNFTs = () => {
         <MyAllAssets
           value={selectedTab}
           index={0}
+        />
+        <MyAskOrders
+          value={selectedTab}
+          index={1}
         />
         {
           false &&
