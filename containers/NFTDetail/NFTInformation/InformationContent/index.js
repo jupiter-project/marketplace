@@ -2,28 +2,14 @@ import { memo } from 'react'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
-import AccessTimeIcon from '@material-ui/icons/AccessTime'
 
 import MagicIdenticon from 'components/MagicIdenticon'
-import NFTTag from 'parts/NFTTag'
-import { getDateFromTimestamp } from 'utils/helpers/getTimestamp'
-import { NQT_WEIGHT } from 'utils/constants/common'
+// import NFTTag from 'parts/NFTTag'
 
 const useStyles = makeStyles((theme) => ({
   name: {
     fontWeight: 'bold',
     marginBottom: theme.spacing(2)
-  },
-  infoContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: theme.spacing(2)
-  },
-  price: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginRight: theme.spacing(1),
   },
   quantity: {
     fontSize: 20,
@@ -57,7 +43,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const InformationContent = ({
-  good
+  good,
+  assetInfo
 }) => {
   const classes = useStyles();
   const { accountRS } = useSelector(state => state.auth);
@@ -69,56 +56,47 @@ const InformationContent = ({
         color='textPrimary'
         className={classes.name}
       >
-        {good.name}
+        {good.description}
+      </Typography>
+      <Typography
+        variant='h6'
+        color='textSecondary'
+        className={classes.description}
+      >
+        {assetInfo.description}
+      </Typography>
+      <Typography
+        color='primary'
+        className={classes.quantity}
+      >
+        {good.quantityQNT}
       </Typography>
 
-      <div className={classes.infoContainer}>
-        <AccessTimeIcon />
-        <Typography color='textPrimary' className={classes.date}>
-          {`Listed on ${getDateFromTimestamp(good.timestamp)}`}
-        </Typography>
-      </div>
-      <div className={classes.infoContainer}>
-        <Typography
-          color='primary'
-          className={classes.price}
-        >
-          {good.priceNQT / NQT_WEIGHT} JUP
-        </Typography>
-        <Typography
-          color='textSecondary'
-          className={classes.quantity}
-        >
-          {`x ${good.quantity}`}
-        </Typography>
-      </div>
-
-      <div className={classes.tagContainer}>
+      {/* <div className={classes.tagContainer}>
         {good?.parsedTags?.map((tag, index) => (
           <NFTTag
             key={index}
             tag={tag}
           />
         ))}
-      </div>
+      </div> */}
 
       <div className={classes.sellerLabelContainer}>
         <Typography
           color='textPrimary'
           className={classes.sellerLabel}
         >
-          Seller:
+          Creator:
         </Typography>
-        <MagicIdenticon value={good.sellerRS} />
+        <MagicIdenticon value={good.accountRS} />
       </div>
       <Typography
         color='primary'
         className={classes.sellerRS}
       >
-        {
-          accountRS === good.sellerRS
-            ? 'My Account'
-            : good.sellerRS
+        {accountRS === good.accountRS
+          ? 'My Account'
+          : good.accountRS
         }
       </Typography>
     </>

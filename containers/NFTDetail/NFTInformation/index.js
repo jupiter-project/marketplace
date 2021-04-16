@@ -22,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NFTInformation = ({
-  good
+  good,
+  assetInfo
 }) => {
   const classes = useStyles();
   const { accountRS } = useSelector(state => state.auth);
@@ -33,8 +34,11 @@ const NFTInformation = ({
 
   return (
     <div>
-      <InformationContent good={good} />
-      {accountRS !== good.sellerRS
+      <InformationContent
+        good={good}
+        assetInfo={assetInfo}
+      />
+      {accountRS !== good.accountRS
         ? (
           <ContainedButton
             className={classes.button}

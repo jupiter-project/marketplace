@@ -9,6 +9,7 @@ import {
 import CloseIcon from '@material-ui/icons/Close'
 
 import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths'
+import { FILE_TYPES } from 'utils/constants/file-types';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,11 +57,19 @@ const FullImage = ({
         >
           <CloseIcon />
         </IconButton>
-        <img
-          src={good.description || IMAGE_PLACEHOLDER_IMAGE_PATH}
-          alt='good production'
-          className={classes.image}
-        />
+        {good.type === FILE_TYPES.IMAGE.VALUE
+          ? (
+            <img
+              src={good.image || IMAGE_PLACEHOLDER_IMAGE_PATH}
+              alt='good production'
+              className={classes.image}
+            />
+          ) : (
+            <video autoPlay loop controls className={classes.image}>
+              <source src={good.image} />
+            </video>
+          )
+        }
       </DialogContent>
     </Dialog>
   );
