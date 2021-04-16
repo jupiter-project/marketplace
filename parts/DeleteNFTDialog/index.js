@@ -15,7 +15,6 @@ import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import { PASSPHRASE_VALID } from 'utils/constants/validations'
 import MESSAGES from 'utils/constants/messages'
-import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths'
 
 const schema = yup.object().shape({
   passphrase: PASSPHRASE_VALID
@@ -26,13 +25,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
-  },
-  image: {
-    height: 150,
-    maxWidth: '100%',
-    objectFit: 'contain',
-    borderRadius: 16,
-    border: `2px solid ${theme.palette.primary.main}`,
   },
   title: {
     fontSize: 20,
@@ -62,14 +54,14 @@ const DeleteNFTDialog = ({
     changeLoadingStatus(true)
     try {
       const params = {
-        goods: item.goods,
+        order: item.order,
         secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey,
       }
 
-      const response = await jupiterAPI.deleteNFTToken(params)
+      const response = await jupiterAPI.cancelAskOrder(params)
       if (response?.errorCode) {
-        setPopUp({ text: response?.errorDescription || MESSAGES.PURCHASE_NFT_ERROR })
+        setPopUp({ text: response?.errorDescription || MESSAGES.DELETE_NFT_ERROR })
         changeLoadingStatus(false)
         return;
       }
@@ -90,7 +82,7 @@ const DeleteNFTDialog = ({
   return (
     <MagicDialog
       open={open}
-      title='Delete NFT token'
+      title='Delete Asset Order'
       onClose={handleClose}
     >
       <form
@@ -98,13 +90,8 @@ const DeleteNFTDialog = ({
         className={classes.form}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <img
-          alt='nft image'
-          src={item.description || IMAGE_PLACEHOLDER_IMAGE_PATH}
-          className={classes.image}
-        />
         <Typography color='primary' className={classes.title}>
-          {item.name}
+          {item.description}
         </Typography>
         <Controller
           as={<MagicTextField />}

@@ -43,7 +43,7 @@ const Marketplace = () => {
           last: first + PAGE_COUNT - 1,
         }
 
-        const { openOrders = [] } = await jupiterAPI.getAllOpenAskOrders(params);
+        const { openOrders = [] } = await jupiterAPI.searchAllOpenAskOrders(params);
         if (first === 0) {
           setGoods(openOrders);
         } else {

@@ -17,7 +17,6 @@ import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import {
-  PRICE_VALID,
   INTEGER_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
@@ -26,7 +25,6 @@ import MESSAGES from 'utils/constants/messages'
 
 const schema = yup.object().shape({
   quantity: INTEGER_VALID,
-  price: PRICE_VALID,
   passphrase: PASSPHRASE_VALID
 });
 
@@ -72,7 +70,7 @@ const PurchaseNFTDialog = ({
     try {
       const params = {
         asset: item.asset,
-        price: data.price * NQT_WEIGHT,
+        price: data.quantity * item.priceNQT,
         quantity: data.quantity,
         secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey,
@@ -127,19 +125,6 @@ const PurchaseNFTDialog = ({
               error={errors.quantity?.message}
               control={control}
               defaultValue={1}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Controller
-              as={<MagicTextField />}
-              name='price'
-              label='Price (JUP)'
-              type='number'
-              placeholder='Price'
-              inputProps={{ min: 0 }}
-              error={errors.price?.message}
-              control={control}
-              defaultValue={item.priceNQT / NQT_WEIGHT || 0}
             />
           </Grid>
           <Grid item xs={12}>

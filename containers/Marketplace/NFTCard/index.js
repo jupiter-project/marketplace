@@ -100,7 +100,7 @@ const NFTCard = ({
   const detailNFTHandler = useCallback(() => {
     router.push(
       LINKS.NFT_DETAIL.HREF,
-      LINKS.NFT_DETAIL.HREF.replace('[goods]', item.goods)
+      LINKS.NFT_DETAIL.HREF.replace('[goods]', item.order)
     )
   }, [item, router])
 
