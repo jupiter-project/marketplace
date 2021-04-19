@@ -117,21 +117,21 @@ const NFTCard = ({
     <Card className={classes.card}>
       <CardHeader
         avatar={<MagicIdenticon size={40} value={item.accountRS} />}
-        action={<NFTDropMenu />}
+        action={<NFTDropMenu item={item} />}
       />
       <CardContent>
         <div className={classes.imageContainer} onClick={detailNFTHandler}>
-          {assetInfo.type === FILE_TYPES.IMAGE.VALUE
+          {assetInfo.type === FILE_TYPES.VIDEO.VALUE
             ? (
+              <video autoPlay loop controls className={classes.image}>
+                <source src={assetInfo.image} />
+              </video>
+            ) : (
               <img
                 alt='image'
                 src={assetInfo.image || DEFAULT_IMAGE}
                 className={classes.image}
               />
-            ) : (
-              <video autoPlay loop controls className={classes.image}>
-                <source src={assetInfo.image} />
-              </video>
             )
           }
           {item.quantityQNT &&
@@ -168,7 +168,7 @@ const NFTCard = ({
             {item.priceNQT / NQT_WEIGHT} JUP
           </Typography>
 
-          {accountRS === item.sellerRS
+          {accountRS === item.accountRS
             ? (
               <ContainedButton
                 className={classes.button}

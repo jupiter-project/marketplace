@@ -1,5 +1,4 @@
 import { memo, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
@@ -20,11 +19,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NFTInformation = ({
+  isMine,
   good,
   assetInfo
 }) => {
   const classes = useStyles();
-  const { accountRS } = useSelector(state => state.auth);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openPurchaseModal, setOpenPurchaseModal] = useState(false);
 
@@ -34,20 +33,20 @@ const NFTInformation = ({
         good={good}
         assetInfo={assetInfo}
       />
-      {accountRS !== good.accountRS
+      {isMine
         ? (
-          <ContainedButton
-            className={classes.button}
-            onClick={() => setOpenPurchaseModal(true)}
-          >
-            Purchase
-          </ContainedButton>
-        ) : (
           <ContainedButton
             className={clsx(classes.button, classes.delete)}
             onClick={() => setOpenDeleteModal(true)}
           >
             Delete
+          </ContainedButton>
+        ) : (
+          <ContainedButton
+            className={classes.button}
+            onClick={() => setOpenPurchaseModal(true)}
+          >
+            Purchase
           </ContainedButton>
         )
       }

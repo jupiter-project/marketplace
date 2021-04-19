@@ -8,6 +8,8 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 
+import BidNFTDialog from 'parts/BidNFTDialog'
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     minWidth: 120,
@@ -22,10 +24,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const NFTDropMenu = () => {
+const NFTDropMenu = ({
+  item
+}) => {
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [openBid, setOpenBid] = useState(false);
 
   const handleClick = useCallback(event => {
     setAnchorEl(event.currentTarget);
@@ -34,6 +39,11 @@ const NFTDropMenu = () => {
   const handleClose = useCallback(() => {
     setAnchorEl(null);
   }, [setAnchorEl]);
+
+  const placeBidHandler = () => {
+    setOpenBid(true)
+    setAnchorEl(null);
+  }
 
   return (
     <>
@@ -62,7 +72,10 @@ const NFTDropMenu = () => {
         }}
       >
         <div>
-          <MenuItem className={classes.item}>
+          <MenuItem
+            className={classes.item}
+            onClick={placeBidHandler}
+          >
             Place a bid
           </MenuItem>
           <MenuItem className={classes.item}>
@@ -70,6 +83,14 @@ const NFTDropMenu = () => {
           </MenuItem>
         </div>
       </Menu>
+
+      {openBid &&
+        <BidNFTDialog
+          item={item}
+          open={openBid}
+          setOpen={setOpenBid}
+        />
+      }
     </>
   );
 };
