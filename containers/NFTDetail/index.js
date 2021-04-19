@@ -65,7 +65,6 @@ const NFTDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query])
 
-  console.log(good)
   return (
     <main className={classes.root}>
       <ImageWall header='NFT Token Detail' />

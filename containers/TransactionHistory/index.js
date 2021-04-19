@@ -39,29 +39,29 @@ const TransactionHistory = () => {
   const classes = useStyles();
   const commonClasses = useCommonStyles();
 
-  const [purchases, setPurchases] = useState([])
+  const [trades, setTrades] = useState([])
   const [first, setFirst] = useState(0)
   const [isLast, setIsLast] = useState(false)
 
   useEffect(() => {
-    getAllDGSPurchases();
+    searchAllTrades();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const getAllDGSPurchases = useCallback(async () => {
+  const searchAllTrades = useCallback(async () => {
     if (!isLast) {
       const params = {
         first,
         last: first + PAGE_COUNT - 1,
       }
 
-      const response = await jupiterAPI.getAllDGSPurchases(params);
-      const { purchases = [] } = response;
-      setPurchases((prev) => [...prev, ...purchases]);
-      setFirst((prev) => prev + purchases.length);
-      setIsLast(purchases.length < PAGE_COUNT);
+      const response = await jupiterAPI.searchAllTrades(params);
+      const { trades = [] } = response;
+      setTrades((prev) => [...prev, ...trades]);
+      setFirst((prev) => prev + trades.length);
+      setIsLast(trades.length < PAGE_COUNT);
     }
-  }, [isLast, first, setPurchases, setFirst, setIsLast]);
+  }, [isLast, first, setTrades, setFirst, setIsLast]);
 
   return (
     <main className={classes.root}>
@@ -69,7 +69,7 @@ const TransactionHistory = () => {
       <div className={clsx(commonClasses.containerWidth, classes.container)}>
         <TrendingCard />
         {
-          purchases.map((item, index) => (
+          trades.map((item, index) => (
             <TransactionItem
               key={index}
               item={item}
@@ -79,7 +79,7 @@ const TransactionHistory = () => {
         {
           !isLast &&
           <ContainedButton
-            onClick={getAllDGSPurchases}
+            onClick={searchAllTrades}
             className={classes.loadButton}
           >
             Load More

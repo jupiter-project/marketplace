@@ -15,6 +15,7 @@ import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import { PASSPHRASE_VALID } from 'utils/constants/validations'
 import MESSAGES from 'utils/constants/messages'
+import ORDER_TYPE from 'utils/constants/order-type'
 
 const schema = yup.object().shape({
   passphrase: PASSPHRASE_VALID
@@ -59,7 +60,12 @@ const DeleteNFTDialog = ({
         publicKey: currentUser.publicKey,
       }
 
-      const response = await jupiterAPI.cancelAskOrder(params)
+      let response;
+      if (ORDER_TYPE.ASK === item.type) {
+        response = await jupiterAPI.cancelAskOrder(params)
+      } else {
+        response = await jupiterAPI.cancelBidOrder(params)
+      }
       if (response?.errorCode) {
         setPopUp({ text: response?.errorDescription || MESSAGES.DELETE_NFT_ERROR })
         changeLoadingStatus(false)

@@ -134,8 +134,8 @@ const searchAssets = async (params) => {
   return await apiAxios.get(url)
 }
 
-const getAssetsBySeller = async (params) => {
-  const url = `/nxt?requestType=getAssetsByIssuer&query=nftleda&firstIndex=${params.first}&lastIndex=${params.last}&account=${params.account}`
+const getAssetsByIssuer = async (params) => {
+  const url = `/nxt?requestType=getAssetsByIssuer&query=nftleda&firstIndex=${params.first}&lastIndex=${params.last}&account=${params.account}&includeNTFInfo=true`
   return await apiAxios.get(url)
 }
 
@@ -165,12 +165,17 @@ const getAsset = async (asset) => {
 }
 
 const getAskOrder = async (order) => {
-  const url = `/nxt?requestType=getAskOrder&order=${order}`
+  const url = `/nxt?requestType=getAskOrder&order=${order}&includeNTFInfo=true`
   return await apiAxios.get(url)
 }
 
 const getAccountCurrentAskOrders = async (params) => {
-  const url = `/nxt?requestType=getAccountCurrentAskOrders&account=${params.account}&firstIndex=${params.first}&lastIndex=${params.last}`
+  const url = `/nxt?requestType=getAccountCurrentAskOrders&account=${params.account}&firstIndex=${params.first}&lastIndex=${params.last}&includeNTFInfo=true`
+  return await apiAxios.get(url)
+}
+
+const getAccountCurrentBidOrders = async (params) => {
+  const url = `/nxt?requestType=getAccountCurrentBidOrders&account=${params.account}&firstIndex=${params.first}&lastIndex=${params.last}&includeNTFInfo=true`
   return await apiAxios.get(url)
 }
 
@@ -191,6 +196,11 @@ const getAskOrders = async (asset) => {
 
 const getBidOrders = async (asset) => {
   const url = `/nxt?requestType=getBidOrders&asset=${asset}`
+  return await apiAxios.get(url)
+}
+
+const searchAllTrades = async (params) => {
+  const url = `/nxt?requestType=searchAllTrades&query=nftleda&firstIndex=${params.first}&lastIndex=${params.last}`
   return await apiAxios.get(url)
 }
 
@@ -220,7 +230,7 @@ export {
 
   issueAsset,
   searchAssets,
-  getAssetsBySeller,
+  getAssetsByIssuer,
   getTransaction,
   searchAllOpenAskOrders,
   placeAskOrder,
@@ -228,8 +238,10 @@ export {
   getAsset,
   getAskOrder,
   getAccountCurrentAskOrders,
+  getAccountCurrentBidOrders,
   cancelAskOrder,
   cancelBidOrder,
   getAskOrders,
-  getBidOrders
+  getBidOrders,
+  searchAllTrades
 };

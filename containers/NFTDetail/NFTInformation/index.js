@@ -40,7 +40,7 @@ const NFTInformation = ({
             className={classes.button}
             onClick={() => setOpenPurchaseModal(true)}
           >
-            Purchase Now
+            Purchase
           </ContainedButton>
         ) : (
           <ContainedButton

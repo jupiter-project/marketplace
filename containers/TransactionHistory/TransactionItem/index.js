@@ -1,14 +1,15 @@
 
-import { memo, useEffect, useState } from 'react'
+import { memo, useMemo } from 'react'
 import { Typography, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import AccessTimeIcon from '@material-ui/icons/AccessTime'
 
-import * as jupiterAPI from 'services/api-jupiter'
 import MagicIdenticon from 'components/MagicIdenticon'
 import { NQT_WEIGHT } from 'utils/constants/common'
+import { FILE_TYPES } from 'utils/constants/file-types'
 import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
 import { getDateFromTimestamp } from 'utils/helpers/getTimestamp'
+import getJSONParse from 'utils/helpers/getJSONParse'
 
 const useStyles = makeStyles((theme) => ({
   itemContainer: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     width: '100%',
-    minHeight: 320,
+    minHeight: 240,
     objectFit: 'cover',
     borderRadius: 8,
     border: `1px solid ${theme.palette.primary.main}`,
@@ -64,25 +65,24 @@ const TransactionItem = ({
   item
 }) => {
   const classes = useStyles();
-  const [good, setGood] = useState({})
-
-  useEffect(() => {
-    const getDGSGood = async () => {
-      const response = await jupiterAPI.getDGSGood(item.goods);
-      setGood(response)
-    }
-    getDGSGood();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const info = useMemo(() => getJSONParse(item?.message), [item]);
 
   return (
     <Grid container spacing={3} className={classes.itemContainer}>
       <Grid item xs={12} sm={5}>
-        <img
-          alt='nft-token'
-          src={good.description || IMAGE_PLACEHOLDER_IMAGE_PATH}
-          className={classes.image}
-        />
+        {info?.type === FILE_TYPES.VIDEO.VALUE
+          ? (
+            <video autoPlay loop controls className={classes.image}>
+              <source src={info?.image} />
+            </video>
+          ) : (
+            <img
+              alt='image'
+              src={info?.image || IMAGE_PLACEHOLDER_IMAGE_PATH}
+              className={classes.image}
+            />
+          )
+        }
       </Grid>
       <Grid item xs={12} sm={7} className={classes.leftContainer}>
         <div className={classes.content}>
@@ -91,7 +91,7 @@ const TransactionItem = ({
             color='textPrimary'
             className={classes.name}
           >
-            {item.name}
+            {item.description}
           </Typography>
 
           <div className={classes.rowContainer}>
@@ -105,7 +105,7 @@ const TransactionItem = ({
               color='textSecondary'
               className={classes.quantity}
             >
-              {`x ${item.quantity}`}
+              {`x ${item.quantityQNT}`}
             </Typography>
           </div>
 

@@ -6,9 +6,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import * as jupiterAPI from 'services/api-jupiter'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import NoNFT from 'parts/NoNFT'
-import SellAssetDialog from 'parts/SellAssetDialog'
+import DeleteNFTDialog from 'parts/DeleteNFTDialog'
 import TabPanel from '../Shared/TabPanel'
-import AssetItem from './AssetItem'
+import BidItem from './BidItem'
 import { isEmpty } from 'utils/helpers/utility'
 import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const PAGE_COUNT = 5;
-const MyAllAssets = ({
+const MyBidOrders = ({
   index,
   value
 }) => {
@@ -38,12 +38,12 @@ const MyAllAssets = ({
 
   useEffect(() => {
     if (!isEmpty(currentUser)) {
-      getAssetsByIssuer();
+      getAccountCurrentBidOrders();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser])
 
-  const getAssetsByIssuer = useCallback(async () => {
+  const getAccountCurrentBidOrders = useCallback(async () => {
     if (!isLast) {
       const params = {
         first,
@@ -51,16 +51,16 @@ const MyAllAssets = ({
         account: currentUser.account
       }
 
-      const response = await jupiterAPI.getAssetsByIssuer(params);
+      const response = await jupiterAPI.getAccountCurrentBidOrders(params);
       if (response?.errorCode) {
         setPopUp({ text: MESSAGES.GET_NFT_ERROR })
         return;
       }
 
-      const { assets = [] } = response;
-      setAssets((prev) => [...prev, ...assets[0]]);
-      setFirst((prev) => prev + assets[0].length);
-      setIsLast(assets[0].length < PAGE_COUNT);
+      const { bidOrders = [] } = response;
+      setAssets((prev) => [...prev, ...bidOrders]);
+      setFirst((prev) => prev + bidOrders.length);
+      setIsLast(bidOrders.length < PAGE_COUNT);
     }
   }, [isLast, first, currentUser, setAssets, setFirst, setIsLast, setPopUp])
 
@@ -77,16 +77,16 @@ const MyAllAssets = ({
         ) : (
           <div className={classes.container}>
             {assets.map((item, index) => (
-              <AssetItem
+              <BidItem
                 key={index}
                 item={item}
-                onSell={sellHandler}
+                onDelete={sellHandler}
               />
             ))}
             {
               !isLast &&
               <ContainedButton
-                onClick={getAssetsByIssuer}
+                onClick={getAccountCurrentBidOrders}
                 className={classes.loadButton}
               >
                 Load More
@@ -97,7 +97,7 @@ const MyAllAssets = ({
       }
       {
         openModal &&
-        <SellAssetDialog
+        <DeleteNFTDialog
           item={selectedItem}
           open={openModal}
           setOpen={setOpenModal}
@@ -107,4 +107,4 @@ const MyAllAssets = ({
   )
 }
 
-export default memo(MyAllAssets)
+export default memo(MyBidOrders)
