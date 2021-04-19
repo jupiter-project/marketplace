@@ -70,7 +70,7 @@ const AssetOrders = ({
                   {order.quantityQNT}
                 </TableCell>
                 <TableCell>
-                  {order.priceNQT / NQT_WEIGHT}
+                  {order.priceNQT / NQT_WEIGHT} JUP
                 </TableCell>
               </TableRow>
             ))}

@@ -5,9 +5,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import AccessTimeIcon from '@material-ui/icons/AccessTime'
 
 import MagicIdenticon from 'components/MagicIdenticon'
+import ProductContent from 'parts/ProductContent'
 import { NQT_WEIGHT } from 'utils/constants/common'
-import { FILE_TYPES } from 'utils/constants/file-types'
-import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
 import { getDateFromTimestamp } from 'utils/helpers/getTimestamp'
 import getJSONParse from 'utils/helpers/getJSONParse'
 
@@ -70,19 +69,10 @@ const TransactionItem = ({
   return (
     <Grid container spacing={3} className={classes.itemContainer}>
       <Grid item xs={12} sm={5}>
-        {info?.type === FILE_TYPES.VIDEO.VALUE
-          ? (
-            <video autoPlay loop controls className={classes.image}>
-              <source src={info?.image} />
-            </video>
-          ) : (
-            <img
-              alt='image'
-              src={info?.image || IMAGE_PLACEHOLDER_IMAGE_PATH}
-              className={classes.image}
-            />
-          )
-        }
+        <ProductContent
+          info={info}
+          className={classes.image}
+        />
       </Grid>
       <Grid item xs={12} sm={7} className={classes.leftContainer}>
         <div className={classes.content}>

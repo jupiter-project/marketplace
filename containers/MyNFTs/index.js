@@ -5,13 +5,12 @@ import { makeStyles } from '@material-ui/core/styles'
 import CollectionsIcon from '@material-ui/icons/Collections'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import StyleIcon from '@material-ui/icons/Style'
-// import BusinessCenterIcon from '@material-ui/icons/BusinessCenter'
 import clsx from 'clsx'
 
 import ImageWall from 'parts/ImageWall'
 import { useCommonStyles } from 'styles/use-styles'
 import VerticalTabs from './Shared/VerticalTabs'
-import MyCreatedAssets from './MyCreatedAssets'
+import MyCreatedAssets from './MyAssets'
 import MyAskOrders from './MyAskOrders'
 import MyBidOrders from './MyBidOrders'
 
@@ -38,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 const TABS = [
   {
     icon: CollectionsIcon,
-    label: 'Created Assets',
+    label: 'My Assets',
   },
   {
     icon: ShoppingCartIcon,
@@ -48,10 +47,6 @@ const TABS = [
     icon: StyleIcon,
     label: 'Bid Orders',
   },
-  // {
-  //   icon: BusinessCenterIcon,
-  //   label: 'Purchased NFTs',
-  // },
 ]
 
 const MyNFTs = () => {

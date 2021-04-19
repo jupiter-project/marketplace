@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     marginBottom: theme.spacing(2)
   },
+  description: {
+    marginBottom: theme.spacing(2)
+  },
   infoContainer: {
     display: 'flex',
     flexDirection: 'row',

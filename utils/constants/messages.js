@@ -16,12 +16,6 @@ const MESSAGES = Object.freeze({
   PURCHASE_NFT_ERROR: 'You don\'t have enough JUP to buy this NFT, please fund your account.',
   DELETE_NFT_SUCCESS: 'This NFT token has been deleted.',
   DELETE_NFT_ERROR: 'There was a problem deleting your NFT. Please fund your account and try again.',
-  CHANGE_QUANTITY_NFT_SUCCESS: 'Quantity has been changed successfully. Please refresh the page in a few minutes.',
-  CHANGE_QUANTITY_NFT_ERROR: 'There was a problem changing the price. Please fund your account and try again.',
-  DELIVERY_NFT_SUCCESS: 'NFT has been delivered successfully.',
-  DELIVERY_NFT_ERROR: 'There was a problem delivering your NFT. Please fund your account and try again.',
-  REFUND_NFT_SUCCESS: 'Your refund has been submitted successfully.',
-  REFUND_NFT_ERROR: 'There was a problem submitting your refund as your account balance is not sufficient. Please fund your account and try again.',
   PLACE_ASK_ORDER_SUCCESS: 'Your asset can be sold from now.',
   PLACE_ASK_ORDER_ERROR: 'There is a problem selling your NFT. Please contact support.',
 });

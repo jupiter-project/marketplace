@@ -49,7 +49,7 @@ const UploadFileItem = ({
             className={classes.image}
           />
         ) : (
-          <video autoPlay loop controls className={classes.image}>
+          <video muted autoPlay loop controls className={classes.image}>
             <source src={fileBuffer} />
           </video>
         )
