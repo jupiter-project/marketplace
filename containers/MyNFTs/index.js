@@ -11,11 +11,7 @@ import clsx from 'clsx'
 import ImageWall from 'parts/ImageWall'
 import { useCommonStyles } from 'styles/use-styles'
 import VerticalTabs from './Shared/VerticalTabs'
-import PendingPurchaseNFT from './PendingPurchaseNFT'
-import CompletedSalesNFT from './CompletedSalesNFT'
-import PurchasedNFT from './PurchasedNFT'
-import NFTGoods from './NFTGoods'
-import MyAllAssets from './MyAllAssets'
+import MyCreatedAssets from './MyCreatedAssets'
 import MyAskOrders from './MyAskOrders'
 import MyBidOrders from './MyBidOrders'
 
@@ -53,17 +49,9 @@ const TABS = [
     label: 'Bid Orders',
   },
   // {
-  //   icon: StyleIcon,
-  //   label: 'Sold NFTs',
-  // },
-  // {
   //   icon: BusinessCenterIcon,
   //   label: 'Purchased NFTs',
   // },
-  // {
-  //   icon: ShoppingCartIcon,
-  //   label: 'Pending purchases',
-  // }
 ]
 
 const MyNFTs = () => {
@@ -85,7 +73,7 @@ const MyNFTs = () => {
           value={selectedTab}
           setValue={setSelectedTab}
         />
-        <MyAllAssets
+        <MyCreatedAssets
           value={selectedTab}
           index={0}
         />
@@ -97,28 +85,6 @@ const MyNFTs = () => {
           value={selectedTab}
           index={2}
         />
-        {
-          false &&
-          <>
-            <NFTGoods
-              value={selectedTab}
-              index={1}
-            />
-            <CompletedSalesNFT
-              value={selectedTab}
-              index={2}
-            />
-            <PurchasedNFT
-              value={selectedTab}
-              index={3}
-            />
-            <PendingPurchaseNFT
-              value={selectedTab}
-              index={4}
-            />
-          </>
-        }
-
       </div>
     </main>
   )

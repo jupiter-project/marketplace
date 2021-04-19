@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { use100vh } from 'react-div-100vh'
 
-import NoNFT from 'parts/NoNFT'
+import NoData from 'parts/NoData'
 import PurchaseNFTDialog from 'parts/PurchaseNFTDialog'
 import NFTCard from '../NFTCard'
 import { isEmpty } from 'utils/helpers/utility'
@@ -56,7 +56,7 @@ const NFTList = ({
   return (
     isLast && isEmpty(goods)
       ? (
-        <NoNFT />
+        <NoData />
       ) : (
         <>
           <InfiniteScroll

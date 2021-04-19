@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core'
 
 import * as jupiterAPI from 'services/api-jupiter'
-import NoNFT from 'parts/NoNFT'
+import NoData from 'parts/NoData'
 import ImageWall from 'parts/ImageWall'
 import NFTInformation from './NFTInformation'
 import NFTImage from './NFTImage'
@@ -71,7 +71,7 @@ const NFTDetail = () => {
       <div className={classes.container}>
         {isEmpty(good)
           ? (
-            <NoNFT />
+            <NoData />
           ) : (
             <Grid container spacing={5}>
               <Grid item xs={12} sm={6} md={8} className={classes.imageContainer}>
