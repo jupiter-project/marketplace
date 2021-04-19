@@ -2,9 +2,8 @@ import { memo, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import MaximizeIcon from 'components/Icons/MaximizeIcon'
+import ProductContent from 'parts/ProductContent'
 import FullImage from '../FullImage'
-import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths'
-import { FILE_TYPES } from 'utils/constants/file-types';
 
 const useStyles = makeStyles((theme) => ({
   image: {
@@ -33,19 +32,10 @@ const NFTImage = ({
 
   return (
     <>
-      {good.type === FILE_TYPES.VIDEO.VALUE
-        ? (
-          <video autoPlay loop controls className={classes.image}>
-            <source src={good.image} />
-          </video>
-        ) : (
-          <img
-            src={good.image || IMAGE_PLACEHOLDER_IMAGE_PATH}
-            alt='good production'
-            className={classes.image}
-          />
-        )
-      }
+      <ProductContent
+        info={good}
+        className={classes.image}
+      />
       <MaximizeIcon
         onClick={() => setFullScreen(true)}
         className={classes.extendButton}

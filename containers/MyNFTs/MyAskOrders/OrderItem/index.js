@@ -4,8 +4,7 @@ import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
-import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
-import { FILE_TYPES } from 'utils/constants/file-types'
+import ProductContent from 'parts/ProductContent'
 import getJSONParse from 'utils/helpers/getJSONParse'
 import { NQT_WEIGHT } from 'utils/constants/common'
 
@@ -58,19 +57,10 @@ const OrderItem = ({
   return (
     <div className={classes.itemContainer}>
       <div className={classes.content}>
-        {info?.type === FILE_TYPES.VIDEO.VALUE
-          ? (
-            <video autoPlay loop controls className={classes.image}>
-              <source src={info?.image} />
-            </video>
-          ) : (
-            <img
-              alt='image'
-              src={info?.image || IMAGE_PLACEHOLDER_IMAGE_PATH}
-              className={classes.image}
-            />
-          )
-        }
+        <ProductContent
+          info={info}
+          className={classes.image}
+        />
         <div className={classes.info}>
           <Typography
             variant='h6'
@@ -91,7 +81,7 @@ const OrderItem = ({
         className={classes.delete}
         onClick={() => onDelete(item)}
       >
-        Delete
+        Cancel
       </ContainedButton>
     </div>
   )

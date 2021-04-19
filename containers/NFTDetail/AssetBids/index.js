@@ -74,7 +74,7 @@ const AssetBids = ({
                   {bid.quantityQNT}
                 </TableCell>
                 <TableCell>
-                  {bid.priceNQT / NQT_WEIGHT}
+                  {bid.priceNQT / NQT_WEIGHT} JUP
                 </TableCell>
               </TableRow>
             ))}

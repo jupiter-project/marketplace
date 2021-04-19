@@ -4,8 +4,7 @@ import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
-import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
-import { FILE_TYPES } from 'utils/constants/file-types'
+import ProductContent from 'parts/ProductContent'
 import getJSONParse from 'utils/helpers/getJSONParse'
 
 const useStyles = makeStyles((theme) => ({
@@ -42,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
   sell: {
     fontSize: 15,
     padding: theme.spacing(1, 1, 0.5),
+  },
+  quantity: {
+    fontWeight: 'bold'
   }
 }));
 
@@ -56,19 +58,10 @@ const AssetItem = ({
   return (
     <div className={classes.itemContainer}>
       <div className={classes.content}>
-        {info?.type === FILE_TYPES.VIDEO.VALUE
-          ? (
-            <video autoPlay loop controls className={classes.image}>
-              <source src={info?.image} />
-            </video>
-          ) : (
-            <img
-              alt='image'
-              src={info?.image || IMAGE_PLACEHOLDER_IMAGE_PATH}
-              className={classes.image}
-            />
-          )
-        }
+        <ProductContent
+          info={info}
+          className={classes.image}
+        />
         <div className={classes.info}>
           <Typography
             variant='h6'
@@ -80,17 +73,20 @@ const AssetItem = ({
           <Typography color='textSecondary'>
             {info?.description || ''}
           </Typography>
-          <Typography color='primary'>
-            Quantity: {item?.quantityQNT || 0}
+          <Typography color='primary' className={classes.quantity}>
+            {`Quantity: ${item?.unconfirmedQuantityQNT || 0}/${item?.quantityQNT || 0}(total)`}
           </Typography>
         </div>
       </div>
-      <ContainedButton
-        className={classes.sell}
-        onClick={() => onSell(item)}
-      >
-        Sell
-      </ContainedButton>
+      {
+        item.unconfirmedQuantityQNT > 0 &&
+        <ContainedButton
+          className={classes.sell}
+          onClick={() => onSell(item)}
+        >
+          Sell
+        </ContainedButton>
+      }
     </div>
   )
 }

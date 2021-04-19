@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   image: {
     height: 180,
     width: '100%',
-    objectFit: 'cover'
+    objectFit: 'contain'
   },
   quantityContainer: {
     position: 'absolute',
@@ -75,7 +75,7 @@ const PreviewCard = ({
                 className={classes.image}
               />
             ) : fileBuffer && (
-              <video autoPlay loop controls className={classes.image}>
+              <video muted autoPlay loop controls className={classes.image}>
                 <source src={fileBuffer} />
               </video>
             )

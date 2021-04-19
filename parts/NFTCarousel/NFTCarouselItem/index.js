@@ -2,9 +2,10 @@ import { memo, useMemo } from 'react'
 import { Card, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths'
-import { FILE_TYPES } from 'utils/constants/file-types'
+import ProductContent from 'parts/ProductContent'
 import getJSONParse from 'utils/helpers/getJSONParse'
+import { useCommonStyles } from 'styles/use-styles'
+import clsx from 'clsx'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -27,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     height: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
-    bottom: 0
+    bottom: 10,
+    padding: theme.spacing(2)
   },
   title: {
     fontSize: 28,
@@ -36,32 +38,34 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     color: theme.custom.palette.white
   },
+  description: {
+    lineHeight: 1,
+    WebkitLineClamp: 3,
+    textAlign: 'center',
+    color: theme.custom.palette.white
+  }
 }));
 
 const NFTCarouselItem = ({
   item
 }) => {
   const classes = useStyles();
+  const commonClasses = useCommonStyles()
+
   const info = useMemo(() => getJSONParse(item?.message), [item]);
 
   return (
     <Card className={classes.container}>
-      {info?.type === FILE_TYPES.VIDEO.VALUE
-        ? (
-          <video autoPlay loop controls className={classes.image}>
-            <source src={info?.image} />
-          </video>
-        ) : (
-          <img
-            alt='carousel'
-            src={info?.image || IMAGE_PLACEHOLDER_IMAGE_PATH}
-            className={classes.image}
-          />
-        )
-      }
+      <ProductContent
+        info={info}
+        className={classes.image}
+      />
       <div className={classes.content}>
         <Typography className={classes.title}>
           {item.description}
+        </Typography>
+        <Typography className={clsx(classes.description, commonClasses.breakWords)}>
+          {info.description}
         </Typography>
       </div>
     </Card>

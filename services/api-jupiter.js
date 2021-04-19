@@ -45,6 +45,11 @@ const searchAssets = async (params) => {
   return await apiAxios.get(url)
 }
 
+const searchAccountAssets = async (params) => {
+  const url = `/nxt?requestType=searchAccountAssets&query=nftleda&firstIndex=${params.first}&lastIndex=${params.last}&account=${params.account}`
+  return await apiAxios.get(url)
+}
+
 const getAssetsByIssuer = async (params) => {
   const url = `/nxt?requestType=getAssetsByIssuer&query=nftleda&firstIndex=${params.first}&lastIndex=${params.last}&account=${params.account}&includeNTFInfo=true`
   return await apiAxios.get(url)
@@ -118,6 +123,7 @@ export {
   getTags,
   issueAsset,
   searchAssets,
+  searchAccountAssets,
   getAssetsByIssuer,
   searchAllOpenAskOrders,
   placeAskOrder,

@@ -1,9 +1,8 @@
 
 import { memo, useEffect, useState } from 'react'
 import {
-  ComposedChart,
-  Bar,
-  Line,
+  AreaChart,
+  Area,
   Label,
   XAxis,
   YAxis,
@@ -13,7 +12,6 @@ import {
 } from 'recharts'
 
 import * as jupiterAPI from 'services/api-jupiter'
-import theme from 'styles/theme';
 import { NQT_WEIGHT } from 'utils/constants/common'
 
 const TrendingChart = () => {
@@ -45,7 +43,7 @@ const TrendingChart = () => {
 
   return (
     <ResponsiveContainer width='100%' height='100%'>
-      <ComposedChart
+      <AreaChart
         width={500}
         height={300}
         data={trades}
@@ -65,9 +63,8 @@ const TrendingChart = () => {
         </XAxis>
         <YAxis />
         <Tooltip />
-        <Bar dataKey='price' barSize={20} fill={theme.palette.primary.main} />
-        <Line type='monotone' dataKey='total' strokeWidth={3} stroke={theme.custom.palette.orange} />
-      </ComposedChart>
+        <Area type='monotone' dataKey='total' stackOffset='expand' strokeWidth={3} stroke='#41d98d' fill='#41d98d' />
+      </AreaChart>
     </ResponsiveContainer>
   )
 }

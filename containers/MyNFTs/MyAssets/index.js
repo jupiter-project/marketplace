@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const PAGE_COUNT = 5;
-const MyCreatedAssets = ({
+const MyAssets = ({
   index,
   value
 }) => {
@@ -38,12 +38,12 @@ const MyCreatedAssets = ({
 
   useEffect(() => {
     if (!isEmpty(currentUser)) {
-      getAssetsByIssuer();
+      getAccountAssets();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser])
 
-  const getAssetsByIssuer = useCallback(async () => {
+  const getAccountAssets = useCallback(async () => {
     if (!isLast) {
       const params = {
         first,
@@ -51,16 +51,16 @@ const MyCreatedAssets = ({
         account: currentUser.account
       }
 
-      const response = await jupiterAPI.getAssetsByIssuer(params);
+      const response = await jupiterAPI.searchAccountAssets(params);
       if (response?.errorCode) {
         setPopUp({ text: MESSAGES.GET_NFT_ERROR })
         return;
       }
 
-      const { assets = [] } = response;
-      setAssets((prev) => [...prev, ...assets[0]]);
-      setFirst((prev) => prev + assets[0].length);
-      setIsLast(assets[0].length < PAGE_COUNT);
+      const { accountAssets = [] } = response;
+      setAssets((prev) => [...prev, ...accountAssets]);
+      setFirst((prev) => prev + accountAssets.length);
+      setIsLast(accountAssets.length < PAGE_COUNT);
     }
   }, [isLast, first, currentUser, setAssets, setFirst, setIsLast, setPopUp])
 
@@ -86,7 +86,7 @@ const MyCreatedAssets = ({
             {
               !isLast &&
               <ContainedButton
-                onClick={getAssetsByIssuer}
+                onClick={getAccountAssets}
                 className={classes.loadButton}
               >
                 Load More
@@ -107,4 +107,4 @@ const MyCreatedAssets = ({
   )
 }
 
-export default memo(MyCreatedAssets)
+export default memo(MyAssets)
