@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import * as jupiterAPI from 'services/api-jupiter'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
-import NoNFT from 'parts/NoNFT'
+import NoData from 'parts/NoData'
 import SellAssetDialog from 'parts/SellAssetDialog'
 import TabPanel from '../Shared/TabPanel'
 import AssetItem from './AssetItem'
@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const PAGE_COUNT = 5;
-const MyAllAssets = ({
+const MyCreatedAssets = ({
   index,
   value
 }) => {
@@ -38,12 +38,12 @@ const MyAllAssets = ({
 
   useEffect(() => {
     if (!isEmpty(currentUser)) {
-      getAssetsBySeller();
+      getAssetsByIssuer();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser])
 
-  const getAssetsBySeller = useCallback(async () => {
+  const getAssetsByIssuer = useCallback(async () => {
     if (!isLast) {
       const params = {
         first,
@@ -51,7 +51,7 @@ const MyAllAssets = ({
         account: currentUser.account
       }
 
-      const response = await jupiterAPI.getAssetsBySeller(params);
+      const response = await jupiterAPI.getAssetsByIssuer(params);
       if (response?.errorCode) {
         setPopUp({ text: MESSAGES.GET_NFT_ERROR })
         return;
@@ -73,7 +73,7 @@ const MyAllAssets = ({
     <TabPanel value={value} index={index}>
       {isEmpty(assets)
         ? (
-          <NoNFT />
+          <NoData />
         ) : (
           <div className={classes.container}>
             {assets.map((item, index) => (
@@ -86,7 +86,7 @@ const MyAllAssets = ({
             {
               !isLast &&
               <ContainedButton
-                onClick={getAssetsBySeller}
+                onClick={getAssetsByIssuer}
                 className={classes.loadButton}
               >
                 Load More
@@ -107,4 +107,4 @@ const MyAllAssets = ({
   )
 }
 
-export default memo(MyAllAssets)
+export default memo(MyCreatedAssets)

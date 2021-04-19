@@ -1,10 +1,11 @@
 import { memo, useEffect, useState, useMemo } from 'react'
+import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core'
 
 import * as jupiterAPI from 'services/api-jupiter'
-import NoNFT from 'parts/NoNFT'
+import NoData from 'parts/NoData'
 import ImageWall from 'parts/ImageWall'
 import NFTInformation from './NFTInformation'
 import NFTImage from './NFTImage'
@@ -45,6 +46,7 @@ const NFTDetail = () => {
   const router = useRouter();
   const { setPopUp } = usePopUp();
 
+  const { accountRS } = useSelector(state => state.auth);
   const [good, setGood] = useState({})
   const assetInfo = useMemo(() => getJSONParse(good.message), [good]);
 
@@ -65,14 +67,13 @@ const NFTDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query])
 
-  console.log(good)
   return (
     <main className={classes.root}>
       <ImageWall header='NFT Token Detail' />
       <div className={classes.container}>
         {isEmpty(good)
           ? (
-            <NoNFT />
+            <NoData />
           ) : (
             <Grid container spacing={5}>
               <Grid item xs={12} sm={6} md={8} className={classes.imageContainer}>
@@ -80,6 +81,7 @@ const NFTDetail = () => {
               </Grid>
               <Grid item xs={12} sm={6} md={4} className={classes.rightContainer}>
                 <NFTInformation
+                  isMine={accountRS === good.accountRS}
                   good={good}
                   assetInfo={assetInfo}
                 />
@@ -88,7 +90,10 @@ const NFTDetail = () => {
                 <AssetOrders good={good} />
               </Grid>
               <Grid item xs={12}>
-                <AssetBids good={good} />
+                <AssetBids
+                  isMine={accountRS === good.accountRS}
+                  good={good}
+                />
               </Grid>
             </Grid>
           )

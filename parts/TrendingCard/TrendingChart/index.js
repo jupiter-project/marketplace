@@ -17,29 +17,29 @@ import theme from 'styles/theme';
 import { NQT_WEIGHT } from 'utils/constants/common'
 
 const TrendingChart = () => {
-  const [purchases, setPurchases] = useState({})
+  const [trades, setTrades] = useState({})
 
   useEffect(() => {
-    const getAllDGSPurchases = async () => {
+    const searchAllTrades = async () => {
       const params = {
         first: 0,
         last: 7
       }
-      const { purchases = [] } = await jupiterAPI.getAllDGSPurchases(params);
+      const { trades = [] } = await jupiterAPI.searchAllTrades(params);
       let chartData = [];
-      for (const item of purchases) {
+      for (const item of trades) {
         chartData = [
           {
-            name: item.name,
+            name: item.description,
             price: item.priceNQT / NQT_WEIGHT,
-            total: item.priceNQT * item.quantity / NQT_WEIGHT,
+            total: item.priceNQT * item.quantityQNT / NQT_WEIGHT,
           },
           ...chartData,
         ]
       }
-      setPurchases(chartData);
+      setTrades(chartData);
     }
-    getAllDGSPurchases();
+    searchAllTrades();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -48,7 +48,7 @@ const TrendingChart = () => {
       <ComposedChart
         width={500}
         height={300}
-        data={purchases}
+        data={trades}
         margin={{
           top: 5,
           bottom: 20,

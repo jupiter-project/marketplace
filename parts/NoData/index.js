@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const NoNFT = () => {
+const NoData = () => {
   const classes = useStyles();
 
   return (
@@ -26,10 +26,10 @@ const NoNFT = () => {
         align='center'
         className={classes.label}
       >
-        NO NFT
+        No Data
       </Typography>
     </div>
   )
 }
 
-export default memo(NoNFT)
+export default memo(NoData)

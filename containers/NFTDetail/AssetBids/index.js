@@ -17,6 +17,10 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     marginBottom: theme.spacing(2)
+  },
+  approve: {
+    fontSize: 15,
+    padding: theme.spacing(1, 1, 0.5),
   }
 }));
 

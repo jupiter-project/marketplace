@@ -18,12 +18,14 @@ import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import {
   INTEGER_VALID,
-  PASSPHRASE_VALID
+  PASSPHRASE_VALID,
+  PRICE_VALID
 } from 'utils/constants/validations'
+import { NQT_WEIGHT } from 'utils/constants/common'
 import MESSAGES from 'utils/constants/messages'
-import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
 
 const schema = yup.object().shape({
+  price: PRICE_VALID,
   quantity: INTEGER_VALID,
   passphrase: PASSPHRASE_VALID
 });
@@ -51,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const QuantityNFTDialog = ({
+const BidNFTDialog = ({
   open,
   setOpen,
   item,
@@ -69,24 +71,25 @@ const QuantityNFTDialog = ({
     changeLoadingStatus(true)
     try {
       const params = {
-        goods: item.goods,
-        quantity: data.quantity - item.quantity,
+        asset: item.asset,
+        price: data.quantity * data.price * NQT_WEIGHT,
+        quantity: data.quantity,
         secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey,
       }
 
-      const response = await jupiterAPI.changeDGSGoodQuantity(params)
+      const response = await jupiterAPI.placeBidOrder(params)
       if (response?.errorCode) {
-        setPopUp({ text: response?.errorDescription || MESSAGES.CHANGE_QUANTITY_NFT_ERROR })
+        setPopUp({ text: response?.errorDescription || MESSAGES.PURCHASE_NFT_ERROR })
         changeLoadingStatus(false)
         return;
       }
 
-      setPopUp({ text: MESSAGES.CHANGE_QUANTITY_NFT_SUCCESS })
+      setPopUp({ text: MESSAGES.PURCHASE_NFT_SUCCESS })
       setOpen(false);
     } catch (error) {
       console.log(error)
-      setPopUp({ text: MESSAGES.CHANGE_QUANTITY_NFT_ERROR })
+      setPopUp({ text: MESSAGES.PURCHASE_NFT_ERROR })
     }
     changeLoadingStatus(false)
   }, [item, currentUser, setOpen, setPopUp, changeLoadingStatus]);
@@ -98,7 +101,7 @@ const QuantityNFTDialog = ({
   return (
     <MagicDialog
       open={open}
-      title='Change Quantity of NFT token'
+      title='Place a bid'
       onClose={handleClose}
     >
       <form
@@ -106,13 +109,11 @@ const QuantityNFTDialog = ({
         className={classes.form}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <img
-          alt='nft image'
-          src={item.description || IMAGE_PLACEHOLDER_IMAGE_PATH}
-          className={classes.image}
-        />
         <Typography color='primary' className={classes.title}>
-          {item.name}
+          {item.description}
+        </Typography>
+        <Typography variant='h6' color='textPrimary'>
+          {`Price: ${item.priceNQT / NQT_WEIGHT} JUP`}
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12}>
@@ -122,10 +123,23 @@ const QuantityNFTDialog = ({
               label='Quantity'
               type='number'
               placeholder='Quantity'
-              inputProps={{ min: 0 }}
+              inputProps={{ min: 1 }}
               error={errors.quantity?.message}
               control={control}
-              defaultValue={item.quantity}
+              defaultValue={1}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              as={<MagicTextField />}
+              name='price'
+              label='Price (JUP)'
+              type='number'
+              placeholder='Price'
+              inputProps={{ min: 0 }}
+              error={errors.price?.message}
+              control={control}
+              defaultValue={item?.priceNQT / NQT_WEIGHT || 0}
             />
           </Grid>
           <Grid item xs={12}>
@@ -145,11 +159,11 @@ const QuantityNFTDialog = ({
           type='submit'
           className={classes.button}
         >
-          Change Quantity
+          Place a bid
         </GradientButton>
       </form>
     </MagicDialog>
   );
 }
 
-export default memo(QuantityNFTDialog)
+export default memo(BidNFTDialog)

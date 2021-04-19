@@ -4,7 +4,7 @@ const FILE_TYPES = Object.freeze({
     LABEL: 'Image',
     VALUE: 'IMAGE',
     ACCEPT: 'image/*',
-    PLACEHOLDER: 'PNG, GIF, WEBP. Max 50MB.'
+    PLACEHOLDER: 'PNG, GIF, WEBP. Max 50MB.',
   },
   VIDEO: {
     LABEL: 'Video',

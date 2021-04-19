@@ -4,19 +4,16 @@ import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import CollectionsIcon from '@material-ui/icons/Collections'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
-// import StyleIcon from '@material-ui/icons/Style'
+import StyleIcon from '@material-ui/icons/Style'
 // import BusinessCenterIcon from '@material-ui/icons/BusinessCenter'
 import clsx from 'clsx'
 
 import ImageWall from 'parts/ImageWall'
 import { useCommonStyles } from 'styles/use-styles'
 import VerticalTabs from './Shared/VerticalTabs'
-import PendingPurchaseNFT from './PendingPurchaseNFT'
-import CompletedSalesNFT from './CompletedSalesNFT'
-import PurchasedNFT from './PurchasedNFT'
-import NFTGoods from './NFTGoods'
-import MyAllAssets from './MyAllAssets'
+import MyCreatedAssets from './MyCreatedAssets'
 import MyAskOrders from './MyAskOrders'
+import MyBidOrders from './MyBidOrders'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,24 +38,20 @@ const useStyles = makeStyles((theme) => ({
 const TABS = [
   {
     icon: CollectionsIcon,
-    label: 'My All Assets',
+    label: 'Created Assets',
   },
   {
     icon: ShoppingCartIcon,
-    label: 'My Ask Orders',
+    label: 'Ask Orders',
   },
-  // {
-  //   icon: StyleIcon,
-  //   label: 'Sold NFTs',
-  // },
+  {
+    icon: StyleIcon,
+    label: 'Bid Orders',
+  },
   // {
   //   icon: BusinessCenterIcon,
   //   label: 'Purchased NFTs',
   // },
-  // {
-  //   icon: ShoppingCartIcon,
-  //   label: 'Pending purchases',
-  // }
 ]
 
 const MyNFTs = () => {
@@ -80,7 +73,7 @@ const MyNFTs = () => {
           value={selectedTab}
           setValue={setSelectedTab}
         />
-        <MyAllAssets
+        <MyCreatedAssets
           value={selectedTab}
           index={0}
         />
@@ -88,28 +81,10 @@ const MyNFTs = () => {
           value={selectedTab}
           index={1}
         />
-        {
-          false &&
-          <>
-            <NFTGoods
-              value={selectedTab}
-              index={1}
-            />
-            <CompletedSalesNFT
-              value={selectedTab}
-              index={2}
-            />
-            <PurchasedNFT
-              value={selectedTab}
-              index={3}
-            />
-            <PendingPurchaseNFT
-              value={selectedTab}
-              index={4}
-            />
-          </>
-        }
-
+        <MyBidOrders
+          value={selectedTab}
+          index={2}
+        />
       </div>
     </main>
   )

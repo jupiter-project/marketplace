@@ -57,17 +57,17 @@ const FullImage = ({
         >
           <CloseIcon />
         </IconButton>
-        {good.type === FILE_TYPES.IMAGE.VALUE
+        {good.type === FILE_TYPES.VIDEO.VALUE
           ? (
+            <video autoPlay loop controls className={classes.image}>
+              <source src={good.image} />
+            </video>
+          ) : (
             <img
               src={good.image || IMAGE_PLACEHOLDER_IMAGE_PATH}
               alt='good production'
               className={classes.image}
             />
-          ) : (
-            <video autoPlay loop controls className={classes.image}>
-              <source src={good.image} />
-            </video>
           )
         }
       </DialogContent>

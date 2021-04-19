@@ -16,9 +16,8 @@ import GradientButton from 'components/UI/Buttons/GradientButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
-import { PASSPHRASE_VALID } from 'utils/constants/validations'
-import { NQT_WEIGHT } from 'utils/constants/common'
 import MESSAGES from 'utils/constants/messages'
+import { PASSPHRASE_VALID } from 'utils/constants/validations'
 
 const schema = yup.object().shape({
   passphrase: PASSPHRASE_VALID
@@ -40,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const DeliveryNFTDialog = ({
+const ApproveBidDialog = ({
   open,
   setOpen,
   item,
@@ -58,25 +57,25 @@ const DeliveryNFTDialog = ({
     changeLoadingStatus(true)
     try {
       let params = {
-        purchase: item.purchase,
-        goodsToEncrypt: item.name,
+        asset: item.asset,
+        quantity: item.quantityQNT,
+        price: item.priceNQT,
         secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey,
       }
-      const discountNQT = data.discount * NQT_WEIGHT;
 
-      const response = await jupiterAPI.deliveryDGSGood(params, discountNQT)
+      const response = await jupiterAPI.placeAskOrder(params)
       if (response?.errorCode) {
-        setPopUp({ text: response?.errorDescription || MESSAGES.DELIVERY_NFT_ERROR })
+        setPopUp({ text: response?.errorDescription || MESSAGES.PLACE_ASK_ORDER_ERROR })
         changeLoadingStatus(false)
         return;
       }
 
-      setPopUp({ text: MESSAGES.DELIVERY_NFT_SUCCESS })
+      setPopUp({ text: MESSAGES.PLACE_ASK_ORDER_SUCCESS })
       setOpen(false);
     } catch (error) {
       console.log(error)
-      setPopUp({ text: MESSAGES.DELIVERY_NFT_ERROR })
+      setPopUp({ text: MESSAGES.PLACE_ASK_ORDER_ERROR })
     }
     changeLoadingStatus(false)
   }, [item, currentUser, setOpen, setPopUp, changeLoadingStatus]);
@@ -88,7 +87,7 @@ const DeliveryNFTDialog = ({
   return (
     <MagicDialog
       open={open}
-      title='Delivery NFT Token'
+      title='Approve a bid'
       onClose={handleClose}
     >
       <form
@@ -97,25 +96,9 @@ const DeliveryNFTDialog = ({
         onSubmit={handleSubmit(onSubmit)}
       >
         <Typography color='primary' className={classes.title}>
-          {item.name}
-        </Typography>
-        <Typography variant='h6' color='textPrimary'>
-          {`Price: ${item.priceNQT / NQT_WEIGHT} JUP`}
+          {item.description}
         </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Controller
-              as={<MagicTextField />}
-              name='discount'
-              label='Discount (JUP)'
-              type='number'
-              placeholder='Discount'
-              inputProps={{ min: 0 }}
-              error={errors.discount?.message}
-              control={control}
-              defaultValue={0}
-            />
-          </Grid>
           <Grid item xs={12}>
             <Controller
               as={<MagicTextField />}
@@ -133,11 +116,11 @@ const DeliveryNFTDialog = ({
           type='submit'
           className={classes.button}
         >
-          Delivery
+          Approve
         </GradientButton>
       </form>
     </MagicDialog>
   );
 }
 
-export default memo(DeliveryNFTDialog)
+export default memo(ApproveBidDialog)

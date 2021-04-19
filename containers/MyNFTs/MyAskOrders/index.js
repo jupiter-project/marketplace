@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import * as jupiterAPI from 'services/api-jupiter'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
-import NoNFT from 'parts/NoNFT'
+import NoData from 'parts/NoData'
 import DeleteNFTDialog from 'parts/DeleteNFTDialog'
 import TabPanel from '../Shared/TabPanel'
 import OrderItem from './OrderItem'
@@ -73,7 +73,7 @@ const MyAskOrders = ({
     <TabPanel value={value} index={index}>
       {isEmpty(assets)
         ? (
-          <NoNFT />
+          <NoData />
         ) : (
           <div className={classes.container}>
             {assets.map((item, index) => (
