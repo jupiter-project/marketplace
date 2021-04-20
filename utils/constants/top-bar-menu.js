@@ -41,10 +41,6 @@ const SIGN_OFF_MENU_LINKS = [
     TITLE: LINKS.SIGN_IN.TITLE,
     HREF: LINKS.SIGN_IN.HREF,
   },
-  {
-    TITLE: LINKS.SIGN_UP.TITLE,
-    HREF: LINKS.SIGN_UP.HREF,
-  }
 ]
 
 export {
