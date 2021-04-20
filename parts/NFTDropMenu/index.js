@@ -78,9 +78,6 @@ const NFTDropMenu = ({
           >
             Place a bid
           </MenuItem>
-          <MenuItem className={classes.item}>
-            Report
-          </MenuItem>
         </div>
       </Menu>
 

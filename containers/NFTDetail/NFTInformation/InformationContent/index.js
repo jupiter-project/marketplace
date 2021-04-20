@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 
 import MagicIdenticon from 'components/MagicIdenticon'
-// import NFTTag from 'parts/NFTTag'
 import { NQT_WEIGHT } from 'utils/constants/common'
 
 const useStyles = makeStyles((theme) => ({
@@ -95,15 +94,6 @@ const InformationContent = ({
           {`x ${good.quantityQNT}`}
         </Typography>
       </div>
-
-      {/* <div className={classes.tagContainer}>
-        {good?.parsedTags?.map((tag, index) => (
-          <NFTTag
-            key={index}
-            tag={tag}
-          />
-        ))}
-      </div> */}
 
       <div className={classes.sellerLabelContainer}>
         <Typography

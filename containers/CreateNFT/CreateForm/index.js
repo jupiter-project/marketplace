@@ -8,7 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import clsx from 'clsx'
 
-import * as nftAPI from 'services/api-nft'
+import * as cloudinaryAPI from 'services/api-cloudinary'
 import * as jupiterAPI from 'services/api-jupiter'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import MagicSelect from 'components/UI/MagicSelect'
@@ -69,8 +69,6 @@ const CreateForm = () => {
 
   const { currentUser } = useSelector(state => state.auth);
   const [fileBuffer, setFileBuffer] = useState(null);
-  const [tag1, setTag1] = useState('');
-  const [tag2, setTag2] = useState('');
 
   const { control, handleSubmit, errors, watch, reset } = useForm({
     resolver: yupResolver(schema)
@@ -85,14 +83,12 @@ const CreateForm = () => {
 
   const resetHandler = useCallback(() => {
     setFileBuffer(null)
-    setTag1('')
-    setTag2('')
     reset({
       name: '',
       description: '',
       quantity: 1,
     })
-  }, [reset, setFileBuffer, setTag1, setTag2])
+  }, [reset, setFileBuffer])
 
   const onSubmit = useCallback(async (data) => {
     if (!fileBuffer) {
@@ -102,18 +98,10 @@ const CreateForm = () => {
 
     changeLoadingStatus(true)
     try {
-      let tags = ['nft'];
-      if (tag1) tags = [...tags, tag1]
-      if (tag2) tags = [...tags, tag2]
-
       let params = {
-        account: currentUser.account,
-        accountRS: currentUser.accountRS,
-        tags,
-        type: data.type,
         fileBuffer
       }
-      const { data: { _id, image = '' } } = await nftAPI.addNFT(params);
+      const { image = '' } = await cloudinaryAPI.uploadFileCloudinary(params);
 
       params = {
         name: 'nftleda',
@@ -143,7 +131,7 @@ const CreateForm = () => {
       setPopUp({ text: MESSAGES.CREATE_NFT_ERROR })
     }
     changeLoadingStatus(false)
-  }, [tag1, tag2, fileBuffer, currentUser, resetHandler, setPopUp, changeLoadingStatus]);
+  }, [fileBuffer, currentUser, resetHandler, setPopUp, changeLoadingStatus]);
 
   return (
     <>
@@ -201,11 +189,12 @@ const CreateForm = () => {
               type='number'
               placeholder='Quantity'
               inputProps={{ min: 1 }}
-              className={classes.input}
               error={errors.quantity?.message}
               control={control}
               defaultValue={1}
             />
+          </Grid>
+          <Grid item xs={12} sm={6}>
             <Controller
               as={<MagicSelect />}
               name='type'
@@ -215,30 +204,6 @@ const CreateForm = () => {
               error={errors.type?.message}
               control={control}
               defaultValue={FILE_TYPES.IMAGE.VALUE}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <MagicTextField
-              disabled
-              isOption
-              name='tag0'
-              label='Tags'
-              className={classes.input}
-              value='nft'
-            />
-            <MagicTextField
-              name='tag1'
-              className={classes.input}
-              placeholder='Second Tag'
-              value={tag1}
-              onChange={(e) => setTag1(e.target.value)}
-            />
-            <MagicTextField
-              name='tag2'
-              className={classes.input}
-              placeholder='Third Tag'
-              value={tag2}
-              onChange={(e) => setTag2(e.target.value)}
             />
           </Grid>
           <Grid item xs={12}>
