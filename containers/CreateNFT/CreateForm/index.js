@@ -108,7 +108,6 @@ const CreateForm = () => {
         description: data.name,
         quantity: data.quantity,
         message: JSON.stringify({
-          _id,
           image,
           type: data.type,
           description: data.description
