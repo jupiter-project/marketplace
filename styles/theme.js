@@ -24,7 +24,7 @@ const theme = responsiveFontSizes(createMuiTheme({
     },
     MuiCard: {
       root: {
-        borderRadius: 20,
+        borderRadius: 10,
         boxShadow: '0 2px 12px 0 #bdbdbd',
       }
     },

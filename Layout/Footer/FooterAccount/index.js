@@ -46,14 +46,9 @@ const FooterAccount = () => {
                 </Grid>
               </>
             ) : (
-              <>
-                <Grid item xs={6} sm={12}>
-                  <FooterMenuItem menu={LINKS.SIGN_UP} />
-                </Grid>
-                <Grid item xs={6} sm={12}>
-                  <FooterMenuItem menu={LINKS.SIGN_IN} />
-                </Grid>
-              </>
+              <Grid item xs={6} sm={12}>
+                <FooterMenuItem menu={LINKS.SIGN_IN} />
+              </Grid>
             )
         }
         <Grid item xs={6} sm={12}>

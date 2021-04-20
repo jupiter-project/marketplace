@@ -56,10 +56,10 @@ const HomeJourney = () => {
         {
           !accountRS &&
           <ContainedButton
-            href={LINKS.SIGN_UP.HREF}
+            href={LINKS.SIGN_IN.HREF}
             className={classes.create}
           >
-            Register
+            Log In
           </ContainedButton>
         }
 
