@@ -14,14 +14,14 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     flexDirection: 'column',
     width: '100%',
-    minHeight: 200,
+    minHeight: 240,
     backgroundImage: `url(${HOME_HEADER_BACKGROUND_IMAGE_PATH})`,
     backgroundRepeat: 'no-repeat',
-    backgroundPositionY: 'bottom',
+    backgroundPositionY: '70%',
     backgroundSize: 'cover'
   },
   header: {
-    fontSize: 30,
+    fontSize: 38,
     fontWeight: 'bold',
     marginBottom: theme.spacing(2),
   }
@@ -50,6 +50,7 @@ const ImageWall = ({
           {header}
         </Typography>
         <Typography
+          variant='h5'
           color='primary'
           align='center'
         >

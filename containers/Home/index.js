@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 40,
     fontWeight: 'bold',
     textAlign: 'center',
-    margin: theme.spacing(8, 0),
+    margin: theme.spacing(16, 0, 8),
     [theme.breakpoints.down('sm')]: {
       fontSize: 36,
       margin: theme.spacing(5, 0),

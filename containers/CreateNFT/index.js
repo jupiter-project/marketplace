@@ -3,7 +3,6 @@ import { memo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 
-// import TopTags from 'parts/TopTags'
 import CreateForm from './CreateForm'
 
 const useStyles = makeStyles((theme) => ({
@@ -43,14 +42,6 @@ const CreateNFT = () => {
         </Typography>
 
         <CreateForm />
-        {/* <Grid container spacing={3}>
-          <Grid item xs={12} sm={4}>
-            <TopTags />
-          </Grid>
-          <Grid item xs={12} sm={8}>
-            <CreateForm />
-          </Grid>
-        </Grid> */}
       </div>
     </main>
   )

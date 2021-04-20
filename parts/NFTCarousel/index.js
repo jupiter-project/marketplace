@@ -16,8 +16,8 @@ const useStyles = makeStyles(() => ({
 const responsive = {
   480: { items: 1 },
   680: { items: 2 },
-  960: { items: 3 },
-  1280: { items: 4 }
+  960: { items: 4 },
+  1280: { items: 5 }
 }
 
 const NFTCarousel = () => {
