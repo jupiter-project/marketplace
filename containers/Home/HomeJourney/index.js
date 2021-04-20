@@ -59,7 +59,7 @@ const HomeJourney = () => {
             href={LINKS.SIGN_IN.HREF}
             className={classes.create}
           >
-            Login
+            Log In
           </ContainedButton>
         }
 
