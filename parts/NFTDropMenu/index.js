@@ -1,5 +1,7 @@
 
 import { memo, useCallback, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 import {
   Menu,
   MenuItem,
@@ -9,6 +11,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 
 import BidNFTDialog from 'parts/BidNFTDialog'
+import usePopUp from 'utils/hooks/usePopUp'
+import LINKS from 'utils/constants/links'
+import MESSAGES from 'utils/constants/messages'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -28,6 +33,9 @@ const NFTDropMenu = ({
   item
 }) => {
   const classes = useStyles();
+  const router = useRouter();
+  const { setPopUp } = usePopUp();
+  const { accountRS } = useSelector(state => state.auth);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [openBid, setOpenBid] = useState(false);
@@ -41,6 +49,11 @@ const NFTDropMenu = ({
   }, [setAnchorEl]);
 
   const placeBidHandler = () => {
+    if (!accountRS) {
+      setPopUp({ text: MESSAGES.AUTH_REQUIRED })
+      router.push(LINKS.SIGN_IN.HREF)
+      return;
+    }
     setOpenBid(true)
     setAnchorEl(null);
   }

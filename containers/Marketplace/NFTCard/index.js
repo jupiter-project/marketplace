@@ -66,21 +66,21 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1.5, 0, 0.5)
   },
   description: {
-    WebkitLineClamp: 2
+    WebkitLineClamp: 2,
+    marginBottom: theme.spacing(1)
   },
   price: {
     fontWeight: 'bold',
+    marginBottom: theme.spacing(1)
   },
   buttonContainer: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   button: {
     fontSize: 15,
     padding: theme.spacing(1, 1, 0.5),
-    marginTop: theme.spacing(1)
   }
 }));
 
@@ -149,15 +149,15 @@ const NFTCard = ({
         >
           {assetInfo.description}
         </Typography>
-        <div className={classes.buttonContainer}>
-          <Typography
-            variant='body2'
-            color='primary'
-            className={classes.price}
-          >
-            Price: {item.priceNQT / NQT_WEIGHT} JUP
-          </Typography>
+        <Typography
+          variant='body2'
+          color='primary'
+          className={classes.price}
+        >
+          Price: {item.priceNQT / NQT_WEIGHT} JUP
+        </Typography>
 
+        <div className={classes.buttonContainer}>
           {accountRS === item.accountRS
             ? (
               <ContainedButton

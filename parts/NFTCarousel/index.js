@@ -1,4 +1,5 @@
-import { memo, useEffect, useState } from 'react'
+import { memo, useEffect, useState, useCallback } from 'react'
+import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
 import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
@@ -6,6 +7,7 @@ import 'react-alice-carousel/lib/alice-carousel.css'
 import * as jupiterAPI from 'services/api-jupiter'
 import NFTCarouselItem from './NFTCarouselItem'
 import { isEmpty } from 'utils/helpers/utility'
+import LINKS from 'utils/constants/links'
 
 const useStyles = makeStyles(() => ({
   carousel: {
@@ -22,6 +24,8 @@ const responsive = {
 
 const NFTCarousel = () => {
   const classes = useStyles();
+  const router = useRouter();
+
   const [openOrders, setOpenOrders] = useState([]);
 
   useEffect(() => {
@@ -41,6 +45,13 @@ const NFTCarousel = () => {
     }
   }
 
+  const detailNFTHandler = useCallback((item) => {
+    router.push(
+      LINKS.NFT_DETAIL.HREF,
+      LINKS.NFT_DETAIL.HREF.replace('[goods]', item.order)
+    )
+  }, [router])
+
   return (
     !isEmpty(openOrders) &&
     <AliceCarousel
@@ -58,6 +69,7 @@ const NFTCarousel = () => {
           <NFTCarouselItem
             key={index}
             item={item}
+            onDetail={detailNFTHandler}
           />
         )
       }

@@ -73,7 +73,7 @@ const SellAssetDialog = ({
 
       const response = await jupiterAPI.placeAskOrder(params)
       if (response?.errorCode) {
-        setPopUp({ text: response?.errorDescription || MESSAGES.PLACE_ASK_ORDER_ERROR })
+        setPopUp({ text: MESSAGES.PLACE_ASK_ORDER_ERROR })
         changeLoadingStatus(false)
         return;
       }

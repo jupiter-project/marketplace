@@ -37,7 +37,7 @@ const Home = () => {
     <main className={classes.root}>
       <HomeHeader />
       <Typography variant='h1' className={classes.title}>
-        New NFT Tokens
+        New NFTs
       </Typography>
       <NFTCarousel />
       <CreatorAndCollector />

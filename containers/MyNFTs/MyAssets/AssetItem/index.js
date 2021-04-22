@@ -74,7 +74,7 @@ const AssetItem = ({
             {info?.description || ''}
           </Typography>
           <Typography color='primary' className={classes.quantity}>
-            {`Quantity: ${item?.unconfirmedQuantityQNT || 0} / ${item?.quantityQNT || 0}`}
+            {`Available for sale: ${item?.unconfirmedQuantityQNT || 0} / ${item?.quantityQNT || 0}`}
           </Typography>
         </div>
       </div>
