@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
       opacity: '100%'
     },
   },
+  title: {
+    fontWeight: 'bold',
+    color: theme.palette.primary.main
+  },
   imageContainer: {
     position: 'relative',
     margin: -theme.spacing(2),
@@ -117,6 +121,10 @@ const NFTCard = ({
       <CardHeader
         avatar={<MagicIdenticon size={40} value={item.accountRS} />}
         action={<NFTDropMenu item={item} />}
+        title={item.accountRS}
+        classes={{
+          title: classes.title
+        }}
       />
       <CardContent>
         <div className={classes.imageContainer} onClick={detailNFTHandler}>

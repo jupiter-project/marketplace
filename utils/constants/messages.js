@@ -14,6 +14,8 @@ const MESSAGES = Object.freeze({
   GET_NFT_ERROR: 'This NFT does not exist, please check your url.',
   PURCHASE_NFT_SUCCESS: 'You’ve successfully bought this NFT.',
   PURCHASE_NFT_ERROR: 'You don\'t have enough JUP to buy this NFT, please fund your account.',
+  BID_NFT_SUCCESS: 'You’ve successfully bid this NFT.',
+  BID_NFT_ERROR: 'You don\'t have enough JUP to bid this NFT, please fund your account.',
   DELETE_NFT_SUCCESS: 'Your order has been canceled.',
   DELETE_NFT_ERROR: 'There was a problem canceling your order. Please fund your account and try again.',
   PLACE_ASK_ORDER_SUCCESS: 'Your asset is now for sale on the marketplace.',
