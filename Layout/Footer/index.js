@@ -7,6 +7,7 @@ import clsx from 'clsx'
 import FooterMenu from './FooterMenu'
 import FooterAccount from './FooterAccount'
 import FooterContact from './FooterContact'
+import { AUTH_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
 import { useCommonStyles } from 'styles/use-styles'
 
 const useStyles = makeStyles(theme => ({
@@ -15,7 +16,10 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row',
     justifyContent: 'center',
     width: '100%',
-    background: `linear-gradient(to bottom right, ${theme.custom.palette.darkGreen}, ${theme.custom.palette.black})`
+    backgroundImage: `url(${AUTH_BACKGROUND_IMAGE_PATH})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
   },
   container: {
     display: 'flex',

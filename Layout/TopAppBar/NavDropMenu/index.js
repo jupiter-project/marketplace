@@ -20,11 +20,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1)
   },
   menu: {
-    color: theme.palette.background.default,
+    width: 30,
+    height: 30,
+    color: theme.palette.text.primary,
   },
   item: {
     borderRadius: 4,
-    color: theme.palette.primary.main
+    color: theme.palette.text.primary,
   }
 }));
 
@@ -61,7 +63,6 @@ const NavDropMenu = () => {
           keepMounted
           open={Boolean(anchorEl)}
           onClose={handleClose}
-          className={classes.menu}
           elevation={0}
           getContentAnchorEl={null}
           anchorOrigin={{

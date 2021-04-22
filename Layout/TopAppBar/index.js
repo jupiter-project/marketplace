@@ -1,11 +1,12 @@
 import { memo } from 'react'
-import { AppBar, Toolbar, Typography } from '@material-ui/core'
+import { AppBar, Toolbar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 
 import Logo from 'components/Logo'
 import NavBarMenu from './NavBarMenu'
 import NavDropMenu from './NavDropMenu'
+import { HEADER_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
 import { useCommonStyles } from 'styles/use-styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -15,7 +16,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     width: '100%',
     height: theme.custom.layout.topAppBarHeight,
-    backgroundColor: theme.palette.background.secondary,
+    backgroundImage: `url(${HEADER_BACKGROUND_IMAGE_PATH})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
   },
   toolBar: {
     display: 'flex',
@@ -24,12 +28,6 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     alignItems: 'center',
-  },
-  title: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: theme.custom.palette.white,
-    margin: theme.spacing(1)
   }
 }));
 
@@ -43,15 +41,7 @@ const TopAppBar = () => {
       className={classes.appBar}
     >
       <Toolbar className={clsx(classes.toolBar, commonClasses.containerWidth)}>
-        <div className={classes.container}>
-          <Logo />
-          <Typography
-            variant='h1'
-            className={classes.title}
-          >
-            Leda
-          </Typography>
-        </div>
+        <Logo />
         <div className={classes.container}>
           <NavBarMenu />
           <NavDropMenu />

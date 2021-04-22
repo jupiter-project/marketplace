@@ -32,7 +32,7 @@ class MyDocument extends Document {
       <Html lang='en'>
         <Head>
           <link rel='manifest' href='/site.webmanifest' />
-          <link rel='preload' href='/assets/fonts/Shentox.ttf' as='font' crossOrigin='anonymous' />
+          <link rel='preload' href='/assets/fonts/CRC.woff' as='font' crossOrigin='anonymous' />
           <link rel='icon' type='image/png' sizes='32x32' href='/favicon-32x32.png' />
           <link rel='icon' type='image/png' sizes='16x16' href='/favicon-16x16.png' />
           <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon.png" />

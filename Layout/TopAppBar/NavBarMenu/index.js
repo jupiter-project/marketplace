@@ -17,9 +17,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center'
   },
   item: {
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: 'bold',
     textTransform: 'unset',
-    color: theme.palette.background.default
+    color: theme.palette.text.primary
   },
   selected: {
     color: theme.palette.primary.main
