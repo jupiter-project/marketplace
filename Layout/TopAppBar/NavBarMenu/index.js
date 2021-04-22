@@ -18,8 +18,9 @@ const useStyles = makeStyles((theme) => ({
   },
   item: {
     fontSize: 18,
+    fontWeight: 'bold',
     textTransform: 'unset',
-    color: theme.palette.background.default
+    color: theme.palette.text.primary
   },
   selected: {
     color: theme.palette.primary.main

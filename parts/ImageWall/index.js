@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import clsx from 'clsx'
 
-import { HOME_HEADER_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
+import { AUTH_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
 import { useCommonStyles } from 'styles/use-styles'
 
 const useStyles = makeStyles(theme => ({
@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     width: '100%',
     minHeight: 240,
-    backgroundImage: `url(${HOME_HEADER_BACKGROUND_IMAGE_PATH})`,
+    backgroundImage: `url(${AUTH_BACKGROUND_IMAGE_PATH})`,
     backgroundRepeat: 'no-repeat',
     backgroundPositionY: '70%',
     backgroundSize: 'cover'

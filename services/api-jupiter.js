@@ -47,7 +47,7 @@ const getAssetsByIssuer = async (params) => {
 }
 
 const searchAllOpenAskOrders = async (params) => {
-  const url = `/nxt?requestType=searchAllOpenAskOrders&query=nftleda&firstIndex=${params.first}&lastIndex=${params.last}`
+  const url = `/nxt?requestType=searchAllOpenAskOrders&query=${`nftleda ${params.query}`}&firstIndex=${params.first}&lastIndex=${params.last}`
   return await apiAxios.get(url)
 }
 

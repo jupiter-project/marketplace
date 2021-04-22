@@ -3,6 +3,7 @@ import { memo, useState, useEffect, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import * as jupiterAPI from 'services/api-jupiter'
+import SearchInput from 'parts/SearchInput'
 import NFTList from './NFTList'
 
 const useStyles = makeStyles((theme) => ({
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(4, 0)
   },
   filterContainer: {
-    padding: theme.spacing(2, 3.5)
+    padding: theme.spacing(2)
   },
 }));
 
@@ -29,12 +30,13 @@ const Marketplace = () => {
 
   const [goods, setGoods] = useState([]);
   const [first, setFirst] = useState(0);
-  const [isLast, setIsLast] = useState(false)
+  const [isLast, setIsLast] = useState(false);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     getAllOpenAskOrders();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [query]);
 
   const getAllOpenAskOrders = useCallback(async () => {
     try {
@@ -42,6 +44,7 @@ const Marketplace = () => {
         const params = {
           first,
           last: first + PAGE_COUNT - 1,
+          query
         }
 
         const { openOrders = [] } = await jupiterAPI.searchAllOpenAskOrders(params);
@@ -57,11 +60,23 @@ const Marketplace = () => {
     } catch (error) {
       console.log(error)
     }
-  }, [isLast, first, setGoods, setFirst, setIsLast])
+  }, [query, isLast, first, setGoods, setFirst, setIsLast])
+
+  const searchHandler = useCallback(async (value) => {
+    if (query !== value) {
+      setGoods([]);
+      setFirst(0)
+      setIsLast(false)
+      setQuery(value);
+    }
+  }, [query, setQuery, setGoods, setFirst, setIsLast])
 
   return (
     <div className={classes.root}>
       <div className={classes.container}>
+        <div className={classes.filterContainer}>
+          <SearchInput onSearch={searchHandler} />
+        </div>
         <NFTList
           goods={goods}
           isLast={isLast}

@@ -6,19 +6,19 @@ import {
 
 const theme = responsiveFontSizes(createMuiTheme({
   typography: {
-    fontFamily: 'Shentox',
+    fontFamily: 'CRC',
   },
   overrides: {
     MuiCssBaseline: {
       '@global': {
         '@font-face': [{
-          fontFamily: 'Shentox',
+          fontFamily: 'CRC',
           fontStyle: 'normal',
           fontDisplay: 'swap',
           fontWeight: 400,
           src: `
-            local('Shentox'),
-            url('/assets/fonts/Shentox.ttf') format('truetype')`
+            local('CRC'),
+            url('/assets/fonts/CRC.woff') format('woff')`
         }]
       }
     },
@@ -32,7 +32,7 @@ const theme = responsiveFontSizes(createMuiTheme({
   palette: {
     primary: {
       light: '#4791db',
-      main: '#009044',
+      main: '#39b449',
       dark: '#ecebed',
       contrastText: '#ffffff'
     },
@@ -54,7 +54,7 @@ const theme = responsiveFontSizes(createMuiTheme({
       secondary: '#343a40'
     },
     text: {
-      primary: '#262433',
+      primary: '#4e4e4f',
       secondary: '#a2a1b2'
     },
   },
