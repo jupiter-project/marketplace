@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     overflow: 'hidden !important',
     overflowAnchor: 'none',
-    padding: theme.spacing(2)
+    padding: theme.spacing(2, 0)
   },
   list: {
     width: '100%',

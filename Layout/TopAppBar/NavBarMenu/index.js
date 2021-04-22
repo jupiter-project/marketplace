@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center'
   },
   item: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
     textTransform: 'unset',
     color: theme.palette.text.primary
