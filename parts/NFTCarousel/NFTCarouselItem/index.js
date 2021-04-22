@@ -47,7 +47,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NFTCarouselItem = ({
-  item
+  item,
+  onDetail
 }) => {
   const classes = useStyles();
   const commonClasses = useCommonStyles()
@@ -55,7 +56,7 @@ const NFTCarouselItem = ({
   const info = useMemo(() => getJSONParse(item?.message), [item]);
 
   return (
-    <Card className={classes.container}>
+    <Card className={classes.container} onClick={() => onDetail(item)}>
       <ProductContent
         info={info}
         className={classes.image}

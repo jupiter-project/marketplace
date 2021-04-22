@@ -37,15 +37,15 @@ const useStyles = makeStyles((theme) => ({
 const TABS = [
   {
     icon: CollectionsIcon,
-    label: 'My Assets',
+    label: 'MY NFTS',
   },
   {
     icon: ShoppingCartIcon,
-    label: 'Ask Orders',
+    label: 'SELL ORDERS',
   },
   {
     icon: StyleIcon,
-    label: 'Bid Orders',
+    label: 'BUY ORDERS',
   },
 ]
 

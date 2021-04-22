@@ -16,12 +16,12 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     width: '100%',
-    minHeight: 240,
-    objectFit: 'cover',
+    height: 360,
+    objectFit: 'contain',
     borderRadius: 8,
     border: `1px solid ${theme.palette.primary.main}`,
     [theme.breakpoints.down('sm')]: {
-      minHeight: 210
+      height: 210
     }
   },
   leftContainer: {

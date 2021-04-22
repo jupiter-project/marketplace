@@ -9,7 +9,7 @@ const LINKS = Object.freeze({
     HREF: '/auth/sign-up'
   },
   SIGN_OUT: {
-    TITLE: 'Sign Out',
+    TITLE: 'Log Out',
     HREF: '/auth/sign-out',
   },
   HOME: {

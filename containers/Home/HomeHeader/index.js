@@ -105,14 +105,14 @@ const HomeHeader = () => {
             variant='h1'
             className={classes.title}
           >
-            Leda is the official marketplace for Jupiter NFTs
+            Leda is the official marketplace for Jupiter based NFTs
           </Typography>
           <Typography
             variant='h5'
             color='textSecondary'
             className={classes.description}
           >
-            Create, sell or collect digital items secured with blockchain
+            Create, sell and collect blockchain-secured digital items
           </Typography>
 
           <div className={classes.buttonContainer}>
@@ -130,17 +130,12 @@ const HomeHeader = () => {
                   </OutlinedButton>
                 </>
               ) : (
-                <>
-                  <ContainedButton
-                    href={LINKS.SIGN_IN.HREF}
-                    className={classes.create}
-                  >
-                    Log In
-                  </ContainedButton>
-                  <OutlinedButton href={LINKS.SIGN_UP.HREF} >
-                    Register
-                  </OutlinedButton>
-                </>
+                <ContainedButton
+                  href={LINKS.SIGN_IN.HREF}
+                  className={classes.create}
+                >
+                  Log In
+                </ContainedButton>
               )}
           </div>
         </Grid>

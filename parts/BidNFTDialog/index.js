@@ -80,16 +80,16 @@ const BidNFTDialog = ({
 
       const response = await jupiterAPI.placeBidOrder(params)
       if (response?.errorCode) {
-        setPopUp({ text: response?.errorDescription || MESSAGES.PURCHASE_NFT_ERROR })
+        setPopUp({ text: response?.errorDescription || MESSAGES.BID_NFT_ERROR })
         changeLoadingStatus(false)
         return;
       }
 
-      setPopUp({ text: MESSAGES.PURCHASE_NFT_SUCCESS })
+      setPopUp({ text: MESSAGES.BID_NFT_SUCCESS })
       setOpen(false);
     } catch (error) {
       console.log(error)
-      setPopUp({ text: MESSAGES.PURCHASE_NFT_ERROR })
+      setPopUp({ text: MESSAGES.BID_NFT_ERROR })
     }
     changeLoadingStatus(false)
   }, [item, currentUser, setOpen, setPopUp, changeLoadingStatus]);

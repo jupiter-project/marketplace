@@ -3,7 +3,6 @@ import { memo, useState, useEffect, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import * as jupiterAPI from 'services/api-jupiter'
-import NFTCarousel from 'parts/NFTCarousel'
 import NFTList from './NFTList'
 
 const useStyles = makeStyles((theme) => ({
@@ -62,7 +61,6 @@ const Marketplace = () => {
 
   return (
     <div className={classes.root}>
-      <NFTCarousel />
       <div className={classes.container}>
         <NFTList
           goods={goods}

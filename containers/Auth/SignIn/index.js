@@ -2,8 +2,6 @@
 import { memo, useCallback } from 'react'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
-import Typography from '@material-ui/core/Typography'
-import { makeStyles } from '@material-ui/core/styles'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -11,7 +9,6 @@ import * as yup from 'yup'
 import * as jupiterAPI from 'services/api-jupiter'
 import { setUserToken } from 'actions/auth'
 import GradientButton from 'components/UI/Buttons/GradientButton'
-import LinkButton from 'components/UI/Buttons/LinkButton'
 import AccountTextField from 'components/UI/TextFields/AccountTextField'
 import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper'
 import useLoading from 'utils/hooks/useLoading'
@@ -25,18 +22,8 @@ const schema = yup.object().shape({
   account: ACCOUNT_VALID
 });
 
-const useStyles = makeStyles((theme) => ({
-  footer: {
-    display: 'flex'
-  },
-  signup: {
-    paddingLeft: theme.spacing(1)
-  }
-}));
-
 const SignIn = () => {
   const dispatch = useDispatch();
-  const classes = useStyles();
   const authClasses = authPageStyles();
   const router = useRouter();
   const { setPopUp } = usePopUp();
@@ -91,19 +78,6 @@ const SignIn = () => {
         >
           Log In
         </GradientButton>
-        <Typography
-          variant='body2'
-          color='textSecondary'
-          className={classes.footer}
-        >
-          {'Don\'t have an Account?'}
-          <LinkButton
-            href={LINKS.SIGN_UP.HREF}
-            className={classes.signup}
-          >
-            Create New Account
-          </LinkButton>
-        </Typography>
       </form>
     </AuthWrapper>
   )
