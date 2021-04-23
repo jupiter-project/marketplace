@@ -21,6 +21,10 @@ const getAccountByAccountID = async (account) => {
   return await apiAxios.get(`/nxt?requestType=getAccount&account=${account}`)
 }
 
+const getAccount = async (account) => {
+  return await apiAxios.get(`/nxt?requestType=getAccount&account=${account}`)
+}
+
 const setAccountInfo = async (params) => {
   const url = `/nxt?requestType=setAccountInfo&name=${params.name}&description=${params.description}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
   return await apiAxios.post(url)
@@ -47,7 +51,7 @@ const getAssetsByIssuer = async (params) => {
 }
 
 const searchAllOpenAskOrders = async (params) => {
-  const url = `/nxt?requestType=searchAllOpenAskOrders&query=${`nftleda ${params.query}`}&firstIndex=${params.first}&lastIndex=${params.last}`
+  const url = `/nxt?requestType=searchAllOpenAskOrders&query=${`nftleda ${params?.query || ''}`}&firstIndex=${params.first}&lastIndex=${params.last}`
   return await apiAxios.get(url)
 }
 
@@ -110,6 +114,7 @@ export {
   getAccountByPassphrase,
   getAccountByAccountID,
   setAccountInfo,
+  getAccount,
   issueAsset,
   searchAssets,
   searchAccountAssets,

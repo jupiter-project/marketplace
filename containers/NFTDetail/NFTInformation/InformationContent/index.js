@@ -39,10 +39,13 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginBottom: theme.spacing(1)
   },
-  sellerLabel: {
+  accountName: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginRight: theme.spacing(2)
+    marginLeft: theme.spacing(2)
+  },
+  accountDescription: {
+    marginBottom: theme.spacing(1)
   },
   sellerRS: {
     fontSize: 14,
@@ -58,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
 const InformationContent = ({
   good,
+  account,
   assetInfo
 }) => {
   const classes = useStyles();
@@ -96,14 +100,21 @@ const InformationContent = ({
       </div>
 
       <div className={classes.sellerLabelContainer}>
+        <MagicIdenticon value={good.accountRS} />
         <Typography
           color='textPrimary'
-          className={classes.sellerLabel}
+          className={classes.accountName}
         >
-          Creator:
+          {account.name || 'No Name'}
         </Typography>
-        <MagicIdenticon value={good.accountRS} />
       </div>
+      <Typography
+        color='textPrimary'
+        className={classes.accountDescription}
+      >
+        {account.description || ''}
+      </Typography>
+
       <Typography
         color='primary'
         className={classes.sellerRS}

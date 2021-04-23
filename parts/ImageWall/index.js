@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import clsx from 'clsx'
 
-import { AUTH_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
+import { HEADER_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
 import { useCommonStyles } from 'styles/use-styles'
 
 const useStyles = makeStyles(theme => ({
@@ -14,10 +14,10 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     flexDirection: 'column',
     width: '100%',
-    minHeight: 240,
-    backgroundImage: `url(${AUTH_BACKGROUND_IMAGE_PATH})`,
+    minHeight: 320,
+    backgroundImage: `url(${HEADER_BACKGROUND_IMAGE_PATH})`,
     backgroundRepeat: 'no-repeat',
-    backgroundPositionY: '70%',
+    backgroundPositionY: 'bottom',
     backgroundSize: 'cover'
   },
   header: {
@@ -43,7 +43,7 @@ const ImageWall = ({
       <div className={commonClasses.containerWidth}>
         <Typography
           variant='h3'
-          color='primary'
+          color='textPrimary'
           align='center'
           className={clsx(classes.header, propsClasses.header)}
         >
@@ -51,7 +51,7 @@ const ImageWall = ({
         </Typography>
         <Typography
           variant='h5'
-          color='primary'
+          color='textSecondary'
           align='center'
         >
           {description}

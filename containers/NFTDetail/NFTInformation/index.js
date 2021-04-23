@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 const NFTInformation = ({
   isMine,
   good,
+  account,
   assetInfo
 }) => {
   const classes = useStyles();
@@ -31,6 +32,7 @@ const NFTInformation = ({
     <div>
       <InformationContent
         good={good}
+        account={account}
         assetInfo={assetInfo}
       />
       {isMine

@@ -6,9 +6,11 @@ import {
   Hidden
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-
-import useMenu from 'utils/hooks/useMenu'
 import clsx from 'clsx';
+
+import ContainedButton from 'components/UI/Buttons/ContainedButton'
+import useMenu from 'utils/hooks/useMenu'
+import LINKS from 'utils/constants/links'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,10 +19,14 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center'
   },
   item: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: 'bold',
-    textTransform: 'unset',
     color: theme.palette.text.primary
+  },
+  login: {
+    fontSize: 15,
+    padding: theme.spacing(0.5, 1.5, 0),
+    margin: theme.spacing(0, 1)
   },
   selected: {
     color: theme.palette.primary.main
@@ -40,15 +46,29 @@ const NavBarMenu = () => {
     <Hidden smDown>
       <div className={classes.root}>
         {
-          PROFILE_MENU_LINKS.map((item, index) => (
-            <Button
-              key={index}
-              onClick={onNavHandler(item)}
-              className={clsx(classes.item, { [classes.selected]: item.HREF === router.pathname })}
-            >
-              {item.TITLE}
-            </Button>
-          ))
+          PROFILE_MENU_LINKS.map((item, index) => {
+            if (item.HREF === LINKS.SIGN_IN.HREF) {
+              return (
+                <ContainedButton
+                  key={index}
+                  onClick={onNavHandler(item)}
+                  className={classes.login}
+                >
+                  {item.TITLE}
+                </ContainedButton>
+              )
+            }
+
+            return (
+              <Button
+                key={index}
+                onClick={onNavHandler(item)}
+                className={clsx(classes.item, { [classes.selected]: item.HREF === router.pathname })}
+              >
+                {item.TITLE}
+              </Button>
+            )
+          })
         }
       </div>
     </Hidden>

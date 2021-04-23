@@ -13,7 +13,7 @@ import { NQT_WEIGHT } from 'utils/constants/common'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    overflowX: 'overlay'
+    overflowX: 'inherit',
   },
   title: {
     marginBottom: theme.spacing(2)

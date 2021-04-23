@@ -1,12 +1,13 @@
 
 import { memo, useState, useEffect, useRef, useCallback } from 'react'
-import { Grid, Typography } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { use100vh } from 'react-div-100vh'
 
 import NoData from 'parts/NoData'
 import PurchaseNFTDialog from 'parts/PurchaseNFTDialog'
+import BidNFTDialog from 'parts/BidNFTDialog'
 import NFTCard from '../NFTCard'
 import { isEmpty } from 'utils/helpers/utility'
 
@@ -17,11 +18,23 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     overflow: 'hidden !important',
     overflowAnchor: 'none',
-    padding: theme.spacing(2, 0)
+    padding: theme.spacing(2)
   },
   list: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
+    gridGap: theme.spacing(8, 4),
     width: '100%',
     maxWidth: theme.custom.layout.maxMarketPlaceWidth,
+    [theme.breakpoints.down('md')]: {
+      gridTemplateColumns: '1fr 1fr 1fr 1fr',
+    },
+    [theme.breakpoints.down('sm')]: {
+      gridTemplateColumns: '1fr 1fr',
+    },
+    [theme.breakpoints.down('xs')]: {
+      gridTemplateColumns: '1fr',
+    },
   },
   loading: {
     fontWeight: 'bold',
@@ -40,6 +53,7 @@ const NFTList = ({
 
   const [selectedGood, setSelectedGood] = useState({});
   const [openPurchaseModal, setOpenPurchaseModal] = useState(false);
+  const [openBidModal, setOpenBidModal] = useState(false);
 
   useEffect(() => {
     if (!isLast && scrollRef?.current?.scrollHeight < deviceHeight) {
@@ -52,6 +66,11 @@ const NFTList = ({
     setSelectedGood(item)
     setOpenPurchaseModal(true)
   }, [setSelectedGood, setOpenPurchaseModal])
+
+  const bidHandler = useCallback((item) => {
+    setSelectedGood(item)
+    setOpenBidModal(true)
+  }, [setSelectedGood, setOpenBidModal])
 
   return (
     isLast && isEmpty(goods)
@@ -74,24 +93,31 @@ const NFTList = ({
             next={loadMore}
             className={classes.scroll}
           >
-            <Grid container spacing={3} className={classes.list} ref={scrollRef}>
+            <div className={classes.list} ref={scrollRef}>
               {
                 goods.map((item, index) => (
-                  <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-                    <NFTCard
-                      item={item}
-                      onPurchase={purchaseHandler}
-                    />
-                  </Grid>
+                  <NFTCard
+                    key={index}
+                    item={item}
+                    onPurchase={purchaseHandler}
+                    onBid={bidHandler}
+                  />
                 ))
               }
-            </Grid>
+            </div>
           </InfiniteScroll>
           {openPurchaseModal &&
             <PurchaseNFTDialog
               open={openPurchaseModal}
               setOpen={setOpenPurchaseModal}
               item={selectedGood}
+            />
+          }
+          {openBidModal &&
+            <BidNFTDialog
+              item={selectedGood}
+              open={openBidModal}
+              setOpen={setOpenBidModal}
             />
           }
         </>

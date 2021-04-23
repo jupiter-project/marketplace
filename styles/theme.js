@@ -76,9 +76,9 @@ const theme = responsiveFontSizes(createMuiTheme({
       border: '#f1f0f2'
     },
     layout: {
-      topAppBarHeight: 80,
+      topAppBarHeight: 60,
       maxDesktopWidth: 1110,
-      maxMarketPlaceWidth: 1420
+      maxMarketPlaceWidth: 1366
     },
   }
 }));
