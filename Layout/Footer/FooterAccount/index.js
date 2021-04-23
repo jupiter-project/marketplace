@@ -52,6 +52,9 @@ const FooterAccount = () => {
             )
         }
         <Grid item xs={6} sm={12}>
+          <FooterMenuItem menu={LINKS.FAQ} />
+        </Grid>
+        <Grid item xs={6} sm={12}>
           <FooterMenuItem menu={LINKS.TERMS_OF_SERVICE} />
         </Grid>
         <Grid item xs={6} sm={12}>

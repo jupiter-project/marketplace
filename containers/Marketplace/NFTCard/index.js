@@ -1,17 +1,10 @@
 import { memo, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  Typography,
-} from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 
-import MagicIdenticon from 'components/MagicIdenticon'
-import NFTDropMenu from 'parts/NFTDropMenu'
 import ProductContent from 'parts/ProductContent'
 import usePopUp from 'utils/hooks/usePopUp'
 import LINKS from 'utils/constants/links'
@@ -24,73 +17,65 @@ import { useCommonStyles } from 'styles/use-styles'
 const useStyles = makeStyles((theme) => ({
   card: {
     height: '100%',
+    padding: theme.spacing(1),
     '&:hover': {
       transform: 'translateY(-5px)',
       transition: `ease-out 0.4s `,
       opacity: '100%'
     },
   },
-  title: {
-    fontWeight: 'bold',
-    color: theme.palette.primary.main
+  infoContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: 434,
   },
   imageContainer: {
-    position: 'relative',
-    margin: -theme.spacing(2),
-    marginBottom: 0,
-    height: 180,
+    width: '100%',
+    padding: theme.spacing(1),
+    borderRadius: 2,
+    border: `1px solid ${theme.palette.text.primary}`,
+    marginBottom: theme.spacing(1)
   },
   image: {
-    height: 180,
+    height: 270,
     width: '100%',
-    objectFit: 'contain'
+    objectFit: 'contain',
   },
-  quantityContainer: {
-    position: 'absolute',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    bottom: theme.spacing(1),
-    right: theme.spacing(1),
-    minWidth: 30,
-    height: 30,
-    borderRadius: 8,
-    backgroundColor: theme.palette.primary.main,
-    boxShadow: `0 2px 12px 0 ${theme.palette.primary.main}`,
-  },
-  quantity: {
-    fontSize: 15,
+  title: {
     fontWeight: 'bold',
-    color: theme.custom.palette.white,
+    lineHeight: 1
   },
   name: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textTransform: 'capitalize',
-    margin: theme.spacing(1.5, 0, 0.5)
+    marginBottom: theme.spacing(1)
   },
   description: {
+    fontSize: 14,
     WebkitLineClamp: 2,
     marginBottom: theme.spacing(1)
   },
   price: {
-    fontWeight: 'bold',
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
+    '& span': {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: theme.palette.primary.main
+    }
   },
   buttonContainer: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
   button: {
     fontSize: 15,
-    padding: theme.spacing(1, 1, 0.5),
+    padding: theme.spacing(0.25, 1.5, 0),
   }
 }));
 
 const NFTCard = ({
   item,
-  onPurchase
+  onPurchase,
+  onBid
 }) => {
   const classes = useStyles();
   const commonClasses = useCommonStyles();
@@ -116,76 +101,77 @@ const NFTCard = ({
     onPurchase(item)
   }, [item, accountRS, router, setPopUp, onPurchase])
 
+  const bidHandler = useCallback(() => {
+    if (!accountRS) {
+      setPopUp({ text: MESSAGES.AUTH_REQUIRED })
+      router.push(LINKS.SIGN_IN.HREF)
+      return;
+    }
+    onBid(item)
+  }, [item, accountRS, router, setPopUp, onBid])
+
   return (
-    <Card className={classes.card}>
-      <CardHeader
-        avatar={<MagicIdenticon size={40} value={item.accountRS} />}
-        action={<NFTDropMenu item={item} />}
-        title={item.accountRS}
-        classes={{
-          title: classes.title
-        }}
-      />
-      <CardContent>
-        <div className={classes.imageContainer} onClick={detailNFTHandler}>
+    <div className={classes.card}>
+      <div className={classes.infoContainer} onClick={detailNFTHandler}>
+        <div className={classes.imageContainer}>
           <ProductContent
             info={assetInfo}
             className={classes.image}
           />
-          {item.quantityQNT &&
-            <div className={classes.quantityContainer}>
-              <Typography
-                variant='body2'
-                className={classes.quantity}
-              >
-                {item.quantityQNT}
-              </Typography>
-            </div>
-          }
         </div>
         <Typography
-          variant='body1'
           color='textPrimary'
+          className={classes.title}
+        >
+          Name of the Art
+        </Typography>
+        <Typography
+          color='textSecondary'
           className={classes.name}
         >
           {item.description}
         </Typography>
         <Typography
-          variant='body2'
           color='textSecondary'
           className={clsx(classes.description, commonClasses.breakWords)}
         >
           {assetInfo.description}
         </Typography>
         <Typography
-          variant='body2'
-          color='primary'
+          variant='caption'
+          color='textSecondary'
           className={classes.price}
         >
-          Price: {item.priceNQT / NQT_WEIGHT} JUP
+          Price: <span>{item.priceNQT / NQT_WEIGHT} JUP x {item.quantityQNT}</span>
         </Typography>
+      </div>
 
-        <div className={classes.buttonContainer}>
-          {accountRS === item.accountRS
-            ? (
-              <ContainedButton
-                className={classes.button}
-                onClick={detailNFTHandler}
-              >
-                Edit
-              </ContainedButton>
-            ) : (
-              <ContainedButton
-                className={classes.button}
-                onClick={purchaseHandler}
-              >
-                Purchase
-              </ContainedButton>
-            )
-          }
-        </div>
-      </CardContent>
-    </Card>
+      <div className={classes.buttonContainer}>
+        <ContainedButton
+          className={classes.button}
+          onClick={bidHandler}
+        >
+          Place bid
+        </ContainedButton>
+        {accountRS === item.accountRS
+          ? (
+            <ContainedButton
+              className={classes.button}
+              onClick={detailNFTHandler}
+            >
+              Edit NFT
+            </ContainedButton>
+          ) : (
+            <ContainedButton
+              className={classes.button}
+              onClick={purchaseHandler}
+            >
+              Buy now
+            </ContainedButton>
+          )
+        }
+      </div>
+    </div>
   );
 }
 

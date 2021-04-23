@@ -11,8 +11,8 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
   },
   img: {
-    width: 140,
-    height: 47,
+    width: 120,
+    height: 40,
     objectFit: 'contain'
   },
 }));

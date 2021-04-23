@@ -6,7 +6,6 @@ import clsx from 'clsx'
 import Logo from 'components/Logo'
 import NavBarMenu from './NavBarMenu'
 import NavDropMenu from './NavDropMenu'
-import { HEADER_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
 import { useCommonStyles } from 'styles/use-styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -16,10 +15,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     width: '100%',
     height: theme.custom.layout.topAppBarHeight,
-    backgroundImage: `url(${HEADER_BACKGROUND_IMAGE_PATH})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    backgroundColor: theme.palette.background.default
   },
   toolBar: {
     display: 'flex',

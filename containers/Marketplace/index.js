@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import * as jupiterAPI from 'services/api-jupiter'
 import SearchInput from 'parts/SearchInput'
+import MarketHeader from './MarketHeader'
 import NFTList from './NFTList'
 
 const useStyles = makeStyles((theme) => ({
@@ -11,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: theme.spacing(5, 0)
   },
   container: {
     width: '100%',
@@ -73,6 +73,7 @@ const Marketplace = () => {
 
   return (
     <div className={classes.root}>
+      <MarketHeader />
       <div className={classes.container}>
         <div className={classes.filterContainer}>
           <SearchInput onSearch={searchHandler} />

@@ -48,6 +48,7 @@ const NFTDetail = () => {
 
   const { accountRS } = useSelector(state => state.auth);
   const [good, setGood] = useState({})
+  const [account, setAccount] = useState({})
   const assetInfo = useMemo(() => getJSONParse(good.message), [good]);
 
   useEffect(() => {
@@ -67,6 +68,18 @@ const NFTDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query])
 
+  useEffect(() => {
+    const getAccount = async () => {
+      const response = await jupiterAPI.getAccount(good.accountRS);
+
+      setAccount(response)
+    }
+
+    if (!isEmpty(good)) {
+      getAccount()
+    }
+  }, [good])
+
   return (
     <main className={classes.root}>
       <ImageWall header='NFT Token Detail' />
@@ -83,6 +96,7 @@ const NFTDetail = () => {
                 <NFTInformation
                   isMine={accountRS === good.accountRS}
                   good={good}
+                  account={account}
                   assetInfo={assetInfo}
                 />
               </Grid>
