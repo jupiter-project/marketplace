@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
   textField: {
     border: `1px solid ${theme.palette.background.primary}`,
     borderRight: 0,
+    borderRadius: 2,
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
     maxWidth: 320,
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     color: theme.palette.primary.main,
     backgroundColor: theme.palette.background.primary,
+    borderRadius: 2,
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
   }
