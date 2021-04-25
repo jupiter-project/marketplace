@@ -51,7 +51,7 @@ const ImageWall = ({
         </Typography>
         <Typography
           variant='h5'
-          color='textSecondary'
+          color='primary'
           align='center'
         >
           {description}

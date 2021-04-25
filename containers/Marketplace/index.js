@@ -16,9 +16,12 @@ const useStyles = makeStyles((theme) => ({
   container: {
     width: '100%',
     maxWidth: theme.custom.layout.maxMarketPlaceWidth,
-    margin: theme.spacing(4, 0)
+    marginBottom: theme.spacing(4)
   },
   filterContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
     padding: theme.spacing(2)
   },
 }));

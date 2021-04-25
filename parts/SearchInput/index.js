@@ -1,18 +1,42 @@
 
 import { memo, useState, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-
-import MagicSearchInput from 'components/UI/MagicSearchInput'
-import ContainedButton from 'components/UI/Buttons/ContainedButton'
+import { OutlinedInput, Button } from '@material-ui/core'
+import CloseIcon from '@material-ui/icons/Close'
+import SearchIcon from '@material-ui/icons/Search'
 
 const useStyles = makeStyles((theme) => ({
   searchContainer: {
     display: 'flex',
     alignItems: 'center',
-    margin: theme.spacing(2, 0)
+  },
+  textField: {
+    border: `1px solid ${theme.palette.background.primary}`,
+    borderRight: 0,
+    borderRadius: 2,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+    maxWidth: 320,
+    '& input': {
+      padding: theme.spacing(1),
+    },
+  },
+  adornedEnd: {
+    paddingRight: theme.spacing(1)
+  },
+  closeIcon: {
+    fontSize: 18,
+    cursor: 'pointer'
   },
   button: {
-    marginLeft: theme.spacing(1)
+    height: 35,
+    minWidth: 35,
+    padding: 0,
+    color: theme.palette.primary.main,
+    backgroundColor: theme.palette.background.primary,
+    borderRadius: 2,
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
   }
 }));
 
@@ -26,18 +50,35 @@ const SearchInput = ({
     onSearch(query)
   }, [query, onSearch]);
 
+  const closeHandler = useCallback(() => {
+    setQuery('')
+    onSearch('')
+  }, [setQuery, onSearch]);
+
   return (
     <div className={classes.searchContainer}>
-      <MagicSearchInput
+      <OutlinedInput
+        className={classes.textField}
+        classes={{
+          adornedEnd: classes.adornedEnd
+        }}
+        endAdornment={
+          <CloseIcon
+            className={classes.closeIcon}
+            onClick={closeHandler}
+          />
+        }
+        placeholder='Search'
         value={query}
         onChange={event => setQuery(event.target.value)}
       />
-      <ContainedButton
+      <Button
+        variant='outlined'
         className={classes.button}
         onClick={searchHandler}
       >
-        Search
-      </ContainedButton>
+        <SearchIcon />
+      </Button>
     </div>
   )
 }

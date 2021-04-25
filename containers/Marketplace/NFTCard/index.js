@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     '& span': {
       fontSize: 16,
       fontWeight: 'bold',
-      color: theme.palette.primary.main
+      color: theme.palette.primary.main,
     }
   },
   buttonContainer: {
