@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   login: {
     fontSize: 15,
+    borderRadius: 2,
     padding: theme.spacing(0.5, 1.5, 0),
     margin: theme.spacing(0, 1)
   },

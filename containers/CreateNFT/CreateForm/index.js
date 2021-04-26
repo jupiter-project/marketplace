@@ -17,7 +17,6 @@ import UploadMedia from '../UploadMedia'
 import PreviewCard from '../PreviewCard'
 import {
   STRING_VALID,
-  INTEGER_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
 import usePopUp from 'utils/hooks/usePopUp'
@@ -28,7 +27,6 @@ import { FILE_TYPES, FILE_TYPES_ARRAY } from 'utils/constants/file-types'
 const schema = yup.object().shape({
   name: STRING_VALID,
   description: STRING_VALID,
-  quantity: INTEGER_VALID,
   type: STRING_VALID,
   passphrase: PASSPHRASE_VALID
 });
@@ -106,7 +104,7 @@ const CreateForm = () => {
       params = {
         name: 'nftleda',
         description: data.name,
-        quantity: data.quantity,
+        quantity: 1,
         message: JSON.stringify({
           image,
           type: data.type,
@@ -180,20 +178,7 @@ const CreateForm = () => {
               defaultValue=''
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Controller
-              as={<MagicTextField />}
-              name='quantity'
-              label='Quantity'
-              type='number'
-              placeholder='Quantity'
-              inputProps={{ min: 1 }}
-              error={errors.quantity?.message}
-              control={control}
-              defaultValue={1}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
             <Controller
               as={<MagicSelect />}
               name='type'
