@@ -68,6 +68,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     fontSize: 15,
+    borderRadius: 2,
     padding: theme.spacing(0.25, 1.5, 0),
   }
 }));
@@ -142,7 +143,7 @@ const NFTCard = ({
           color='textSecondary'
           className={classes.price}
         >
-          Price: <span>{item.priceNQT / NQT_WEIGHT} JUP x {item.quantityQNT}</span>
+          Price: <span>{item.priceNQT / NQT_WEIGHT} JUP</span>
         </Typography>
       </div>
 

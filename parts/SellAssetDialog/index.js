@@ -20,13 +20,11 @@ import MESSAGES from 'utils/constants/messages'
 import { NQT_WEIGHT } from 'utils/constants/common'
 import {
   PRICE_VALID,
-  INTEGER_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
 
 const schema = yup.object().shape({
   price: PRICE_VALID,
-  quantity: INTEGER_VALID,
   passphrase: PASSPHRASE_VALID
 });
 
@@ -65,7 +63,7 @@ const SellAssetDialog = ({
     try {
       let params = {
         asset: item.asset,
-        quantity: data.quantity,
+        quantity: 1,
         price: data.price * NQT_WEIGHT,
         secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey,
@@ -105,23 +103,7 @@ const SellAssetDialog = ({
         <Typography color='primary' className={classes.title}>
           {item.description}
         </Typography>
-        <Typography variant='h6' color='textPrimary'>
-          {`Total Quantity: ${item.quantityQNT || 0}`}
-        </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Controller
-              as={<MagicTextField />}
-              name='quantity'
-              label='Quantity'
-              type='number'
-              placeholder='Quantity'
-              inputProps={{ min: 1 }}
-              error={errors.quantity?.message}
-              control={control}
-              defaultValue={1}
-            />
-          </Grid>
           <Grid item xs={12}>
             <Controller
               as={<MagicTextField />}

@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    maxWidth: 650 // theme.custom.layout.maxDesktopWidth,
+    maxWidth: 650
   },
   header: {
     fontWeight: 'bold',

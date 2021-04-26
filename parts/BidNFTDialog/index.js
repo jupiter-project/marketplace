@@ -16,17 +16,12 @@ import GradientButton from 'components/UI/Buttons/GradientButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
-import {
-  INTEGER_VALID,
-  PASSPHRASE_VALID,
-  PRICE_VALID
-} from 'utils/constants/validations'
+import { PASSPHRASE_VALID, PRICE_VALID } from 'utils/constants/validations'
 import { NQT_WEIGHT } from 'utils/constants/common'
 import MESSAGES from 'utils/constants/messages'
 
 const schema = yup.object().shape({
   price: PRICE_VALID,
-  quantity: INTEGER_VALID,
   passphrase: PASSPHRASE_VALID
 });
 
@@ -72,8 +67,8 @@ const BidNFTDialog = ({
     try {
       const params = {
         asset: item.asset,
-        price: data.quantity * data.price * NQT_WEIGHT,
-        quantity: data.quantity,
+        price: data.price * NQT_WEIGHT,
+        quantity: 1,
         secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey,
       }
@@ -116,19 +111,6 @@ const BidNFTDialog = ({
           {`Price: ${item.priceNQT / NQT_WEIGHT} JUP`}
         </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Controller
-              as={<MagicTextField />}
-              name='quantity'
-              label='Quantity'
-              type='number'
-              placeholder='Quantity'
-              inputProps={{ min: 1 }}
-              error={errors.quantity?.message}
-              control={control}
-              defaultValue={1}
-            />
-          </Grid>
           <Grid item xs={12}>
             <Controller
               as={<MagicTextField />}
