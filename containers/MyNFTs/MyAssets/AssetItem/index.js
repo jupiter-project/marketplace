@@ -41,9 +41,6 @@ const useStyles = makeStyles((theme) => ({
   sell: {
     fontSize: 15,
     padding: theme.spacing(1, 1, 0.5),
-  },
-  quantity: {
-    fontWeight: 'bold'
   }
 }));
 
@@ -72,9 +69,6 @@ const AssetItem = ({
           </Typography>
           <Typography color='textSecondary'>
             {info?.description || ''}
-          </Typography>
-          <Typography color='primary' className={classes.quantity}>
-            {`Available for sale: ${item?.unconfirmedQuantityQNT || 0} / ${item?.quantityQNT || 0}`}
           </Typography>
         </div>
       </div>

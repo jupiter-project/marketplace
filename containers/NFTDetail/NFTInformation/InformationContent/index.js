@@ -14,12 +14,6 @@ const useStyles = makeStyles((theme) => ({
   description: {
     marginBottom: theme.spacing(2)
   },
-  infoContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: theme.spacing(2)
-  },
   price: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -83,22 +77,12 @@ const InformationContent = ({
       >
         {assetInfo.description}
       </Typography>
-
-      <div className={classes.infoContainer}>
-        <Typography
-          color='primary'
-          className={classes.price}
-        >
-          {good.priceNQT / NQT_WEIGHT} JUP
-        </Typography>
-        <Typography
-          color='textSecondary'
-          className={classes.quantity}
-        >
-          {`x ${good.quantityQNT}`}
-        </Typography>
-      </div>
-
+      <Typography
+        color='primary'
+        className={classes.price}
+      >
+        {good.priceNQT / NQT_WEIGHT} JUP
+      </Typography>
       <div className={classes.sellerLabelContainer}>
         <MagicIdenticon value={good.accountRS} />
         <Typography

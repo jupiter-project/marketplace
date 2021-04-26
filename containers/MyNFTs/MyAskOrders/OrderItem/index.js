@@ -73,16 +73,18 @@ const OrderItem = ({
             {info?.description || ''}
           </Typography>
           <Typography color='primary'>
-            {item?.priceNQT / NQT_WEIGHT || 0} JUP X {item?.quantityQNT || 0}
+            {item?.priceNQT / NQT_WEIGHT || 0} JUP
           </Typography>
         </div>
       </div>
-      <ContainedButton
-        className={classes.delete}
-        onClick={() => onDelete(item)}
-      >
-        Cancel
-      </ContainedButton>
+      <div>
+        <ContainedButton
+          className={classes.delete}
+          onClick={() => onDelete(item)}
+        >
+          Cancel
+        </ContainedButton>
+      </div>
     </div>
   )
 }
