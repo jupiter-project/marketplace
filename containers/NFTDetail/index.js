@@ -9,7 +9,6 @@ import NoData from 'parts/NoData'
 import ImageWall from 'parts/ImageWall'
 import NFTInformation from './NFTInformation'
 import NFTImage from './NFTImage'
-import AssetOrders from './AssetOrders'
 import AssetBids from './AssetBids'
 import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
@@ -99,9 +98,6 @@ const NFTDetail = () => {
                   account={account}
                   assetInfo={assetInfo}
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <AssetOrders good={good} />
               </Grid>
               <Grid item xs={12}>
                 <AssetBids
