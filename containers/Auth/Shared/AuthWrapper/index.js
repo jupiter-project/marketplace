@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: '100%',
     maxWidth: 544,
-    borderRadius: theme.spacing(1),
+    borderRadius: 2,
     margin: theme.spacing(3),
     padding: theme.spacing(4, 8),
     [theme.breakpoints.down('xs')]: {

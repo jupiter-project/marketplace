@@ -24,24 +24,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     objectFit: 'contain'
   },
-  quantityContainer: {
-    position: 'absolute',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    bottom: theme.spacing(1),
-    right: theme.spacing(1),
-    minWidth: 30,
-    height: 30,
-    borderRadius: 8,
-    backgroundColor: theme.palette.primary.main,
-    boxShadow: `0 2px 12px 0 ${theme.palette.primary.main}`,
-  },
-  quantity: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: theme.custom.palette.white,
-  },
   name: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -79,16 +61,6 @@ const PreviewCard = ({
                 <source src={fileBuffer} />
               </video>
             )
-          }
-          {item.quantity &&
-            <div className={classes.quantityContainer}>
-              <Typography
-                variant='body2'
-                className={classes.quantity}
-              >
-                {item.quantity}
-              </Typography>
-            </div>
           }
         </div>
         {!!item?.name &&

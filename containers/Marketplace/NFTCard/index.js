@@ -54,11 +54,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1)
   },
   price: {
+    fontWeight: 'bold',
     marginBottom: theme.spacing(1),
     '& span': {
-      fontSize: 16,
-      fontWeight: 'bold',
-      color: theme.palette.primary.main,
+      color: theme.palette.text.secondary,
     }
   },
   buttonContainer: {
@@ -139,11 +138,11 @@ const NFTCard = ({
           {assetInfo.description}
         </Typography>
         <Typography
-          variant='caption'
-          color='textSecondary'
+          variant='body2'
+          color='primary'
           className={classes.price}
         >
-          Price: <span>{item.priceNQT / NQT_WEIGHT} JUP</span>
+          PRICE: <span>{item.priceNQT / NQT_WEIGHT} JUP</span>
         </Typography>
       </div>
 
