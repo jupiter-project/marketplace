@@ -4,8 +4,6 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import ProductContent from 'parts/ProductContent'
 import getJSONParse from 'utils/helpers/getJSONParse'
-import { useCommonStyles } from 'styles/use-styles'
-import clsx from 'clsx'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -27,19 +25,20 @@ const useStyles = makeStyles((theme) => ({
   content: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: '100%',
     padding: theme.spacing(1, 0)
   },
   title: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
     lineHeight: 1,
     marginBottom: theme.spacing(1),
   },
   description: {
     lineHeight: 1,
-    WebkitLineClamp: 2,
+    fontSize: 14,
   }
 }));
 
@@ -48,7 +47,6 @@ const NFTCarouselItem = ({
   onDetail
 }) => {
   const classes = useStyles();
-  const commonClasses = useCommonStyles()
 
   const info = useMemo(() => getJSONParse(item?.message), [item]);
 
@@ -61,11 +59,11 @@ const NFTCarouselItem = ({
         />
       </div>
       <div className={classes.content}>
-        <Typography className={classes.title}>
+        <Typography className={classes.title} align='center'>
           {item.description}
         </Typography>
-        <Typography className={clsx(classes.description, commonClasses.breakWords)}>
-          {info.description}
+        <Typography className={classes.description}>
+          {item.accountRS}
         </Typography>
       </div>
     </div>

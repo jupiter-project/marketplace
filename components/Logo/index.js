@@ -4,7 +4,10 @@ import Link from 'next/link'
 import { makeStyles } from '@material-ui/core/styles'
 
 import LINKS from 'utils/constants/links'
-import { LOGO_IMAGE_PATH } from 'utils/constants/image-paths'
+import {
+  WHITE_LOGO_IMAGE_PATH,
+  BLACK_LOGO_IMAGE_PATH
+} from 'utils/constants/image-paths'
 
 const useStyles = makeStyles(() => ({
   picture: {
@@ -18,10 +21,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Logo = ({
+  isWhite = false,
   className,
   ...rest
 }) => {
   const classes = useStyles();
+
+  const LOGO_IMAGE_PATH = isWhite ? WHITE_LOGO_IMAGE_PATH : BLACK_LOGO_IMAGE_PATH;
 
   return (
     <Link href={LINKS.HOME.HREF}>

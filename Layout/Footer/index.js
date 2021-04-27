@@ -8,7 +8,7 @@ import FooterMenu from './FooterMenu'
 import FooterAccount from './FooterAccount'
 import FooterContact from './FooterContact'
 import FooterTerm from './FooterTerm'
-import { AUTH_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
+import { FOOTER_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
 import { useCommonStyles } from 'styles/use-styles'
 
 const useStyles = makeStyles(theme => ({
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row',
     justifyContent: 'center',
     width: '100%',
-    backgroundImage: `url(${AUTH_BACKGROUND_IMAGE_PATH})`,
+    backgroundImage: `url(${FOOTER_BACKGROUND_IMAGE_PATH})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundPosition: 'center',

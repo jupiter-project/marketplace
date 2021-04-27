@@ -34,7 +34,7 @@ const FooterContact = () => {
 
   return (
     <div className={classes.root}>
-      <Logo />
+      <Logo isWhite />
       <LinkButton
         color='primary'
         href={`mailto:${SUPPORT_EMAIL}`}

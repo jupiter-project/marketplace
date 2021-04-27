@@ -67,7 +67,7 @@ const BidNFTDialog = ({
     try {
       const params = {
         asset: item.asset,
-        price: data.price * NQT_WEIGHT,
+        price: Math.round(data.price * NQT_WEIGHT),
         quantity: 1,
         secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey,

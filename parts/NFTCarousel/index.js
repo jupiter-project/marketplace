@@ -69,7 +69,7 @@ const NFTCarousel = () => {
     !isEmpty(openOrders) &&
     <>
       <Typography variant='h1' className={classes.title}>
-        NEW NFTS
+        NEW NFT SUBMISSIONS
       </Typography>
       <AliceCarousel
         mouseDragEnabled

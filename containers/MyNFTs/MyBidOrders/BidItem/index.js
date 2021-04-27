@@ -77,12 +77,14 @@ const BidItem = ({
           </Typography>
         </div>
       </div>
-      <ContainedButton
-        className={classes.delete}
-        onClick={() => onDelete(item)}
-      >
-        Cancel
-      </ContainedButton>
+      <div>
+        <ContainedButton
+          className={classes.delete}
+          onClick={() => onDelete(item)}
+        >
+          Cancel
+        </ContainedButton>
+      </div>
     </div>
   )
 }

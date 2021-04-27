@@ -7,7 +7,7 @@ import HomeHeader from './HomeHeader'
 // import UserFeedback from './UserFeedback'
 import NFTCarousel from 'parts/NFTCarousel'
 // import HomeFAQs from './HomeFAQs'
-// import HomeJourney from './HomeJourney'
+import HomeJourney from './HomeJourney'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +29,7 @@ const Home = () => {
       <NFTCarousel />
       {/* <CreatorAndCollector /> */}
       {/* <UserFeedback /> */}
-      {/* <HomeJourney /> */}
+      <HomeJourney />
     </main>
   )
 }
