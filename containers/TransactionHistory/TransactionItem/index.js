@@ -1,62 +1,58 @@
 
 import { memo, useMemo } from 'react'
-import { Typography, Grid } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import AccessTimeIcon from '@material-ui/icons/AccessTime'
 
-import MagicIdenticon from 'components/MagicIdenticon'
 import ProductContent from 'parts/ProductContent'
 import { NQT_WEIGHT } from 'utils/constants/common'
 import { getDateFromTimestamp } from 'utils/helpers/getTimestamp'
 import getJSONParse from 'utils/helpers/getJSONParse'
+import clsx from 'clsx'
 
 const useStyles = makeStyles((theme) => ({
-  itemContainer: {
-    marginBottom: theme.spacing(3),
-  },
-  image: {
-    width: '100%',
-    height: 360,
-    objectFit: 'contain',
-    borderRadius: 8,
-    border: `1px solid ${theme.palette.primary.main}`,
-    [theme.breakpoints.down('sm')]: {
-      height: 210
-    }
-  },
-  leftContainer: {
+  root: {
     display: 'flex',
     alignItems: 'center',
+    marginBottom: theme.spacing(2),
   },
-  content: {
+  imageContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    padding: theme.spacing(1),
+    borderRadius: 2,
+    border: `1px solid ${theme.palette.text.primary}`,
+    marginRight: theme.spacing(2),
+  },
+  image: {
+    width: 135,
+    height: 135,
+    objectFit: 'contain',
+  },
+  infoContainer: {
     display: 'flex',
     flexDirection: 'column',
-    width: '100%'
+    width: '100%',
   },
   name: {
-    fontSize: 28,
+    fontSize: 20,
     fontWeight: 'bold',
+    marginBottom: theme.spacing(1.5)
   },
   price: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginRight: theme.spacing(1),
-  },
-  quantity: {
-    fontSize: 18,
+    marginBottom: theme.spacing(1.5),
   },
   rowContainer: {
     display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: theme.spacing(2)
-  },
-  infoContainer: {
-    marginLeft: theme.spacing(1)
+    alignItems: 'center'
   },
   label: {
-    fontSize: 18,
-    fontWeight: 'bold'
+    fontSize: 14,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    width: 80
+  },
+  value: {
+    fontSize: 14,
   }
 }));
 
@@ -67,86 +63,82 @@ const TransactionItem = ({
   const info = useMemo(() => getJSONParse(item?.message), [item]);
 
   return (
-    <Grid container spacing={3} className={classes.itemContainer}>
-      <Grid item xs={12} sm={5}>
+    <div className={classes.root}>
+      <div className={classes.imageContainer}>
         <ProductContent
           info={info}
           className={classes.image}
         />
-      </Grid>
-      <Grid item xs={12} sm={7} className={classes.leftContainer}>
-        <div className={classes.content}>
+      </div>
+      <div className={classes.infoContainer}>
+        <Typography
+          color='textPrimary'
+          className={classes.name}
+        >
+          {item.description}
+        </Typography>
+
+        <div className={clsx(classes.rowContainer, classes.price)}>
           <Typography
-            variant='h5'
-            color='textPrimary'
-            className={classes.name}
+            color='textSecondary'
+            className={classes.label}
           >
-            {item.description}
+            Price:
           </Typography>
-
-          <div className={classes.rowContainer}>
-            <Typography
-              color='primary'
-              className={classes.price}
-            >
-              {item.priceNQT / NQT_WEIGHT} JUP
-            </Typography>
-            <Typography
-              color='textSecondary'
-              className={classes.quantity}
-            >
-              {`x ${item.quantityQNT}`}
-            </Typography>
-          </div>
-
-          <div className={classes.rowContainer}>
-            <MagicIdenticon
-              size={65}
-              value={item.sellerRS}
-            />
-            <div className={classes.infoContainer}>
-              <Typography
-                color='textPrimary'
-                className={classes.label}
-              >
-                Seller
-              </Typography>
-              <Typography color='primary'>
-                {item.sellerRS}
-              </Typography>
-            </div>
-          </div>
-
-          <div className={classes.rowContainer}>
-            <MagicIdenticon
-              size={65}
-              value={item.buyerRS}
-            />
-            <div className={classes.infoContainer}>
-              <Typography
-                color='textPrimary'
-                className={classes.label}
-              >
-                Buyer
-              </Typography>
-              <Typography color='primary'>
-                {item.buyerRS}
-              </Typography>
-            </div>
-          </div>
-
-          <div className={classes.rowContainer}>
-            <AccessTimeIcon />
-            <Typography
-              color='textPrimary'
-              className={classes.date}
-            >
-              {`Purchased on ${getDateFromTimestamp(item.timestamp)}`}
-            </Typography>
-          </div>
+          <Typography
+            color='textSecondary'
+            className={classes.value}
+          >
+            {item.priceNQT / NQT_WEIGHT} JUP
+          </Typography>
         </div>
-      </Grid>
-    </Grid>
+
+        <div className={classes.rowContainer}>
+          <Typography
+            color='textSecondary'
+            className={classes.label}
+          >
+            Seller
+          </Typography>
+          <Typography
+            color='primary'
+            className={classes.value}
+          >
+            {item.sellerRS}
+          </Typography>
+        </div>
+
+        <div className={classes.rowContainer}>
+          <Typography
+            color='textSecondary'
+            className={classes.label}
+          >
+            Buyer
+          </Typography>
+          <Typography
+            color='primary'
+            className={classes.value}
+          >
+            {item.buyerRS}
+          </Typography>
+        </div>
+
+        <div className={classes.rowContainer}>
+          <Typography
+            color='textSecondary'
+            className={classes.label}
+          >
+            Date
+          </Typography>
+          <Typography
+            color='textSecondary'
+            className={classes.value}
+          >
+            {getDateFromTimestamp(item.timestamp)}
+          </Typography>
+        </div>
+      </div>
+    </div>
   )
 }
 

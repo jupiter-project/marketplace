@@ -7,9 +7,10 @@ import { Grid } from '@material-ui/core'
 import * as jupiterAPI from 'services/api-jupiter'
 import NoData from 'parts/NoData'
 import ImageWall from 'parts/ImageWall'
+import ProductContent from 'parts/ProductContent'
 import NFTInformation from './NFTInformation'
-import NFTImage from './NFTImage'
 import AssetBids from './AssetBids'
+import SellerNFTs from './SellerNFTs'
 import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 import { isEmpty } from 'utils/helpers/utility'
@@ -26,17 +27,23 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     width: '100%',
     maxWidth: theme.custom.layout.maxDesktopWidth,
-    padding: theme.spacing(10, 3),
+    marginBottom: theme.spacing(5)
   },
   imageContainer: {
     display: 'flex',
     justifyContent: 'center',
-    position: 'relative',
-    paddingTop: `${theme.spacing(8)}px !important`,
+    padding: theme.spacing(1),
+    borderRadius: 2,
+    border: `1px solid ${theme.palette.text.primary}`,
+    marginBottom: theme.spacing(1)
   },
-  rightContainer: {
-    display: 'flex',
-    alignItems: 'center'
+  image: {
+    height: 480,
+    maxWidth: '100%',
+    objectFit: 'contain',
+    [theme.breakpoints.down('xs')]: {
+      height: 350,
+    }
   },
 }));
 
@@ -82,33 +89,35 @@ const NFTDetail = () => {
   return (
     <main className={classes.root}>
       <ImageWall header='NFT Token Detail' />
-      <div className={classes.container}>
-        {isEmpty(good)
-          ? (
-            <NoData />
-          ) : (
-            <Grid container spacing={5}>
-              <Grid item xs={12} sm={6} md={8} className={classes.imageContainer}>
-                <NFTImage good={assetInfo} />
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} className={classes.rightContainer}>
-                <NFTInformation
-                  isMine={accountRS === good.accountRS}
-                  good={good}
-                  account={account}
-                  assetInfo={assetInfo}
+      {isEmpty(good)
+        ? (
+          <NoData />
+        ) : (
+          <Grid container spacing={5} className={classes.container}>
+            <Grid item xs={12} sm={6} md={5}>
+              <div className={classes.imageContainer}>
+                <ProductContent
+                  info={assetInfo}
+                  className={classes.image}
                 />
-              </Grid>
-              <Grid item xs={12}>
-                <AssetBids
-                  isMine={accountRS === good.accountRS}
-                  good={good}
-                />
-              </Grid>
+              </div>
             </Grid>
-          )
-        }
-      </div>
+            <Grid item xs={12} sm={6} md={7}>
+              <NFTInformation
+                isMine={accountRS === good.accountRS}
+                good={good}
+                account={account}
+                assetInfo={assetInfo}
+              />
+              <AssetBids
+                isMine={accountRS === good.accountRS}
+                good={good}
+              />
+            </Grid>
+          </Grid>
+        )
+      }
+      <SellerNFTs account={good.accountRS} />
     </main>
   )
 }

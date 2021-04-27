@@ -21,8 +21,8 @@ const useStyles = makeStyles(theme => ({
     backgroundSize: 'cover'
   },
   header: {
-    fontSize: 38,
-    fontWeight: 'bold',
+    fontSize: 40,
+    textTransform: 'uppercase',
     marginBottom: theme.spacing(2),
   }
 }));

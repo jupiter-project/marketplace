@@ -8,7 +8,7 @@ import { use100vh } from 'react-div-100vh'
 import NoData from 'parts/NoData'
 import PurchaseNFTDialog from 'parts/PurchaseNFTDialog'
 import BidNFTDialog from 'parts/BidNFTDialog'
-import NFTCard from '../NFTCard'
+import NFTCard from './NFTCard'
 import { isEmpty } from 'utils/helpers/utility'
 
 const useStyles = makeStyles((theme) => ({

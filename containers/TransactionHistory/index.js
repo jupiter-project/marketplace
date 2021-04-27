@@ -1,12 +1,12 @@
 
 import { memo, useEffect, useCallback, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import { IconButton } from '@material-ui/core'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import clsx from 'clsx'
 
 import * as jupiterAPI from 'services/api-jupiter'
-import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import ImageWall from 'parts/ImageWall'
-import TrendingCard from 'parts/TrendingCard'
 import TransactionItem from './TransactionItem'
 import { useCommonStyles } from 'styles/use-styles'
 
@@ -22,18 +22,15 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     height: '100%',
     width: '100%',
-    maxWidth: theme.custom.layout.maxDesktopWidth,
-    margin: theme.spacing(7, 0, 13),
-    [theme.breakpoints.down('xs')]: {
-      margin: theme.spacing(2.5, 0)
-    }
+    maxWidth: 780,
+    marginBottom: theme.spacing(10),
   },
-  loadButton: {
-    margin: theme.spacing(2)
+  moreIcon: {
+    fontSize: 50
   }
 }));
 
-const PAGE_COUNT = 3;
+const PAGE_COUNT = 8;
 
 const TransactionHistory = () => {
   const classes = useStyles();
@@ -67,7 +64,6 @@ const TransactionHistory = () => {
     <main className={classes.root}>
       <ImageWall header='Transactions' />
       <div className={clsx(commonClasses.containerWidth, classes.container)}>
-        <TrendingCard />
         {
           trades.map((item, index) => (
             <TransactionItem
@@ -78,12 +74,9 @@ const TransactionHistory = () => {
         }
         {
           !isLast &&
-          <ContainedButton
-            onClick={searchAllTrades}
-            className={classes.loadButton}
-          >
-            Load More
-          </ContainedButton>
+          <IconButton color='primary' onClick={searchAllTrades} >
+            <ExpandMoreIcon className={classes.moreIcon} />
+          </IconButton>
         }
       </div>
     </main>
