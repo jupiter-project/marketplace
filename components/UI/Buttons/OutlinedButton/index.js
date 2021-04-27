@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: 18,
     fontWeight: 'bold',
     padding: theme.spacing(1, 2, 0.5, 2),
-    borderRadius: 8,
+    borderRadius: 2,
     border: `1px solid ${theme.palette.primary.main}`
   },
   icon: {

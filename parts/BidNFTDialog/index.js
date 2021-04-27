@@ -12,7 +12,7 @@ import * as yup from 'yup'
 
 import * as jupiterAPI from 'services/api-jupiter'
 import MagicDialog from 'components/MagicDialog'
-import GradientButton from 'components/UI/Buttons/GradientButton'
+import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
@@ -137,12 +137,12 @@ const BidNFTDialog = ({
             />
           </Grid>
         </Grid>
-        <GradientButton
+        <ContainedButton
           type='submit'
           className={classes.button}
         >
           Place a bid
-        </GradientButton>
+        </ContainedButton>
       </form>
     </MagicDialog>
   );

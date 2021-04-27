@@ -12,7 +12,7 @@ const TextMaskCustom = ({
       ref={(ref) => {
         inputRef(ref ? ref.inputElement : null);
       }}
-      guide={true}
+      guide={false}
       placeholderChar={'\u005F'}
       showMask
     />

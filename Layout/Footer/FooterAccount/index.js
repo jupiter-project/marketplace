@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   title: {
     fontWeight: 'bold',
     color: theme.palette.background.default,
-    marginBottom: theme.spacing(1.5)
+    marginBottom: theme.spacing(1)
   }
 }));
 
@@ -28,38 +28,34 @@ const FooterAccount = () => {
   return (
     <div className={classes.root}>
       <Typography
-        variant='h5'
+        variant='body2'
         className={classes.title}
       >
-        Account
+        ACCOUNT
       </Typography>
       <Grid container>
-        {
-          accountRS
-            ? (
-              <>
-                <Grid item xs={6} sm={12}>
-                  <FooterMenuItem menu={LINKS.MY_ACCOUNT} />
-                </Grid>
-                <Grid item xs={6} sm={12}>
-                  <FooterMenuItem menu={LINKS.SIGN_OUT} />
-                </Grid>
-              </>
-            ) : (
+        {accountRS
+          ? (
+            <>
               <Grid item xs={6} sm={12}>
-                <FooterMenuItem menu={LINKS.SIGN_IN} />
+                <FooterMenuItem menu={LINKS.CREATE_NFT} />
               </Grid>
-            )
+              <Grid item xs={6} sm={12}>
+                <FooterMenuItem menu={LINKS.MY_ACCOUNT} />
+              </Grid>
+              <Grid item xs={6} sm={12}>
+                <FooterMenuItem menu={LINKS.MY_NFTS} />
+              </Grid>
+              <Grid item xs={6} sm={12}>
+                <FooterMenuItem menu={LINKS.SIGN_OUT} />
+              </Grid>
+            </>
+          ) : (
+            <Grid item xs={6} sm={12}>
+              <FooterMenuItem menu={LINKS.SIGN_IN} />
+            </Grid>
+          )
         }
-        <Grid item xs={6} sm={12}>
-          <FooterMenuItem menu={LINKS.FAQ} />
-        </Grid>
-        <Grid item xs={6} sm={12}>
-          <FooterMenuItem menu={LINKS.TERMS_OF_SERVICE} />
-        </Grid>
-        <Grid item xs={6} sm={12}>
-          <FooterMenuItem menu={LINKS.PRIVACY_POLICY} />
-        </Grid>
       </Grid>
     </div>
   );

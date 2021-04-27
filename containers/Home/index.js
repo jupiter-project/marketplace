@@ -3,12 +3,11 @@ import { memo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import HomeHeader from './HomeHeader'
-import CreatorAndCollector from './CreatorAndCollector'
-import UserFeedback from './UserFeedback'
+// import CreatorAndCollector from './CreatorAndCollector'
+// import UserFeedback from './UserFeedback'
 import NFTCarousel from 'parts/NFTCarousel'
-import HomeFAQs from './HomeFAQs'
-import HomeJourney from './HomeJourney'
-import { Typography } from '@material-ui/core'
+// import HomeFAQs from './HomeFAQs'
+// import HomeJourney from './HomeJourney'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,17 +15,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    backgroundColor: theme.palette.background.default
-  },
-  title: {
-    fontSize: 40,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    margin: theme.spacing(16, 0, 8),
-    [theme.breakpoints.down('sm')]: {
-      fontSize: 36,
-      margin: theme.spacing(5, 0),
-    },
+    backgroundColor: theme.palette.background.default,
+    marginBottom: theme.spacing(15)
   }
 }));
 
@@ -36,14 +26,10 @@ const Home = () => {
   return (
     <main className={classes.root}>
       <HomeHeader />
-      <Typography variant='h1' className={classes.title}>
-        New NFTs
-      </Typography>
       <NFTCarousel />
-      <CreatorAndCollector />
-      <UserFeedback />
-      <HomeFAQs />
-      <HomeJourney />
+      {/* <CreatorAndCollector /> */}
+      {/* <UserFeedback /> */}
+      {/* <HomeJourney /> */}
     </main>
   )
 }

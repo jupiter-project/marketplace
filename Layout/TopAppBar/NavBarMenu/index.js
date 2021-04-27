@@ -48,7 +48,7 @@ const NavBarMenu = () => {
       <div className={classes.root}>
         {
           PROFILE_MENU_LINKS.map((item, index) => {
-            if (item.HREF === LINKS.SIGN_IN.HREF) {
+            if (item.HREF === LINKS.SIGN_IN.HREF || item.HREF === LINKS.SIGN_OUT.HREF) {
               return (
                 <ContainedButton
                   key={index}

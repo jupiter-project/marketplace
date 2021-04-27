@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: 18,
     padding: theme.spacing(1.5),
     border: `1px solid ${theme.palette.background.primary}`,
-    borderRadius: 8,
+    borderRadius: 2,
     backgroundColor: theme.palette.background.primary,
     color: theme.custom.palette.lightBlack
   },

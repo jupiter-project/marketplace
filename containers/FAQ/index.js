@@ -118,7 +118,7 @@ export default memo(FAQ)
 
 const faqs = [
   {
-    title: 'NFT? Singleton Assets?',
+    title: '1. NFT? Singleton Assets?',
     description: `NFT stands for non-fungible tokens and are unique digital items such as 
     NFTs or artworks or game (hmm should this be in-game?) items. As an artist, by 
     tokenizing your work you both ensure that it is unique and brand it as your work. 
@@ -126,19 +126,19 @@ const faqs = [
     NFT’s are called Singleton Asset Tokens.`,
   },
   {
-    title: 'What does “minting” mean?',
+    title: '2. What does “minting” mean?',
     description:
       'The process of tokenizing your work and creating an NFT (see above).',
   },
   {
-    title: 'What is verification?',
+    title: '3. What is verification?',
     description: `Verified badges are granted to creators and collectors that show enough proof 
     of authenticity and active dedication to the marketplace. We are looking at multiple factors 
     such as active social media presence and following, dialogue with community members, number 
     of minted and sold items.`,
   },
   {
-    title: 'What is JUP?',
+    title: '4. What is JUP?',
     description: (
       <>
         Jupiter (JUP) is the native coin of the Jupiter blockchain and you will

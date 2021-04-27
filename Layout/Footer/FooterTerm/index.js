@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core'
 
 import FooterMenuItem from '../FooterMenuItem'
-import FOOTER_MENU from 'utils/constants/footer-menu'
+import LINKS from 'utils/constants/links'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const FooterMenu = () => {
+const FooterTerm = () => {
   const classes = useStyles();
 
   return (
@@ -29,19 +29,18 @@ const FooterMenu = () => {
         variant='body2'
         className={classes.title}
       >
-        MENU
+        TERMS
       </Typography>
       <Grid container>
-        {
-          FOOTER_MENU.map((menuItem) => (
-            <Grid item key={menuItem.TITLE} xs={6} sm={12}>
-              <FooterMenuItem menu={menuItem} />
-            </Grid>
-          ))
-        }
+        <Grid item xs={6} sm={12}>
+          <FooterMenuItem menu={LINKS.TERMS_OF_SERVICE} />
+        </Grid>
+        <Grid item xs={6} sm={12}>
+          <FooterMenuItem menu={LINKS.PRIVACY_POLICY} />
+        </Grid>
       </Grid>
     </div>
   );
 };
 
-export default memo(FooterMenu);
+export default memo(FooterTerm);

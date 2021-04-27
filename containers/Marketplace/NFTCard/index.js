@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1
   },
   name: {
+    fontSize: 14,
     marginBottom: theme.spacing(1)
   },
   description: {
@@ -54,11 +55,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1)
   },
   price: {
+    fontWeight: 'bold',
     marginBottom: theme.spacing(1),
     '& span': {
-      fontSize: 16,
-      fontWeight: 'bold',
-      color: theme.palette.primary.main,
+      color: theme.palette.text.secondary,
     }
   },
   buttonContainer: {
@@ -124,13 +124,13 @@ const NFTCard = ({
           color='textPrimary'
           className={classes.title}
         >
-          Name of the Art
+          {item.description}
         </Typography>
         <Typography
           color='textSecondary'
           className={classes.name}
         >
-          {item.description}
+          {item.accountRS}
         </Typography>
         <Typography
           color='textSecondary'
@@ -139,11 +139,11 @@ const NFTCard = ({
           {assetInfo.description}
         </Typography>
         <Typography
-          variant='caption'
-          color='textSecondary'
+          variant='body2'
+          color='primary'
           className={classes.price}
         >
-          Price: <span>{item.priceNQT / NQT_WEIGHT} JUP</span>
+          PRICE: <span>{item.priceNQT / NQT_WEIGHT} JUP</span>
         </Typography>
       </div>
 
@@ -152,7 +152,7 @@ const NFTCard = ({
           className={classes.button}
           onClick={bidHandler}
         >
-          Place bid
+          Place a bid
         </ContainedButton>
         {accountRS === item.accountRS
           ? (
