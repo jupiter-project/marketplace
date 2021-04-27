@@ -5,6 +5,10 @@ import wordCount from '@iarna/word-count'
 const STRING_VALID = yup.string()
   .required('Please input field.');
 
+const DESCRIPTION_VALID = yup.string()
+  .max(1000, 'Description length should be less than 1000.')
+  .required()
+
 const ACCOUNT_VALID = yup.string()
   .length(24, 'Account length should be 24.')
   .required()
@@ -37,5 +41,6 @@ export {
   PASSPHRASE_VALID,
   NUMBER_VALID,
   PRICE_VALID,
-  INTEGER_VALID
+  INTEGER_VALID,
+  DESCRIPTION_VALID
 };

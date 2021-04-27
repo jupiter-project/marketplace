@@ -13,6 +13,7 @@ import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import {
   STRING_VALID,
+  DESCRIPTION_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
 import usePopUp from 'utils/hooks/usePopUp'
@@ -21,7 +22,7 @@ import useLoading from 'utils/hooks/useLoading'
 
 const schema = yup.object().shape({
   name: STRING_VALID,
-  description: STRING_VALID,
+  description: DESCRIPTION_VALID,
   passphrase: PASSPHRASE_VALID
 });
 

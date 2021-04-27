@@ -4,13 +4,13 @@ const FILE_TYPES = Object.freeze({
     LABEL: 'Image',
     VALUE: 'IMAGE',
     ACCEPT: 'image/*',
-    PLACEHOLDER: 'PNG, GIF, WEBP. Max 50MB.',
+    PLACEHOLDER: 'PNG, GIF, WEBP. Max 20MB.',
   },
   VIDEO: {
     LABEL: 'Video',
     VALUE: 'VIDEO',
     ACCEPT: 'video/*',
-    PLACEHOLDER: 'MP4, AVI. Max 50MB.'
+    PLACEHOLDER: 'MP4, AVI. Max 20MB.'
   },
 })
 

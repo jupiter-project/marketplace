@@ -5,7 +5,7 @@ const MESSAGES = Object.freeze({
   AUTH_ERROR: 'Incorrect JUP address, please try again. ',
   AUTH_REQUIRED: 'Please log in first.',
   TERMS_PRIVACY_CHECK: 'Please check Terms of Service and Privacy Policy',
-  MAX_UPLOAD_ERROR: 'Please upload a < 50MB file.',
+  MAX_UPLOAD_ERROR: 'Please upload a < 20MB file.',
   SET_ACCOUNT_ERROR: 'There was a problem updating your account info. Either your JUP balance is insufficient or you’ve entered an incorrect passphrase.',
   SET_ACCOUNT_SUCCESS: 'Your account info has been updated.',
   IMAGE_NOT_FOUND: 'Please upload your file first.',
