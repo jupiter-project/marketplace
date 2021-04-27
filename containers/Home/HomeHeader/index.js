@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 
 import {
-  LOGO_IMAGE_PATH,
+  BLACK_LOGO_IMAGE_PATH,
   HOME_HEADER_BACKGROUND_IMAGE_PATH
 } from 'utils/constants/image-paths'
 
@@ -63,10 +63,10 @@ const HomeHeader = () => {
     <section className={classes.root}>
       <div className={classes.container} >
         <picture className={classes.picture}>
-          <source srcSet={LOGO_IMAGE_PATH} />
+          <source srcSet={BLACK_LOGO_IMAGE_PATH} />
           <img
             className={classes.img}
-            src={LOGO_IMAGE_PATH}
+            src={BLACK_LOGO_IMAGE_PATH}
             alt='logo' />
         </picture>
         <Typography

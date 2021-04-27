@@ -1,12 +1,7 @@
 
 import { memo } from 'react'
-import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
-
-import ContainedButton from 'components/UI/Buttons/ContainedButton'
-import { HOME_JOURNEY_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
-import LINKS from 'utils/constants/links'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,17 +9,14 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    height: 580,
-    backgroundImage: `url(${HOME_JOURNEY_BACKGROUND_IMAGE_PATH})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    padding: theme.spacing(10, 0)
   },
   container: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
+    maxWidth: 1020,
     padding: theme.spacing(3),
   },
   title: {
@@ -32,17 +24,17 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: theme.spacing(3),
-    color: theme.custom.palette.white,
-    maxWidth: 380,
     [theme.breakpoints.down('sm')]: {
       fontSize: 32,
     },
   },
+  description: {
+    fontSize: 16
+  }
 }));
 
 const HomeJourney = () => {
   const classes = useStyles();
-  const { accountRS } = useSelector(state => state.auth);
 
   return (
     <section className={classes.root}>
@@ -51,18 +43,16 @@ const HomeJourney = () => {
           variant='h1'
           className={classes.title}
         >
-          Begin your NFT journey with Leda
+          What is Leda?
         </Typography>
-        {
-          !accountRS &&
-          <ContainedButton
-            href={LINKS.SIGN_IN.HREF}
-            className={classes.create}
-          >
-            Log In
-          </ContainedButton>
-        }
-
+        <Typography className={classes.description} align='center'>
+          NFT stands for not-fungible tokens and are unique digital items
+          such as NFTs or artworks or game(hmm should this be in-game?)
+          items. As an artist, by tokenizing your work you both ensure
+          that it is unique and brand it as your work. The actual
+          ownership is blockchian-managed. Leda uses the Jupiter blockchain,
+          where NFT{"'"}s are called Singleton Asset Tokens.
+        </Typography>
       </div>
     </section>
   );
