@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react'
-import { Card, Typography } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import ProductContent from 'parts/ProductContent'
@@ -9,40 +9,37 @@ import clsx from 'clsx'
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    height: 320,
-    position: 'relative',
+    height: 420,
     margin: theme.spacing(2),
   },
-  image: {
+  imageContainer: {
     width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    borderRadius: 4,
+    padding: theme.spacing(1),
+    borderRadius: 2,
+    border: `1px solid ${theme.palette.text.primary}`,
+    marginBottom: theme.spacing(1)
+  },
+  image: {
+    height: 320,
+    width: '100%',
+    objectFit: 'contain',
   },
   content: {
-    position: 'absolute',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    alignItems: 'center',
     width: '100%',
-    height: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.15)',
-    bottom: 0,
-    padding: theme.spacing(2)
+    padding: theme.spacing(1, 0)
   },
   title: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: 'bold',
     lineHeight: 1,
     marginBottom: theme.spacing(1),
-    color: theme.custom.palette.white
   },
   description: {
     lineHeight: 1,
-    WebkitLineClamp: 3,
-    textAlign: 'center',
-    color: theme.custom.palette.white
+    WebkitLineClamp: 2,
   }
 }));
 
@@ -56,11 +53,13 @@ const NFTCarouselItem = ({
   const info = useMemo(() => getJSONParse(item?.message), [item]);
 
   return (
-    <Card className={classes.container} onClick={() => onDetail(item)}>
-      <ProductContent
-        info={info}
-        className={classes.image}
-      />
+    <div className={classes.container} onClick={() => onDetail(item)}>
+      <div className={classes.imageContainer}>
+        <ProductContent
+          info={info}
+          className={classes.image}
+        />
+      </div>
       <div className={classes.content}>
         <Typography className={classes.title}>
           {item.description}
@@ -69,7 +68,7 @@ const NFTCarouselItem = ({
           {info.description}
         </Typography>
       </div>
-    </Card>
+    </div>
   );
 };
 

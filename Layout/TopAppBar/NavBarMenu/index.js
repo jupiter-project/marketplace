@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   login: {
     fontSize: 15,
     borderRadius: 2,
-    padding: theme.spacing(0.5, 1.5, 0),
+    padding: theme.spacing(0, 1.5),
     margin: theme.spacing(0, 1)
   },
   selected: {
@@ -48,7 +48,7 @@ const NavBarMenu = () => {
       <div className={classes.root}>
         {
           PROFILE_MENU_LINKS.map((item, index) => {
-            if (item.HREF === LINKS.SIGN_IN.HREF) {
+            if (item.HREF === LINKS.SIGN_IN.HREF || item.HREF === LINKS.SIGN_OUT.HREF) {
               return (
                 <ContainedButton
                   key={index}

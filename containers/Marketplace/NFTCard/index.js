@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: 1
   },
   name: {
+    fontSize: 14,
     marginBottom: theme.spacing(1)
   },
   description: {
@@ -123,13 +124,13 @@ const NFTCard = ({
           color='textPrimary'
           className={classes.title}
         >
-          Name of the Art
+          {item.description}
         </Typography>
         <Typography
           color='textSecondary'
           className={classes.name}
         >
-          {item.description}
+          {item.accountRS}
         </Typography>
         <Typography
           color='textSecondary'

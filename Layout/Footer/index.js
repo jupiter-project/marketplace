@@ -7,6 +7,7 @@ import clsx from 'clsx'
 import FooterMenu from './FooterMenu'
 import FooterAccount from './FooterAccount'
 import FooterContact from './FooterContact'
+import FooterTerm from './FooterTerm'
 import { AUTH_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
 import { useCommonStyles } from 'styles/use-styles'
 
@@ -41,20 +42,23 @@ const Footer = () => {
   return (
     <footer className={classes.root}>
       <Grid container className={clsx(classes.container, commonClasses.containerWidth)}>
-        <Grid item sm={12} md={6} lg={8}>
+        <Grid item sm={12} md={6} lg={9}>
           <Grid container>
             <Grid item md={12} lg={6}>
               <FooterContact />
             </Grid>
           </Grid>
         </Grid>
-        <Grid item sm={12} md={6} lg={4}>
+        <Grid item sm={12} md={6} lg={3}>
           <Grid container>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={4}>
               <FooterMenu />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={4}>
               <FooterAccount />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <FooterTerm />
             </Grid>
           </Grid>
         </Grid>

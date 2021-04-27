@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   item: {
     cursor: 'pointer',
     color: theme.palette.background.default,
-    margin: theme.spacing(1, 0),
+    margin: theme.spacing(0.5, 0),
     '&:hover': {
       textDecoration: 'underline'
     }
@@ -28,7 +28,7 @@ const FooterMenuItem = ({
 
   return (
     <Typography
-      variant='h6'
+      variant='body2'
       className={classes.item}
       onClick={onNavHandler}
     >
