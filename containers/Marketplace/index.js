@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import * as jupiterAPI from 'services/api-jupiter'
 import ImageWall from 'parts/ImageWall'
 import SearchInput from 'parts/SearchInput'
-import NFTList from './NFTList'
+import NFTList from 'parts/NFTList'
 
 const useStyles = makeStyles((theme) => ({
   root: {

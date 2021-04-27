@@ -10,6 +10,7 @@ import ImageWall from 'parts/ImageWall'
 import ProductContent from 'parts/ProductContent'
 import NFTInformation from './NFTInformation'
 import AssetBids from './AssetBids'
+import SellerNFTs from './SellerNFTs'
 import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 import { isEmpty } from 'utils/helpers/utility'
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     width: '100%',
     maxWidth: theme.custom.layout.maxDesktopWidth,
-    padding: theme.spacing(10, 3),
+    marginBottom: theme.spacing(5)
   },
   imageContainer: {
     display: 'flex',
@@ -88,36 +89,35 @@ const NFTDetail = () => {
   return (
     <main className={classes.root}>
       <ImageWall header='NFT Token Detail' />
-      <div className={classes.container}>
-        {isEmpty(good)
-          ? (
-            <NoData />
-          ) : (
-            <Grid container spacing={5}>
-              <Grid item xs={12} sm={6} md={5}>
-                <div className={classes.imageContainer}>
-                  <ProductContent
-                    info={assetInfo}
-                    className={classes.image}
-                  />
-                </div>
-              </Grid>
-              <Grid item xs={12} sm={6} md={7}>
-                <NFTInformation
-                  isMine={accountRS === good.accountRS}
-                  good={good}
-                  account={account}
-                  assetInfo={assetInfo}
+      {isEmpty(good)
+        ? (
+          <NoData />
+        ) : (
+          <Grid container spacing={5} className={classes.container}>
+            <Grid item xs={12} sm={6} md={5}>
+              <div className={classes.imageContainer}>
+                <ProductContent
+                  info={assetInfo}
+                  className={classes.image}
                 />
-                <AssetBids
-                  isMine={accountRS === good.accountRS}
-                  good={good}
-                />
-              </Grid>
+              </div>
             </Grid>
-          )
-        }
-      </div>
+            <Grid item xs={12} sm={6} md={7}>
+              <NFTInformation
+                isMine={accountRS === good.accountRS}
+                good={good}
+                account={account}
+                assetInfo={assetInfo}
+              />
+              <AssetBids
+                isMine={accountRS === good.accountRS}
+                good={good}
+              />
+            </Grid>
+          </Grid>
+        )
+      }
+      <SellerNFTs account={good.accountRS} />
     </main>
   )
 }

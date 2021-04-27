@@ -58,7 +58,6 @@ const AssetBids = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [good])
 
-  console.log(bids)
   return (
     <div className={classes.root}>
       <Typography color='textPrimary' className={classes.title}>
