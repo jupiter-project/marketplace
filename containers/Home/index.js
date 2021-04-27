@@ -3,11 +3,11 @@ import { memo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import HomeHeader from './HomeHeader'
-import CreatorAndCollector from './CreatorAndCollector'
-import UserFeedback from './UserFeedback'
+// import CreatorAndCollector from './CreatorAndCollector'
+// import UserFeedback from './UserFeedback'
 import NFTCarousel from 'parts/NFTCarousel'
-import HomeFAQs from './HomeFAQs'
-import HomeJourney from './HomeJourney'
+// import HomeFAQs from './HomeFAQs'
+// import HomeJourney from './HomeJourney'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    backgroundColor: theme.palette.background.default
+    backgroundColor: theme.palette.background.default,
+    marginBottom: theme.spacing(15)
   }
 }));
 
@@ -26,10 +27,9 @@ const Home = () => {
     <main className={classes.root}>
       <HomeHeader />
       <NFTCarousel />
-      <CreatorAndCollector />
-      <UserFeedback />
-      <HomeFAQs />
-      <HomeJourney />
+      {/* <CreatorAndCollector /> */}
+      {/* <UserFeedback /> */}
+      {/* <HomeJourney /> */}
     </main>
   )
 }

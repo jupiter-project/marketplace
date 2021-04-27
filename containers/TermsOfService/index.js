@@ -58,7 +58,7 @@ const TermsOfService = () => {
 
   return (
     <main className={classes.root}>
-      <ImageWall header={'Terms Of Service'} />
+      <ImageWall header={'Terms of Service'} />
       <div className={clsx(commonClasses.containerWidth, classes.container)}>
         <Typography className={classes.description}>
           Please read these Terms of Use (“<b>Terms</b>”, “<b>Terms of Use</b>”) carefully before using the{' '}

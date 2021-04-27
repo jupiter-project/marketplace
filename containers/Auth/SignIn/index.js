@@ -8,7 +8,7 @@ import * as yup from 'yup'
 
 import * as jupiterAPI from 'services/api-jupiter'
 import { setUserToken } from 'actions/auth'
-import GradientButton from 'components/UI/Buttons/GradientButton'
+import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import AccountTextField from 'components/UI/TextFields/AccountTextField'
 import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper'
 import useLoading from 'utils/hooks/useLoading'
@@ -72,12 +72,12 @@ const SignIn = () => {
           control={control}
           defaultValue=''
         />
-        <GradientButton
+        <ContainedButton
           type='submit'
           className={authClasses.button}
         >
           Log In
-        </GradientButton>
+        </ContainedButton>
       </form>
     </AuthWrapper>
   )

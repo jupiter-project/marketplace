@@ -152,7 +152,7 @@ const NFTCard = ({
           className={classes.button}
           onClick={bidHandler}
         >
-          Place bid
+          Place a bid
         </ContainedButton>
         {accountRS === item.accountRS
           ? (

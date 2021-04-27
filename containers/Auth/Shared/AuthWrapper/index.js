@@ -53,7 +53,7 @@ const authPageStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2.5)
   },
   button: {
-    height: 56,
+    minWidth: 160,
     margin: theme.spacing(2.5)
   }
 }));

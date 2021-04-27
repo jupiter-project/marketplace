@@ -67,7 +67,7 @@ const DeleteNFTDialog = ({
         response = await jupiterAPI.cancelBidOrder(params)
       }
       if (response?.errorCode) {
-        setPopUp({ text: response?.errorDescription || MESSAGES.DELETE_NFT_ERROR })
+        setPopUp({ text: MESSAGES.DELETE_NFT_ERROR })
         changeLoadingStatus(false)
         return;
       }

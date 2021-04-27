@@ -3,10 +3,7 @@ import { memo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 
-import {
-  LOGO_IMAGE_PATH,
-  HEADER_BACKGROUND_IMAGE_PATH
-} from 'utils/constants/image-paths'
+import { HEADER_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,24 +24,17 @@ const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     width: '100%',
     maxWidth: theme.custom.layout.maxMarketPlaceWidth,
     padding: theme.spacing(2)
   },
-  picture: {
-    display: 'flex',
-  },
-  img: {
-    width: 200,
-    height: 80,
-    objectFit: 'contain'
-  },
   description: {
+    fontSize: 56,
     fontWeight: 'bold',
-    '& span': {
-      color: theme.palette.primary.main
-    }
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 32,
+    },
   }
 }));
 
@@ -54,19 +44,11 @@ const MarketHeader = () => {
   return (
     <main className={classes.root}>
       <div className={classes.container}>
-        <picture className={classes.picture}>
-          <source srcSet={LOGO_IMAGE_PATH} />
-          <img
-            className={classes.img}
-            src={LOGO_IMAGE_PATH}
-            alt='logo' />
-        </picture>
         <Typography
-          variant='h6'
           color='textPrimary'
           className={classes.description}
         >
-          DECENTRALIZED <span>NFT</span> MARKET SITE
+          MARKETPLACE
         </Typography>
       </div>
     </main>
