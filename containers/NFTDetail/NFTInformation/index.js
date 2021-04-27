@@ -8,10 +8,13 @@ import InformationContent from './InformationContent'
 import clsx from 'clsx'
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    marginBottom: theme.spacing(5),
+  },
   button: {
-    marginRight: theme.spacing(0.5),
-    marginBottom: theme.spacing(0.5),
-    minWidth: 'unset'
+    fontSize: 15,
+    borderRadius: 2,
+    padding: theme.spacing(0.25, 1.5, 0),
   },
   delete: {
     backgroundColor: theme.custom.palette.red
@@ -29,7 +32,7 @@ const NFTInformation = ({
   const [openPurchaseModal, setOpenPurchaseModal] = useState(false);
 
   return (
-    <div>
+    <div className={classes.root}>
       <InformationContent
         good={good}
         account={account}
@@ -48,7 +51,7 @@ const NFTInformation = ({
             className={classes.button}
             onClick={() => setOpenPurchaseModal(true)}
           >
-            Purchase
+            Buy Now
           </ContainedButton>
         )
       }
@@ -60,7 +63,6 @@ const NFTInformation = ({
           item={good}
         />
       }
-
       {openDeleteModal &&
         <DeleteNFTDialog
           open={openDeleteModal}
@@ -68,7 +70,6 @@ const NFTInformation = ({
           item={good}
         />
       }
-
     </div>
   )
 }

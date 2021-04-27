@@ -3,8 +3,8 @@ import { memo, useState, useEffect, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 
 import * as jupiterAPI from 'services/api-jupiter'
+import ImageWall from 'parts/ImageWall'
 import SearchInput from 'parts/SearchInput'
-import MarketHeader from './MarketHeader'
 import NFTList from './NFTList'
 
 const useStyles = makeStyles((theme) => ({
@@ -76,7 +76,7 @@ const Marketplace = () => {
 
   return (
     <div className={classes.root}>
-      <MarketHeader />
+      <ImageWall header='MARKETPLACE' />
       <div className={classes.container}>
         <div className={classes.filterContainer}>
           <SearchInput onSearch={searchHandler} />

@@ -7,6 +7,8 @@ import {
 } from '@material-ui/core'
 
 import * as jupiterAPI from 'services/api-jupiter'
+import ContainedButton from 'components/UI/Buttons/ContainedButton'
+import BidNFTDialog from 'parts/BidNFTDialog'
 import TableContainer from 'parts/Table/TableContainer'
 import { isEmpty } from 'utils/helpers/utility'
 import { NQT_WEIGHT } from 'utils/constants/common'
@@ -16,19 +18,24 @@ const useStyles = makeStyles((theme) => ({
     overflowX: 'inherit',
   },
   title: {
+    textTransform: 'uppercase',
     marginBottom: theme.spacing(2)
   },
-  approve: {
+  cell: {
+    border: 'unset',
+    padding: theme.spacing(1, 0)
+  },
+  button: {
     fontSize: 15,
-    padding: theme.spacing(1, 1, 0.5),
+    borderRadius: 2,
+    padding: theme.spacing(0.25, 1.5, 0),
+    marginTop: theme.spacing(1)
   }
 }));
 
 const columns = [
-  { id: 'account', label: 'Account', minWidth: 150 },
-  { id: 'type', label: 'Type', minWidth: 60 },
-  { id: 'quantity', label: 'Quantity', minWidth: 60 },
-  { id: 'price', label: 'Price', minWidth: 60 },
+  { id: 'account', label: 'Maker', minWidth: 150 },
+  { id: 'price', label: 'Amount', minWidth: 60 },
 ];
 
 const AssetBids = ({
@@ -37,6 +44,7 @@ const AssetBids = ({
   const classes = useStyles();
 
   const [bids, setBids] = useState([]);
+  const [openBidModal, setOpenBidModal] = useState(false);
 
   useEffect(() => {
     const getBidOrders = async () => {
@@ -50,9 +58,10 @@ const AssetBids = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [good])
 
+  console.log(bids)
   return (
     <div className={classes.root}>
-      <Typography color='primary' className={classes.title}>
+      <Typography color='textPrimary' className={classes.title}>
         Bids
       </Typography>
       {isEmpty(bids)
@@ -64,22 +73,31 @@ const AssetBids = ({
           <TableContainer columns={columns}>
             {bids.map((bid) => (
               <TableRow key={bid.order}>
-                <TableCell component='th' scope='row'>
+                <TableCell component='th' scope='row' className={classes.cell}>
                   {bid.accountRS}
                 </TableCell>
-                <TableCell>
-                  BID
-                </TableCell>
-                <TableCell>
-                  {bid.quantityQNT}
-                </TableCell>
-                <TableCell>
+                <TableCell className={classes.cell}>
                   {bid.priceNQT / NQT_WEIGHT} JUP
                 </TableCell>
               </TableRow>
             ))}
           </TableContainer>
         )}
+
+      <ContainedButton
+        className={classes.button}
+        onClick={() => setOpenBidModal(true)}
+      >
+        Place a bid
+      </ContainedButton>
+
+      {openBidModal &&
+        <BidNFTDialog
+          item={good}
+          open={openBidModal}
+          setOpen={setOpenBidModal}
+        />
+      }
     </div>
   )
 }

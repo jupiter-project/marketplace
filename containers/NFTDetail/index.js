@@ -7,8 +7,8 @@ import { Grid } from '@material-ui/core'
 import * as jupiterAPI from 'services/api-jupiter'
 import NoData from 'parts/NoData'
 import ImageWall from 'parts/ImageWall'
+import ProductContent from 'parts/ProductContent'
 import NFTInformation from './NFTInformation'
-import NFTImage from './NFTImage'
 import AssetBids from './AssetBids'
 import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
@@ -31,12 +31,18 @@ const useStyles = makeStyles((theme) => ({
   imageContainer: {
     display: 'flex',
     justifyContent: 'center',
-    position: 'relative',
-    paddingTop: `${theme.spacing(8)}px !important`,
+    padding: theme.spacing(1),
+    borderRadius: 2,
+    border: `1px solid ${theme.palette.text.primary}`,
+    marginBottom: theme.spacing(1)
   },
-  rightContainer: {
-    display: 'flex',
-    alignItems: 'center'
+  image: {
+    height: 480,
+    maxWidth: '100%',
+    objectFit: 'contain',
+    [theme.breakpoints.down('xs')]: {
+      height: 350,
+    }
   },
 }));
 
@@ -88,18 +94,21 @@ const NFTDetail = () => {
             <NoData />
           ) : (
             <Grid container spacing={5}>
-              <Grid item xs={12} sm={6} md={8} className={classes.imageContainer}>
-                <NFTImage good={assetInfo} />
+              <Grid item xs={12} sm={6} md={5}>
+                <div className={classes.imageContainer}>
+                  <ProductContent
+                    info={assetInfo}
+                    className={classes.image}
+                  />
+                </div>
               </Grid>
-              <Grid item xs={12} sm={6} md={4} className={classes.rightContainer}>
+              <Grid item xs={12} sm={6} md={7}>
                 <NFTInformation
                   isMine={accountRS === good.accountRS}
                   good={good}
                   account={account}
                   assetInfo={assetInfo}
                 />
-              </Grid>
-              <Grid item xs={12}>
                 <AssetBids
                   isMine={accountRS === good.accountRS}
                   good={good}

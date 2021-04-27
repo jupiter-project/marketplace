@@ -73,7 +73,7 @@ const BidItem = ({
             {info?.description || ''}
           </Typography>
           <Typography color='primary'>
-            {item?.priceNQT / NQT_WEIGHT || 0} JUP X {item?.quantityQNT || 0}
+            {item?.priceNQT / NQT_WEIGHT || 0} JUP
           </Typography>
         </div>
       </div>
