@@ -8,7 +8,7 @@ const UNISWAP_URL = 'https://app.uniswap.org/#/swap'
 const PANCAKESWAP_URL = 'https://pancakeswap.finance'
 
 const NQT_WEIGHT = 100000000;
-const MAX_UPLOAD_SIZE = 2097152;
+const MAX_UPLOAD_SIZE = 20971520;
 
 export {
   TITLE,
