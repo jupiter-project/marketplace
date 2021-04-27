@@ -17,6 +17,7 @@ import UploadMedia from '../UploadMedia'
 import PreviewCard from '../PreviewCard'
 import {
   STRING_VALID,
+  DESCRIPTION_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
 import usePopUp from 'utils/hooks/usePopUp'
@@ -26,7 +27,7 @@ import { FILE_TYPES, FILE_TYPES_ARRAY } from 'utils/constants/file-types'
 
 const schema = yup.object().shape({
   name: STRING_VALID,
-  description: STRING_VALID,
+  description: DESCRIPTION_VALID,
   type: STRING_VALID,
   passphrase: PASSPHRASE_VALID
 });
@@ -97,6 +98,7 @@ const CreateForm = () => {
     changeLoadingStatus(true)
     try {
       let params = {
+        type: data.type,
         fileBuffer
       }
       const { image = '' } = await cloudinaryAPI.uploadFileCloudinary(params);
