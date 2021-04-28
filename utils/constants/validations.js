@@ -30,7 +30,7 @@ const PRICE_VALID = yup.number()
     value => value > 0)
   .test('price',
     'Incorrect price, maximal 8 decimals allowed.',
-    value => (value).toString().split('.')[1].length <= 8)
+    value => ((value).toString().split('.')[1] || []).length <= 8)
   .required('Please input field.');
 
 const INTEGER_VALID = yup.number()
