@@ -1,5 +1,6 @@
 
 import { memo, useState, useEffect, useCallback } from 'react'
+import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -12,6 +13,7 @@ import OrderItem from './OrderItem'
 import { isEmpty } from 'utils/helpers/utility'
 import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
+import LINKS from 'utils/constants/links'
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -28,6 +30,7 @@ const MyAskOrders = ({
 }) => {
   const classes = useStyles();
   const { setPopUp } = usePopUp();
+  const router = useRouter();
 
   const { currentUser } = useSelector(state => state.auth);
   const [assets, setAssets] = useState([])
@@ -64,10 +67,17 @@ const MyAskOrders = ({
     }
   }, [isLast, first, currentUser, setAssets, setFirst, setIsLast, setPopUp])
 
-  const sellHandler = useCallback((item) => {
+  const deleteHandler = useCallback((item) => {
     setSelectedItem(item)
     setOpenModal(true)
   }, [setOpenModal, setSelectedItem])
+
+  const detailNFTHandler = useCallback((item) => {
+    router.push(
+      LINKS.NFT_DETAIL.HREF,
+      LINKS.NFT_DETAIL.HREF.replace('[goods]', item.order)
+    )
+  }, [router])
 
   return (
     <TabPanel value={value} index={index}>
@@ -80,7 +90,8 @@ const MyAskOrders = ({
               <OrderItem
                 key={index}
                 item={item}
-                onDelete={sellHandler}
+                onDetail={detailNFTHandler}
+                onDelete={deleteHandler}
               />
             ))}
             {

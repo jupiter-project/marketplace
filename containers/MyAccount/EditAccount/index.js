@@ -13,7 +13,7 @@ import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import {
   STRING_VALID,
-  DESCRIPTION_VALID,
+  ACCOUNT_DESCRIPTION_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
 import usePopUp from 'utils/hooks/usePopUp'
@@ -22,7 +22,7 @@ import useLoading from 'utils/hooks/useLoading'
 
 const schema = yup.object().shape({
   name: STRING_VALID,
-  description: DESCRIPTION_VALID,
+  description: ACCOUNT_DESCRIPTION_VALID,
   passphrase: PASSPHRASE_VALID
 });
 
@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
     marginBottom: theme.spacing(2)
   },
   input: {
@@ -107,19 +106,6 @@ const EditAccount = () => {
       >
         ACCOUNT INFO
       </Typography>
-      {
-        !currentUser?.balanceNQT &&
-        <Typography
-          variant='body1'
-          color='primary'
-          align='center'
-          gutterBottom
-        >
-          Your account is not active.
-          <br />
-          Please have at least one transaction on Jupiter.
-        </Typography>
-      }
       <Controller
         as={<MagicTextField />}
         name='name'
@@ -132,9 +118,9 @@ const EditAccount = () => {
       <Controller
         as={<MagicTextField />}
         multiline
-        rows={4}
+        rows={6}
         name='description'
-        label='Description'
+        label='Description (max 1000 characters)'
         error={errors.description?.message}
         className={classes.input}
         control={control}
