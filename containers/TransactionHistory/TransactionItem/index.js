@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     borderRadius: 2,
     border: `1px solid ${theme.palette.text.primary}`,
+    backgroundColor: theme.palette.background.default,
     marginRight: theme.spacing(2),
   },
   image: {

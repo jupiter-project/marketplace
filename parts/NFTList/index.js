@@ -18,12 +18,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     overflow: 'hidden !important',
     overflowAnchor: 'none',
-    padding: theme.spacing(2)
+    padding: theme.spacing(2, 0)
   },
   list: {
     display: 'grid',
     gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
-    gridGap: theme.spacing(6, 4),
+    gridGap: theme.spacing(7, 5),
     width: '100%',
     maxWidth: theme.custom.layout.maxMarketPlaceWidth,
     [theme.breakpoints.down('md')]: {

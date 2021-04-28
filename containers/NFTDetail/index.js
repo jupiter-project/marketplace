@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     width: '100%',
+    backgroundColor: theme.palette.background.default,
     maxWidth: theme.custom.layout.maxDesktopWidth,
     marginBottom: theme.spacing(5)
   },

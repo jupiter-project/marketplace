@@ -17,7 +17,6 @@ import { useCommonStyles } from 'styles/use-styles'
 const useStyles = makeStyles((theme) => ({
   card: {
     height: '100%',
-    padding: theme.spacing(1),
     '&:hover': {
       transform: 'translateY(-5px)',
       transition: `ease-out 0.4s `,
@@ -34,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     borderRadius: 2,
     border: `1px solid ${theme.palette.text.primary}`,
+    backgroundColor: theme.palette.background.default,
     marginBottom: theme.spacing(1)
   },
   image: {

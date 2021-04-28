@@ -11,23 +11,24 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
     flexDirection: 'column',
     width: '100%',
-    minHeight: 280,
+    minHeight: 450,
     backgroundImage: `url(${HEADER_BACKGROUND_IMAGE_PATH})`,
     backgroundRepeat: 'no-repeat',
+    backgroundPositionX: 'right',
     backgroundPositionY: 'bottom',
     backgroundSize: 'cover',
-    padding: theme.spacing(10, 0),
-    marginBottom: -theme.spacing(8),
+    marginBottom: -210
   },
   header: {
-    fontSize: 48,
+    fontSize: 80,
+    fontFamily: 'CRC-LIGHT',
     textTransform: 'uppercase',
+    marginTop: theme.spacing(10),
     marginBottom: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
-      fontSize: 32,
+      fontSize: 42,
     },
   }
 }));
