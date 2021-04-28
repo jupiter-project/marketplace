@@ -14,16 +14,19 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     flexDirection: 'column',
     width: '100%',
-    minHeight: 320,
+    minHeight: 210,
     backgroundImage: `url(${HEADER_BACKGROUND_IMAGE_PATH})`,
     backgroundRepeat: 'no-repeat',
     backgroundPositionY: 'bottom',
     backgroundSize: 'cover'
   },
   header: {
-    fontSize: 40,
+    fontSize: 48,
     textTransform: 'uppercase',
     marginBottom: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 32,
+    },
   }
 }));
 
