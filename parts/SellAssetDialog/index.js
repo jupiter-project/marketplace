@@ -64,13 +64,14 @@ const SellAssetDialog = ({
       let params = {
         asset: item.asset,
         quantity: 1,
-        price: data.price * NQT_WEIGHT,
+        price: Math.round(data.price * NQT_WEIGHT),
         secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey,
       }
 
       const response = await jupiterAPI.placeAskOrder(params)
       if (response?.errorCode) {
+        console.log(response)
         setPopUp({ text: MESSAGES.PLACE_ASK_ORDER_ERROR })
         changeLoadingStatus(false)
         return;
