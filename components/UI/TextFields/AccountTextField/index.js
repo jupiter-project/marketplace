@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     fontSize: 18,
     padding: theme.spacing(1.5),
-    border: `1px solid ${theme.palette.background.primary}`,
+    border: `1px solid ${theme.custom.palette.border}`,
     borderRadius: 2,
     backgroundColor: theme.palette.background.primary,
     color: theme.custom.palette.lightBlack

@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     height: 90,
     objectFit: 'cover',
     borderRadius: 8,
-    border: `1px solid ${theme.palette.primary.main}`,
+    border: `1px solid ${theme.custom.palette.border}`,
   },
   delete: {
     fontSize: 15,

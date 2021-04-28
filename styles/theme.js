@@ -69,7 +69,7 @@ const theme = responsiveFontSizes(createMuiTheme({
   },
   custom: {
     palette: {
-      grey: '#ecebed',
+      grey: '#e6e6e6',
       darkGrey: '#616166',
       orange: '#d36738',
       white: '#ffffff',
@@ -82,7 +82,7 @@ const theme = responsiveFontSizes(createMuiTheme({
       blue: '#4595e6',
       lightBlue: '#d9e8ff',
       black: '#000000',
-      border: '#f1f0f2'
+      border: '#999999'
     },
     layout: {
       topAppBarHeight: 60,

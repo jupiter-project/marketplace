@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 120,
     marginTop: theme.spacing(2),
     backgroundColor: theme.palette.background.default,
-    border: `1px solid ${theme.custom.palette.grey}`,
+    border: `1px solid ${theme.custom.palette.border}`,
     padding: theme.spacing(1)
   },
   menu: {
