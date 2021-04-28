@@ -14,11 +14,13 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     flexDirection: 'column',
     width: '100%',
-    minHeight: 210,
+    minHeight: 280,
     backgroundImage: `url(${HEADER_BACKGROUND_IMAGE_PATH})`,
     backgroundRepeat: 'no-repeat',
     backgroundPositionY: 'bottom',
-    backgroundSize: 'cover'
+    backgroundSize: 'cover',
+    padding: theme.spacing(10, 0),
+    marginBottom: -theme.spacing(8),
   },
   header: {
     fontSize: 48,

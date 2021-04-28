@@ -16,9 +16,25 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 2,
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
-    maxWidth: 320,
+    width: 320,
+    backgroundColor: theme.palette.background.default,
     '& input': {
       padding: theme.spacing(1),
+      '&::placeholder': {
+        opacity: 1,
+        fontStyle: 'italic'
+      },
+      '&:-ms-input-placeholder': {
+        opacity: 1,
+        fontStyle: 'italic'
+      },
+      '&::-ms-input-placeholder': {
+        opacity: 1,
+        fontStyle: 'italic'
+      },
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
     },
   },
   adornedEnd: {

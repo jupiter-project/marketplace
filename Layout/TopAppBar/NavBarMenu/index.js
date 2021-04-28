@@ -19,12 +19,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center'
   },
   item: {
-    fontSize: 15,
+    fontSize: 17,
     fontWeight: 'bold',
     color: theme.palette.text.primary
   },
   login: {
-    fontSize: 15,
+    fontSize: 16,
     borderRadius: 2,
     padding: theme.spacing(0.5, 1.5, 0),
     margin: theme.spacing(0, 1)

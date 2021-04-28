@@ -23,11 +23,11 @@ const useStyles = makeStyles((theme) => ({
   list: {
     display: 'grid',
     gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
-    gridGap: theme.spacing(8, 4),
+    gridGap: theme.spacing(6, 4),
     width: '100%',
     maxWidth: theme.custom.layout.maxMarketPlaceWidth,
     [theme.breakpoints.down('md')]: {
-      gridTemplateColumns: '1fr 1fr 1fr 1fr',
+      gridTemplateColumns: '1fr 1fr 1fr',
     },
     [theme.breakpoints.down('sm')]: {
       gridTemplateColumns: '1fr 1fr',
