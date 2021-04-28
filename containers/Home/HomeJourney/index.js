@@ -22,14 +22,16 @@ const useStyles = makeStyles(theme => ({
   title: {
     fontSize: 40,
     fontWeight: 'bold',
+    fontFamily: 'CRC-LIGHT',
     textAlign: 'center',
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(4),
     [theme.breakpoints.down('sm')]: {
       fontSize: 32,
     },
   },
   description: {
-    fontSize: 16
+    fontSize: 18,
+    marginBottom: theme.spacing(4),
   }
 }));
 
@@ -43,15 +45,25 @@ const HomeJourney = () => {
           variant='h1'
           className={classes.title}
         >
-          What is Leda?
+          WHAT IS LEDA?
         </Typography>
         <Typography className={classes.description} align='center'>
-          NFT stands for not-fungible tokens and are unique digital items
-          such as NFTs or artworks or game(hmm should this be in-game?)
-          items. As an artist, by tokenizing your work you both ensure
-          that it is unique and brand it as your work. The actual
-          ownership is blockchian-managed. Leda uses the Jupiter blockchain,
-          where NFT{"'"}s are called Singleton Asset Tokens.
+          Leda is an NFT marketplace, that uses the Jupiter blockchain.A Non-Fungible
+          Token (NFT) (or called Singleton Asset Token on Jupiter) is a unit of data
+          stored on a blockchain that certifies a digital asset to be unique and
+          therefore not interchangeable.
+        </Typography>
+        <Typography className={classes.description} align='center'>
+          NFTs can be used to represent items such as photos, videos, audios, in-game
+          items, and any other type of digital file. As an artist, by tokenizing your
+          work, you ensure that it is unique and that the ownership is provably  yours.
+        </Typography>
+        <Typography className={classes.description} align='center'>
+          Start your NFT journey with Leda!
+        </Typography>
+        <Typography className={classes.description} align='center'>
+          No code knowledge required. Easily upload your content and create your NFT
+          with a few clicks.
         </Typography>
       </div>
     </section>
