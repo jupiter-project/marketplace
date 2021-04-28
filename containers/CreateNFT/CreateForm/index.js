@@ -26,7 +26,7 @@ import MESSAGES from 'utils/constants/messages'
 import { FILE_TYPES, FILE_TYPES_ARRAY } from 'utils/constants/file-types'
 
 const schema = yup.object().shape({
-  name: STRING_VALID,
+  title: STRING_VALID,
   description: DESCRIPTION_VALID,
   type: STRING_VALID,
   passphrase: PASSPHRASE_VALID
@@ -54,6 +54,9 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2)
   },
   button: {
+    fontSize: 15,
+    borderRadius: 2,
+    padding: theme.spacing(0.25, 1.5, 0),
     margin: theme.spacing(5, 1)
   },
   resetButton: {
@@ -83,7 +86,7 @@ const CreateForm = () => {
   const resetHandler = useCallback(() => {
     setFileBuffer(null)
     reset({
-      name: '',
+      title: '',
       description: '',
       quantity: 1,
     })
@@ -105,7 +108,7 @@ const CreateForm = () => {
 
       params = {
         name: 'nftleda',
-        description: data.name,
+        description: data.title,
         quantity: 1,
         message: JSON.stringify({
           image,
@@ -133,94 +136,88 @@ const CreateForm = () => {
   }, [fileBuffer, currentUser, resetHandler, setPopUp, changeLoadingStatus]);
 
   return (
-    <>
-      <Grid container spacing={3} className={classes.media}>
-        <Grid item xs={12} sm={6} md={8}>
+    <form
+      noValidate
+      className={classes.form}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Controller
+            as={<MagicSelect />}
+            name='type'
+            label='Type'
+            placeholder='Select Type'
+            items={FILE_TYPES_ARRAY}
+            error={errors.type?.message}
+            control={control}
+            defaultValue={FILE_TYPES.IMAGE.VALUE}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={5}>
           <UploadMedia
             type={FILE_TYPES[watchAllFields?.type || FILE_TYPES.IMAGE.VALUE]}
-            fileBuffer={fileBuffer}
             setFileBuffer={setFileBuffer}
           />
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={6} md={7}>
           <PreviewCard
             type={watchAllFields?.type || FILE_TYPES.IMAGE.VALUE}
-            item={watchAllFields}
             fileBuffer={fileBuffer}
           />
         </Grid>
-      </Grid>
-      <form
-        noValidate
-        className={classes.form}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Controller
-              as={<MagicTextField />}
-              name='name'
-              label='Name'
-              placeholder='Name'
-              error={errors.name?.message}
-              control={control}
-              defaultValue=''
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Controller
-              as={<MagicTextField />}
-              multiline
-              rows={3}
-              name='description'
-              label='Description'
-              placeholder='Description'
-              error={errors.description?.message}
-              control={control}
-              defaultValue=''
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Controller
-              as={<MagicSelect />}
-              name='type'
-              label='Type'
-              placeholder='Select Type'
-              items={FILE_TYPES_ARRAY}
-              error={errors.type?.message}
-              control={control}
-              defaultValue={FILE_TYPES.IMAGE.VALUE}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Controller
-              as={<MagicTextField />}
-              type='password'
-              name='passphrase'
-              label='Passphrase'
-              placeholder='Passphrase'
-              error={errors.passphrase?.message}
-              control={control}
-              defaultValue=''
-            />
-          </Grid>
+        <Grid item xs={12}>
+          <Controller
+            as={<MagicTextField />}
+            name='title'
+            label='Title'
+            placeholder='Title'
+            error={errors.title?.message}
+            control={control}
+            defaultValue=''
+          />
         </Grid>
-        <div>
-          <ContainedButton
-            type='submit'
-            className={classes.button}
-          >
-            Create NFT
-          </ContainedButton>
-          <ContainedButton
-            onClick={resetHandler}
-            className={clsx(classes.button, classes.resetButton)}
-          >
-            Reset
-          </ContainedButton>
-        </div>
-      </form>
-    </>
+        <Grid item xs={12}>
+          <Controller
+            as={<MagicTextField />}
+            multiline
+            rows={3}
+            name='description'
+            label='Description (max 800 characters)'
+            placeholder='Description'
+            error={errors.description?.message}
+            control={control}
+            defaultValue=''
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Controller
+            as={<MagicTextField />}
+            type='password'
+            name='passphrase'
+            label='Passphrase'
+            placeholder='Passphrase'
+            error={errors.passphrase?.message}
+            control={control}
+            defaultValue=''
+          />
+        </Grid>
+      </Grid>
+      <div>
+        <ContainedButton
+          type='submit'
+          className={classes.button}
+        >
+          Create NFT
+        </ContainedButton>
+        <ContainedButton
+          onClick={resetHandler}
+          className={clsx(classes.button, classes.resetButton)}
+        >
+          Reset
+        </ContainedButton>
+      </div>
+    </form>
   )
 }
 

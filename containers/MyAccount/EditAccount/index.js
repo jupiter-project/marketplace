@@ -33,8 +33,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: '100%',
     maxWidth: 560,
-    padding: theme.spacing(3, 0),
-    backgroundColor: theme.palette.background.default
+    padding: theme.spacing(3, 0)
   },
   title: {
     fontSize: 24,

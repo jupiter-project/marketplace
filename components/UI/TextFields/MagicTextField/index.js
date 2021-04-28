@@ -16,15 +16,15 @@ const useStyles = makeStyles(theme => ({
   },
   textField: {
     width: '100%',
-    border: `1px solid ${theme.palette.background.primary}`,
+    border: `1px solid ${theme.palette.text.secondary}`,
     borderRadius: 2,
-    backgroundColor: theme.palette.background.primary,
+    backgroundColor: theme.palette.background.default,
   },
   input: {
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'roboto, sans-serif',
     lineHeight: 'normal',
-    padding: theme.spacing(1.5),
+    padding: theme.spacing(1),
     color: theme.custom.palette.lightBlack,
     '&:focus': {
       backgroundColor: 'unset'
@@ -55,13 +55,13 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: theme.spacing(0, 1.5, 1)
+    padding: theme.spacing(0, 1, 0.5)
   },
   optional: {
     fontStyle: 'italic'
   },
   error: {
-    padding: theme.spacing(1, 1.5, 0)
+    padding: theme.spacing(1, 1, 0)
   },
   eyeIcon: {
     cursor: 'pointer'
@@ -89,7 +89,7 @@ const MagicTextField = React.forwardRef(({
       {
         !!label &&
         <div className={classes.labelContainer}>
-          <Typography color='textSecondary' >
+          <Typography color='textPrimary' >
             {label}
           </Typography>
 

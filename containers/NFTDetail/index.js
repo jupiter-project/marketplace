@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     width: '100%',
-    backgroundColor: theme.palette.background.default,
     maxWidth: theme.custom.layout.maxDesktopWidth,
     marginBottom: theme.spacing(5)
   },
@@ -36,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     borderRadius: 2,
     border: `1px solid ${theme.palette.text.primary}`,
+    backgroundColor: theme.palette.background.default,
     marginBottom: theme.spacing(1)
   },
   image: {
