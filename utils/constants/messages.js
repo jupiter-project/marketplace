@@ -18,7 +18,7 @@ const MESSAGES = Object.freeze({
   BID_NFT_ERROR: 'You don\'t have enough JUP to bid this NFT, please fund your account.',
   DELETE_NFT_SUCCESS: 'Your order has been canceled.',
   DELETE_NFT_ERROR: 'There was a problem canceling your order. Please try again.',
-  PLACE_ASK_ORDER_SUCCESS: 'Your asset is now for sale on the marketplace.',
+  PLACE_ASK_ORDER_SUCCESS: 'Your NFT is now for sale on the marketplace.',
   PLACE_ASK_ORDER_ERROR: 'Invalid order placement, incorrect quantity.',
 });
 
