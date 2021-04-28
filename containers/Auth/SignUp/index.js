@@ -10,7 +10,7 @@ import * as yup from 'yup'
 import * as jupiterAPI from 'services/api-jupiter'
 import { setUserToken } from 'actions/auth'
 import MagicCheckbox from 'components/UI/MagicCheckbox'
-import GradientButton from 'components/UI/Buttons/GradientButton'
+import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import LinkButton from 'components/UI/Buttons/LinkButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper'
@@ -156,9 +156,9 @@ const SignUp = () => {
             </LinkButton>
           </Typography>
         </div>
-        <GradientButton type='submit' className={authClasses.button}>
+        <ContainedButton type='submit' className={authClasses.button}>
           Sign Up
-        </GradientButton>
+        </ContainedButton>
         <Typography
           variant='body2'
           color='textSecondary'

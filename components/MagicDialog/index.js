@@ -11,7 +11,6 @@ import {
 import CloseIcon from '@material-ui/icons/Close'
 
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
-import GradientButton from 'components/UI/Buttons/GradientButton'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -138,13 +137,13 @@ const MagicDialog = ({
           }
           {
             !!confirmLabel &&
-            <GradientButton
+            <ContainedButton
               disabled={confirmDisable}
               onClick={onConfirm}
               className={classes.button}
             >
               {confirmLabel}
-            </GradientButton>
+            </ContainedButton>
           }
         </DialogActions>
       }
