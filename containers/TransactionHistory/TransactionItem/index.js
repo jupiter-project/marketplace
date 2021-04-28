@@ -13,7 +13,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(5),
+    [theme.breakpoints.down('xs')]: {
+      alignItems: 'flex-start',
+      flexDirection: 'column'
+    },
   },
   imageContainer: {
     display: 'flex',
@@ -23,16 +27,21 @@ const useStyles = makeStyles((theme) => ({
     border: `1px solid ${theme.palette.text.primary}`,
     backgroundColor: theme.palette.background.default,
     marginRight: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      marginBottom: theme.spacing(1),
+    },
   },
   image: {
     width: 135,
     height: 135,
-    objectFit: 'contain',
+    objectFit: 'contain'
   },
   infoContainer: {
     display: 'flex',
     flexDirection: 'column',
+    justifyContent: 'space-between',
     width: '100%',
+    minHeight: 153
   },
   name: {
     fontSize: 20,
@@ -94,49 +103,51 @@ const TransactionItem = ({
           </Typography>
         </div>
 
-        <div className={classes.rowContainer}>
-          <Typography
-            color='textSecondary'
-            className={classes.label}
-          >
-            Seller
-          </Typography>
-          <Typography
-            color='primary'
-            className={classes.value}
-          >
-            {item.sellerRS}
-          </Typography>
-        </div>
+        <div>
+          <div className={classes.rowContainer}>
+            <Typography
+              color='textSecondary'
+              className={classes.label}
+            >
+              Seller
+            </Typography>
+            <Typography
+              color='primary'
+              className={classes.value}
+            >
+              {item.sellerRS}
+            </Typography>
+          </div>
 
-        <div className={classes.rowContainer}>
-          <Typography
-            color='textSecondary'
-            className={classes.label}
-          >
-            Buyer
-          </Typography>
-          <Typography
-            color='primary'
-            className={classes.value}
-          >
-            {item.buyerRS}
-          </Typography>
-        </div>
+          <div className={classes.rowContainer}>
+            <Typography
+              color='textSecondary'
+              className={classes.label}
+            >
+              Buyer
+            </Typography>
+            <Typography
+              color='primary'
+              className={classes.value}
+            >
+              {item.buyerRS}
+            </Typography>
+          </div>
 
-        <div className={classes.rowContainer}>
-          <Typography
-            color='textSecondary'
-            className={classes.label}
-          >
-            Date
-          </Typography>
-          <Typography
-            color='textSecondary'
-            className={classes.value}
-          >
-            {getDateFromTimestamp(item.timestamp)}
-          </Typography>
+          <div className={classes.rowContainer}>
+            <Typography
+              color='textSecondary'
+              className={classes.label}
+            >
+              Date
+            </Typography>
+            <Typography
+              color='textSecondary'
+              className={classes.value}
+            >
+              {getDateFromTimestamp(item.timestamp)}
+            </Typography>
+          </div>
         </div>
       </div>
     </div>

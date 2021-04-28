@@ -19,10 +19,9 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
     height: '100%',
     width: '100%',
-    maxWidth: 780,
+    maxWidth: 560,
     marginBottom: theme.spacing(10),
   },
   moreIcon: {
