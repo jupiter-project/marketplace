@@ -6,20 +6,29 @@ import {
 
 const theme = responsiveFontSizes(createMuiTheme({
   typography: {
-    fontFamily: 'CRC',
+    fontFamily: 'CRC-BOLD, CRC-LIGHT',
   },
   overrides: {
     MuiCssBaseline: {
       '@global': {
         '@font-face': [{
-          fontFamily: 'CRC',
+          fontFamily: 'CRC-BOLD',
           fontStyle: 'normal',
           fontDisplay: 'swap',
           fontWeight: 400,
           src: `
-            local('CRC'),
-            url('/assets/fonts/CRC.woff') format('woff')`
-        }]
+            local('CRC-BOLD'),
+            url('/assets/fonts/CRC-BOLD.woff') format('woff')`
+        },
+        {
+          fontFamily: 'CRC-LIGHT',
+          fontStyle: 'normal',
+          fontDisplay: 'swap',
+          fontWeight: 400,
+          src: `
+            local('CRC-LIGHT'),
+            url('/assets/fonts/CRC-LIGHT.woff') format('woff')`
+        }],
       }
     },
     MuiCard: {
@@ -32,7 +41,7 @@ const theme = responsiveFontSizes(createMuiTheme({
   palette: {
     primary: {
       light: '#4791db',
-      main: '#39b449',
+      main: '#2B9938',
       dark: '#ecebed',
       contrastText: '#ffffff'
     },
@@ -67,7 +76,7 @@ const theme = responsiveFontSizes(createMuiTheme({
       pink: '#d808dd',
       red: '#f2556f',
       yellow: '#ffb418',
-      green: '#41d98d',
+      green: '#2B9938',
       darkGreen: '#073920',
       lightGreen: '#5dc1a3',
       blue: '#4595e6',

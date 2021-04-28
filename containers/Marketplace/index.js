@@ -11,18 +11,18 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   container: {
     width: '100%',
     maxWidth: theme.custom.layout.maxMarketPlaceWidth,
-    marginBottom: theme.spacing(4)
+    padding: theme.spacing(2),
   },
   filterContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
-    padding: theme.spacing(2)
+    marginBottom: theme.spacing(2)
   },
 }));
 
