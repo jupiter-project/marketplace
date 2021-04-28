@@ -5,7 +5,11 @@ import wordCount from '@iarna/word-count'
 const STRING_VALID = yup.string()
   .required('Please input field.');
 
-const DESCRIPTION_VALID = yup.string()
+const ACCOUNT_DESCRIPTION_VALID = yup.string()
+  .max(1000, 'Description length should be less than 1000.')
+  .required()
+
+const NFT_DESCRIPTION_VALID = yup.string()
   .max(800, 'Description length should be less than 800.')
   .required()
 
@@ -45,5 +49,6 @@ export {
   NUMBER_VALID,
   PRICE_VALID,
   INTEGER_VALID,
-  DESCRIPTION_VALID
+  ACCOUNT_DESCRIPTION_VALID,
+  NFT_DESCRIPTION_VALID
 };

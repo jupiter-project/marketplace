@@ -14,23 +14,40 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(1),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 20,
+    },
   },
   balance: {
     fontSize: 30,
-    fontWeight: 'bold',
     color: theme.palette.primary.main,
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(5),
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 24,
+    },
   },
 }));
 
 const MyBalance = () => {
   const classes = useStyles();
-  const { currentUser } = useSelector(state => state.auth);
+  const { currentUser, accountRS } = useSelector(state => state.auth);
 
   return (
     <div className={classes.root}>
+      <Typography
+        color='textPrimary'
+        className={classes.title}
+      >
+        JUP ADDRESS
+      </Typography>
+      <Typography
+        color='primary'
+        align='center'
+        className={classes.balance}
+      >
+        {accountRS}
+      </Typography>
       <Typography
         color='textPrimary'
         className={classes.title}
@@ -39,6 +56,7 @@ const MyBalance = () => {
       </Typography>
       <Typography
         color='primary'
+        align='center'
         className={classes.balance}
       >
         {parseInt(currentUser?.balanceNQT || 0, 10) / NQT_WEIGHT} JUP

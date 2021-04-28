@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     display: 'flex',
     alignItems: 'center',
+    cursor: 'pointer',
     [theme.breakpoints.down('sm')]: {
       width: '100%',
     }
@@ -48,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 const OrderItem = ({
   item,
+  onDetail,
   onDelete
 }) => {
   const classes = useStyles();
@@ -56,7 +58,7 @@ const OrderItem = ({
 
   return (
     <div className={classes.itemContainer}>
-      <div className={classes.content}>
+      <div className={classes.content} onClick={() => onDetail(item)}>
         <ProductContent
           info={info}
           className={classes.image}

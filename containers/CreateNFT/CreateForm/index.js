@@ -17,7 +17,7 @@ import UploadMedia from '../UploadMedia'
 import PreviewCard from '../PreviewCard'
 import {
   STRING_VALID,
-  DESCRIPTION_VALID,
+  NFT_DESCRIPTION_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
 import usePopUp from 'utils/hooks/usePopUp'
@@ -27,7 +27,7 @@ import { FILE_TYPES, FILE_TYPES_ARRAY } from 'utils/constants/file-types'
 
 const schema = yup.object().shape({
   title: STRING_VALID,
-  description: DESCRIPTION_VALID,
+  description: NFT_DESCRIPTION_VALID,
   type: STRING_VALID,
   passphrase: PASSPHRASE_VALID
 });
@@ -181,7 +181,7 @@ const CreateForm = () => {
           <Controller
             as={<MagicTextField />}
             multiline
-            rows={3}
+            rows={6}
             name='description'
             label='Description (max 800 characters)'
             placeholder='Description'
