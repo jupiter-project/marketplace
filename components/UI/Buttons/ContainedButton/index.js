@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     fontSize: 18,
     fontWeight: 'bold',
+    boxShadow: 'none',
     padding: theme.spacing(1, 2, 0.5, 2),
     borderRadius: 2,
     '&:hover': {
