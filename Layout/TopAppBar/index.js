@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
+    boxShadow: 'none',
     width: '100%',
     height: theme.custom.layout.topAppBarHeight,
     backgroundColor: theme.palette.background.default
