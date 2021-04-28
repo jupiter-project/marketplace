@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '100%',
     objectFit: 'contain',
     borderRadius: 16,
-    border: `2px solid ${theme.palette.primary.main}`,
+    border: `2px solid ${theme.custom.palette.border}`,
   },
   title: {
     fontSize: 20,

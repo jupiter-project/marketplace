@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
   textField: {
     width: '100%',
-    border: `1px solid ${theme.palette.text.secondary}`,
+    border: `1px solid ${theme.custom.palette.border}`,
     borderRadius: 2,
     backgroundColor: theme.palette.background.default,
   },
