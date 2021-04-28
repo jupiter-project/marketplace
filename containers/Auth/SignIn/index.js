@@ -14,12 +14,13 @@ import AuthWrapper, { authPageStyles } from '../Shared/AuthWrapper'
 import useLoading from 'utils/hooks/useLoading'
 import usePopUp from 'utils/hooks/usePopUp'
 import LINKS from 'utils/constants/links'
-import { ACCOUNT_VALID } from 'utils/constants/validations'
+import { ACCOUNT_VALID, STRING_VALID } from 'utils/constants/validations'
 import MESSAGES from 'utils/constants/messages'
 import TEXT_MASKS from 'utils/constants/text-masks'
 
 const schema = yup.object().shape({
-  account: ACCOUNT_VALID
+  account: ACCOUNT_VALID,
+  password: STRING_VALID
 });
 
 const SignIn = () => {
@@ -34,6 +35,10 @@ const SignIn = () => {
   });
 
   const onSubmit = useCallback(async (data) => {
+    if (data.password !== 'leda2021!!!') {
+      setPopUp({ text: 'Wrong Password' })
+      return
+    }
     changeLoadingStatus(true)
     try {
       const response = await jupiterAPI.getAccountByAccountID(data.account);
@@ -68,6 +73,15 @@ const SignIn = () => {
           label='Account'
           mask={TEXT_MASKS.ACCOUNT}
           error={errors.account?.message}
+          className={authClasses.input}
+          control={control}
+          defaultValue=''
+        />
+        <Controller
+          as={<AccountTextField />}
+          name='password'
+          label='Password'
+          error={errors.password?.message}
           className={authClasses.input}
           control={control}
           defaultValue=''
