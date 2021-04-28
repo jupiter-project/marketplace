@@ -1,4 +1,6 @@
-import { memo, useState, useEffect } from 'react'
+import { memo, useState, useEffect, useCallback } from 'react'
+import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Typography,
@@ -12,6 +14,9 @@ import BidNFTDialog from 'parts/BidNFTDialog'
 import TableContainer from 'parts/Table/TableContainer'
 import { isEmpty } from 'utils/helpers/utility'
 import { NQT_WEIGHT } from 'utils/constants/common'
+import usePopUp from 'utils/hooks/usePopUp'
+import MESSAGES from 'utils/constants/messages'
+import LINKS from 'utils/constants/links'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,7 +47,10 @@ const AssetBids = ({
   good
 }) => {
   const classes = useStyles();
+  const router = useRouter();
+  const { setPopUp } = usePopUp();
 
+  const { accountRS } = useSelector(state => state.auth);
   const [bids, setBids] = useState([]);
   const [openBidModal, setOpenBidModal] = useState(false);
 
@@ -57,6 +65,15 @@ const AssetBids = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [good])
+
+  const bidHandler = useCallback(() => {
+    if (!accountRS) {
+      setPopUp({ text: MESSAGES.AUTH_REQUIRED })
+      router.push(LINKS.SIGN_IN.HREF)
+      return;
+    }
+    setOpenBidModal(true)
+  }, [accountRS, router, setPopUp, setOpenBidModal])
 
   return (
     <div className={classes.root}>
@@ -85,7 +102,7 @@ const AssetBids = ({
 
       <ContainedButton
         className={classes.button}
-        onClick={() => setOpenBidModal(true)}
+        onClick={bidHandler}
       >
         Place a bid
       </ContainedButton>

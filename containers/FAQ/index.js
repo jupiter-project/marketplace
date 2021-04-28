@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   accordion: {
     width: '100%',
     boxShadow: 'unset',
+    backgroundColor: 'unset'
   },
   summary: {
     padding: theme.spacing(2, 0),
@@ -73,7 +74,7 @@ const FAQ = () => {
 
   return (
     <main className={classes.root}>
-      <ImageWall header={'FAQs'} />
+      <ImageWall header={'FAQ'} />
       <div className={clsx(commonClasses.containerWidth, classes.container)}>
         {faqs.map((faq, index) => (
           <Accordion

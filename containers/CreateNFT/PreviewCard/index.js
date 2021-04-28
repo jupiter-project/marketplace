@@ -1,79 +1,61 @@
-import { memo } from 'react';
-import { useSelector } from 'react-redux'
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  Typography,
-} from '@material-ui/core';
+import { memo } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
 
-import MagicIdenticon from 'components/MagicIdenticon'
-import { FILE_TYPES } from 'utils/constants/file-types';
-import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths';
+import DefaultImageIcon from 'components/Icons/DefaultImageIcon'
+import { FILE_TYPES } from 'utils/constants/file-types'
+import { IMAGE_PLACEHOLDER_IMAGE_PATH } from 'utils/constants/image-paths'
 
 const useStyles = makeStyles((theme) => ({
-  imageContainer: {
-    position: 'relative',
-    margin: -theme.spacing(2),
-    marginBottom: 0,
-    height: 180,
+  root: {
+    height: 220,
+    padding: theme.spacing(1),
+    borderRadius: 2,
+    border: `1px solid ${theme.palette.text.primary}`,
+  },
+  defaultImage: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    backgroundColor: theme.custom.palette.grey
   },
   image: {
-    height: 180,
+    height: '100%',
     width: '100%',
     objectFit: 'contain'
-  },
-  name: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    textTransform: 'capitalize',
-    marginBottom: theme.spacing(0.5)
   },
 }));
 
 const PreviewCard = ({
   type,
-  item,
   fileBuffer
 }) => {
   const classes = useStyles();
-  const { accountRS } = useSelector(state => state.auth);
 
   return (
-    <Card>
-      <CardHeader
-        avatar={
-          <MagicIdenticon value={accountRS} />
-        }
-      />
-      <CardContent>
-        <div className={classes.imageContainer}>
-          {type === FILE_TYPES.IMAGE.VALUE
+    <div className={classes.root}>
+      {!!fileBuffer
+        ? (
+          type === FILE_TYPES.IMAGE.VALUE
             ? (
               <img
                 alt='image'
                 src={fileBuffer || IMAGE_PLACEHOLDER_IMAGE_PATH}
                 className={classes.image}
               />
-            ) : fileBuffer && (
+            ) : (
               <video muted autoPlay loop controls className={classes.image}>
                 <source src={fileBuffer} />
               </video>
             )
-          }
-        </div>
-        {!!item?.name &&
-          <Typography
-            variant='body1'
-            color='textPrimary'
-            className={classes.name}
-          >
-            {item?.name}
-          </Typography>
-        }
-      </CardContent>
-    </Card>
+        ) : (
+          <div className={classes.defaultImage}>
+            <DefaultImageIcon />
+          </div>
+        )
+      }
+    </div>
   );
 }
 

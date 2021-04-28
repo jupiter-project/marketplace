@@ -1,24 +1,43 @@
 
-import { memo, useCallback } from 'react'
+import { memo } from 'react'
 import { useDropzone } from 'react-dropzone'
+import { makeStyles } from '@material-ui/core/styles'
+import { Typography } from '@material-ui/core'
 
-import UploadArea from './UploadArea'
-import UploadFileItem from './UploadFileItem'
-import { isEmpty } from 'utils/helpers/utility'
+import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import { MAX_UPLOAD_SIZE } from 'utils/constants/common'
 import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    height: '100%',
+    padding: theme.spacing(1),
+    borderRadius: 2,
+    border: `1px solid ${theme.palette.text.primary}`,
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    height: '100%',
+    padding: theme.spacing(3),
+    backgroundColor: theme.custom.palette.grey
+  },
+  button: {
+    fontSize: 15,
+    borderRadius: 2,
+    padding: theme.spacing(0.25, 1.5, 0),
+  },
+}));
+
 const UploadMedia = ({
   type,
-  fileBuffer,
   setFileBuffer
 }) => {
+  const classes = useStyles();
   const { setPopUp } = usePopUp();
-
-  const deleteFileHandler = useCallback(() => {
-    setFileBuffer(null)
-  }, [setFileBuffer]);
 
   const onDrop = async (acceptedFiles) => {
     if (!Array.isArray(acceptedFiles) || acceptedFiles.length <= 0) {
@@ -34,28 +53,28 @@ const UploadMedia = ({
     reader.readAsDataURL(file);
   };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     accept: type.ACCEPT,
     maxSize: MAX_UPLOAD_SIZE
   })
 
   return (
-    isEmpty(fileBuffer)
-      ? (
-        <UploadArea
-          placeholder={type.PLACEHOLDER}
-          isDragActive={isDragActive}
-          getRootProps={getRootProps}
-          getInputProps={getInputProps}
-        />
-      ) : (
-        <UploadFileItem
-          type={type.VALUE}
-          fileBuffer={fileBuffer}
-          onDelete={deleteFileHandler}
-        />
-      )
+    <div className={classes.root}>
+      <div {...getRootProps()} className={classes.container} >
+        <input {...getInputProps()} />
+        <Typography
+          variant='h6'
+          color='textSecondary'
+          align='center'
+        >
+          {type.PLACEHOLDER}
+        </Typography>
+        <ContainedButton className={classes.button}>
+          Choose file
+        </ContainedButton>
+      </div>
+    </div>
   );
 }
 

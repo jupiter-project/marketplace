@@ -3,6 +3,7 @@ import { memo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 
+import ImageWall from 'parts/ImageWall'
 import CreateForm from './CreateForm'
 
 const useStyles = makeStyles((theme) => ({
@@ -11,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    padding: theme.spacing(5, 3, 10),
     backgroundColor: theme.palette.background.default
   },
   container: {
@@ -19,10 +19,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    maxWidth: 650
+    maxWidth: 610,
+    padding: theme.spacing(0, 2, 10),
   },
   header: {
-    fontWeight: 'bold',
+    fontSize: 18,
     marginBottom: theme.spacing(3)
   },
 }));
@@ -32,15 +33,19 @@ const CreateNFT = () => {
 
   return (
     <main className={classes.root}>
+      <ImageWall header='CREATE NFT' />
       <div className={classes.container}>
         <Typography
-          variant='h3'
+          align='center'
           color='textPrimary'
           className={classes.header}
         >
-          Create NFT
+          Please select your file type, upload your file and add a title for your NFT.
+          <br />
+          If you{"'"}d like to attach additional info you can enter this in the
+          description box (sub-title, your name, inspiration, whether it is part of a
+          series or a limited edition number, etc).
         </Typography>
-
         <CreateForm />
       </div>
     </main>

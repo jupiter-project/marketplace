@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     width: '100%',
     maxWidth: theme.custom.layout.maxMarketPlaceWidth,
-    margin: theme.spacing(4, 0)
+    padding: theme.spacing(4, 3)
   },
   title: {
     fontSize: 28,
