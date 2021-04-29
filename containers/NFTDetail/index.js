@@ -60,13 +60,14 @@ const NFTDetail = () => {
 
   useEffect(() => {
     const getAskOrder = async () => {
-      const response = await jupiterAPI.getAskOrder(router.query.goods);
-      if (response?.errorCode) {
+      const response = await jupiterAPI.getAskOrders(router.query.goods);
+      if (response?.errorCode || isEmpty(response?.askOrders)) {
         setPopUp({ text: MESSAGES.GET_NFT_ERROR })
         return;
       }
 
-      setGood(response)
+      const { askOrders } = response;
+      setGood(askOrders[0])
     }
 
     if (router.query.goods) {

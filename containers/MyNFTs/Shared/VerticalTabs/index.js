@@ -1,10 +1,6 @@
 import { memo, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import {
-  Tab,
-  Tabs,
-  Hidden,
-} from '@material-ui/core'
+import { Tab, Tabs } from '@material-ui/core'
 
 function a11yProps(index) {
   return {
@@ -15,28 +11,33 @@ function a11yProps(index) {
 
 const useStyles = makeStyles((theme) => ({
   tabs: {
-    maxWidth: 200,
+    maxWidth: 180,
     width: '100%',
     borderRight: `2px solid ${theme.palette.divider}`,
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: 40
-    }
+    [theme.breakpoints.down('xs')]: {
+      maxWidth: 80,
+    },
   },
   tab: {
     fontSize: 18,
-    margin: theme.spacing(1, 0),
+    fontWeight: 'bold',
+    textDecoration: 'underline',
+    textAlign: 'right',
     color: theme.palette.text.primary,
-    [theme.breakpoints.down('sm')]: {
-      minWidth: 40,
-      minHeight: 40
-    }
+    padding: theme.spacing(0.5, 1, 0.5, 0),
+    minHeight: 'unset',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: 14,
+    },
   },
   selected: {
-    fontWeight: 'bold',
     color: theme.palette.primary.main,
   },
+  wrapper: {
+    alignItems: 'flex-end'
+  },
   indicator: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: 'unset',
   }
 }));
 
@@ -67,11 +68,11 @@ const VerticalTabs = ({
         tabs.map((item, index) => (
           <Tab
             key={index}
-            label={<Hidden smDown> {item.label} </Hidden>}
-            icon={<item.icon />}
+            label={item}
             className={classes.tab}
             classes={{
-              selected: classes.selected
+              selected: classes.selected,
+              wrapper: classes.wrapper
             }}
             {...a11yProps(index)}
           />

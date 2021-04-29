@@ -3,9 +3,10 @@ import { memo, useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
+import { IconButton } from '@material-ui/core'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 import * as jupiterAPI from 'services/api-jupiter'
-import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import NoData from 'parts/NoData'
 import DeleteNFTDialog from 'parts/DeleteNFTDialog'
 import TabPanel from '../Shared/TabPanel'
@@ -21,6 +22,9 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  moreIcon: {
+    fontSize: 50
+  }
 }));
 
 const PAGE_COUNT = 5;
@@ -75,7 +79,7 @@ const MyAskOrders = ({
   const detailNFTHandler = useCallback((item) => {
     router.push(
       LINKS.NFT_DETAIL.HREF,
-      LINKS.NFT_DETAIL.HREF.replace('[goods]', item.order)
+      LINKS.NFT_DETAIL.HREF.replace('[goods]', item.asset)
     )
   }, [router])
 
@@ -96,12 +100,9 @@ const MyAskOrders = ({
             ))}
             {
               !isLast &&
-              <ContainedButton
-                onClick={getAccountCurrentAskOrders}
-                className={classes.loadButton}
-              >
-                Load More
-              </ContainedButton>
+              <IconButton color='primary' onClick={getAccountCurrentAskOrders} >
+                <ExpandMoreIcon className={classes.moreIcon} />
+              </IconButton>
             }
           </div>
         )

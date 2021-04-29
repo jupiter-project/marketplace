@@ -1,10 +1,6 @@
 
 import { memo, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
-import CollectionsIcon from '@material-ui/icons/Collections'
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
-import StyleIcon from '@material-ui/icons/Style'
 import clsx from 'clsx'
 
 import ImageWall from 'parts/ImageWall'
@@ -22,46 +18,30 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
     display: 'flex',
     height: '100%',
     width: '100%',
-    maxWidth: theme.custom.layout.maxDesktopWidth,
-    margin: theme.spacing(7, 0, 13),
-    [theme.breakpoints.down('xs')]: {
-      margin: theme.spacing(2.5, 0)
-    }
+    maxWidth: 720,
+    padding: theme.spacing(0, 2),
+    marginBottom: theme.spacing(10)
   },
 }));
 
 const TABS = [
-  {
-    icon: CollectionsIcon,
-    label: 'MY NFTS',
-  },
-  {
-    icon: ShoppingCartIcon,
-    label: 'SELL ORDERS',
-  },
-  {
-    icon: StyleIcon,
-    label: 'BUY ORDERS',
-  },
+  'MY NFTS',
+  'MY SELL ORDERS',
+  'MY BUY ORDERS',
 ]
 
 const MyNFTs = () => {
   const classes = useStyles();
   const commonClasses = useCommonStyles();
 
-  const { accountRS } = useSelector(state => state.auth);
   const [selectedTab, setSelectedTab] = useState(0);
 
   return (
     <main className={classes.root}>
-      <ImageWall
-        header='My NFTs'
-        description={accountRS}
-      />
+      <ImageWall header='My NFTs' />
       <div className={clsx(commonClasses.containerWidth, classes.container)}>
         <VerticalTabs
           tabs={TABS}

@@ -10,42 +10,51 @@ import getJSONParse from 'utils/helpers/getJSONParse'
 const useStyles = makeStyles((theme) => ({
   itemContainer: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     width: '100%',
     marginBottom: theme.spacing(3),
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       flexDirection: 'column'
-    }
+    },
   },
-  content: {
+  imageContainer: {
     display: 'flex',
-    alignItems: 'center',
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-    }
-  },
-  info: {
-    marginLeft: theme.spacing(2)
-  },
-  name: {
-    fontWeight: 'bold',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    padding: theme.spacing(1),
+    borderRadius: 2,
+    border: `1px solid ${theme.custom.palette.border}`,
+    backgroundColor: theme.palette.background.default,
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      marginBottom: theme.spacing(1),
+    },
   },
   image: {
     width: 90,
     height: 90,
     objectFit: 'cover',
-    borderRadius: 8,
-    border: `1px solid ${theme.custom.palette.border}`,
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: theme.spacing(1)
   },
   sell: {
     fontSize: 15,
-    padding: theme.spacing(1, 1, 0.5),
+    borderRadius: 2,
+    padding: theme.spacing(0.25, 1.5, 0),
   }
 }));
 
 const AssetItem = ({
   item,
+  onDetail,
   onSell
 }) => {
   const classes = useStyles();
@@ -54,33 +63,29 @@ const AssetItem = ({
 
   return (
     <div className={classes.itemContainer}>
-      <div className={classes.content}>
+      <div className={classes.imageContainer} onClick={() => onDetail(item)}>
         <ProductContent
           info={info}
           className={classes.image}
         />
-        <div className={classes.info}>
-          <Typography
-            variant='h6'
-            color='textPrimary'
-            className={classes.name}
-          >
-            {item.description}
-          </Typography>
-          <Typography color='textSecondary'>
-            {info?.description || ''}
-          </Typography>
-        </div>
       </div>
-      {
-        item.unconfirmedQuantityQNT > 0 &&
-        <ContainedButton
-          className={classes.sell}
-          onClick={() => onSell(item)}
+      <div className={classes.content}>
+        <Typography
+          color='textPrimary'
+          className={classes.name}
         >
-          Sell
-        </ContainedButton>
-      }
+          {item.description}
+        </Typography>
+        {
+          item.unconfirmedQuantityQNT > 0 &&
+          <ContainedButton
+            className={classes.sell}
+            onClick={() => onSell(item)}
+          >
+            Sell
+          </ContainedButton>
+        }
+      </div>
     </div>
   )
 }
