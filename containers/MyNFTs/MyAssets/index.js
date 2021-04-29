@@ -1,10 +1,12 @@
 
 import { memo, useState, useEffect, useCallback } from 'react'
+import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
+import { IconButton } from '@material-ui/core'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 import * as jupiterAPI from 'services/api-jupiter'
-import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import NoData from 'parts/NoData'
 import SellAssetDialog from 'parts/SellAssetDialog'
 import TabPanel from '../Shared/TabPanel'
@@ -12,6 +14,7 @@ import AssetItem from './AssetItem'
 import { isEmpty } from 'utils/helpers/utility'
 import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
+import LINKS from 'utils/constants/links'
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -19,6 +22,9 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  moreIcon: {
+    fontSize: 50
+  }
 }));
 
 const PAGE_COUNT = 5;
@@ -28,6 +34,7 @@ const MyAssets = ({
 }) => {
   const classes = useStyles();
   const { setPopUp } = usePopUp();
+  const router = useRouter();
 
   const { currentUser } = useSelector(state => state.auth);
   const [assets, setAssets] = useState([])
@@ -69,6 +76,13 @@ const MyAssets = ({
     setOpenModal(true)
   }, [setOpenModal, setSelectedItem])
 
+  const detailNFTHandler = useCallback((item) => {
+    router.push(
+      LINKS.NFT_DETAIL.HREF,
+      LINKS.NFT_DETAIL.HREF.replace('[goods]', item.asset)
+    )
+  }, [router])
+
   return (
     <TabPanel value={value} index={index}>
       {isEmpty(assets)
@@ -81,16 +95,14 @@ const MyAssets = ({
                 key={index}
                 item={item}
                 onSell={sellHandler}
+                onDetail={detailNFTHandler}
               />
             ))}
             {
               !isLast &&
-              <ContainedButton
-                onClick={getAccountAssets}
-                className={classes.loadButton}
-              >
-                Load More
-              </ContainedButton>
+              <IconButton color='primary' onClick={getAccountAssets} >
+                <ExpandMoreIcon className={classes.moreIcon} />
+              </IconButton>
             }
           </div>
         )

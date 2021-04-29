@@ -11,39 +11,61 @@ import { NQT_WEIGHT } from 'utils/constants/common'
 const useStyles = makeStyles((theme) => ({
   itemContainer: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     width: '100%',
     marginBottom: theme.spacing(3),
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       flexDirection: 'column'
-    }
+    },
   },
-  content: {
+  imageContainer: {
     display: 'flex',
-    alignItems: 'center',
+    justifyContent: 'center',
     cursor: 'pointer',
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-    }
-  },
-  info: {
-    marginLeft: theme.spacing(2)
-  },
-  name: {
-    fontWeight: 'bold',
+    padding: theme.spacing(1),
+    borderRadius: 2,
+    border: `1px solid ${theme.custom.palette.border}`,
+    backgroundColor: theme.palette.background.default,
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      marginBottom: theme.spacing(1),
+    },
   },
   image: {
     width: 90,
     height: 90,
     objectFit: 'cover',
-    borderRadius: 8,
-    border: `1px solid ${theme.custom.palette.border}`,
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  name: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: theme.spacing(1)
   },
   delete: {
     fontSize: 15,
+    borderRadius: 2,
+    padding: theme.spacing(0.25, 1.5, 0),
     backgroundColor: theme.custom.palette.red,
-    padding: theme.spacing(1, 1, 0.5),
+  },
+  rowContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: theme.spacing(1)
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    width: 60
+  },
+  value: {
+    fontWeight: 'bold',
+    fontSize: 14,
   }
 }));
 
@@ -58,28 +80,35 @@ const OrderItem = ({
 
   return (
     <div className={classes.itemContainer}>
-      <div className={classes.content} onClick={() => onDetail(item)}>
+      <div className={classes.imageContainer} onClick={() => onDetail(item)}>
         <ProductContent
           info={info}
           className={classes.image}
         />
-        <div className={classes.info}>
+      </div>
+      <div className={classes.content}>
+        <div>
           <Typography
-            variant='h6'
             color='textPrimary'
             className={classes.name}
           >
             {item.description}
           </Typography>
-          <Typography color='textSecondary'>
-            {info?.description || ''}
-          </Typography>
-          <Typography color='primary'>
-            {item?.priceNQT / NQT_WEIGHT || 0} JUP
-          </Typography>
+          <div className={classes.rowContainer}>
+            <Typography
+              color='textSecondary'
+              className={classes.label}
+            >
+              PRICE
+            </Typography>
+            <Typography
+              color='primary'
+              className={classes.value}
+            >
+              {item?.priceNQT / NQT_WEIGHT || 0} JUP
+            </Typography>
+          </div>
         </div>
-      </div>
-      <div>
         <ContainedButton
           className={classes.delete}
           onClick={() => onDelete(item)}

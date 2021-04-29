@@ -89,7 +89,7 @@ const NFTCard = ({
   const detailNFTHandler = useCallback(() => {
     router.push(
       LINKS.NFT_DETAIL.HREF,
-      LINKS.NFT_DETAIL.HREF.replace('[goods]', item.order)
+      LINKS.NFT_DETAIL.HREF.replace('[goods]', item.asset)
     )
   }, [item, router])
 

@@ -11,6 +11,7 @@ import InformationContent from './InformationContent'
 import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 import LINKS from 'utils/constants/links'
+import { isEmpty } from 'utils/helpers/utility'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 const NFTInformation = ({
   isMine,
   good,
+  order,
   account,
   assetInfo
 }) => {
@@ -57,22 +59,23 @@ const NFTInformation = ({
         account={account}
         assetInfo={assetInfo}
       />
-      {isMine
-        ? (
-          <ContainedButton
-            className={clsx(classes.button, classes.delete)}
-            onClick={() => setOpenDeleteModal(true)}
-          >
-            Delete
-          </ContainedButton>
-        ) : (
-          <ContainedButton
-            className={classes.button}
-            onClick={purchaseHandler}
-          >
-            Buy Now
-          </ContainedButton>
-        )
+      {!isEmpty(order) &&
+        (isMine
+          ? (
+            <ContainedButton
+              className={clsx(classes.button, classes.delete)}
+              onClick={() => setOpenDeleteModal(true)}
+            >
+              Delete
+            </ContainedButton>
+          ) : (
+            <ContainedButton
+              className={classes.button}
+              onClick={purchaseHandler}
+            >
+              Buy Now
+            </ContainedButton>
+          ))
       }
 
       {openPurchaseModal &&

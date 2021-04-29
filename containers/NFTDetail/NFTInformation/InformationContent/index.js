@@ -70,7 +70,10 @@ const InformationContent = ({
         color='textSecondary'
         className={classes.price}
       >
-        {`Price: ${good.priceNQT / NQT_WEIGHT} JUP`}
+        {!good.priceNQT
+          ? 'No Price'
+          : `Price: ${good.priceNQT / NQT_WEIGHT} JUP`
+        }
       </Typography>
     </>
   )

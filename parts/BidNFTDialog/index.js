@@ -108,7 +108,10 @@ const BidNFTDialog = ({
           {item.description}
         </Typography>
         <Typography variant='h6' color='textPrimary'>
-          {`Price: ${item.priceNQT / NQT_WEIGHT} JUP`}
+          {item.priceNQT
+            ? `Price: ${item.priceNQT / NQT_WEIGHT} JUP`
+            : 'No Price'
+          }
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12}>
