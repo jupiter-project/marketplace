@@ -10,7 +10,7 @@ const FILE_TYPES = Object.freeze({
     LABEL: 'Video',
     VALUE: 'VIDEO',
     ACCEPT: 'video/*',
-    PLACEHOLDER: 'MP4, AVI. Max 20MB.'
+    PLACEHOLDER: 'MP4, AVI, MPEG. Max 20MB.'
   },
 })
 
