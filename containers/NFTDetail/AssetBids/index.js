@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
     overflowX: 'inherit',
   },
   title: {
+    fontWeight: 'bold',
     textTransform: 'uppercase',
-    marginBottom: theme.spacing(2)
   },
   cell: {
     border: 'unset',

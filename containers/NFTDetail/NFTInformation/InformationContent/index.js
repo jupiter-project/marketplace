@@ -8,26 +8,31 @@ const useStyles = makeStyles((theme) => ({
   name: {
     fontSize: 30,
     fontWeight: 'bold',
-  },
-  accountName: {
-    fontSize: 24,
-    marginBottom: theme.spacing(3)
+    marginBottom: theme.spacing(1)
   },
   description: {
     fontSize: 16,
     marginBottom: theme.spacing(3)
   },
+  container: {
+    marginBottom: theme.spacing(3)
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  accountName: {
+    fontSize: 14,
+  },
+  accountDescription: {
+    fontSize: 14,
+  },
   accountRS: {
     fontSize: 14,
     fontWeight: 'bold',
-    width: 'fit-content',
-    padding: theme.spacing(0.5, 2),
-    borderRadius: theme.spacing(0.5),
-    border: `2px dotted ${theme.palette.primary.main}`,
-    marginBottom: theme.spacing(3)
   },
   price: {
-    marginBottom: theme.spacing(1),
+    fontSize: 14,
   },
 }));
 
@@ -48,33 +53,59 @@ const InformationContent = ({
         {good.description}
       </Typography>
       <Typography
-        color='textSecondary'
-        className={classes.accountName}
-      >
-        {account.name || 'No Name'}
-      </Typography>
-      <Typography
         variant='h6'
         color='textSecondary'
         className={classes.description}
       >
         {assetInfo.description}
       </Typography>
-      <Typography
-        color='primary'
-        className={classes.accountRS}
-      >
-        {good.accountRS}
-      </Typography>
-      <Typography
-        color='textSecondary'
-        className={classes.price}
-      >
-        {!good.priceNQT
-          ? 'No Price'
-          : `Price: ${good.priceNQT / NQT_WEIGHT} JUP`
+
+      <div className={classes.container}>
+        <Typography
+          color='textPrimary'
+          className={classes.label}
+        >
+          SELLER INFO
+        </Typography>
+        <Typography
+          color='primary'
+          className={classes.accountRS}
+        >
+          {good.accountRS}
+        </Typography>
+        <Typography
+          color='textSecondary'
+          className={classes.accountName}
+        >
+          {account.name || 'No Name'}
+        </Typography>
+        {account?.description &&
+          <Typography
+            color='textSecondary'
+            className={classes.accountDescription}
+          >
+            {account.description}
+          </Typography>
         }
-      </Typography>
+      </div>
+
+      <div className={classes.container}>
+        <Typography
+          color='textPrimary'
+          className={classes.label}
+        >
+          PRICE
+        </Typography>
+        <Typography
+          color='textSecondary'
+          className={classes.price}
+        >
+          {!good.priceNQT
+            ? 'No Price'
+            : `${good.priceNQT / NQT_WEIGHT} JUP`
+          }
+        </Typography>
+      </div>
     </>
   )
 }

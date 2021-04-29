@@ -84,7 +84,7 @@ const SearchInput = ({
             onClick={closeHandler}
           />
         }
-        placeholder='Search'
+        placeholder='Search in titles'
         value={query}
         onChange={event => setQuery(event.target.value)}
       />
