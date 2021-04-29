@@ -30,7 +30,7 @@ const logoutUser = () => dispatch => {
   localStorage.clear();
   dispatch(setAccountRS(''));
   dispatch(setCurrentUser({}));
-  Router.push(LINKS.SIGN_IN.HREF);
+  Router.push(LINKS.HOME.HREF);
 };
 
 export {

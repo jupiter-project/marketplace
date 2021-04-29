@@ -83,7 +83,7 @@ const SignIn = () => {
         <Controller
           as={<AccountTextField />}
           name='account'
-          label='Account'
+          label='JUP Address'
           mask={TEXT_MASKS.ACCOUNT}
           error={errors.account?.message}
           className={authClasses.input}
