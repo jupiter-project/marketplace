@@ -1,11 +1,10 @@
 
-import { memo, useState, useEffect, useCallback } from 'react'
+import { memo, useState, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import { Typography } from '@material-ui/core'
 
 import * as jupiterAPI from 'services/api-jupiter'
 import NFTList from 'parts/NFTList'
-import { isEmpty } from 'utils/helpers/utility'
-import { Typography } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -28,13 +27,6 @@ const SellerNFTs = ({
   const [goods, setGoods] = useState([]);
   const [first, setFirst] = useState(0);
   const [isLast, setIsLast] = useState(false);
-
-  useEffect(() => {
-    if (!isEmpty(account)) {
-      getAccountCurrentAskOrders();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [account]);
 
   const getAccountCurrentAskOrders = useCallback(async () => {
     try {
