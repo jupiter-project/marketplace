@@ -25,6 +25,10 @@ const getAccount = async (account) => {
   return await apiAxios.get(`/nxt?requestType=getAccount&account=${account}`)
 }
 
+const getTransaction = async (transaction) => {
+  return await apiAxios.get(`/nxt?requestType=getTransaction&transaction=${transaction}`)
+}
+
 const setAccountInfo = async (params) => {
   const url = `/nxt?requestType=setAccountInfo&name=${params.name}&description=${params.description}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
   return await apiAxios.post(url)
@@ -115,6 +119,7 @@ export {
   getAccountByAccountID,
   setAccountInfo,
   getAccount,
+  getTransaction,
   issueAsset,
   searchAssets,
   searchAccountAssets,

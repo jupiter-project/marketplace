@@ -55,23 +55,41 @@ const NFTDetail = () => {
 
   const { accountRS } = useSelector(state => state.auth);
   const [good, setGood] = useState({})
+  const [order, setOrder] = useState({})
   const [account, setAccount] = useState({})
   const assetInfo = useMemo(() => getJSONParse(good.message), [good]);
 
   useEffect(() => {
-    const getAskOrder = async () => {
-      const response = await jupiterAPI.getAskOrders(router.query.goods);
-      if (response?.errorCode || isEmpty(response?.askOrders)) {
+    const getAssetInfo = async () => {
+      let response = await jupiterAPI.getTransaction(router.query.goods);
+      if (response?.errorCode) {
         setPopUp({ text: MESSAGES.GET_NFT_ERROR })
         return;
       }
+      const { senderRS, attachment = {} } = response;
+      let info = {
+        ...attachment,
+        asset: router.query.goods,
+        accountRS: senderRS,
+        priceNQT: 0
+      }
 
-      const { askOrders } = response;
-      setGood(askOrders[0])
+      const { askOrders = [] } = await jupiterAPI.getAskOrders(router.query.goods);
+      if (!isEmpty(askOrders)) {
+        setOrder(askOrders[0])
+        const { priceNQT, order, type } = askOrders[0];
+        info = {
+          ...info,
+          order,
+          type,
+          priceNQT
+        }
+      }
+      setGood(info)
     }
 
     if (router.query.goods) {
-      getAskOrder();
+      getAssetInfo();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query])
@@ -79,7 +97,6 @@ const NFTDetail = () => {
   useEffect(() => {
     const getAccount = async () => {
       const response = await jupiterAPI.getAccount(good.accountRS);
-
       setAccount(response)
     }
 
@@ -95,31 +112,34 @@ const NFTDetail = () => {
         ? (
           <NoData />
         ) : (
-          <Grid container spacing={5} className={classes.container}>
-            <Grid item xs={12} sm={6} md={5}>
-              <div className={classes.imageContainer}>
-                <ProductContent
-                  info={assetInfo}
-                  className={classes.image}
+          <>
+            <Grid container spacing={5} className={classes.container}>
+              <Grid item xs={12} sm={6} md={5}>
+                <div className={classes.imageContainer}>
+                  <ProductContent
+                    info={assetInfo}
+                    className={classes.image}
+                  />
+                </div>
+              </Grid>
+              <Grid item xs={12} sm={6} md={7}>
+                <NFTInformation
+                  isMine={accountRS === good.accountRS}
+                  good={good}
+                  order={order}
+                  account={account}
+                  assetInfo={assetInfo}
                 />
-              </div>
+                <AssetBids
+                  isMine={accountRS === good.accountRS}
+                  good={good}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6} md={7}>
-              <NFTInformation
-                isMine={accountRS === good.accountRS}
-                good={good}
-                account={account}
-                assetInfo={assetInfo}
-              />
-              <AssetBids
-                isMine={accountRS === good.accountRS}
-                good={good}
-              />
-            </Grid>
-          </Grid>
+            <SellerNFTs account={good.accountRS} />
+          </>
         )
       }
-      <SellerNFTs account={good.accountRS} />
     </main>
   )
 }
