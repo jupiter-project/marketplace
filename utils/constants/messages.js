@@ -4,7 +4,7 @@ const MESSAGES = Object.freeze({
   SIGN_UP_SUCCESS: 'Welcome to Leda. You have registered successfully. To be able to buy or create NFTs you will have to fund your JUP address.',
   AUTH_ERROR: 'Incorrect JUP address, please try again. ',
   AUTH_REQUIRED: 'Please log in first.',
-  TERMS_PRIVACY_CHECK: 'Please check Terms of Service and Privacy Policy',
+  TERMS_PRIVACY_CHECK: 'Please check the Terms of Service and Privacy Policy box.',
   MAX_UPLOAD_ERROR: 'Please upload a < 20MB file.',
   SET_ACCOUNT_ERROR: 'There was a problem updating your account info. Either your JUP balance is insufficient or you’ve entered an incorrect passphrase.',
   SET_ACCOUNT_SUCCESS: 'Your account info has been updated.',
