@@ -1,7 +1,7 @@
 
-const TITLE = 'Leda - Jupiter NFT Market'
-const SITE_URL = 'https://jupiter-frontend.vercel.app'
-const DESCRIPTION = 'Join and Check New NFT of Leda'
+const TITLE = 'Leda - Jupiter based NFT marketplace'
+const SITE_URL = 'https://leda.jup.io'
+const DESCRIPTION = 'Buy, sell and collect blockchain-secured digital items'
 
 const PLACE_FILLER_URL = 'https://gojupiter.tech/placefiller'
 const UNISWAP_URL = 'https://app.uniswap.org/#/swap'

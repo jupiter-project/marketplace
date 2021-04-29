@@ -16,6 +16,7 @@ import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import UploadMedia from '../UploadMedia'
 import PreviewCard from '../PreviewCard'
 import {
+  TITLE_VALID,
   STRING_VALID,
   NFT_DESCRIPTION_VALID,
   PASSPHRASE_VALID
@@ -26,7 +27,7 @@ import MESSAGES from 'utils/constants/messages'
 import { FILE_TYPES, FILE_TYPES_ARRAY } from 'utils/constants/file-types'
 
 const schema = yup.object().shape({
-  title: STRING_VALID,
+  title: TITLE_VALID,
   description: NFT_DESCRIPTION_VALID,
   type: STRING_VALID,
   passphrase: PASSPHRASE_VALID
@@ -70,7 +71,7 @@ const CreateForm = () => {
   const { changeLoadingStatus } = useLoading();
 
   const { currentUser } = useSelector(state => state.auth);
-  const [fileBuffer, setFileBuffer] = useState(null);
+  const [fileBuffer, setFileBuffer] = useState('');
 
   const { control, handleSubmit, errors, watch, reset } = useForm({
     resolver: yupResolver(schema)
