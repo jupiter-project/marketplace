@@ -100,7 +100,7 @@ const cancelBidOrder = async (params) => {
 }
 
 const getAskOrders = async (asset) => {
-  const url = `/nxt?requestType=getAskOrders&asset=${asset}&includeNTFInfo=true`
+  const url = `/nxt?requestType=getAskOrders&asset=${asset}`
   return await apiAxios.get(url)
 }
 

@@ -2,7 +2,7 @@ import { memo, useEffect, useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
-import { Grid } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 
 import * as jupiterAPI from 'services/api-jupiter'
 import NoData from 'parts/NoData'
@@ -123,6 +123,9 @@ const NFTDetail = () => {
                     />
                   </div>
                 </a>
+                <Typography color='textSecondary'>
+                  Click on the image to open the original file
+                </Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={7}>
                 <NFTInformation
