@@ -75,7 +75,7 @@ const BidNFTDialog = ({
 
       const response = await jupiterAPI.placeBidOrder(params)
       if (response?.errorCode) {
-        setPopUp({ text: response?.errorDescription || MESSAGES.BID_NFT_ERROR })
+        setPopUp({ text: MESSAGES.BID_NFT_ERROR })
         changeLoadingStatus(false)
         return;
       }

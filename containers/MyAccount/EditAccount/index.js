@@ -106,6 +106,19 @@ const EditAccount = () => {
       >
         ACCOUNT INFO
       </Typography>
+      {
+        !currentUser?.balanceNQT &&
+        <Typography
+          variant='body1'
+          color='primary'
+          align='center'
+          gutterBottom
+        >
+          Your account is not active.
+          <br />
+          Please have at least one transaction on Jupiter.
+        </Typography>
+      }
       <Controller
         as={<MagicTextField />}
         name='name'

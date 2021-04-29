@@ -79,7 +79,7 @@ const PurchaseNFTDialog = ({
 
       const response = await jupiterAPI.placeBidOrder(params)
       if (response?.errorCode) {
-        setPopUp({ text: response?.errorDescription || MESSAGES.PURCHASE_NFT_ERROR })
+        setPopUp({ text: MESSAGES.PURCHASE_NFT_ERROR })
         changeLoadingStatus(false)
         return;
       }

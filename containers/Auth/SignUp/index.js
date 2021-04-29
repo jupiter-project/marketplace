@@ -65,7 +65,7 @@ const SignUp = () => {
     passphrase: yup
       .string()
       .required('Please input field.')
-      .oneOf([newPassphrase], 'Passphrase is not match.'),
+      .oneOf([newPassphrase], 'Passphrase doesn’t match.'),
   });
 
   const { control, handleSubmit, errors } = useForm({
@@ -124,7 +124,6 @@ const SignUp = () => {
         />
         <Controller
           as={<MagicTextField />}
-          multiline
           type='password'
           name='passphrase'
           label='Confirm Passphrase'
@@ -164,7 +163,7 @@ const SignUp = () => {
           color='textSecondary'
           className={classes.footer}
         >
-          Already have an Account?
+          Already have an account?
           <LinkButton href={LINKS.SIGN_IN.HREF} className={classes.signIn}>
             Log In
           </LinkButton>
