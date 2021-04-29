@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx';
 
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
+import OutlinedButton from 'components/UI/Buttons/OutlinedButton'
 import useMenu from 'utils/hooks/useMenu'
 import LINKS from 'utils/constants/links'
 
@@ -19,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center'
   },
   item: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
     color: theme.palette.text.primary
   },
   login: {
-    fontSize: 16,
+    fontSize: 15,
     borderRadius: 2,
-    padding: theme.spacing(0.5, 1.5, 0),
+    padding: theme.spacing(0.25, 0.5, 0),
     margin: theme.spacing(0, 1)
   },
   selected: {
@@ -48,6 +49,18 @@ const NavBarMenu = () => {
       <div className={classes.root}>
         {
           PROFILE_MENU_LINKS.map((item, index) => {
+            if (item.HREF === LINKS.SIGN_UP.HREF) {
+              return (
+                <OutlinedButton
+                  key={index}
+                  onClick={onNavHandler(item)}
+                  className={classes.login}
+                >
+                  {item.TITLE}
+                </OutlinedButton>
+              )
+            }
+
             if (item.HREF === LINKS.SIGN_IN.HREF || item.HREF === LINKS.SIGN_OUT.HREF) {
               return (
                 <ContainedButton
