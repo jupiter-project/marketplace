@@ -10,16 +10,16 @@ const MESSAGES = Object.freeze({
   SET_ACCOUNT_SUCCESS: 'Your account info has been updated.',
   IMAGE_NOT_FOUND: 'Please upload your file first.',
   CREATE_NFT_SUCCESS: 'Your NFT has been created.',
-  CREATE_NFT_ERROR: 'There is a problem creating your NFT. Please contact support.',
+  CREATE_NFT_ERROR: 'There was a problem creating your NFT. Either your JUP balance is insufficient or you’ve entered an incorrect passphrase.',
   GET_NFT_ERROR: 'This NFT does not exist, please check your url.',
   PURCHASE_NFT_SUCCESS: 'You’ve successfully bought this NFT.',
   PURCHASE_NFT_ERROR: 'You don\'t have enough JUP to buy this NFT, please fund your account.',
-  BID_NFT_SUCCESS: 'You’ve successfully bid this NFT.',
+  BID_NFT_SUCCESS: 'You’ve successfully placed a bid for this NFT.',
   BID_NFT_ERROR: 'You don\'t have enough JUP to bid this NFT, please fund your account.',
   DELETE_NFT_SUCCESS: 'Your order has been canceled.',
-  DELETE_NFT_ERROR: 'There was a problem canceling your order. Please try again.',
+  DELETE_NFT_ERROR: 'Incorrect passphrase.',
   PLACE_ASK_ORDER_SUCCESS: 'Your NFT is now for sale on the marketplace.',
-  PLACE_ASK_ORDER_ERROR: 'Invalid order placement, incorrect quantity.',
+  PLACE_ASK_ORDER_ERROR: 'Incorrect passphrase.',
 });
 
 export default MESSAGES;

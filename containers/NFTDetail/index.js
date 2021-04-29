@@ -115,12 +115,14 @@ const NFTDetail = () => {
           <>
             <Grid container spacing={5} className={classes.container}>
               <Grid item xs={12} sm={6} md={5}>
-                <div className={classes.imageContainer}>
-                  <ProductContent
-                    info={assetInfo}
-                    className={classes.image}
-                  />
-                </div>
+                <a href={assetInfo.image} target='_blank' rel='noreferrer'>
+                  <div className={classes.imageContainer}>
+                    <ProductContent
+                      info={assetInfo}
+                      className={classes.image}
+                    />
+                  </div>
+                </a>
               </Grid>
               <Grid item xs={12} sm={6} md={7}>
                 <NFTInformation
