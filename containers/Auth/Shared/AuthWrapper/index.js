@@ -1,12 +1,10 @@
 
 import { memo } from 'react'
-import { useSelector } from 'react-redux'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 
 import Logo from 'components/Logo'
-import MagicLoading from 'components/MagicLoading'
 import { AUTH_BACKGROUND_IMAGE_PATH } from 'utils/constants/image-paths'
 
 const useStyles = makeStyles((theme) => ({
@@ -61,14 +59,9 @@ const AuthWrapper = ({
   children
 }) => {
   const classes = useStyles()
-  const { loadingStatus } = useSelector(state => state.loading)
 
   return (
     <div className={classes.root}>
-      {
-        loadingStatus &&
-        <MagicLoading loading={loadingStatus} />
-      }
       <Paper className={classes.container}>
         <Logo className={classes.logo} />
         <Typography
