@@ -89,12 +89,14 @@ const TransactionItem = ({
         </Typography>
 
         <div className={clsx(classes.rowContainer, classes.price)}>
-          <Typography
-            color='textSecondary'
-            className={classes.label}
-          >
-            Price
-          </Typography>
+          <div>
+            <Typography
+              color='textSecondary'
+              className={classes.label}
+            >
+              Price
+            </Typography>
+          </div>
           <Typography
             color='textSecondary'
             className={classes.value}
@@ -105,12 +107,14 @@ const TransactionItem = ({
 
         <div>
           <div className={classes.rowContainer}>
-            <Typography
-              color='textSecondary'
-              className={classes.label}
-            >
-              Seller
-            </Typography>
+            <div>
+              <Typography
+                color='textSecondary'
+                className={classes.label}
+              >
+                Seller
+              </Typography>
+            </div>
             <Typography
               color='primary'
               className={classes.value}
@@ -120,12 +124,14 @@ const TransactionItem = ({
           </div>
 
           <div className={classes.rowContainer}>
-            <Typography
-              color='textSecondary'
-              className={classes.label}
-            >
-              Buyer
+            <div>
+              <Typography
+                color='textSecondary'
+                className={classes.label}
+              >
+                Buyer
             </Typography>
+            </div>
             <Typography
               color='primary'
               className={classes.value}
@@ -135,12 +141,14 @@ const TransactionItem = ({
           </div>
 
           <div className={classes.rowContainer}>
-            <Typography
-              color='textSecondary'
-              className={classes.label}
-            >
-              Date
+            <div>
+              <Typography
+                color='textSecondary'
+                className={classes.label}
+              >
+                Date
             </Typography>
+            </div>
             <Typography
               color='textSecondary'
               className={classes.value}
