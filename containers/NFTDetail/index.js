@@ -56,7 +56,8 @@ const NFTDetail = () => {
   const { accountRS } = useSelector(state => state.auth);
   const [good, setGood] = useState({})
   const [order, setOrder] = useState({})
-  const [account, setAccount] = useState({})
+  const [sellerAccount, setSellerAccount] = useState({})
+  const [creatorAccount, setCreatorAccount] = useState({})
   const assetInfo = useMemo(() => getJSONParse(good.message), [good]);
 
   useEffect(() => {
@@ -66,12 +67,22 @@ const NFTDetail = () => {
         setPopUp({ text: MESSAGES.GET_NFT_ERROR })
         return;
       }
-      const { senderRS, attachment = {} } = response;
+
+      const { accountAssets = [] } = await jupiterAPI.getAssetAccounts(router.query.goods);
+      if (isEmpty(accountAssets)) {
+        setPopUp({ text: MESSAGES.GET_NFT_ERROR })
+        return;
+      }
+
+      console.log(response)
+      const { senderRS, attachment = {}, timestamp } = response;
       let info = {
         ...attachment,
         asset: router.query.goods,
-        accountRS: senderRS,
-        priceNQT: 0
+        creatorRS: senderRS,
+        accountRS: accountAssets[0].accountRS,
+        priceNQT: 0,
+        timestamp
       }
 
       const { askOrders = [] } = await jupiterAPI.getAskOrders(router.query.goods);
@@ -95,13 +106,16 @@ const NFTDetail = () => {
   }, [router.query])
 
   useEffect(() => {
-    const getAccount = async () => {
-      const response = await jupiterAPI.getAccount(good.accountRS);
-      setAccount(response)
+    const getAccounts = async () => {
+      let response = await jupiterAPI.getAccount(good.accountRS);
+      setSellerAccount(response)
+
+      response = await jupiterAPI.getAccount(good.creatorRS);
+      setCreatorAccount(response)
     }
 
     if (!isEmpty(good)) {
-      getAccount()
+      getAccounts()
     }
   }, [good])
 
@@ -132,7 +146,8 @@ const NFTDetail = () => {
                   isMine={accountRS === good.accountRS}
                   good={good}
                   order={order}
-                  account={account}
+                  sellerAccount={sellerAccount}
+                  creatorAccount={creatorAccount}
                   assetInfo={assetInfo}
                 />
                 <AssetBids

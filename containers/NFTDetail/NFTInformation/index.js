@@ -25,7 +25,8 @@ const NFTInformation = ({
   isMine,
   good,
   order,
-  account,
+  sellerAccount,
+  creatorAccount,
   assetInfo
 }) => {
   const classes = useStyles();
@@ -50,7 +51,8 @@ const NFTInformation = ({
     <div className={classes.root}>
       <InformationContent
         good={good}
-        account={account}
+        sellerAccount={sellerAccount}
+        creatorAccount={creatorAccount}
         assetInfo={assetInfo}
       />
       {!isEmpty(order) &&

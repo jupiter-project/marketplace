@@ -146,7 +146,7 @@ const faqs = [
         </a>{' '}
         and can be sent from these platforms to your Jupiter mainnet address via a gateway. You can find
         the gateway procedure over{' '}
-        <a href={PANCAKESWAP_URL} target='_blank' rel='noreferrer'>
+        <a href={GATE_WAY_BLOG_URL} target='_blank' rel='noreferrer'>
           here.
         </a>
       </>
@@ -191,7 +191,6 @@ const faqs = [
         If you have lost your JUP address, there isn’t any problem as long as you have your
         12-word passphrase. <br />
         Please head over to {' '}
-        {' and then send them via a '}
         <a href={JUP_WALLET_URL} target='_blank' rel='noreferrer'>
           {JUP_WALLET_URL}
         </a>{' '}
@@ -228,22 +227,36 @@ const faqs = [
   },
   {
     title: '11. Can I add a time limit for my auction?',
-    description: `The NFT system on the Jupiter blockchain doesn’t allow to enter a bidding period in the 
-    process itself, but if you really want to set a defined period for your sale there is a sort of workaround. 
-    The info in your My Account section can be updated and is shown on the NFT detail page of all of your NFTs. 
-    If you would like to add a specific sell period for one of your NFTs you could update your account info 
-    with for example “sale of <NFT title> ends on <date/time UTC>”. When that time has been reached you can 
-    cancel your sell order, and sell it to the person with the highest bid (by putting it for sale for the 
-    price of the highest bid). Next, you can remove the auction info again from your account info.
-    Note: the description of the NFT itself can’t be changed, that is final once it has been created. 
-    So please don’t add any dates in there, they will be there forever and it would look very strange 
-    if the buyer of your NFT would like to resell it later on.`,
+    description: (
+      <>
+        The NFT system on the Jupiter blockchain doesn’t allow to enter a bidding period in the
+        process itself, but if you really want to set a defined period for your sale there is a sort of workaround.
+        <br />
+        The info in your My Account section can be updated and is shown on the NFT detail page of all of your NFTs.
+        If you would like to add a specific sell period for one of your NFTs you could update your account info
+        with for example “sale of {'<NFT title>'} ends on {'<date/time UTC>'}”.
+        <br />
+        When that time has been reached you can cancel your sell order, and sell it to the person with the highest
+        bid (by putting it for sale for the  price of the highest bid). Next, you can remove the auction info again
+        from your account info.
+        <br />
+        Note: the description of the NFT itself can’t be changed, that is final once it has been created.
+        So please don’t add any dates in there, they will be there forever and it would look very strange
+        if the buyer of your NFT would like to resell it later on.
+      </>
+    ),
   },
   {
     title: '12. Why does it look like my buy/sell order isn’t placed?',
-    description: `All actions have to be confirmed by the blockchain before they are shown in your account. 
-    On average this takes 1 minute, but can vary between a few seconds and a few minutes. So please wait 
-    a little bit longer. Also, for some actions, a refresh of the webpage is needed before they are reflected.`,
+    description: (
+      <>
+        All actions have to be confirmed by the blockchain before they are shown in your account.
+        On average this takes 1 minute, but can vary between a few seconds and a few minutes. So please wait
+        a little bit longer.
+        <br />
+        Also, for some actions, a refresh of the webpage is needed before they are reflected.
+      </>
+    ),
   },
   {
     title: '13. How can I contact you?',

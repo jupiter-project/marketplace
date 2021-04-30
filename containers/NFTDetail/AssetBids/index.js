@@ -79,8 +79,8 @@ const AssetBids = ({
       </Typography>
       {isEmpty(bids)
         ? (
-          <Typography variant='h5' color='textSecondary'>
-            No Bid
+          <Typography variant='body2' color='textSecondary'>
+            No bids yet
           </Typography>
         ) : (
           <TableContainer columns={columns}>

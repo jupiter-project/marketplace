@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
 
 import { NQT_WEIGHT } from 'utils/constants/common'
+import { getDateFromTimestamp } from 'utils/helpers/getTimestamp'
 
 const useStyles = makeStyles((theme) => ({
   name: {
@@ -38,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
 
 const InformationContent = ({
   good,
-  account,
+  sellerAccount,
+  creatorAccount,
   assetInfo
 }) => {
   const classes = useStyles();
@@ -65,26 +67,61 @@ const InformationContent = ({
           color='textPrimary'
           className={classes.label}
         >
+          CREATOR INFO
+        </Typography>
+        <Typography
+          color='primary'
+          className={classes.accountRS}
+        >
+          {creatorAccount.accountRS}
+        </Typography>
+        <Typography
+          color='textSecondary'
+          className={classes.accountName}
+        >
+          {creatorAccount.name || 'No Name'}
+        </Typography>
+        {creatorAccount?.description &&
+          <Typography
+            color='textSecondary'
+            className={classes.accountDescription}
+          >
+            {creatorAccount.description}
+          </Typography>
+        }
+        <Typography
+          color='textSecondary'
+          className={classes.accountName}
+        >
+          {`DATE OF CREATION: ${getDateFromTimestamp(good.timestamp)}`}
+        </Typography>
+      </div>
+
+      <div className={classes.container}>
+        <Typography
+          color='textPrimary'
+          className={classes.label}
+        >
           SELLER INFO
         </Typography>
         <Typography
           color='primary'
           className={classes.accountRS}
         >
-          {good.accountRS}
+          {sellerAccount.accountRS}
         </Typography>
         <Typography
           color='textSecondary'
           className={classes.accountName}
         >
-          {account.name || 'No Name'}
+          {sellerAccount.name || 'No Name'}
         </Typography>
-        {account?.description &&
+        {sellerAccount?.description &&
           <Typography
             color='textSecondary'
             className={classes.accountDescription}
           >
-            {account.description}
+            {sellerAccount.description}
           </Typography>
         }
       </div>
