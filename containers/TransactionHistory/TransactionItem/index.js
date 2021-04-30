@@ -93,7 +93,7 @@ const TransactionItem = ({
             color='textSecondary'
             className={classes.label}
           >
-            Price:
+            Price
           </Typography>
           <Typography
             color='textSecondary'
