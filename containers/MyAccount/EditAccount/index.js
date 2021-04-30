@@ -12,7 +12,7 @@ import { setCurrentUser } from 'actions/auth'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import {
-  STRING_VALID,
+  ACCOUNT_NAME_VALID,
   ACCOUNT_DESCRIPTION_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
@@ -21,7 +21,7 @@ import MESSAGES from 'utils/constants/messages'
 import useLoading from 'utils/hooks/useLoading'
 
 const schema = yup.object().shape({
-  name: STRING_VALID,
+  name: ACCOUNT_NAME_VALID,
   description: ACCOUNT_DESCRIPTION_VALID,
   passphrase: PASSPHRASE_VALID
 });
@@ -109,7 +109,7 @@ const EditAccount = () => {
       <Controller
         as={<MagicTextField />}
         name='name'
-        label='Name'
+        label='Name (max 100 characters)'
         error={errors.name?.message}
         className={classes.input}
         control={control}

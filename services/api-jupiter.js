@@ -114,6 +114,11 @@ const searchAllTrades = async (params) => {
   return await apiAxios.get(url)
 }
 
+const getAssetAccounts = async (asset) => {
+  const url = `/nxt?requestType=getAssetAccounts&asset=${asset}`
+  return await apiAxios.get(url)
+}
+
 export {
   getAccountByPassphrase,
   getAccountByAccountID,
@@ -135,5 +140,6 @@ export {
   cancelBidOrder,
   getAskOrders,
   getBidOrders,
-  searchAllTrades
+  searchAllTrades,
+  getAssetAccounts
 };
