@@ -25,11 +25,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     backgroundColor: theme.custom.palette.grey
   },
-  button: {
-    fontSize: 15,
-    borderRadius: 2,
-    padding: theme.spacing(0.25, 1.5, 0),
-  },
 }));
 
 const UploadMedia = ({
@@ -70,7 +65,7 @@ const UploadMedia = ({
         >
           {type.PLACEHOLDER}
         </Typography>
-        <ContainedButton className={classes.button}>
+        <ContainedButton>
           Choose file
         </ContainedButton>
       </div>

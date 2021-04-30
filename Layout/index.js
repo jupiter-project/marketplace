@@ -20,6 +20,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Layout = ({
+  isFooter = true,
   children
 }) => {
   const classes = useStyles();
@@ -35,7 +36,7 @@ const Layout = ({
       <div className={classes.container}>
         {children}
       </div>
-      <Footer />
+      {isFooter && <Footer />}
     </main>
   );
 };

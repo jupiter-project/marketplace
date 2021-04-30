@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: '100vh',
+    minHeight: `calc(100vh - ${theme.custom.layout.topAppBarHeight}px)`,
     backgroundImage: `url(${AUTH_BACKGROUND_IMAGE_PATH})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
@@ -53,7 +53,6 @@ const authPageStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2.5)
   },
   button: {
-    minWidth: 160,
     margin: theme.spacing(2.5)
   }
 }));

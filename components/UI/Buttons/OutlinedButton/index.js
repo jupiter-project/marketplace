@@ -8,9 +8,9 @@ import ButtonLink from 'components/UI/Buttons/ButtonLink'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: 'bold',
-    padding: theme.spacing(1, 2, 0.5, 2),
+    padding: theme.spacing(0.25, 1.5, 0),
     borderRadius: 2,
     border: `1px solid ${theme.palette.primary.main}`
   },

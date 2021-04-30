@@ -66,11 +66,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  button: {
-    fontSize: 15,
-    borderRadius: 2,
-    padding: theme.spacing(0.25, 1.5, 0),
-  }
 }));
 
 const NFTCard = ({
@@ -148,25 +143,16 @@ const NFTCard = ({
       </div>
 
       <div className={classes.buttonContainer}>
-        <ContainedButton
-          className={classes.button}
-          onClick={bidHandler}
-        >
+        <ContainedButton onClick={bidHandler}>
           Place a bid
         </ContainedButton>
         {accountRS === item.accountRS
           ? (
-            <ContainedButton
-              className={classes.button}
-              onClick={detailNFTHandler}
-            >
+            <ContainedButton onClick={detailNFTHandler}>
               Edit NFT
             </ContainedButton>
           ) : (
-            <ContainedButton
-              className={classes.button}
-              onClick={purchaseHandler}
-            >
+            <ContainedButton onClick={purchaseHandler}>
               Buy now
             </ContainedButton>
           )

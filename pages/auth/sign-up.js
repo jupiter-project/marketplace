@@ -1,6 +1,11 @@
 
+import Layout from 'Layout'
 import SignUp from 'containers/Auth/SignUp'
 
 export default function SignUpPage() {
-  return <SignUp />
+  return (
+    <Layout isFooter={false}>
+      <SignUp />
+    </Layout>
+  )
 }
