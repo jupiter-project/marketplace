@@ -21,8 +21,8 @@ const LINKS = Object.freeze({
     HREF: '/marketplace'
   },
   NFT_DETAIL: {
-    TITLE: 'NFT detail',
-    HREF: '/nft-detail/[goods]'
+    TITLE: 'NFT details',
+    HREF: '/nft-details/[goods]'
   },
   CREATE_NFT: {
     TITLE: 'Create NFT',
