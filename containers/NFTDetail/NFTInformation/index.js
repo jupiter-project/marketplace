@@ -2,7 +2,6 @@ import { memo, useState, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
-import clsx from 'clsx'
 
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import DeleteNFTDialog from 'parts/DeleteNFTDialog'
@@ -16,11 +15,6 @@ import { isEmpty } from 'utils/helpers/utility'
 const useStyles = makeStyles((theme) => ({
   root: {
     marginBottom: theme.spacing(5),
-  },
-  button: {
-    fontSize: 15,
-    borderRadius: 2,
-    padding: theme.spacing(0.25, 1.5, 0),
   },
   delete: {
     backgroundColor: theme.custom.palette.red
@@ -63,16 +57,13 @@ const NFTInformation = ({
         (isMine
           ? (
             <ContainedButton
-              className={clsx(classes.button, classes.delete)}
+              className={classes.delete}
               onClick={() => setOpenDeleteModal(true)}
             >
               Delete
             </ContainedButton>
           ) : (
-            <ContainedButton
-              className={classes.button}
-              onClick={purchaseHandler}
-            >
+            <ContainedButton onClick={purchaseHandler}>
               Buy Now
             </ContainedButton>
           ))

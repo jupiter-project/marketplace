@@ -47,9 +47,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1)
   },
   delete: {
-    fontSize: 15,
-    borderRadius: 2,
-    padding: theme.spacing(0.25, 1.5, 0),
     backgroundColor: theme.custom.palette.red,
   },
   rowContainer: {

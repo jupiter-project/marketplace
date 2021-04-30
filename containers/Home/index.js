@@ -6,7 +6,6 @@ import HomeHeader from './HomeHeader'
 // import CreatorAndCollector from './CreatorAndCollector'
 // import UserFeedback from './UserFeedback'
 import NFTCarousel from 'parts/NFTCarousel'
-// import HomeFAQs from './HomeFAQs'
 import HomeJourney from './HomeJourney'
 
 const useStyles = makeStyles((theme) => ({

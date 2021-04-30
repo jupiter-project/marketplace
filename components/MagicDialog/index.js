@@ -64,10 +64,8 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   button: {
-    width: '50%',
     margin: theme.spacing(0, 1),
     [theme.breakpoints.down('xs')]: {
-      width: '100%',
       margin: theme.spacing(1, 0),
     }
   }

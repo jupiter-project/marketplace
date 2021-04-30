@@ -107,7 +107,7 @@ const NFTDetail = () => {
 
   return (
     <main className={classes.root}>
-      <ImageWall header='NFT Token Detail' />
+      <ImageWall header='NFT Detail' />
       {isEmpty(good)
         ? (
           <NoData />

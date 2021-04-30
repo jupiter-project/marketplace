@@ -44,11 +44,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: theme.spacing(1)
-  },
-  sell: {
-    fontSize: 15,
-    borderRadius: 2,
-    padding: theme.spacing(0.25, 1.5, 0),
   }
 }));
 
@@ -78,10 +73,7 @@ const AssetItem = ({
         </Typography>
         {
           item.unconfirmedQuantityQNT > 0 &&
-          <ContainedButton
-            className={classes.sell}
-            onClick={() => onSell(item)}
-          >
+          <ContainedButton onClick={() => onSell(item)}>
             Sell
           </ContainedButton>
         }

@@ -1,11 +1,11 @@
 
 const SOCIALS = Object.freeze({
   TELEGRAM: {
-    HREF: 'https://t.me/jupiterproject/',
+    HREF: 'https://t.me/jupiterproject',
     LABEL: 'telegram link'
   },
   TWITTER: {
-    HREF: 'https://twitter.com/jup_project/',
+    HREF: 'https://twitter.com/jup_project',
     LABEL: 'twitter link'
   },
   DISCORD: {

@@ -19,9 +19,10 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     fontFamily: 'CRC-LIGHT',
     textAlign: 'center',
+    padding: theme.spacing(0, 2),
     margin: theme.spacing(16, 0, 8),
     [theme.breakpoints.down('sm')]: {
-      fontSize: 36,
+      fontSize: 32,
       margin: theme.spacing(5, 0),
     },
   }
