@@ -16,13 +16,12 @@ import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
 import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
-import { PASSPHRASE_VALID, STRING_VALID } from 'utils/constants/validations'
+import { PASSPHRASE_VALID } from 'utils/constants/validations'
 import { NQT_WEIGHT } from 'utils/constants/common'
 import MESSAGES from 'utils/constants/messages'
 
 const schema = yup.object().shape({
   passphrase: PASSPHRASE_VALID,
-  password: STRING_VALID
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -63,10 +62,6 @@ const PurchaseNFTDialog = ({
   });
 
   const onSubmit = useCallback(async (data) => {
-    if (data.password !== 'leda2021!!!') {
-      setPopUp({ text: 'Wrong Password' })
-      return
-    }
     changeLoadingStatus(true)
     try {
       const params = {
@@ -127,17 +122,6 @@ const PurchaseNFTDialog = ({
               defaultValue=''
             />
           </Grid>
-          <Grid item xs={12}>
-            <Controller
-              as={<MagicTextField />}
-              name='password'
-              label='Password'
-              error={errors.password?.message}
-              control={control}
-              defaultValue=''
-            />
-          </Grid>
-
         </Grid>
         <ContainedButton
           type='submit'
