@@ -1,5 +1,5 @@
 
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography } from '@material-ui/core'
@@ -34,7 +34,7 @@ const UploadMedia = ({
   const classes = useStyles();
   const { setPopUp } = usePopUp();
 
-  const onDrop = async (acceptedFiles) => {
+  const onDrop = useCallback(async (acceptedFiles) => {
     if (!Array.isArray(acceptedFiles) || acceptedFiles.length <= 0) {
       setPopUp({ text: MESSAGES.MAX_UPLOAD_ERROR })
       return;
@@ -46,7 +46,7 @@ const UploadMedia = ({
       setFileBuffer(reader.result);
     });
     reader.readAsDataURL(file);
-  };
+  }, [setPopUp, setFileBuffer]);
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
