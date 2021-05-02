@@ -1,5 +1,5 @@
 
-import React, { memo, useState } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Typography,
@@ -80,9 +80,9 @@ const MagicTextField = React.forwardRef(({
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
 
-  const eyeIconHandler = () => {
+  const eyeIconHandler = useCallback(() => {
     setShowPassword(prev => !prev)
-  }
+  }, [setShowPassword])
 
   return (
     <div className={clsx(classes.root, className)}>

@@ -1,5 +1,5 @@
 
-import React, { memo, useMemo } from 'react'
+import React, { memo, useCallback, useMemo } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
   Typography,
@@ -77,6 +77,10 @@ const AccountTextField = React.forwardRef(({
     }
   }, [mask]);
 
+  const inputHandler = useCallback((e) => {
+    onChange(e.target.value.toUpperCase())
+  }, [onChange])
+
   return (
     <div className={clsx(classes.root, className)}>
       {
@@ -117,7 +121,7 @@ const AccountTextField = React.forwardRef(({
             input: clsx(classes.input, { [classes.errorInput]: !!error })
           }
         }}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={inputHandler}
       />
 
       {

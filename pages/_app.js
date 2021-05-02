@@ -8,7 +8,6 @@ import theme from 'styles/theme'
 import store from 'store'
 import InitProvider from 'utils/hocs/InitProvider'
 import PopUpProvider from 'utils/hocs/PopUpProvider'
-import ToastProvider from 'utils/hocs/ToastProvider'
 import * as COMMON_CONSTANTS from 'utils/constants/common'
 import { BANNER_IMAGE_PATH } from 'utils/constants/image-paths'
 
@@ -47,7 +46,6 @@ function MyApp({ Component, pageProps }) {
       <Provider store={store}>
         <InitProvider />
         <ThemeProvider theme={theme}>
-          <ToastProvider />
           <PopUpProvider />
           <CssBaseline />
           <Component {...pageProps} />
