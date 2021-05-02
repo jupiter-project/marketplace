@@ -44,11 +44,11 @@ class MyDocument extends Document {
           <style jsx global>
             {globalStyles}
           </style>
-          <script src='//rum-static.pingdom.net/pa-608b643653910000110002c4.js' async />
         </Head>
         <body>
           <Main />
           <NextScript />
+          <script src='//rum-static.pingdom.net/pa-608b643653910000110002c4.js' async crossOrigin="anonymous" />
         </body>
       </Html>
     );
