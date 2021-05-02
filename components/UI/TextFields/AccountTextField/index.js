@@ -77,6 +77,10 @@ const AccountTextField = React.forwardRef(({
     }
   }, [mask]);
 
+  const inputHandler = (e) => {
+    onChange(e.target.value.toUpperCase())
+  }
+
   return (
     <div className={clsx(classes.root, className)}>
       {
@@ -117,7 +121,7 @@ const AccountTextField = React.forwardRef(({
             input: clsx(classes.input, { [classes.errorInput]: !!error })
           }
         }}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={inputHandler}
       />
 
       {

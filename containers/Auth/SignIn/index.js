@@ -79,6 +79,7 @@ const SignIn = () => {
           as={<AccountTextField />}
           name='account'
           label='JUP Address'
+          placeholder='JUP-____-____-____-_____'
           mask={TEXT_MASKS.ACCOUNT}
           error={errors.account?.message}
           className={authClasses.input}

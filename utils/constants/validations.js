@@ -30,10 +30,6 @@ const PASSPHRASE_VALID = yup.string()
     'Passphrase should be 12 words.',
     value => wordCount(value) === 12);
 
-const NUMBER_VALID = yup.number()
-  .typeError('Please enter valid number')
-  .required('Please input field.');
-
 const PRICE_VALID = yup.number()
   .typeError('Please enter valid number')
   .test('price',
@@ -44,20 +40,13 @@ const PRICE_VALID = yup.number()
     value => ((value).toString().split('.')[1] || []).length <= 8)
   .required('Please input field.');
 
-const INTEGER_VALID = yup.number()
-  .typeError('Please enter valid number')
-  .integer('This field should be integer')
-  .min(1, 'This field should be more than one');
-
 export {
   TITLE_VALID,
   STRING_VALID,
   ACCOUNT_NAME_VALID,
   ACCOUNT_VALID,
   PASSPHRASE_VALID,
-  NUMBER_VALID,
   PRICE_VALID,
-  INTEGER_VALID,
   ACCOUNT_DESCRIPTION_VALID,
   NFT_DESCRIPTION_VALID
 };
