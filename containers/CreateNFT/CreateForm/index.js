@@ -25,6 +25,7 @@ import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import MESSAGES from 'utils/constants/messages'
 import { FILE_TYPES, FILE_TYPES_ARRAY } from 'utils/constants/file-types'
+import { NQT_WEIGHT } from 'utils/constants/common'
 
 const schema = yup.object().shape({
   title: TITLE_VALID,
@@ -59,6 +60,13 @@ const useStyles = makeStyles((theme) => ({
   },
   resetButton: {
     backgroundColor: theme.custom.palette.red
+  },
+  feeContainer: {
+    display: 'flex',
+    alignItems: 'flex-end',
+  },
+  feeButton: {
+    marginLeft: theme.spacing(2)
   }
 }));
 
@@ -69,6 +77,7 @@ const CreateForm = () => {
 
   const { currentUser } = useSelector(state => state.auth);
   const [fileBuffer, setFileBuffer] = useState('');
+  const [fee, setFee] = useState(0);
 
   const { control, handleSubmit, errors, watch, reset } = useForm({
     resolver: yupResolver(schema)
@@ -132,6 +141,26 @@ const CreateForm = () => {
     }
     changeLoadingStatus(false)
   }, [fileBuffer, currentUser, resetHandler, setPopUp, changeLoadingStatus]);
+
+  const feeHandler = async () => {
+    try {
+      const params = {
+        name: 'nftleda',
+        description: watchAllFields?.title,
+        quantity: 1,
+        message: JSON.stringify({
+          image: 'https://res.cloudinary.com/leda/image/upload/v1620164283/rz5w0emtkbfbmts16wuv.png',
+          type: watchAllFields?.type,
+          description: watchAllFields?.description
+        }),
+        publicKey: currentUser.publicKey,
+      }
+      const response = await jupiterAPI.getIssueAssetFee(params)
+      setFee(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <form
@@ -199,6 +228,23 @@ const CreateForm = () => {
             control={control}
             defaultValue=''
           />
+        </Grid>
+        <Grid item xs={12}>
+          <div className={classes.feeContainer}>
+            <MagicTextField
+              name='fee'
+              label='Fee (JUP)'
+              placeholder='Fee'
+              readOnly
+              value={fee / NQT_WEIGHT}
+            />
+            <ContainedButton
+              className={classes.feeButton}
+              onClick={feeHandler}
+            >
+              Calculate
+            </ContainedButton>
+          </div>
         </Grid>
       </Grid>
       <div>
