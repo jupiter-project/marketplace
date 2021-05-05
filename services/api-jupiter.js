@@ -39,6 +39,13 @@ const issueAsset = async (params) => {
   return await apiAxios.post(url)
 }
 
+const getIssueAssetFee = async (params) => {
+  const url = `/nxt?requestType=issueAsset&name=${params.name}&description=${params.description}&quantityQNT=${params.quantity}&message=${params.message}&decimals=0&priceNQT=${params.price}&publicKey=${params.publicKey}&deadline=24&feeNQT=0&broadcast=false&calculateFee=true`;
+  const response = await apiAxios.post(url)
+  const { transactionJSON: { feeNQT = 0 } = {} } = response;
+  return feeNQT
+}
+
 const searchAssets = async (params) => {
   const url = `/nxt?requestType=searchAssets&query=${'nftleda ' + params?.query || ''}&firstIndex=${params.first}&lastIndex=${params.last}`
   return await apiAxios.get(url)
@@ -126,6 +133,7 @@ export {
   getAccount,
   getTransaction,
   issueAsset,
+  getIssueAssetFee,
   searchAssets,
   searchAccountAssets,
   getAssetsByIssuer,
