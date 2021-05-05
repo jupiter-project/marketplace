@@ -23,6 +23,7 @@ import {
 } from 'utils/constants/validations'
 import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
+import toFixedIfNecessary from 'utils/helpers/toFixedIfNecessary'
 import MESSAGES from 'utils/constants/messages'
 import { FILE_TYPES, FILE_TYPES_ARRAY } from 'utils/constants/file-types'
 import { NQT_WEIGHT } from 'utils/constants/common'
@@ -236,7 +237,7 @@ const CreateForm = () => {
               label='Fee (JUP)'
               placeholder='Fee'
               readOnly
-              value={fee / NQT_WEIGHT}
+              value={toFixedIfNecessary(fee / NQT_WEIGHT)}
             />
             <ContainedButton
               className={classes.feeButton}
