@@ -8,6 +8,7 @@ import theme from 'styles/theme'
 import store from 'store'
 import InitProvider from 'utils/hocs/InitProvider'
 import PopUpProvider from 'utils/hocs/PopUpProvider'
+import MagicWeb3Provider from 'utils/hocs/MagicWeb3Provider'
 import * as COMMON_CONSTANTS from 'utils/constants/common'
 import { BANNER_IMAGE_PATH } from 'utils/constants/image-paths'
 
@@ -44,12 +45,14 @@ function MyApp({ Component, pageProps }) {
         <meta name='msapplication-TileImage' content='/mstile-144x144.png' />
       </Head>
       <Provider store={store}>
-        <InitProvider />
-        <ThemeProvider theme={theme}>
-          <PopUpProvider />
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
+        <MagicWeb3Provider>
+          <InitProvider />
+          <ThemeProvider theme={theme}>
+            <PopUpProvider />
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </MagicWeb3Provider>
       </Provider>
     </>
   )

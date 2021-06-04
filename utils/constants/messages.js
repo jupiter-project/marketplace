@@ -1,5 +1,9 @@
 
 const MESSAGES = Object.freeze({
+  CONNECT_NO_ETHEREUM_PROVIDER_ERROR: 'No Ethereum browser extension detected, install MetaMask on desktop or visit from a dApp browser on mobile.',
+  CONNECT_UNSUPPORTED_CHAIN_ID_ERROR: 'You\'re connected to an unsupported network.',
+  CONNECT_ACCESS_BINANCE_ERROR: 'Please authorize this website to access your Binance Smart Chain account.',
+  CONNECT_UNKNOWN_ERROR: 'An unknown error occurred. Check the console for more details.',
   SIGN_IN_SUCCESS: 'Welcome to Leda. You’ve successfully logged in.',
   SIGN_UP_SUCCESS: 'Welcome to Leda. You have registered successfully. To be able to buy or create NFTs you will have to fund your JUP address.',
   AUTH_ERROR: 'Incorrect JUP address, please try again. ',

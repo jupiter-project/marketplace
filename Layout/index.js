@@ -28,10 +28,7 @@ const Layout = ({
 
   return (
     <main className={classes.root}>
-      {
-        loadingStatus &&
-        <MagicLoading loading={loadingStatus} />
-      }
+      {loadingStatus && <MagicLoading loading={loadingStatus} />}
       <TopAppBar />
       <div className={classes.container}>
         {children}
