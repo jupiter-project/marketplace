@@ -43,7 +43,7 @@ const TopAppBar = () => {
         <div className={classes.container}>
           <NavBarMenu />
           <NavDropMenu />
-          <ConnectWallet />
+          {/* <ConnectWallet /> */}
         </div>
       </Toolbar>
     </AppBar>
