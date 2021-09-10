@@ -2,7 +2,7 @@ import { memo, useEffect, useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
-import { Grid, Typography } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 
 import * as jupiterAPI from 'services/api-jupiter'
 import { STATS_URL } from 'config'

@@ -1,5 +1,6 @@
 
 import { memo, useEffect, useCallback, useState } from 'react'
+import { useRouter } from 'next/router'
 import { makeStyles } from '@material-ui/core/styles'
 import { IconButton } from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -9,6 +10,7 @@ import * as jupiterAPI from 'services/api-jupiter'
 import ImageWall from 'parts/ImageWall'
 import TransactionItem from './TransactionItem'
 import { useCommonStyles } from 'styles/use-styles'
+import LINKS from 'utils/constants/links'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +35,7 @@ const PAGE_COUNT = 8;
 
 const TransactionHistory = () => {
   const classes = useStyles();
+  const router = useRouter();
   const commonClasses = useCommonStyles();
 
   const [trades, setTrades] = useState([])
@@ -59,6 +62,14 @@ const TransactionHistory = () => {
     }
   }, [isLast, first, setTrades, setFirst, setIsLast]);
 
+  const detailNFTHandler = useCallback((item) => {
+    console.log(item)
+    router.push(
+      LINKS.NFT_DETAIL.HREF,
+      LINKS.NFT_DETAIL.HREF.replace('[goods]', item.asset)
+    )
+  }, [router])
+
   return (
     <main className={classes.root}>
       <ImageWall header='Transactions' />
@@ -68,6 +79,7 @@ const TransactionHistory = () => {
             <TransactionItem
               key={index}
               item={item}
+              onDetail={detailNFTHandler}
             />
           ))
         }
