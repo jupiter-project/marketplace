@@ -67,13 +67,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TransactionItem = ({
-  item
+  item,
+  onDetail
 }) => {
   const classes = useStyles();
   const info = useMemo(() => getJSONParse(item?.message), [item]);
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={() => onDetail(item)}>
       <div className={classes.imageContainer}>
         <ProductContent
           info={info}
@@ -130,7 +131,7 @@ const TransactionItem = ({
                 className={classes.label}
               >
                 Buyer
-            </Typography>
+              </Typography>
             </div>
             <Typography
               color='primary'
@@ -147,7 +148,7 @@ const TransactionItem = ({
                 className={classes.label}
               >
                 Date
-            </Typography>
+              </Typography>
             </div>
             <Typography
               color='textSecondary'
