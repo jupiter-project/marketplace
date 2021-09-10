@@ -84,7 +84,7 @@ const AssetItem = ({
           }
           <Grid item xs={6}>
             <OutlinedButton onClick={() => onSend(item)}>
-              Send
+              Transfer
             </OutlinedButton>
           </Grid>
         </Grid>
