@@ -1,9 +1,10 @@
 
 import { memo, useMemo } from 'react'
-import { Typography } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
+import OutlinedButton from 'components/UI/Buttons/OutlinedButton'
 import ProductContent from 'parts/ProductContent'
 import getJSONParse from 'utils/helpers/getJSONParse'
 
@@ -50,7 +51,8 @@ const useStyles = makeStyles((theme) => ({
 const AssetItem = ({
   item,
   onDetail,
-  onSell
+  onSell,
+  onSend
 }) => {
   const classes = useStyles();
 
@@ -71,12 +73,21 @@ const AssetItem = ({
         >
           {item.description}
         </Typography>
-        {
-          item.unconfirmedQuantityQNT > 0 &&
-          <ContainedButton onClick={() => onSell(item)}>
-            Sell
-          </ContainedButton>
-        }
+        <Grid container spacing={2}>
+          {
+            item.unconfirmedQuantityQNT > 0 &&
+            <Grid item xs={6}>
+              <ContainedButton onClick={() => onSell(item)}>
+                Sell
+              </ContainedButton>
+            </Grid>
+          }
+          <Grid item xs={6}>
+            <OutlinedButton onClick={() => onSend(item)}>
+              Send
+            </OutlinedButton>
+          </Grid>
+        </Grid>
       </div>
     </div>
   )

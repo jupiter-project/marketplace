@@ -126,6 +126,11 @@ const getAssetAccounts = async (asset) => {
   return await apiAxios.get(url)
 }
 
+const transferAsset = async (params) => {
+  const url = `/nxt?requestType=transferAsset&recipient=${params.receiver}&asset=${params.asset}&quantityQNT=${params.amount}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
+  return await apiAxios.post(url)
+}
+
 export {
   getAccountByPassphrase,
   getAccountByAccountID,
@@ -149,5 +154,6 @@ export {
   getAskOrders,
   getBidOrders,
   searchAllTrades,
-  getAssetAccounts
+  getAssetAccounts,
+  transferAsset
 };

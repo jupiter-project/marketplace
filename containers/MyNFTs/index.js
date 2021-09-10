@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import ImageWall from 'parts/ImageWall'
 import { useCommonStyles } from 'styles/use-styles'
 import VerticalTabs from './Shared/VerticalTabs'
-import MyCreatedAssets from './MyAssets'
+import MyAssets from './MyAssets'
 import MyAskOrders from './MyAskOrders'
 import MyBidOrders from './MyBidOrders'
 
@@ -48,7 +48,7 @@ const MyNFTs = () => {
           value={selectedTab}
           setValue={setSelectedTab}
         />
-        <MyCreatedAssets
+        <MyAssets
           value={selectedTab}
           index={0}
         />

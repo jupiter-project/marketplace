@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Grid, Typography } from '@material-ui/core'
 
 import * as jupiterAPI from 'services/api-jupiter'
+import { STATS_URL } from 'config'
 import NoData from 'parts/NoData'
 import ImageWall from 'parts/ImageWall'
 import ProductContent from 'parts/ProductContent'
@@ -74,7 +75,6 @@ const NFTDetail = () => {
         return;
       }
 
-      console.log(response)
       const { senderRS, attachment = {}, timestamp } = response;
       let info = {
         ...attachment,
@@ -129,7 +129,7 @@ const NFTDetail = () => {
           <>
             <Grid container spacing={5} className={classes.container}>
               <Grid item xs={12} sm={6} md={5}>
-                <a href={assetInfo.image} target='_blank' rel='noreferrer'>
+                <a href={`${STATS_URL}/asset/${good.asset}`} target='_blank' rel='noreferrer'>
                   <div className={classes.imageContainer}>
                     <ProductContent
                       info={assetInfo}
