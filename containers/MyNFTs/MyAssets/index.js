@@ -9,6 +9,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import * as jupiterAPI from 'services/api-jupiter'
 import NoData from 'parts/NoData'
 import SellAssetDialog from 'parts/SellAssetDialog'
+import SendAssetDialog from 'parts/SendAssetDialog'
 import TabPanel from '../Shared/TabPanel'
 import AssetItem from './AssetItem'
 import { isEmpty } from 'utils/helpers/utility'
@@ -41,6 +42,7 @@ const MyAssets = ({
   const [first, setFirst] = useState(0);
   const [isLast, setIsLast] = useState(false)
   const [openModal, setOpenModal] = useState(false);
+  const [openSendModal, setOpenSendModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(false);
 
   useEffect(() => {
@@ -76,6 +78,11 @@ const MyAssets = ({
     setOpenModal(true)
   }, [setOpenModal, setSelectedItem])
 
+  const sendHandler = useCallback((item) => {
+    setSelectedItem(item)
+    setOpenSendModal(true)
+  }, [setOpenSendModal, setSelectedItem])
+
   const detailNFTHandler = useCallback((item) => {
     router.push(
       LINKS.NFT_DETAIL.HREF,
@@ -95,6 +102,7 @@ const MyAssets = ({
                 key={index}
                 item={item}
                 onSell={sellHandler}
+                onSend={sendHandler}
                 onDetail={detailNFTHandler}
               />
             ))}
@@ -113,6 +121,14 @@ const MyAssets = ({
           item={selectedItem}
           open={openModal}
           setOpen={setOpenModal}
+        />
+      }
+      {
+        openSendModal &&
+        <SendAssetDialog
+          item={selectedItem}
+          open={openSendModal}
+          setOpen={setOpenSendModal}
         />
       }
     </TabPanel>
