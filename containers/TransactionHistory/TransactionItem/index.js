@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     marginBottom: theme.spacing(5),
+    cursor: 'pointer',
     [theme.breakpoints.down('xs')]: {
       alignItems: 'flex-start',
       flexDirection: 'column'
