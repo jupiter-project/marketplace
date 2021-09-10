@@ -137,9 +137,6 @@ const NFTDetail = () => {
                     />
                   </div>
                 </a>
-                <Typography color='textSecondary'>
-                  Click on the image to open the original file
-                </Typography>
               </Grid>
               <Grid item xs={12} sm={6} md={7}>
                 <NFTInformation
