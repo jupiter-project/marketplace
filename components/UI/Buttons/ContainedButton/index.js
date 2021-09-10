@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: 'none',
     padding: theme.spacing(0.25, 1.5, 0),
     borderRadius: 2,
+    border: `1px solid ${theme.palette.primary.main}`,
     '&:hover': {
       color: theme.palette.primary.main
     }
