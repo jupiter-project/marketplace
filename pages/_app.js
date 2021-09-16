@@ -9,11 +9,13 @@ import store from 'store'
 import InitProvider from 'utils/hocs/InitProvider'
 import PopUpProvider from 'utils/hocs/PopUpProvider'
 import MagicWeb3Provider from 'utils/hocs/MagicWeb3Provider'
+import * as COMMON_CONSTANTS from 'utils/constants/common'
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
+        <title>{COMMON_CONSTANTS.TITLE}</title>
         <meta charSet='utf-8' />
         <meta name='keywords' content='Keywords' />
         <meta name='description' content='Description' />

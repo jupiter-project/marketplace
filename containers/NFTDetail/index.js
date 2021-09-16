@@ -78,7 +78,6 @@ const NFTDetail = ({
   return (
     <>
       <Head>
-        <title>{good.description}</title>
         <meta property='og:url' content={`${SITE_URL}${router.asPath}`} />
         <meta property='og:title' content={good.description} />
         <meta property='og:description' content={assetInfo.description} />

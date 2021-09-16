@@ -7,7 +7,6 @@ import { BANNER_IMAGE_PATH } from 'utils/constants/image-paths'
 const HeaderMeta = () => {
   return (
     <Head>
-      <title>{COMMON_CONSTANTS.TITLE}</title>
       {/* Open Graph / Facebook */}
       <meta property='og:url' content={COMMON_CONSTANTS.SITE_URL} />
       <meta property='og:title' content={COMMON_CONSTANTS.TITLE} />

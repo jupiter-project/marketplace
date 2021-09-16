@@ -57,10 +57,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchInput = ({
+  search,
   onSearch
 }) => {
   const classes = useStyles();
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(search);
 
   const searchHandler = useCallback(() => {
     onSearch(query)

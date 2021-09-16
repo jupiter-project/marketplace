@@ -1,11 +1,13 @@
 
 import { memo, useState, useEffect, useCallback } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import Router, { useRouter } from 'next/router'
 
 import * as jupiterAPI from 'services/api-jupiter'
 import ImageWall from 'parts/ImageWall'
 import SearchInput from 'parts/SearchInput'
 import NFTList from 'parts/NFTList'
+import LINKS from 'utils/constants/links'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,16 +32,17 @@ const PAGE_COUNT = 8;
 
 const Marketplace = () => {
   const classes = useStyles();
+  const router = useRouter();
 
   const [goods, setGoods] = useState([]);
   const [first, setFirst] = useState(0);
   const [isLast, setIsLast] = useState(false);
-  const [query, setQuery] = useState('');
+  const [search, setSearch] = useState(router.query.search);
 
   useEffect(() => {
     getAllOpenAskOrders();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
+  }, [search]);
 
   const getAllOpenAskOrders = useCallback(async () => {
     try {
@@ -47,7 +50,7 @@ const Marketplace = () => {
         const params = {
           first,
           last: first + PAGE_COUNT - 1,
-          query
+          query: search
         }
 
         const { openOrders = [] } = await jupiterAPI.searchAllOpenAskOrders(params);
@@ -63,23 +66,29 @@ const Marketplace = () => {
     } catch (error) {
       console.log(error)
     }
-  }, [query, isLast, first, setGoods, setFirst, setIsLast])
+  }, [search, isLast, first, setGoods, setFirst, setIsLast])
 
   const searchHandler = useCallback(async (value) => {
-    if (query !== value) {
+    if (search !== value) {
       setGoods([]);
       setFirst(0)
       setIsLast(false)
-      setQuery(value);
+      setSearch(value);
+      Router.replace({
+        pathname: LINKS.MARKETPLACE.HREF,
+        query: {
+          search: value
+        }
+      });
     }
-  }, [query, setQuery, setGoods, setFirst, setIsLast])
+  }, [search, setSearch, setGoods, setFirst, setIsLast])
 
   return (
     <div className={classes.root}>
       <ImageWall header='MARKETPLACE' />
       <div className={classes.container}>
         <div className={classes.filterContainer}>
-          <SearchInput onSearch={searchHandler} />
+          <SearchInput search={search} onSearch={searchHandler} />
         </div>
         <NFTList
           goods={goods}
