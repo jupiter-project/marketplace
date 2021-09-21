@@ -48,7 +48,7 @@ const HomeJourney = () => {
           WHAT IS LEDA?
         </Typography>
         <Typography className={classes.description} align='center'>
-          Leda is an NFT marketplace, that uses the Jupiter blockchain.A Non-Fungible
+          Leda is an NFT marketplace, that uses the Jupiter blockchain. A Non-Fungible
           Token (NFT) (or called Singleton Asset Token on Jupiter) is a unit of data
           stored on a blockchain that certifies a digital asset to be unique and
           therefore not interchangeable.
