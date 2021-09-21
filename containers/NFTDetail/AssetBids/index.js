@@ -1,5 +1,5 @@
-import { memo, useState, useEffect, useCallback } from 'react'
-import { useRouter } from 'next/router'
+import { memo, useState, useEffect, useCallback, useMemo } from 'react'
+import Router, { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -32,6 +32,11 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     marginTop: theme.spacing(1)
+  },
+  delete: {
+    marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(1),
+    backgroundColor: theme.custom.palette.red
   }
 }));
 
@@ -63,6 +68,11 @@ const AssetBids = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [good])
 
+  const isMyBid = useMemo(() => {
+    const mineIndex = bids.findIndex((bid) => bid.accountRS === accountRS)
+    return mineIndex < 0 ? false : true
+  }, [bids, accountRS]);
+
   const bidHandler = useCallback(() => {
     if (!accountRS) {
       setPopUp({ text: MESSAGES.AUTH_REQUIRED })
@@ -71,6 +81,15 @@ const AssetBids = ({
     }
     setOpenBidModal(true)
   }, [accountRS, router, setPopUp, setOpenBidModal])
+
+  const cancelBidHandler = () => {
+    Router.replace({
+      pathname: LINKS.MY_NFTS.HREF,
+      query: {
+        tab: 'MY BUY ORDERS'
+      }
+    });
+  }
 
   return (
     <div className={classes.root}>
@@ -103,6 +122,15 @@ const AssetBids = ({
       >
         Place a bid
       </ContainedButton>
+
+      {isMyBid &&
+        <ContainedButton
+          className={classes.delete}
+          onClick={cancelBidHandler}
+        >
+          Cancel a bid
+        </ContainedButton>
+      }
 
       {openBidModal &&
         <BidNFTDialog

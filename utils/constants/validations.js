@@ -3,24 +3,29 @@ import * as yup from 'yup'
 import wordCount from '@iarna/word-count'
 
 const TITLE_VALID = yup.string()
+  .test('title', "# is can't be used", value => !value.includes('#'))
   .required('Please enter a title.');
 
 const STRING_VALID = yup.string()
   .required('Please input field.');
 
 const ACCOUNT_NAME_VALID = yup.string()
+  .test('name', "# is can't be used", value => !value.includes('#'))
   .max(100, 'Name length should be less than 1000.')
   .required('Please enter a name.')
 
 const ACCOUNT_DESCRIPTION_VALID = yup.string()
+  .test('description', "# is can't be used", value => !value.includes('#'))
   .max(1000, 'Description length should be less than 1000.')
   .required('Please enter a description.')
 
 const NFT_DESCRIPTION_VALID = yup.string()
+  .test('description', "# is can't be used", value => !value.includes('#'))
   .max(800, 'Description length should be less than 800.')
   .required('Please enter a description.')
 
 const ACCOUNT_VALID = yup.string()
+  .test('description', "# is can't be used", value => !value.includes('#'))
   .length(24, 'Account length should be 24.')
   .required('Please enter a description.')
 

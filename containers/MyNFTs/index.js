@@ -1,7 +1,8 @@
 
-import { memo, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
+import Router, { useRouter } from 'next/router'
 
 import ImageWall from 'parts/ImageWall'
 import { useCommonStyles } from 'styles/use-styles'
@@ -9,6 +10,7 @@ import VerticalTabs from './Shared/VerticalTabs'
 import MyAssets from './MyAssets'
 import MyAskOrders from './MyAskOrders'
 import MyBidOrders from './MyBidOrders'
+import LINKS from 'utils/constants/links'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,8 +38,22 @@ const TABS = [
 const MyNFTs = () => {
   const classes = useStyles();
   const commonClasses = useCommonStyles();
+  const router = useRouter();
 
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedTab, setSelectedTab] = useState(() => {
+    const findIndex = TABS.findIndex((tab) => tab === router.query.tab)
+    return findIndex < 0 ? 0 : findIndex
+  });
+
+  useEffect(() => {
+    const tabValue = TABS[selectedTab]
+    Router.replace({
+      pathname: LINKS.MY_NFTS.HREF,
+      query: {
+        tab: tabValue
+      }
+    });
+  }, [selectedTab])
 
   return (
     <main className={classes.root}>
