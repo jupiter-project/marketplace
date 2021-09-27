@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     display: 'grid',
-    gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
+    gridTemplateColumns: '1fr 1fr 1fr 1fr',
     gridGap: theme.spacing(7, 5),
     width: '100%',
     maxWidth: theme.custom.layout.maxMarketPlaceWidth,
@@ -94,16 +94,14 @@ const NFTList = ({
             className={classes.scroll}
           >
             <div className={classes.list} ref={scrollRef}>
-              {
-                goods.map((item, index) => (
-                  <NFTCard
-                    key={index}
-                    item={item}
-                    onPurchase={purchaseHandler}
-                    onBid={bidHandler}
-                  />
-                ))
-              }
+              {goods.map((item, index) => (
+                <NFTCard
+                  key={index}
+                  item={item}
+                  onPurchase={purchaseHandler}
+                  onBid={bidHandler}
+                />
+              ))}
             </div>
           </InfiniteScroll>
           {openPurchaseModal &&
