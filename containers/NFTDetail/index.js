@@ -87,6 +87,7 @@ const NFTDetail = ({
         <meta property='twitter:title' content={good.description} />
         <meta property='twitter:description' content={assetInfo.description} />
         <meta property='twitter:image' content={assetInfo.image} />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <main className={classes.root}>
         <ImageWall header='NFT Details' />
