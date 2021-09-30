@@ -18,7 +18,7 @@ const HeaderMeta = () => {
       <meta property='twitter:title' content={COMMON_CONSTANTS.TITLE} />
       <meta property='twitter:description' content={COMMON_CONSTANTS.DESCRIPTION} />
       <meta property='twitter:image' content={BANNER_IMAGE_PATH} />
-      <meta name="twitter:card" content="summary" />
+      <meta property="twitter:card" content="summary" />
     </Head>
   )
 }
