@@ -16,6 +16,7 @@ import useLoading from 'utils/hooks/useLoading'
 import { PASSPHRASE_VALID } from 'utils/constants/validations'
 import MESSAGES from 'utils/constants/messages'
 import ORDER_TYPE from 'utils/constants/order-type'
+import signTransaction from 'utils/helpers/signTransaction'
 
 const schema = yup.object().shape({
   passphrase: PASSPHRASE_VALID
@@ -56,7 +57,6 @@ const DeleteNFTDialog = ({
     try {
       const params = {
         order: item.order,
-        secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey,
       }
 
@@ -66,6 +66,16 @@ const DeleteNFTDialog = ({
       } else {
         response = await jupiterAPI.cancelBidOrder(params)
       }
+
+      const { unsignedTransactionBytes = '', errorCode = '' } = response;
+      if (errorCode) {
+        setPopUp({ text: MESSAGES.DELETE_NFT_ERROR })
+        changeLoadingStatus(false)
+        return;
+      }
+
+      const transactionBytes = signTransaction(unsignedTransactionBytes, data.passphrase)
+      response = await jupiterAPI.broadcastTransaction(transactionBytes);
       if (response?.errorCode) {
         setPopUp({ text: MESSAGES.DELETE_NFT_ERROR })
         changeLoadingStatus(false)

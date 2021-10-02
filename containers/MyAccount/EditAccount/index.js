@@ -19,6 +19,7 @@ import {
 import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 import useLoading from 'utils/hooks/useLoading'
+import signTransaction from 'utils/helpers/signTransaction'
 
 const schema = yup.object().shape({
   name: ACCOUNT_NAME_VALID,
@@ -68,11 +69,18 @@ const EditAccount = () => {
       let params = {
         name: data.name,
         description: data.description,
-        secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey
       }
 
-      let response = await jupiterAPI.setAccountInfo(params);
+      const { unsignedTransactionBytes = '', errorCode = '' } = await jupiterAPI.setAccountInfo(params);
+      if (errorCode) {
+        setPopUp({ text: MESSAGES.SET_ACCOUNT_ERROR })
+        changeLoadingStatus(false)
+        return;
+      }
+
+      const transactionBytes = signTransaction(unsignedTransactionBytes, data.passphrase)
+      const response = await jupiterAPI.broadcastTransaction(transactionBytes);
       if (response?.errorCode) {
         setPopUp({ text: MESSAGES.SET_ACCOUNT_ERROR })
         changeLoadingStatus(false)

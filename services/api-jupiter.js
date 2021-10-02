@@ -30,12 +30,12 @@ const getTransaction = async (transaction) => {
 }
 
 const setAccountInfo = async (params) => {
-  const url = `/nxt?requestType=setAccountInfo&name=${params.name}&description=${params.description}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
+  const url = `/nxt?requestType=setAccountInfo&name=${params.name}&description=${params.description}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
   return await apiAxios.post(url)
 }
 
 const issueAsset = async (params) => {
-  const url = `/nxt?requestType=issueAsset&name=${params.name}&description=${params.description}&quantityQNT=${params.quantity}&message=${params.message}&decimals=0&priceNQT=${params.price}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
+  const url = `/nxt?requestType=issueAsset&name=${params.name}&description=${params.description}&quantityQNT=${params.quantity}&message=${params.message}&decimals=0&priceNQT=${params.price}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
   return await apiAxios.post(url)
 }
 
@@ -67,12 +67,12 @@ const searchAllOpenAskOrders = async (params) => {
 }
 
 const placeAskOrder = async (params) => {
-  const url = `/nxt?requestType=placeAskOrder&asset=${params.asset}&quantityQNT=${params.quantity}&priceNQT=${params.price}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
+  const url = `/nxt?requestType=placeAskOrder&asset=${params.asset}&quantityQNT=${params.quantity}&priceNQT=${params.price}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
   return await apiAxios.post(url)
 }
 
 const placeBidOrder = async (params) => {
-  const url = `/nxt?requestType=placeBidOrder&asset=${params.asset}&quantityQNT=${params.quantity}&priceNQT=${params.price}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
+  const url = `/nxt?requestType=placeBidOrder&asset=${params.asset}&quantityQNT=${params.quantity}&priceNQT=${params.price}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
   return await apiAxios.post(url)
 }
 
@@ -97,12 +97,12 @@ const getAccountCurrentBidOrders = async (params) => {
 }
 
 const cancelAskOrder = async (params) => {
-  const url = `/nxt?requestType=cancelAskOrder&order=${params.order}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
+  const url = `/nxt?requestType=cancelAskOrder&order=${params.order}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
   return await apiAxios.post(url)
 }
 
 const cancelBidOrder = async (params) => {
-  const url = `/nxt?requestType=cancelBidOrder&order=${params.order}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
+  const url = `/nxt?requestType=cancelBidOrder&order=${params.order}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
   return await apiAxios.post(url)
 }
 
@@ -127,7 +127,12 @@ const getAssetAccounts = async (asset) => {
 }
 
 const transferAsset = async (params) => {
-  const url = `/nxt?requestType=transferAsset&recipient=${params.receiver}&asset=${params.asset}&quantityQNT=${params.amount}&secretPhrase=${params.secretPhrase}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
+  const url = `/nxt?requestType=transferAsset&recipient=${params.receiver}&asset=${params.asset}&quantityQNT=${params.amount}&publicKey=${params.publicKey}&deadline=24&feeNQT=0`;
+  return await apiAxios.post(url)
+}
+
+const broadcastTransaction = async (transactionBytes) => {
+  const url = `/nxt?requestType=broadcastTransaction&transactionBytes=${transactionBytes}`;
   return await apiAxios.post(url)
 }
 
@@ -155,5 +160,6 @@ export {
   getBidOrders,
   searchAllTrades,
   getAssetAccounts,
-  transferAsset
+  transferAsset,
+  broadcastTransaction
 };

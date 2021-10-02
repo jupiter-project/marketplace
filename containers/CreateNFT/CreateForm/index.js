@@ -27,6 +27,7 @@ import toFixedIfNecessary from 'utils/helpers/toFixedIfNecessary'
 import MESSAGES from 'utils/constants/messages'
 import { FILE_TYPES, FILE_TYPES_ARRAY } from 'utils/constants/file-types'
 import { NQT_WEIGHT } from 'utils/constants/common'
+import signTransaction from 'utils/helpers/signTransaction'
 
 const schema = yup.object().shape({
   title: TITLE_VALID,
@@ -123,11 +124,18 @@ const CreateForm = () => {
           type: data.type,
           description: data.description
         }),
-        secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey,
       }
 
-      const response = await jupiterAPI.issueAsset(params)
+      const { unsignedTransactionBytes = '', errorCode = '' } = await jupiterAPI.issueAsset(params)
+      if (errorCode) {
+        setPopUp({ text: MESSAGES.CREATE_NFT_ERROR })
+        changeLoadingStatus(false)
+        return;
+      }
+
+      const transactionBytes = signTransaction(unsignedTransactionBytes, data.passphrase)
+      const response = await jupiterAPI.broadcastTransaction(transactionBytes);
       if (response?.errorCode) {
         setPopUp({ text: MESSAGES.CREATE_NFT_ERROR })
         changeLoadingStatus(false)

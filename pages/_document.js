@@ -48,7 +48,11 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <script type="text/javascript">
+            const isNode = false;
+          </script>
           <script src='//rum-static.pingdom.net/pa-608b643653910000110002c4.js' async crossOrigin="anonymous" />
+          <script src='/assets/js/sigbro-ardor.js' async crossOrigin="anonymous" />
         </body>
       </Html>
     );

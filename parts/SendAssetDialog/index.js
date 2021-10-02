@@ -23,6 +23,7 @@ import {
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
 import TEXT_MASKS from 'utils/constants/text-masks'
+import signTransaction from 'utils/helpers/signTransaction'
 
 const schema = yup.object().shape({
   account: ACCOUNT_VALID,
@@ -66,11 +67,18 @@ const SendAssetDialog = ({
         receiver: data.account,
         asset: item.asset,
         amount: 1,
-        secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey
       }
 
-      const response = await jupiterAPI.transferAsset(params)
+      const { unsignedTransactionBytes = '', errorCode = '' } = await jupiterAPI.transferAsset(params)
+      if (errorCode) {
+        setPopUp({ text: MESSAGES.SEND_ASSET_ERROR })
+        changeLoadingStatus(false)
+        return;
+      }
+
+      const transactionBytes = signTransaction(unsignedTransactionBytes, data.passphrase)
+      const response = await jupiterAPI.broadcastTransaction(transactionBytes);
       if (response?.errorCode) {
         setPopUp({ text: MESSAGES.SEND_ASSET_ERROR })
         changeLoadingStatus(false)

@@ -19,6 +19,7 @@ import useLoading from 'utils/hooks/useLoading'
 import { PASSPHRASE_VALID } from 'utils/constants/validations'
 import { NQT_WEIGHT } from 'utils/constants/common'
 import MESSAGES from 'utils/constants/messages'
+import signTransaction from 'utils/helpers/signTransaction'
 
 const schema = yup.object().shape({
   passphrase: PASSPHRASE_VALID,
@@ -68,11 +69,18 @@ const PurchaseNFTDialog = ({
         asset: item.asset,
         price: item.priceNQT,
         quantity: 1,
-        secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey,
       }
 
-      const response = await jupiterAPI.placeBidOrder(params)
+      const { unsignedTransactionBytes = '', errorCode = '' } = await jupiterAPI.placeBidOrder(params)
+      if (errorCode) {
+        setPopUp({ text: MESSAGES.PURCHASE_NFT_ERROR })
+        changeLoadingStatus(false)
+        return;
+      }
+
+      const transactionBytes = signTransaction(unsignedTransactionBytes, data.passphrase)
+      const response = await jupiterAPI.broadcastTransaction(transactionBytes);
       if (response?.errorCode) {
         setPopUp({ text: MESSAGES.PURCHASE_NFT_ERROR })
         changeLoadingStatus(false)

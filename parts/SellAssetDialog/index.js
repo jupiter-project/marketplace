@@ -22,6 +22,7 @@ import {
   PRICE_VALID,
   PASSPHRASE_VALID
 } from 'utils/constants/validations'
+import signTransaction from 'utils/helpers/signTransaction'
 
 const schema = yup.object().shape({
   price: PRICE_VALID,
@@ -65,11 +66,18 @@ const SellAssetDialog = ({
         asset: item.asset,
         quantity: 1,
         price: Math.round(data.price * NQT_WEIGHT),
-        secretPhrase: data.passphrase,
         publicKey: currentUser.publicKey,
       }
 
-      const response = await jupiterAPI.placeAskOrder(params)
+      const { unsignedTransactionBytes = '', errorCode = '' } = await jupiterAPI.placeAskOrder(params)
+      if (errorCode) {
+        setPopUp({ text: MESSAGES.PLACE_ASK_ORDER_ERROR })
+        changeLoadingStatus(false)
+        return;
+      }
+
+      const transactionBytes = signTransaction(unsignedTransactionBytes, data.passphrase)
+      const response = await jupiterAPI.broadcastTransaction(transactionBytes);
       if (response?.errorCode) {
         setPopUp({ text: MESSAGES.PLACE_ASK_ORDER_ERROR })
         changeLoadingStatus(false)
