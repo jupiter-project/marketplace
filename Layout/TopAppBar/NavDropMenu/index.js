@@ -53,6 +53,7 @@ const NavDropMenu = () => {
       <Hidden mdUp>
         <IconButton
           aria-label='settings'
+          edge='end'
           onClick={handleClick}
         >
           <MenuIcon className={classes.menu} />
