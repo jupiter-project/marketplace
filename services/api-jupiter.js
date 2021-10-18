@@ -106,6 +106,11 @@ const cancelBidOrder = async (params) => {
   return await apiAxios.post(url)
 }
 
+const deleteAssetShares = async (params) => {
+  const url = `/nxt?requestType=deleteAssetShares&asset=${params.asset}&publicKey=${params.publicKey}&quantityQNT=1&deadline=24&feeNQT=0`;
+  return await apiAxios.post(url)
+}
+
 const getAskOrders = async (asset) => {
   const url = `/nxt?requestType=getAskOrders&asset=${asset}`
   return await apiAxios.get(url)
@@ -113,6 +118,11 @@ const getAskOrders = async (asset) => {
 
 const getBidOrders = async (asset) => {
   const url = `/nxt?requestType=getBidOrders&asset=${asset}`
+  return await apiAxios.get(url)
+}
+
+const getTrades = async (asset) => {
+  const url = `/nxt?requestType=getTrades&asset=${asset}`
   return await apiAxios.get(url)
 }
 
@@ -156,8 +166,10 @@ export {
   getAccountCurrentBidOrders,
   cancelAskOrder,
   cancelBidOrder,
+  deleteAssetShares,
   getAskOrders,
   getBidOrders,
+  getTrades,
   searchAllTrades,
   getAssetAccounts,
   transferAsset,

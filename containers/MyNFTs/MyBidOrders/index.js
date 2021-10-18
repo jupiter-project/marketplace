@@ -8,7 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 import * as jupiterAPI from 'services/api-jupiter'
 import NoData from 'parts/NoData'
-import DeleteNFTDialog from 'parts/DeleteNFTDialog'
+import CancelNFTOrderDialog from 'parts/CancelNFTOrderDialog'
 import TabPanel from '../Shared/TabPanel'
 import BidItem from './BidItem'
 import { isEmpty } from 'utils/helpers/utility'
@@ -109,7 +109,7 @@ const MyBidOrders = ({
       }
       {
         openModal &&
-        <DeleteNFTDialog
+        <CancelNFTOrderDialog
           item={selectedItem}
           open={openModal}
           setOpen={setOpenModal}

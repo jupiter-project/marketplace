@@ -45,14 +45,19 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: theme.spacing(1)
-  }
+  },
+  delete: {
+    borderColor: theme.custom.palette.red,
+    backgroundColor: theme.custom.palette.red,
+  },
 }));
 
 const AssetItem = ({
   item,
   onDetail,
   onSell,
-  onSend
+  onSend,
+  onDelete
 }) => {
   const classes = useStyles();
 
@@ -86,6 +91,14 @@ const AssetItem = ({
             <OutlinedButton onClick={() => onSend(item)}>
               Transfer
             </OutlinedButton>
+          </Grid>
+          <Grid item xs={6}>
+            <ContainedButton
+              className={classes.delete}
+              onClick={() => onDelete(item)}
+            >
+              Delete
+            </ContainedButton>
           </Grid>
         </Grid>
       </div>

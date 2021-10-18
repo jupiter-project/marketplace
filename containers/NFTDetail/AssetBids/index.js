@@ -21,6 +21,7 @@ import LINKS from 'utils/constants/links'
 const useStyles = makeStyles((theme) => ({
   root: {
     overflowX: 'inherit',
+    marginBottom: theme.spacing(2)
   },
   title: {
     fontWeight: 'bold',

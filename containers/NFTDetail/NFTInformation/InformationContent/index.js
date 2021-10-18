@@ -13,10 +13,10 @@ const useStyles = makeStyles((theme) => ({
   },
   description: {
     fontSize: 16,
-    marginBottom: theme.spacing(3)
+    marginBottom: theme.spacing(2)
   },
   container: {
-    marginBottom: theme.spacing(3)
+    marginBottom: theme.spacing(2)
   },
   label: {
     fontSize: 16,

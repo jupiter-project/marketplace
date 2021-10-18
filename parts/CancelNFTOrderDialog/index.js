@@ -15,6 +15,7 @@ import usePopUp from 'utils/hooks/usePopUp'
 import useLoading from 'utils/hooks/useLoading'
 import { PASSPHRASE_VALID } from 'utils/constants/validations'
 import MESSAGES from 'utils/constants/messages'
+import ORDER_TYPE from 'utils/constants/order-type'
 import signTransaction from 'utils/helpers/signTransaction'
 
 const schema = yup.object().shape({
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const DeleteNFTDialog = ({
+const CancelNFTOrderDialog = ({
   open,
   setOpen,
   item,
@@ -55,30 +56,37 @@ const DeleteNFTDialog = ({
     changeLoadingStatus(true)
     try {
       const params = {
-        asset: item.asset,
+        order: item.order,
         publicKey: currentUser.publicKey,
       }
 
-      const { unsignedTransactionBytes = '', errorCode = '' } = await jupiterAPI.deleteAssetShares(params)
+      let response;
+      if (ORDER_TYPE.ASK === item.type) {
+        response = await jupiterAPI.cancelAskOrder(params)
+      } else {
+        response = await jupiterAPI.cancelBidOrder(params)
+      }
+
+      const { unsignedTransactionBytes = '', errorCode = '' } = response;
       if (errorCode) {
-        setPopUp({ text: MESSAGES.DELETE_NFT_ERROR })
+        setPopUp({ text: MESSAGES.CANCEL_NFT_ORDER_ERROR })
         changeLoadingStatus(false)
         return;
       }
 
       const transactionBytes = signTransaction(unsignedTransactionBytes, data.passphrase)
-      const response = await jupiterAPI.broadcastTransaction(transactionBytes);
+      response = await jupiterAPI.broadcastTransaction(transactionBytes);
       if (response?.errorCode) {
-        setPopUp({ text: MESSAGES.DELETE_NFT_ERROR })
+        setPopUp({ text: MESSAGES.CANCEL_NFT_ORDER_ERROR })
         changeLoadingStatus(false)
         return;
       }
 
-      setPopUp({ text: MESSAGES.DELETE_NFT_SUCCESS })
+      setPopUp({ text: MESSAGES.CANCEL_NFT_ORDER_SUCCESS })
       setOpen(false);
     } catch (error) {
       console.log(error)
-      setPopUp({ text: MESSAGES.DELETE_NFT_ERROR })
+      setPopUp({ text: MESSAGES.CANCEL_NFT_ORDER_ERROR })
     }
     changeLoadingStatus(false)
   }, [item, currentUser, setOpen, setPopUp, changeLoadingStatus]);
@@ -90,7 +98,7 @@ const DeleteNFTDialog = ({
   return (
     <MagicDialog
       open={open}
-      title='Delete Asset'
+      title='Delete Asset Order'
       onClose={handleClose}
     >
       <form
@@ -122,4 +130,4 @@ const DeleteNFTDialog = ({
   );
 }
 
-export default memo(DeleteNFTDialog)
+export default memo(CancelNFTOrderDialog)

@@ -13,6 +13,7 @@ import ProductContent from 'parts/ProductContent'
 import NFTInformation from './NFTInformation'
 import AssetBids from './AssetBids'
 import SellerNFTs from './SellerNFTs'
+import HistoricalPrices from './HistoricalPrices'
 import { isEmpty } from 'utils/helpers/utility'
 import getJSONParse from 'utils/helpers/getJSONParse'
 import { SITE_URL } from 'utils/constants/common'
@@ -59,15 +60,28 @@ const NFTDetail = ({
   const { accountRS } = useSelector(state => state.auth);
   const [sellerAccount, setSellerAccount] = useState({})
   const [creatorAccount, setCreatorAccount] = useState({})
+  const [trades, setTrades] = useState([])
   const assetInfo = getJSONParse(good.message)
 
   useEffect(() => {
     const getAccounts = async () => {
-      let response = await jupiterAPI.getAccount(good.accountRS);
-      setSellerAccount(response)
+      try {
+        const [
+          sellerAccount,
+          creatorAccount,
+          trades,
+        ] = await Promise.all([
+          jupiterAPI.getAccount(good.accountRS),
+          jupiterAPI.getAccount(good.creatorRS),
+          jupiterAPI.getTrades(good.asset),
+        ]);
 
-      response = await jupiterAPI.getAccount(good.creatorRS);
-      setCreatorAccount(response)
+        setSellerAccount(sellerAccount)
+        setCreatorAccount(creatorAccount)
+        setTrades(trades?.trades || [])
+      } catch (error) {
+        console.log(error)
+      }
     }
 
     if (!isEmpty(good)) {
@@ -119,6 +133,7 @@ const NFTDetail = ({
                     isMine={accountRS === good.accountRS}
                     good={good}
                   />
+                  <HistoricalPrices trades={trades} />
                 </Grid>
               </Grid>
               <SellerNFTs account={good.accountRS} />

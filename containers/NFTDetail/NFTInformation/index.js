@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
-import DeleteNFTDialog from 'parts/DeleteNFTDialog'
+import CancelNFTOrderDialog from 'parts/CancelNFTOrderDialog'
 import PurchaseNFTDialog from 'parts/PurchaseNFTDialog'
 import InformationContent from './InformationContent'
 import usePopUp from 'utils/hooks/usePopUp'
@@ -14,7 +14,7 @@ import { isEmpty } from 'utils/helpers/utility'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginBottom: theme.spacing(5),
+    marginBottom: theme.spacing(2),
   },
   delete: {
     backgroundColor: theme.custom.palette.red
@@ -79,7 +79,7 @@ const NFTInformation = ({
         />
       }
       {openDeleteModal &&
-        <DeleteNFTDialog
+        <CancelNFTOrderDialog
           open={openDeleteModal}
           setOpen={setOpenDeleteModal}
           item={good}

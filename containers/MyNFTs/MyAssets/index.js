@@ -10,6 +10,7 @@ import * as jupiterAPI from 'services/api-jupiter'
 import NoData from 'parts/NoData'
 import SellAssetDialog from 'parts/SellAssetDialog'
 import SendAssetDialog from 'parts/SendAssetDialog'
+import DeleteNFTDialog from 'parts/DeleteNFTDialog'
 import TabPanel from '../Shared/TabPanel'
 import AssetItem from './AssetItem'
 import { isEmpty } from 'utils/helpers/utility'
@@ -43,6 +44,7 @@ const MyAssets = ({
   const [isLast, setIsLast] = useState(false)
   const [openModal, setOpenModal] = useState(false);
   const [openSendModal, setOpenSendModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(false);
 
   useEffect(() => {
@@ -83,6 +85,11 @@ const MyAssets = ({
     setOpenSendModal(true)
   }, [setOpenSendModal, setSelectedItem])
 
+  const deleteHandler = useCallback((item) => {
+    setSelectedItem(item)
+    setOpenDeleteModal(true)
+  }, [setOpenDeleteModal, setSelectedItem])
+
   const detailNFTHandler = useCallback((item) => {
     router.push(
       LINKS.NFT_DETAIL.HREF,
@@ -104,6 +111,7 @@ const MyAssets = ({
                 onSell={sellHandler}
                 onSend={sendHandler}
                 onDetail={detailNFTHandler}
+                onDelete={deleteHandler}
               />
             ))}
             {
@@ -115,20 +123,25 @@ const MyAssets = ({
           </div>
         )
       }
-      {
-        openModal &&
+      {openModal &&
         <SellAssetDialog
           item={selectedItem}
           open={openModal}
           setOpen={setOpenModal}
         />
       }
-      {
-        openSendModal &&
+      {openSendModal &&
         <SendAssetDialog
           item={selectedItem}
           open={openSendModal}
           setOpen={setOpenSendModal}
+        />
+      }
+      {openDeleteModal &&
+        <DeleteNFTDialog
+          item={selectedItem}
+          open={openDeleteModal}
+          setOpen={setOpenDeleteModal}
         />
       }
     </TabPanel>
