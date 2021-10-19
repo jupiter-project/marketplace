@@ -3,6 +3,11 @@ module.exports = {
   env: {
     NETWORK: process.env.NETWORK,
   },
+  images: {
+    domains: [
+      'res.cloudinary.com'
+    ],
+  },
   webpack: (config, { dev }) => {
     if (dev) {
       config.module.rules.push({
