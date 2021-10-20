@@ -78,29 +78,29 @@ const AssetItem = ({
         >
           {item.description}
         </Typography>
-        <Grid container spacing={2}>
-          {
-            item.unconfirmedQuantityQNT > 0 &&
+        {
+          item.unconfirmedQuantityQNT > 0 &&
+          <Grid container spacing={2}>
             <Grid item xs={6}>
               <ContainedButton onClick={() => onSell(item)}>
                 Sell
               </ContainedButton>
             </Grid>
-          }
-          <Grid item xs={6}>
-            <OutlinedButton onClick={() => onSend(item)}>
-              Transfer
-            </OutlinedButton>
+            <Grid item xs={6}>
+              <OutlinedButton onClick={() => onSend(item)}>
+                Transfer
+              </OutlinedButton>
+            </Grid>
+            <Grid item xs={6}>
+              <ContainedButton
+                className={classes.delete}
+                onClick={() => onDelete(item)}
+              >
+                Delete
+              </ContainedButton>
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <ContainedButton
-              className={classes.delete}
-              onClick={() => onDelete(item)}
-            >
-              Delete
-            </ContainedButton>
-          </Grid>
-        </Grid>
+        }
       </div>
     </div>
   )
