@@ -8,7 +8,6 @@ import { DarkModeProvider } from 'contexts/ui-context'
 import InitProvider from 'utils/hocs/InitProvider'
 import PopUpProvider from 'utils/hocs/PopUpProvider'
 import ThemeProvider from 'utils/hocs/ThemeProvider'
-import MagicWeb3Provider from 'utils/hocs/MagicWeb3Provider'
 import * as COMMON_CONSTANTS from 'utils/constants/common'
 
 function MyApp({ Component, pageProps }) {
@@ -35,16 +34,14 @@ function MyApp({ Component, pageProps }) {
         <meta name='msapplication-TileImage' content='/mstile-144x144.png' />
       </Head>
       <Provider store={store}>
-        <MagicWeb3Provider>
-          <DarkModeProvider>
-            <InitProvider />
-            <ThemeProvider>
-              <PopUpProvider />
-              <CssBaseline />
-              <Component {...pageProps} />
-            </ThemeProvider>
-          </DarkModeProvider>
-        </MagicWeb3Provider>
+        <DarkModeProvider>
+          <InitProvider />
+          <ThemeProvider>
+            <PopUpProvider />
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </DarkModeProvider>
       </Provider>
     </>
   )

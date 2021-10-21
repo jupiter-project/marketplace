@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import Logo from 'components/Logo'
 import NavBarMenu from './NavBarMenu'
 import NavDropMenu from './NavDropMenu'
-import ConnectWallet from './ConnectWallet'
+// import ConnectWallet from './ConnectWallet'
 // import ThemeButton from './ThemeButton'
 import { useCommonStyles } from 'styles/use-styles'
 
@@ -43,7 +43,7 @@ const TopAppBar = () => {
         <Logo />
         <div className={classes.container}>
           <NavBarMenu />
-          <ConnectWallet />
+          {/* <ConnectWallet /> */}
           <NavDropMenu />
           {/* <ThemeButton /> */}
         </div>
