@@ -38,7 +38,6 @@ const ConnectWallet = () => {
     setLoading(true);
     try {
       const accountRS = await europaAPI.connectWallet()
-      console.log(accountRS)
       const response = await jupiterAPI.getAccountByAccountID(accountRS);
       if (!response?.accountRS) {
         setPopUp({ text: MESSAGES.CONNECT_WALLET_ERROR })
