@@ -1,6 +1,6 @@
 const IS_MAINNET = process.env.NETWORK === 'mainnet'
 
-const PROXY_URL = process.env.NODE_ENV !== 'production'
+const PROXY_URL = process.env.NODE_ENV === 'production'
   ? 'https://leda.gojupiter.tech/'
   : 'http://localhost:8000'
 
