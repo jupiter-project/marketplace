@@ -10,6 +10,7 @@ import clsx from 'clsx'
 
 import * as cloudinaryAPI from 'services/api-cloudinary'
 import * as jupiterAPI from 'services/api-jupiter'
+import * as europaAPI from 'services/europa'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import MagicSelect from 'components/UI/MagicSelect'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
@@ -29,11 +30,17 @@ import { FILE_TYPES, FILE_TYPES_ARRAY } from 'utils/constants/file-types'
 import { NQT_WEIGHT } from 'utils/constants/common'
 import signTransaction from 'utils/helpers/signTransaction'
 
-const schema = yup.object().shape({
+const schemaPassphrase = yup.object().shape({
   title: TITLE_VALID,
   description: NFT_DESCRIPTION_VALID,
   type: STRING_VALID,
   passphrase: PASSPHRASE_VALID
+});
+
+const schemaNoPassphrase = yup.object().shape({
+  title: TITLE_VALID,
+  description: NFT_DESCRIPTION_VALID,
+  type: STRING_VALID,
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -77,10 +84,11 @@ const CreateForm = () => {
   const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
 
-  const { currentUser } = useSelector(state => state.auth);
+  const { currentUser, isWallet } = useSelector(state => state.auth);
   const [fileBuffer, setFileBuffer] = useState('');
   const [fee, setFee] = useState(0);
 
+  const schema = isWallet ? schemaNoPassphrase : schemaPassphrase
   const { control, handleSubmit, errors, watch, reset } = useForm({
     resolver: yupResolver(schema)
   });
@@ -134,7 +142,14 @@ const CreateForm = () => {
         return;
       }
 
-      const transactionBytes = signTransaction(unsignedTransactionBytes, data.passphrase)
+      let passphrase;
+      if (isWallet) {
+        passphrase = await europaAPI.getPassphrase()
+      } else {
+        passphrase = data.passphrase
+      }
+
+      const transactionBytes = signTransaction(unsignedTransactionBytes, passphrase)
       const response = await jupiterAPI.broadcastTransaction(transactionBytes);
       if (response?.errorCode) {
         setPopUp({ text: MESSAGES.CREATE_NFT_ERROR })
@@ -149,7 +164,7 @@ const CreateForm = () => {
       setPopUp({ text: MESSAGES.CREATE_NFT_ERROR })
     }
     changeLoadingStatus(false)
-  }, [fileBuffer, currentUser, resetHandler, setPopUp, changeLoadingStatus]);
+  }, [isWallet, fileBuffer, currentUser, resetHandler, setPopUp, changeLoadingStatus]);
 
   const feeHandler = async () => {
     try {
@@ -226,18 +241,20 @@ const CreateForm = () => {
             defaultValue=''
           />
         </Grid>
-        <Grid item xs={12}>
-          <Controller
-            as={<MagicTextField />}
-            type='password'
-            name='passphrase'
-            label='Passphrase'
-            placeholder='Passphrase'
-            error={errors.passphrase?.message}
-            control={control}
-            defaultValue=''
-          />
-        </Grid>
+        {!isWallet &&
+          <Grid item xs={12}>
+            <Controller
+              as={<MagicTextField />}
+              type='password'
+              name='passphrase'
+              label='Passphrase'
+              placeholder='Passphrase'
+              error={errors.passphrase?.message}
+              control={control}
+              defaultValue=''
+            />
+          </Grid>
+        }
         <Grid item xs={12}>
           <div className={classes.feeContainer}>
             <MagicTextField

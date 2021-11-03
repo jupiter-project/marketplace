@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import {
   setAccountRS,
   setCurrentUser,
+  setIsWallet,
 } from 'actions/auth'
 import scrollToTop from 'utils/helpers/scrollToTop'
 import { PAGE_ROUTES } from 'utils/constants/routes'
@@ -19,6 +20,7 @@ const InitProvider = () => {
   useEffect(() => {
     const accountRS = isServer() ? '' : localStorage.accountRS;
     const currentUser = isServer() ? null : localStorage.currentUser;
+    const isWallet = isServer() ? null : localStorage.isWallet;
 
     if (!!accountRS) {
       dispatch(setAccountRS(accountRS))
@@ -26,6 +28,10 @@ const InitProvider = () => {
 
     if (!!currentUser) {
       dispatch(setCurrentUser(JSON.parse(currentUser)))
+    }
+
+    if (!!isWallet) {
+      dispatch(setIsWallet(isWallet === 'true'))
     }
   }, [dispatch])
 

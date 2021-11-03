@@ -3,7 +3,8 @@ import * as TYPES from 'actions/types'
 
 const initialState = {
   accountRS: '',
-  currentUser: {}
+  currentUser: {},
+  isWallet: false
 };
 
 export default function authReducer(state = initialState, action) {
@@ -17,6 +18,11 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         currentUser: action.payload
+      };
+    case TYPES.SET_IS_WALLET:
+      return {
+        ...state,
+        isWallet: action.payload
       };
     default:
       return state;

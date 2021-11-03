@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
 import * as jupiterAPI from 'services/api-jupiter'
+import * as europaAPI from 'services/europa'
 import MagicDialog from 'components/MagicDialog'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
@@ -24,9 +25,13 @@ import {
 } from 'utils/constants/validations'
 import signTransaction from 'utils/helpers/signTransaction'
 
-const schema = yup.object().shape({
+const schemaPassphrase = yup.object().shape({
   price: PRICE_VALID,
   passphrase: PASSPHRASE_VALID
+});
+
+const schemaNoPassphrase = yup.object().shape({
+  price: PRICE_VALID,
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -53,8 +58,9 @@ const SellAssetDialog = ({
   const classes = useStyles();
   const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
-  const { currentUser } = useSelector(state => state.auth);
+  const { currentUser, isWallet } = useSelector(state => state.auth);
 
+  const schema = isWallet ? schemaNoPassphrase : schemaPassphrase
   const { control, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema)
   });
@@ -76,7 +82,14 @@ const SellAssetDialog = ({
         return;
       }
 
-      const transactionBytes = signTransaction(unsignedTransactionBytes, data.passphrase)
+      let passphrase;
+      if (isWallet) {
+        passphrase = await europaAPI.getPassphrase()
+      } else {
+        passphrase = data.passphrase
+      }
+
+      const transactionBytes = signTransaction(unsignedTransactionBytes, passphrase)
       const response = await jupiterAPI.broadcastTransaction(transactionBytes);
       if (response?.errorCode) {
         setPopUp({ text: MESSAGES.PLACE_ASK_ORDER_ERROR })
@@ -91,7 +104,7 @@ const SellAssetDialog = ({
       setPopUp({ text: MESSAGES.PLACE_ASK_ORDER_ERROR })
     }
     changeLoadingStatus(false)
-  }, [item, currentUser, setOpen, setPopUp, changeLoadingStatus]);
+  }, [isWallet, item, currentUser, setOpen, setPopUp, changeLoadingStatus]);
 
   const handleClose = useCallback(() => {
     setOpen(false);
@@ -125,18 +138,20 @@ const SellAssetDialog = ({
               defaultValue={0}
             />
           </Grid>
-          <Grid item xs={12}>
-            <Controller
-              as={<MagicTextField />}
-              type='password'
-              name='passphrase'
-              label='Passphrase'
-              placeholder='Passphrase'
-              error={errors.passphrase?.message}
-              control={control}
-              defaultValue=''
-            />
-          </Grid>
+          {!isWallet &&
+            <Grid item xs={12}>
+              <Controller
+                as={<MagicTextField />}
+                type='password'
+                name='passphrase'
+                label='Passphrase'
+                placeholder='Passphrase'
+                error={errors.passphrase?.message}
+                control={control}
+                defaultValue=''
+              />
+            </Grid>
+          }
         </Grid>
         <ContainedButton
           type='submit'

@@ -28,6 +28,7 @@ const MESSAGES = Object.freeze({
   PLACE_ASK_ORDER_ERROR: 'Incorrect passphrase, please try again.',
   SEND_ASSET_SUCCESS: 'Your sent order has been submitted to the blockchain and will be confirmed in ~60 seconds.',
   SEND_ASSET_ERROR: 'Incorrect passphrase, please try again.',
+  CONNECT_WALLET_ERROR: 'There is an error in connecting Europa. Please check your extension.'
 });
 
 export default MESSAGES;

@@ -1,9 +1,13 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import { Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
+import * as europaAPI from 'services/europa'
+import * as jupiterAPI from 'services/api-jupiter'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
-import getEllipsis from 'utils/helpers/getEllipsis'
+import useAuth from 'utils/hooks/useAuth'
+import usePopUp from 'utils/hooks/usePopUp'
+import MESSAGES from 'utils/constants/messages'
 
 const useStyles = makeStyles((theme) => ({
   account: {
@@ -20,25 +24,53 @@ const useStyles = makeStyles((theme) => ({
 
 const ConnectWallet = () => {
   const classes = useStyles()
-  const isConnected = true;
-  const account = 'JUP-939-2k3k-3kko3'
+  const { accountRS, logOutHandler, setLoginToken } = useAuth();
+  const { setPopUp } = usePopUp();
 
-  const walletHandler = () => {
-    console.log(walletHandler)
+  const [loading, setLoading] = useState(false);
+
+  const walletHandler = async () => {
+    if (!!accountRS) {
+      logOutHandler()
+      return
+    }
+
+    setLoading(true);
+    try {
+      const accountRS = await europaAPI.connectWallet()
+      console.log(accountRS)
+      const response = await jupiterAPI.getAccountByAccountID(accountRS);
+      if (!response?.accountRS) {
+        setPopUp({ text: MESSAGES.CONNECT_WALLET_ERROR })
+        setLoading(false);
+        return;
+      }
+
+      setLoginToken({
+        accountRS: response.accountRS,
+        user: response,
+        isWallet: true
+      });
+    } catch (error) {
+      console.log(error)
+      setPopUp({ text: MESSAGES.CONNECT_WALLET_ERROR })
+    }
+    setLoading(false);
   }
 
   return (
-    isConnected
+    !!accountRS
       ? (
         <Typography
           variant='body2'
           className={classes.account}
           onClick={walletHandler}
         >
-          {getEllipsis(account || '')}
+          {accountRS || ''}
         </Typography>
       ) : (
         <ContainedButton
+          disabled={loading}
           className={classes.connect}
           onClick={walletHandler}
         >

@@ -8,6 +8,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 
 import * as jupiterAPI from 'services/api-jupiter';
+import * as europaAPI from 'services/europa'
 import { setCurrentUser } from 'actions/auth'
 import ContainedButton from 'components/UI/Buttons/ContainedButton'
 import MagicTextField from 'components/UI/TextFields/MagicTextField'
@@ -20,11 +21,17 @@ import usePopUp from 'utils/hooks/usePopUp'
 import MESSAGES from 'utils/constants/messages'
 import useLoading from 'utils/hooks/useLoading'
 import signTransaction from 'utils/helpers/signTransaction'
+import { isEmpty } from 'utils/helpers/utility'
 
-const schema = yup.object().shape({
+const schemaPassphrase = yup.object().shape({
   name: ACCOUNT_NAME_VALID,
   description: ACCOUNT_DESCRIPTION_VALID,
   passphrase: PASSPHRASE_VALID
+});
+
+const schemaNoPassphrase = yup.object().shape({
+  name: ACCOUNT_NAME_VALID,
+  description: ACCOUNT_DESCRIPTION_VALID,
 });
 
 const useStyles = makeStyles((theme) => ({
@@ -55,8 +62,9 @@ const EditAccount = () => {
   const { setPopUp } = usePopUp();
   const { changeLoadingStatus } = useLoading();
 
-  const { currentUser } = useSelector(state => state.auth);
+  const { currentUser, isWallet } = useSelector(state => state.auth);
 
+  const schema = isWallet ? schemaNoPassphrase : schemaPassphrase
   const { control, errors, formState, handleSubmit } = useForm({
     resolver: yupResolver(schema)
   })
@@ -79,7 +87,14 @@ const EditAccount = () => {
         return;
       }
 
-      const transactionBytes = signTransaction(unsignedTransactionBytes, data.passphrase)
+      let passphrase;
+      if (isWallet) {
+        passphrase = await europaAPI.getPassphrase()
+      } else {
+        passphrase = data.passphrase
+      }
+
+      const transactionBytes = signTransaction(unsignedTransactionBytes, passphrase)
       const response = await jupiterAPI.broadcastTransaction(transactionBytes);
       if (response?.errorCode) {
         setPopUp({ text: MESSAGES.SET_ACCOUNT_ERROR })
@@ -100,7 +115,7 @@ const EditAccount = () => {
       setPopUp({ text: MESSAGES.SET_ACCOUNT_ERROR })
     }
     changeLoadingStatus(false)
-  }, [currentUser, dispatch, setPopUp, changeLoadingStatus]);
+  }, [isWallet, currentUser, dispatch, setPopUp, changeLoadingStatus]);
 
   return (
     <form
@@ -114,36 +129,42 @@ const EditAccount = () => {
       >
         ACCOUNT INFO
       </Typography>
-      <Controller
-        as={<MagicTextField />}
-        name='name'
-        label='Name (max 100 characters)'
-        error={errors.name?.message}
-        className={classes.input}
-        control={control}
-        defaultValue={currentUser?.name || ''}
-      />
-      <Controller
-        as={<MagicTextField />}
-        multiline
-        rows={6}
-        name='description'
-        label='Description (max 1000 characters)'
-        error={errors.description?.message}
-        className={classes.input}
-        control={control}
-        defaultValue={currentUser?.description || ''}
-      />
-      <Controller
-        as={<MagicTextField />}
-        type='password'
-        name='passphrase'
-        label='Passphrase'
-        error={errors.passphrase?.message}
-        className={classes.input}
-        control={control}
-        defaultValue=''
-      />
+      {!isEmpty(currentUser) &&
+        <>
+          <Controller
+            as={<MagicTextField />}
+            name='name'
+            label='Name (max 100 characters)'
+            error={errors.name?.message}
+            className={classes.input}
+            control={control}
+            defaultValue={currentUser?.name || ''}
+          />
+          <Controller
+            as={<MagicTextField />}
+            multiline
+            rows={6}
+            name='description'
+            label='Description (max 1000 characters)'
+            error={errors.description?.message}
+            className={classes.input}
+            control={control}
+            defaultValue={currentUser?.description || ''}
+          />
+        </>
+      }
+      {!isWallet &&
+        <Controller
+          as={<MagicTextField />}
+          type='password'
+          name='passphrase'
+          label='Passphrase'
+          placeholder='Passphrase'
+          error={errors.passphrase?.message}
+          control={control}
+          defaultValue=''
+        />
+      }
       <ContainedButton
         type='submit'
         disabled={!currentUser?.balanceNQT || !isDirty}

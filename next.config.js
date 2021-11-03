@@ -2,6 +2,7 @@
 module.exports = {
   env: {
     NETWORK: process.env.NETWORK,
+    EUROPA_ID: process.env.EUROPA_ID,
   },
   images: {
     domains: [
