@@ -15,7 +15,7 @@ import { useCommonStyles } from 'styles/use-styles'
 import {
   UNISWAP_URL,
   PANCAKESWAP_URL,
-  GATE_WAY_BLOG_URL,
+  KUCOIN_URL,
   JUP_WALLET_URL,
   JUP_SUPPORT_URL
 } from 'utils/constants/common'
@@ -144,10 +144,9 @@ const faqs = [
         <a href={PANCAKESWAP_URL} target='_blank' rel='noreferrer'>
           Pancakeswap
         </a>{' '}
-        and can be sent from these platforms to your Jupiter mainnet address via a gateway. You can find
-        the gateway procedure over{' '}
-        <a href={GATE_WAY_BLOG_URL} target='_blank' rel='noreferrer'>
-          here.
+        and can be sent from these platforms to your Jupiter mainnet address via{' '}
+        <a href={KUCOIN_URL} target='_blank' rel='noreferrer'>
+          Kucoin.
         </a>
       </>
     ),
@@ -172,9 +171,9 @@ const faqs = [
         <a href={PANCAKESWAP_URL} target='_blank' rel='noreferrer'>
           Pancakeswap
         </a>
-        {' and then send them via a '}
-        <a href={GATE_WAY_BLOG_URL} target='_blank' rel='noreferrer'>
-          gateway
+        {' and then send them via '}
+        <a href={KUCOIN_URL} target='_blank' rel='noreferrer'>
+          Kucoin
         </a>
         {' to your mainnet Jupiter address (you can find your JUP address in the My Account tab, after logging in).'}
       </>
